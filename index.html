@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Haikyu Fly High - Team Builder (Créditos: goN6 no discord)</title>
+<title>Haikyu Fly High - Team Builder by Devoy Aces</title>
 <style>
     body {
         background-color: #222;
@@ -59,7 +59,7 @@
     .hex img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+object-fit: Save;
     }
 
     .player-info {
@@ -67,9 +67,10 @@
         font-size: 14px;
         color: #fff;
         text-align: center;
+        max-width: 150px;
+        word-wrap: break-word;
     }
 
-    /* Banco de reservas */
     .bench-slot {
         width: 50px;
         height: 67px;
@@ -85,7 +86,7 @@
     .bench-slot img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+         object-fit: Save;
     }
 
     .add-slot-btn {
@@ -101,6 +102,24 @@
     .add-slot-btn:hover {
         background-color: #218838;
     }
+
+    #saveTeamBtn {
+        background-color: #28a745;
+        border: none;
+        color: white;
+        padding: 6px 10px;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+        vertical-align: middle;
+    }
+
+    #saveTeamBtn:hover {
+        background-color: #218838;
+    } 
+
+
 
     #synergy-panel {
         margin-top: 50px;
@@ -135,11 +154,391 @@
     .scroll-menu img:hover {
         border: 2px solid yellow;
     }
+
+    /* Painel lateral */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 100%;
+        background-color: #333;
+        overflow-x: hidden;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        transform: translateX(-100%);
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+        z-index: 999;
+        opacity: 0;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .sidebar h2 {
+        color: #fff;
+        margin-bottom: 20px;
+    }
+
+    .sidebar button.close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+
+    #menuBtn {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+
+    #menuBtn:hover {
+        background-color: #218838;
+    }
+    /* Aumenta o botão no mobile / telas touch */
+@media (max-width: 768px), (pointer: coarse) {
+  #menuBtn {
+    /* alvo de toque grande (recomendado 48–64px) */
+    width: 64px;
+    height: 64px;
+
+    /* centraliza o ícone ☰ dentro do quadrado */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* o ícone fica maior */
+    font-size: 32px;
+
+    /* remove o padding para não “esticar” além do width/height */
+    padding: 0;
+
+    /* arredondamento um pouco maior (opcional) */
+    border-radius: 12px;
+  }
+}
+
+    /* Lista de characters no menu */
+    .char-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .char-card {
+        width: 80px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .char-card img {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    /* Conteúdo do menu com rolagem */
+    #sidebar {
+    scroll-behavior: smooth;    
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px; /* ajuste conforme seu layout */
+    height: 100vh; /* ocupa a tela inteira */
+    background-color: #222;
+    color: white;
+    overflow-y: auto; /* ativa rolagem vertical */
+    padding: 10px;
+    box-sizing: border-box;
+
+
+    /* Oculta a barra no Chrome, Edge, Safari */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE e Edge antigos */
+}
+    #sidebar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+}
+
+    .filtros {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .filtros label {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 3px;
+        display:block;
+        text-align:left;
+    }
+
+    .filtros select {
+        width: 100%;
+        padding: 5px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    #limparFiltros {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 6px;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+        width:100%;
+    }
+
+    #limparFiltros:hover {
+        background-color: #e60000;
+    }
+
+    .saved-list button {
+        margin-left: 8px;
+        padding: 4px 8px;
+        font-size: 13px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: none;
+    }
+    .saved-list .load-btn { background:#28a745; color:#fff; }
+    .saved-list .del-btn { background:#ff4d4d; color:#fff; }
+
+    .bond-btn {
+    background-color: #444;
+    color: white;
+    border: 1px solid #666;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.bond-btn:hover {
+    background-color: #666;
+    transform: scale(1.05);
+}
+
+.bond-btn:active {
+    background-color: #888;
+    transform: scale(0.98);
+}
+    .skill-btn {
+    background-color: #555;
+    color: white;
+    border: 1px solid #777;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.skill-btn:hover {
+    background-color: #777;
+    transform: scale(1.05);
+}
+
+.skill-btn:active {
+    background-color: #999;
+    transform: scale(0.98);
+}
+    .char-info {
+    text-align: center;
+    margin-top: 4px;
+}
+
+.char-name {
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    margin: 0;
+}
+
+.char-Stats {
+    font-size: 12px;
+    color: #ccc;
+    margin: 0;
+}
+
+.char-Stats span {
+    font-weight: bold;
+    color: #ffcc00; /* cor destaque do valor */
+}
+    #scrollMenu {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE e Edge antigos */
+}
+
+#scrollMenu::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+}
+    #scrollMenu {
+    overflow-y: auto; /* já está, mas reforçando */
+}
+#sidebar-content ul {
+    list-style: none;       /* remove bullets */
+    padding-left: 0;        /* remove recuo padrão */
+    margin-left: 0;         /* evita deslocamento */
+    text-align: center;     /* centraliza texto */
+}
+
+#sidebar-content li {
+    margin-bottom: 4px;     /* espaço entre linhas */
+}
+    .filtros {
+    background-color: #333;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filtros label {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.filtros select {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background-color: #222;
+    color: white;
+}
+
+#limparFiltros {
+    background-color: #ff4d4d;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#limparFiltros:hover {
+    background-color: #e60000;
+}
+    /* Remove bolinhas e aplica espaçamento no Side Menu */
+#sidebar-content ul,
+#sidebar-content li {
+    list-style: none !important;  /* força remover bullets */
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+#sidebar-content ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* mesmo espaçamento da aba Info */
+}
+    .sidebar > ul {
+    list-style: none;      /* remove bullets */
+    padding: 0;            /* elimina recuo padrão */
+    margin: 0 0 16px 0;    /* margem inferior opcional */
+    display: flex;         /* empilha verticalmente */
+    flex-direction: column;
+    gap: 10px;             /* espaçamento entre os itens */
+}
+
+.sidebar > ul > li {
+    margin: 0;             /* garante que não tenha margens extras */
+}
+    .person-symbols {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.symbol-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+    .card-sub{
+  font-size: 12px;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+/* === LISTA NO Side Menu === */
+#charList{
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(50px, 1fr)); /* 2 colunas no menu */
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* escalar a imagem ao tamanho da coluna */
+#charList .person-card img{
+  width: 100%;
+  height: auto;          /* mantém proporção */
+  display: block;
+  border-radius: 8px;
+}
+
+/* texto */
+#charList .card-name{ margin-top:6px; font-weight:600; text-align:center; }
+#charList .card-sub{  font-size:12px; opacity:.85; margin-top:2px; text-align:center; }
+
+/* quando houver mais espaço, aumente o nº de colunas */
+@media (min-width: 420px){
+  #charList{ grid-template-columns: repeat(3, minmax(50px, 1fr)); }
+}
+@media (min-width: 560px){
+  #charList{ grid-template-columns: repeat(4, minmax(50px, 1fr)); }
+}
+
 </style>
 </head>
 <body>
 
-<h1>Haikyu!! Fly High - Team Builder (Créditos: goN6 no discord)</h1>
+<button id="menuBtn">☰</button>
+<div class="sidebar" id="sidebar">
+    <button class="close-btn" id="closeSidebar">×</button>
+    <h2>Menu Lateral</h2>
+    <ul>
+        <!-- substituí EStatísticas por Save/Load -->
+        <li><button class="menu-link bond-btn" data-section="save">💾 Salvar & Carregar Times</button></li>
+        <li><button class="menu-link bond-btn" data-section="characters">🔍 Personagens</button></li>
+        <li><button class="menu-link bond-btn" data-section="help">ℹ️ Info</button></li>
+    </ul>
+    <div id="sidebar-content">
+        <p>Select an option above.</p>
+    </div>
+</div>
+
+<h1>Haikyu Fly High - Team Builder by Devoy Aces</h1>
 
 <div class="team-grid">
     <div class="row top-row">
@@ -153,140 +552,465 @@
         <div class="player-slot"><div class="hex" data-role="MB"></div><div class="player-info">MB</div></div>
         <div class="player-slot"><div class="hex" data-role="OP"></div><div class="player-info">OP</div></div>
     </div>
-    <div class="row" id="bench-row">
-        <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
-        <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
-        <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
-        <button class="add-slot-btn" onclick="addBenchSlot()">+</button>
+
+    <!-- linha onde fica o botão SALVAR e os bench slots -->
+    <div class="row" id="bench-row-wrapper" style="align-items:center;">
+        <div style="display:flex; align-items:center;">
+    <button id="saveTeamBtn" title="Salvar Time" style="background-color:#222222;margin-right:8px;">⬇️</button>
+    <button id="clearTeamBtn" title="Limpar Time" style="background-color:#222222; color:white; padding:6px 10px; border:none; border-radius:5px; font-size:16px; cursor:pointer;">🗑️</button>
+</div>
+
+        <div class="row" id="bench-row" style="gap:10px;">
+            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
+            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
+            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
+            <button class="add-slot-btn" onclick="addBenchSlot()">+</button>
+        </div>
     </div>
 </div>
 
 <div class="scroll-menu" id="scrollMenu"></div>
 
 <div id="synergy-panel">
-    <h2>Sinergias Ativas</h2>
-    <ul id="synergy-list"><li>Apenas vinculos de posicionamento serão mostrados. As sinargias só funcionarão quando os jogadores correspondentes estiverem em quadra</li></ul>
+    <h2>Sinergias</h2>
+    <ul id="synergy-list"><li>Apenas vínculos de posicionamento e escolar serão mostrados. Sinergias só funcionarão, dentro do jogo, quando os jogadores estiverem em quadra.</li></ul>
 </div>
 
 <script>
-const personagens = [
-    { nome: "Kageyama UR", funcao: "S", img: "img/kageyamaUR.png", escola: "Karasuno", vinculo: ["Dupla Excêntrica", "Gênios Karasuno"] },
-    { nome: "Kageyama SSR", funcao: "S", img: "img/kageyamaSR.png", escola: "Karasuno", vinculo: ["nada"] },
-    { nome: "Hinata SP", funcao: "MB", img: "img/hinataSP.png", escola: "Karasuno", vinculo: ["Dupla Excêntrica", "Observação de flores de cerejeira" , "Sol vs Lua"] },
-    { nome: "Hinata SSR", funcao: "MB", img: "img/hinataSR.png", escola: "Karasuno", vinculo: ["Dupla Excêntrica"] },
-    { nome: "Nishinoya SP", funcao: "L", img: "img/nishinoyaSP.png", escola: "Karasuno", vinculo: ["Gênios Karasuno", "Depois da Escola"] },
-    { nome: "Nishinoya SSR", funcao: "L", img: "img/nishinoyaSR.png", escola: "Karasuno", vinculo: ["Deus Guardião e Ponta" , "Esquadrão de Kiyoko"] },
-    { nome: "Tanaka SSR", funcao: "WS", img: "img/tanakaSR.png", escola: "Karasuno", vinculo: ["Esquadrão de Kiyoko"] },
-    { nome: "Tsuki SP", funcao: "MB", img: "img/tsukiSP.png", escola: "Karasuno", vinculo: ["Sol vs Lua"] },
-    { nome: "Tsuki SSR", funcao: "MB", img: "img/tsukiSR.png", escola: "Karasuno", vinculo: ["nada1"] },
-    { nome: "Daichi SSR", funcao: "OP", img: "img/daichiSR.png", escola: "Karasuno", vinculo: ["nada2"] },
-    { nome: "Azumane SSR", funcao: "WS", img: "img/azumaneSR.png", escola: "Karasuno", vinculo: ["Deus Guardião e Ponta"] },
-    { nome: "Sugawara SP", funcao: "S", img: "img/sugawaraSP.png", escola: "Karasuno", vinculo: ["Depois da Escola"] },
-    { nome: "Kenma SP", funcao: "S", img: "img/kenmaSP.png", escola: "Nekoma", vinculo: ["Observação de flores de cerejeira"] },
-    { nome: "Kenma SSR", funcao: "S", img: "img/kenmaSR.png", escola: "Nekoma", vinculo: ["Cérebro e Comandante"] },
-    { nome: "Yaku SSR", funcao: "L", img: "img/yakuSR.png", escola: "Nekoma", vinculo: ["Orientação Educacional"] },
-    { nome: "Kuro SSR", funcao: "MB", img: "img/kuroSR.png", escola: "Nekoma", vinculo: ["nada3"] },
-    { nome: "Kuro UR", funcao: "MB", img: "img/kuroUR.png", escola: "Nekoma", vinculo: ["Cérebro e Comandante"] },
-    { nome: "Lev SSR", funcao: "MB", img: "img/levSR.png", escola: "Nekoma", vinculo: ["Orientação Educacional"] },
-    { nome: "Aone SP", funcao: "MB", img: "img/aoneSP.png", escola: "Dateko", vinculo: ["Natação"] },
-    { nome: "Aone SSR", funcao: "MB", img: "img/aoneSR.png", escola: "Dateko", vinculo: ["O Silencioso e o Sarcástico"] },
-    { nome: "Futakuchi SSR", funcao: "WS", img: "img/futakuchiSR.png", escola: "Dateko", vinculo: ["O Silencioso e o Sarcástico" , "O Novo Capitão e o Novato Altão"] },
-    { nome: "Sasaya SSR", funcao: "OP", img: "img/sasayaSR.png", escola: "Dateko", vinculo: ["nada4"] },
-    { nome: "Koganegawa SSR", funcao: "S", img: "img/koganegawaSR.png", escola: "Dateko", vinculo: ["O Novo Capitão e o Novato Altão"] }, 
-    { nome: "Oikawa UR", funcao: "S", img: "img/oikawaUR.png", escola: "Aoba Johsai", vinculo: ["Harmonia Perfeita"] },
-    { nome: "Oikawa SSR", funcao: "S", img: "img/oikawaSR.png", escola: "Aoba Johsai", vinculo: ["nada5"] },
-    { nome: "Iwazumi SSR", funcao: "WS", img: "img/iwazumiSR.png", escola: "Aoba Johsai", vinculo: ["Harmonia Perfeita", "A Matilha"] },
-    { nome: "Kentaro MAD DOG SSR", funcao: "OP", img: "img/kentaroSR.png", escola: "Aoba Johsai", vinculo: ["A Matilha"] },
-    { nome: "Ushijima UR", funcao: "OP", img: "img/ushijimaUR.png", escola: "Shiratorizawa", vinculo: ["Bests para a vida", "Campeão Absoluto e Levantador Sólido"] },
-    { nome: "Tendo SSR", funcao: "MB", img: "img/tendoSR.png", escola: "Shiratorizawa", vinculo: ["Bests para a vida"] },
-    { nome: "Goshiki SSR", funcao: "WS", img: "img/goshikiSR.png", escola: "Shiratorizawa", vinculo: ["WS de Shiratorizawa"] },
-    { nome: "Shirabu SSR", funcao: "S", img: "img/shirabuSR.png", escola: "Shiratorizawa", vinculo: ["Campeão Absoluto e Levantador Sólido"] },
-    { nome: "Semi SSR", funcao: "S", img: "img/semiSR.png", escola: "Shiratorizawa", vinculo: ["nada6"] },
-    { nome: "Ohira SSR", funcao: "WS", img: "img/ohiraSR.png", escola: "Shiratorizawa", vinculo: ["WS de Shiratorizawa"] },
-    { nome: "Yamagata SSR", funcao: "L", img: "img/yamagataSR.png", escola: "Shiratorizawa", vinculo: ["nada7"] },
-    { nome: "Bokuto UR", funcao: "WS", img: "img/bokutoUR.png", escola: "Fukurodani", vinculo: ["Ás Milagroso e Levantador Carinhoso"] },
-    { nome: "Bokuto SP", funcao: "WS", img: "img/bokutoSP.png", escola: "Fukurodani", vinculo: ["Natação", "Ace Milagroso e Levantador Carinhoso"] },
-    { nome: "Akaashi SP", funcao: "S", img: "img/akaashiSP.png", escola: "Fukurodani", vinculo: ["Natação", "Ace Milagroso e Levantador Carinhoso"] },
-    { nome: "Akaashi SSR", funcao: "S", img: "img/akaashiSR.png", escola: "Fukurodani", vinculo: ["Ás Milagroso e Levantador Carinhoso"] },
-    { nome: "Konoha SSR", funcao: "OP", img: "img/konohaSR.png", escola: "Fukurodani", vinculo: ["nada8"] },
-    { nome: "Haruki SSR", funcao: "L", img: "img/harukiSR.png", escola: "Fukurodani", vinculo: ["nada9"] },
-    { nome: "Tatsuo SSR", funcao: "MB", img: "img/tatsuoSR.png", escola: "Fukurodani", vinculo: ["nada10"] },
-    { nome: "Terushima SSR", funcao: "WS", img: "img/terushimaSR.png", escola: "Jozenji", vinculo: ["nada11"] },
-    { nome: "Atsumu UR", funcao: "S", img: "img/atsumuUR.png", escola: "Inarizaki", vinculo: ["A força dos Gêmeos", "Cabeça dos Gêmeos"] },
-    { nome: "Osamu UR", funcao: "OP", img: "img/osamuUR.png", escola: "Inarizaki", vinculo: ["A força dos Gêmeos", "Cabeça dos Gêmeos"] },
-    { nome: "Kita SSR", funcao: "WS", img: "img/kitaSR.png", escola: "Inarizaki", vinculo: ["Cabeça dos Gêmeos"] },
-    { nome: "Rintaro SSR", funcao: "MB", img: "img/rintaroSR.png", escola: "Inarizaki", vinculo: ["nada12"] },
-    { nome: "Oshiro SSR", funcao: "WS", img: "img/oshiroSR.png", escola: "Inarizaki", vinculo: ["nada13"] },
-    { nome: "Akagi SSR", funcao: "L", img: "img/akagiSR.png", escola: "Inarizaki", vinculo: ["nada14"] },
-    { nome: "Yui SSR", funcao: "WS", img: "img/yuiSR.png", escola: "Inarizaki", vinculo: ["nada15"] },
-    { nome: "Hoshiumi UR", funcao: "WS", img: "img/hoshiumiUR.png", escola: "Kamomedai", vinculo: ["Amigos de longa data"] },
-    { nome: "Hirugami UR", funcao: "MB", img: "img/hirugamiUR.png", escola: "Kamomedai", vinculo: ["Amigos de longa data"] },
-    { nome: "Hayaseiomi UR", funcao: "WS", img: "img/hayaseiomiUR.png", escola: "Itachiyama", vinculo: ["Top Spiker e Top Libero"] },
-    { nome: "Komori UR", funcao: "L", img: "img/komoriUR.png", escola: "Itachiyama", vinculo: ["Top Spiker e Top Libero"] },
+/* ====== DADOS (mantidos) ====== */
+const characters = [
+{ nome: "Kageyama UR", data: "01/12/26", funcao: "S", img: "img/kageyamaUR.png", School: "Karasuno", vinculo: ["Dupla Excêntrica", "Gênios Karasuno"], Stats:{Serve:1782,Spike:1948,Set:1911,Receive:1625,Block:1709,Save:1539}, habilidades:[
+  {nome:"Levantador Gênio", descricao:"Kageyama Tobio realiza um levantamento com poder de [Set] × 120/135/150%. Ao levantar, o [Ataque Rápido] do companheiro que vai atacar é aumentado em [Set] × 15%. Esse efeito dura até a bola passar para o outro lado da rede."},
+  {nome:"Saque Assassino", descricao:"Kageyama Tobio executa um salto-saque com poder de 130/145/160% do seu [Serve]. Se esse saque for perfeito, o [Técnica de Ataque] dos companheiros aumenta em 10%. Esse efeito dura até a bola cruzar a rede 6 vezes."},
+  {nome:"Rei Silencioso", descricao:"Aumenta o [Técnica de Ataque] de Kageyama Tobio em 8/10/12%. Quando ele está em quadra e o Saque, o Ataque Rápido ou o Spike do oponente for uma boa jogada, ele ganha 1 acúmulo de [Competitive Spirit], até 5. Quando ele está em quadra e um aliado realiza Saque, Ataque Rápido ou Spike, consome 1 acúmulo de [Competitive Spirit] e o [Awareness] do aliado que executa a jogada aumenta em 20/25/30%. Esse efeito dura até a bola passar pela rede duas vezes. No início de cada rali, ele ganha 1 acúmulo de [Competitive Spirit]."},
+  {nome:"Dominar o Jogo", descricao:"Kageyama Tobio executa um Ataque Rápido com poder equivalente a 240/255/270/285/300% do levantamento. O Ataque Rápido não pode ser bloqueado. O tempo de recarga da habilidade de bloqueio da linha de frente do oponente aumenta em 4× o número de cruzamentos de rede ocorridos."}
+], symbols: [ "img/quicksymbol.png", "img/servesymbol.png", "img/settersymbol.png" ] },
 
+{ nome: "Kageyama SSR", funcao: "S", img: "img/kageyamaSR.png", School: "Karasuno", vinculo: [], Stats:{Serve:1314,Spike:1246,Set:1378,Receive:1115,Block:1246,Save:1047}, habilidades:[
+  {nome:"Manipular o Momento", descricao:"Quando Hinata Shoyo (Hanami) está em quadra, o [Defensive Technique] de todos os jogadores da linha de frente aumenta em 10/13/16%. Quando Hinata Shoyo faz uma boa jogada, seu [Offensive Technique] aumenta em 3/3.5/4%, até 4 acúmulos."},
+  {nome:"Degrau", descricao:"Hinata Shoyo (Hanami) recebe a bola com 140/160/180% do seu [Receive] como poder, e os Stats base dos aliados aumentam em 12%. Esse efeito dura por 6 cruzamentos de rede."},
+  {nome:"Contra-ataque", descricao:"Quando Hinata Shoyo (Hanami) está na linha de trás, o [Defensive Technique] dos aliados na linha de trás aumenta em 10/13/16%. Quando ele está em quadra e a recepção do time não for BAD, o [Ataque Rápido] dele aumenta em 12/16/20% pelos próximos dois cruzamentos de rede. Se a recepção do companheiro for PERFECT, o Ataque Rápido de Hinata Shoyo (Hanami) após essa jogada aumenta em 100%."},
+  {nome:"Pular Alto", descricao:"Hinata Shoyo (Hanami) realiza um Ataque Rápido com 260/275/290% de [Ataque Rápido] como poder. Se for uma boa jogada, o poder aumenta em [Ataque Rápido] × 40/45/50% adicionais."}
+], symbols: [ "img/quicksymbol.png", "img/servesymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Hinata SP", data: "01/27/26", funcao: "MB", img: "img/hinataSP.png", School: "Karasuno", vinculo: ["Dupla Excêntrica", "Observação de flores de cerejeira" , "Sol vs Lua"], Stats:{Serve:1673,Spike:1950,Set:1656,Receive:1913,Block:1774,Save:1656}, habilidades:[
+  {nome:"Manipular o Momento", descricao:"Quando Hinata Shoyo (Hanami) está em quadra, o [Defensive Technique] de todos os jogadores da linha de frente aumenta em 10/13/16%. Quando o resultado da jogada de Hinata Shoyo é PERFECT, seu [Offensive Technique] aumenta em 3/3.5/4%, no máximo 4 acúmulos."},
+  {nome:"Um Apoio", descricao:"Hinata Shoyo (Hanami) recebe uma bola com 140/160/180% de [Receive] como poder e os Stats base do seu time aumentam em 12%. Efeito por 6 cruzamentos de rede."},
+  {nome:"Contra-ataque", descricao:"Quando Hinata Shoyo (Hanami) está na linha de trás, o [Defensive Technique] dos aliados na linha de trás aumenta em 10/13/16%. Quando ele está em quadra e a recepção do time não for BAD, seu [Ataque Rápido] aumenta em 12/16/20% pelos próximos dois cruzamentos de rede. Se a recepção do companheiro for PERFECT, o Ataque Rápido de Hinata Shoyo (Hanami) após essa jogada aumenta em 100%."},
+  {nome:"Salto Alto", descricao:"Hinata Shoyo (Hanami) realiza um Ataque Rápido com 260/275/290% de [Ataque Rápido] como poder. Se for PERFECT, o poder aumenta em mais 40/45/50% de [Ataque Rápido]."}
+], symbols: [ "img/quicksymbol.png", "img/receivesymbol.png" ] },
+
+{ nome: "Hinata SSR", funcao: "MB", img: "img/hinataSR.png", School: "Karasuno", vinculo: ["Dupla Excêntrica"], Stats:{Serve:1173,Spike:1383,Set:1118,Receive:1195,Block:1250,Save:1253}, habilidades:[
+  {nome: "O MAIOR ISCO", descricao:"Enquanto SHOYO HINATA estiver presente, aumenta os Stats de Power/Ataque Rápido dos jogadores do seu lado em 7%."},
+  {nome: "DUPLA DE RÁPIDAS", descricao:"Quando SHOYO HINATA realiza um Ataque Rápido e o levantador é do tipo Ataque Rápido, aumenta o poder desse ataque em 15% do [Ataque Rápido] do levantador."},
+  {nome: "EM CIMA DA JOGADA", descricao:"Aumenta o [Awareness] de SHOYO HINATA em 6%. Quando HINATA acerta um crítico, aumenta ainda mais o [Awareness] em 4%, acumulando até 1 vez."},
+  {nome: "ADOLESCENTE EM ASCENSÃO", descricao:"SHOYO HINATA realiza um Ataque Rápido com 235% do seu [Ataque Rápido] como poder. Se for crítico, aumenta o poder em mais 20% do [Ataque Rápido]."}
+], symbols: [ "img/quicksymbol.png" ] },
+
+{ nome: "Nishinoya SP", data: "03/13/26", funcao: "L", img: "img/nishinoyaSP.png", School: "Karasuno", vinculo: ["Gênios Karasuno", "Depois da Escola"], Stats:{Serve:1615,Spike:1615,Set:1851,Receive:1969,Block:1577,Save:1854}, habilidades:[
+  {nome:"Aceleração de Classe Mundial", descricao:"O [Reflex] de Nishinoya Yu (Depois da Escola) aumenta em 10/13/16%. Quando um membro do time adversário faz uma jogada PERFECT, o [Reflex] de Nishinoya Yu (Depois da Escola) aumenta em 1.5%, até 10 acúmulos. Dura até a bola cruzar a rede 6 vezes."},
+  {nome:"Passe A", descricao:"Nishinoya Yu (Depois da Escola) levanta a bola com 140/160/180% de [Set] como poder. O [Attention] de Nishinoya Yu (Depois da Escola) aumenta em 100% de [Reflex] como poder. Dura por dois cruzamentos de rede."},
+  {nome:"Salvar o Time na Crise", descricao:"O [Spirit] de Nishinoya Yu (Depois da Escola) aumenta em 20/25/30%. Quando um aliado faz uma jogada PERFECT, o cooldown de Foot Receive é reduzido em um cruzamento de rede."},
+  {nome:"Recepção com o Pé", descricao:"Nishinoya Yu (Depois da Escola) executa uma recepção com 260/275/290% de [Receive] como poder. O [Receive] dele aumenta em 20%. Dura por dois cruzamentos de rede."}
+], symbols: [ "img/receivesymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Nishinoya SSR", funcao: "L", img: "img/nishinoyaSR.png", School: "Karasuno", vinculo: ["Deus Guardião e Ponta" , "Esquadrão de Kiyoko"], Stats:{ Serve:1131, Spike:1131, Set:1254, Receive:1389, Block:1098, Save:1327 }, habilidades:[
+  {nome: "DEUS GUARDIÃO", descricao:"Quando o resultado de Save de YU NISHINOYA não for BAD, aumenta o poder do próximo Power Spike usado pelo seu jogador de tipo Power em 15% do [Ataque Potente]."},
+  {nome: "LÍBERO SUPREMO", descricao:"YU NISHINOYA realiza um Save com 120% do [Save] como poder."},
+  {nome: "INSPIRAR MORAL", descricao:"Quando YU NISHINOYA entra em quadra, aumenta a Moral do Time em 18."},
+  {nome: "TROVÃO ROLANTE", descricao:"YU NISHINOYA consome 20 de Stamina adicional para executar uma Recepção com 220% de [Receive]; se o resultado não for BAD, reduz o cooldown do próximo Power Spike do seu lado em 6 cruzamentos de rede."}
+], symbols: [ "img/receivesymbol.png" ] },
+
+{ nome: "Tanaka SSR", funcao: "WS", img: "img/tanakaSR.png", School: "Karasuno", vinculo: ["Esquadrão de Kiyoko"], Stats:{ Serve:1190, Spike:1385, Set:1120, Receive:1316, Block:1248, Save:1129 }, habilidades:[
+  {nome: "A CHEGADA DO ACE", descricao:"Aumenta o poder do 1º Power Spike de RYUNOSUKE TANAKA em cada partida em 25% do [Ataque Potente]."},
+  {nome: "ESPÍRITO TENAZ", descricao:"RYUNOSUKE TANAKA realiza uma Recepção com 115% de [Receive] como poder; para essa Recepção, o [Reflex] de TANAKA aumenta em 10%."},
+  {nome: "PAIXÃO ARDENTE", descricao:"Aumenta o poder do Power Spike de RYUNOSUKE TANAKA em 10% do [Ataque Potente]; o Power Spike dele reduz a Stamina dos bloqueadores e recebedores oponentes em 5."},
+  {nome: "SUPER DIAGONAL CURTA", descricao:"RYUNOSUKE TANAKA consome 5 de Stamina extra para executar um Spike Diagonal Curto com 250% do [Ataque Potente] como poder; se for o primeiro spike do set, aumenta o poder em mais 30% do [Ataque Potente]."}
+], symbols: [ "img/powersymbol.png" ] },
+
+{ nome: "Tsuki SP", funcao: "MB", img: "img/tsukiSP.png", School: "Karasuno", vinculo: ["Sol vs Lua"], Stats:{Serve:1685,Spike:1968,Set:1669,Receive:1759,Block:1789,Save:1774}, habilidades:[
+  {nome:"Grande Cérebro", descricao:"Quando um membro do time adversário estiver sob efeito desfavorável, o [Awareness] e o [Reflex] de Tsukishima Kei (Fireworks Festival) aumentam em 15/20/25%, e o [Offensive Technique] e [Defensive Technique] dos aliados aumentam em 10%. Dura por 1 rali. Quando um aliado ativa uma habilidade de bloqueio, o [Ataque Rápido] de Tsukishima Kei (Fireworks Festival) aumenta em 3% (até 10 acúmulos). Quando um aliado ativa uma habilidade de Ataque Rápido, o [Block] de Tsukishima Kei (Fireworks Festival) aumenta em 3% (até 10 acúmulos)."},
+  {nome:"Bloqueio é um Sistema", descricao:"Tsukishima Kei (Fireworks Festival) bloqueia com poder de [Block] × 300/325/350%. Aumenta o [Reflex] dos defensores traseiros aliados em 10% e o [Spirit] em 20%. Dura até a bola cruzar a rede duas vezes."},
+  {nome:"Observar Calmamente a Situação", descricao:"No início da partida, se o [Técnica de Ataque] de Tsukishima Kei (Fireworks Festival) for ≥ ao [Defensive Technique], ele recebe o efeito [Attack I/II/III]; caso contrário, recebe [Defensive I/II/III]. Com [Attack I/II/III], o cooldown de 'Bloqueio é um Sistema' é reduzido em 4× o número de cruzamentos de rede, mas o poder dessa habilidade é reduzido em [Block] × 100/80/60%. [Ataque Rápido] é reduzido em 20/30/40."},
+  {nome:"Ataques que Aproveitam sua Altura", descricao:"Tsukishima Kei (Fireworks Festival) executa um Ataque Rápido com poder de [Ataque Rápido] × 260/280/300/320/340%. Se algum oponente tiver efeito desfavorável, o poder aumenta em [Ataque Rápido] × 60%."}
+], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
+
+{ nome: "Tsuki SSR", funcao: "MB", img: "img/tsukiSR.png", School: "Karasuno", vinculo: [], Stats: { Serve:1210, Spike:1314, Set:1153, Receive:1173, Block:1389, Save:1102 }, habilidades:[
+  {nome: "A CALMA DE KARASUNO", descricao:"Enquanto KEI TSUKISHIMA estiver em quadra, aumenta a Força dos jogadores do tipo Ataque Rápido do seu lado em 10%."},
+  {nome: "ATAQUE RÁPIDO TÁTICO", descricao:"KEI TSUKISHIMA realiza um Ataque Rápido com 115% do seu [Ataque Rápido]. Na próxima vez que um companheiro usar uma habilidade de Spike, o [Awareness] dele aumenta em 5%."},
+  {nome: "NASCER DA LUA", descricao:"Enquanto KEI TSUKISHIMA estiver presente, aumenta o poder de Bloqueio dos jogadores da linha de frente do seu lado em 8% do [Block]."},
+  {nome: "RÉPLICA DO KEI", descricao:"KEI TSUKISHIMA realiza um Bloqueio com 195% do seu [Block] como poder. Aplica o debuff \"Enrage\" no atacante adversário (reduz os Stats de [Power/Ataque Rápido] em 10%)."}
+], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
+
+{ nome: "Daichi SSR", funcao: "OP", img: "img/daichiSR.png", School: "Karasuno", vinculo: [], Stats: { Serve:1182, Spike:1250, Set:1123, Receive:1385, Block:1248, Save:1191 }, habilidades:[
+  {nome: "RECEPÇÃO ESTÁVEL", descricao:"Quando DAICHI SAWAMURA realiza uma Recepção, restaura 3 de Stamina do companheiro com a menor Stamina."},
+  {nome: "SPIKE MARRETA", descricao:"DAICHI SAWAMURA executa um Power Spike com 120% do seu [Ataque Potente]."},
+  {nome: "ESPINHA DORSAL DA EQUIPE", descricao:"Enquanto DAICHI SAWAMURA estiver presente, aumenta o poder de recepção dos jogadores da linha de trás do seu lado em 10% do [Receive]."},
+  {nome: "DEFESA CONFIÁVEL", descricao:"DAICHI SAWAMURA realiza uma Recepção com 220% do seu [Receive]. Se o próximo Spike do seu lado for Power Spike, aumenta o poder desse ataque em 15% do [Ataque Potente] do atacante."}
+], symbols: [ "img/receivesymbol.png" ] },
+
+{ nome: "Azumane SSR", funcao: "WS", img: "img/azumaneSR.png", School: "Karasuno", vinculo: ["Deus Guardião e Ponta"], Stats: { Serve:1322, Spike:1387, Set:1118, Receive:1254, Block:1190, Save:1122 }, habilidades:[
+  {nome: "DEFESA PROFICIENTE", descricao:"ASAHI AZUMANE realiza uma Recepção com 120% de [Receive] como poder."},
+  {nome: "SAQUE BALA", descricao:"ASAHI AZUMANE realiza um Salto-Saque com 120% de [Serve] como poder."},
+  {nome: "AURA DO ACE", descricao:"Quando a Stamina de ASAHI AZUMANE está acima de 70, aumenta o poder do seu Power Spike em 15% do [Ataque Potente]."},
+  {nome: "SPIKE CARREGADO", descricao:"ASAHI AZUMANE consome 30 de Stamina adicional para realizar um Power Spike com 235% do [Ataque Potente] como poder e recebe 1 acúmulo de \"Power Charge\"; ao lançar [SPIKE CARREGADO], cada acúmulo de \"Power Charge\" aumenta o poder em 50% do [Ataque Potente]."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
+
+{ nome: "Sugawara SP", data: "04/12/26", funcao: "S", img: "img/sugawaraSP.png", School: "Karasuno", vinculo: ["Depois da Escola"], Stats:{Serve:1849,Spike:1758,Set:1950,Receive:1667,Block:1774,Save:1605}, habilidades:[
+  {nome:"Apoiar o Ataque", descricao:"Quando Sugawara Koshi (Depois da Escola) está em quadra e um aliado da linha de frente ativa uma habilidade de bloqueio, o [Block] do bloqueador aumenta em 5/6.25/7.5% × a soma do [Block] do outro aliado da linha de frente (máximo 1000/1250/1500). Dura até a bola cruzar a rede duas vezes. Quando ele está em quadra e um aliado da linha de trás recebe, o [Receive] do recebedor aumenta em 5/6.25/7.5% × a soma do [Receive] do outro aliado da linha de trás (máx. 1000/1250/1500). Dura até a bola cruzar a rede duas vezes."},
+  {nome:"Saque habilidoso que explora fraquezas", descricao:"Sugawara Koushi (Depois da Escola) executa um Saque com poder [Serve] × 140/160/180%. Aumenta a Moral do Time em 10. Aumenta os Stats base dos aliados em 12/14/16% por 1 rali."},
+  {nome:"Preparação Cuidadosa", descricao:"Sugawara Koushi (Depois da Escola) aumenta a Stamina em 13/16/20%. Na primeira participação dele, os aliados consomem 50% da Stamina atual e, a cada 6 de Stamina consumida, os Stats base dos aliados aumentam em 1/1.3/1.6%. Após a primeira participação, os aliados reSave 15 de Stamina ao fim de cada rali, por 4 ralis."},
+  {nome:"Jogada Sinalizada", descricao:"Sugawara Koushi (Depois da Escola) consome 15 de Stamina extra e realiza um levantamento com 60% ([Set] × 2) / 80% ([Set] × 2) / 300% / 20% ([Set] × 3) / 40% ([Set] × 3) de poder. O primeiro companheiro a atacar (Power/Quick) após essa jogada aumenta o [Técnica de Ataque] em 2.0% até a bola cruzar a rede duas vezes."}
+], symbols: [ "img/blocksymbol.png", "img/servesymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Kenma SP", data: "02/26/26", funcao: "S", img: "img/kenmaSP.png", School: "Nekoma", vinculo: ["Observação de flores de cerejeira"], Stats:{Serve:1580,Spike:1700,Set:1990,Receive:1710,Block:1600,Save:1590}, habilidades:[
+  {nome:"Liderança", descricao:"Quando Kozume Kenma (Hanami) está em quadra, os [Reflex] dos aliados aumentam em 10/13/16%. Estando em quadra e um aliado receber ou salvar, ele ganha 1 acúmulo de [Defense that Eliminates Openings] e os [Reflex] dos aliados aumentam em 1.5%, até 10 acúmulos. Se o resultado da recepção/Save do aliado não for BAD, ganha mais 1 acúmulo."},
+  {nome:"Levantamento Sem Movimento Desperdiçado", descricao:"Kozume Kenma (Hanami) realiza um levantamento com 140/160/180% de [Set] como poder. Se o atacante (Power/Quick) após essa jogada estiver na linha de trás, o poder do ataque aumenta em 20%."},
+  {nome:"Procurar Falhas", descricao:"Quando Kozume Kenma (Hanami) executa Set ou Setter Dump, seu [Awareness] aumenta em 40/60/80% de [Reflex] como poder. Se ele estiver em quadra e o bloqueio do aliado não for BAD, o poder do Spike atual do oponente (Power/Quick) aumenta em 10/13/16% do [Power/Ataque Rápido] correspondente (efeito de enfraquecimento para o oponente)."},
+  {nome:"Jogada que Confunde o Adversário", descricao:"Kozume Kenma (Hanami) executa um Setter Dump com 255/270/285/300/315% de [Set] como poder. Não pode ser bloqueado. Após essa jogada, quando um oponente realizar o primeiro Spike (Power/Quick), o [Power] desse jogador é reduzido em 40% por 2 cruzamentos de rede."}
+], symbols: [ "img/receivesymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Kenma SSR", funcao: "S", img: "img/kenmaSR.png", School: "Nekoma", vinculo: ["Cérebro e Comandante"], Stats:{Serve:1182,Spike:1387,Set:1387,Receive:1122,Block:1303,Save:1060}, habilidades:[
+  {nome:"VISÃO DIVINA", descricao:"Enquanto KENMA KOZUME está em quadra, aumenta o poder de Recepção dos seus jogadores em 8% do [Receive]. Quando o Set de Kenma ou a Recepção do seu lado resulta em PERFECT, ganha 1 acúmulo de 'Keep It Alive'. Cada acúmulo aumenta o poder de Recepção dos seus jogadores em 3%, até 6 acúmulos."},
+  {nome:"LEVANTAMENTO CONFIÁVEL", descricao:"KENMA KOZUME executa um Set com 120% do seu [Set]."},
+  {nome:"O CÉREBRO", descricao:"Enquanto KENMA KOZUME está em quadra, aumenta o poder de Recepção dos seus jogadores em 6% do [Receive]. Se 'Keep It Alive' exceder 5 acúmulos, aumenta adicionalmente o poder de Recepção em 150% e o de Save em 150%. Quando a Recepção ou o Save do seu lado falhar, consome 6 acúmulos de 'Keep It Alive' para converter o resultado em PERFECT."},
+  {nome:"DUMP ENGANOSO", descricao:"KENMA KOZUME executa um Setter Dump inbloqueável com 220% do seu [Set]."}
+], symbols: [ "img/receivesymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Yaku SSR", funcao: "L", img: "img/yakuSR.png", School: "Nekoma", vinculo: ["Orientação Educacional"], Stats:{Serve:1131,Spike:1131,Set:1253,Receive:1391,Block:1098,Save:1323}, habilidades:[
+  {nome:"Chave da Defesa", descricao:"Quando Morisuke Yaku está em quadra e a recepção de um aliado não é BAD, o [Receive] e o [Save] de Morisuke Yaku aumentam em 3/4/5%, até 5 acúmulos."},
+  {nome:"Defesa Confiável", descricao:"Quando Morisuke Yaku está em quadra, o Ataque Rápido do seu Especialista em Ataque Rápido aumenta em 8/10/12% do [Ataque Rápido] desse jogador."},
+  {nome:"Super Líbero", descricao:"O [Receive] de Morisuke Yaku aumenta em 11/13/15%. Se o resultado for NORMAL, muda para PERFECT."},
+  {nome:"Recepção Perfeita", descricao:"Morisuke Yaku realiza uma Recepção com 240/255/270/285/300% de [Receive] como poder."}
+], symbols: [ "img/quicksymbol.png", "img/receivesymbol.png" ] },
+
+{ nome: "Kuro SSR", funcao: "MB", img: "img/kuroSR.png", School: "Nekoma", vinculo: [], Stats:{Serve:1221,Spike:1318,Set:1149,Receive:1186,Block:1389,Save:1123}, habilidades:[
+  {nome:"AURA DO ESPECIALISTA", descricao:"Enquanto TETSURO KUROO (Practice) está presente, aumenta a Força dos jogadores do tipo Ataque Rápido do seu lado em 16%."},
+  {nome:"ATAQUE CONSTANTE", descricao:"TETSURO KUROO (Practice) realiza um Ataque Rápido com 125% de [Ataque Rápido] como poder e recebe 1 acúmulo de 'Power Charge'; ao lançar [ATAQUE CONSTANTE], cada acúmulo aumenta o poder do spike em 15% de [Ataque Rápido] (máx. 2)."},
+  {nome:"TORRE DE CONTROLE DO BLOQUEIO", descricao:"Enquanto TETSURO KUROO (Practice) está presente, aumenta o [Block] dos seus jogadores em 8%."},
+  {nome:"BLOQUEIO TOTAL", descricao:"TETSURO KUROO (Practice) realiza um Bloqueio com 170% de [Block] como poder; quando outros jogadores de bloqueio na linha de frente estão presentes, aumenta o poder deste bloqueio em 15% do [Block]."}
+], symbols: [ "img/blocksymbol.png", "img/quicksymbol.png" ] },
+
+{ nome: "Kuro UR", funcao: "MB", img: "img/kuroUR.png", School: "Nekoma", vinculo: ["Cérebro e Comandante"], Stats:{Serve:1558,Spike:1673,Set:1551,Receive:1581,Block:1740,Save:1533}, habilidades:[
+  {nome:"Versátil", descricao:"Aumenta o [Ataque Rápido] de Tetsuro Kuroo em 10/12/14%. Quando ele está em quadra, seu [Block] e [Ataque Rápido] aumentam em 5% cada vez que a bola cruza a rede, até 5 vezes."},
+  {nome:"Ataque Rápido", descricao:"Tetsuro Kuroo realiza um Ataque Rápido com poder de [Ataque Rápido] × 125% e ganha 1 acúmulo de [Charge]. Ao ativar Ataque Rápido, o poder aumenta em [Ataque Rápido] × 5% por acúmulo de [Charge], até 3 acúmulos."},
+  {nome:"Liderança", descricao:"Aumenta o [Block] de Tetsuro Kuroo em 14/16/18%. Se o resultado do bloqueio for PERFECT, o atacante adversário (Power/Quick) recebe o debuff [Rage] (redução de 10% em [Power/Ataque Rápido])."},
+  {nome:"Bloqueio Líder", descricao:"Tetsuro Kuroo bloqueia com poder de [Block] × 235/250/265/280/295%. Se o atacante adversário tiver um efeito desfavorável, o poder desse bloqueio aumenta em [Block] × 20% adicionais."}
+], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
+
+{ nome: "Lev SSR", funcao: "MB", img: "img/levSR.png", School: "Nekoma", vinculo: ["Orientação Educacional"], Stats:{Serve:1206,Spike:1318,Set:1138,Receive:1166,Block:1378,Save:1100}, habilidades:[
+  {nome:"EXPLOSÃO DESENCADEADA", descricao:"Enquanto LEV HAIBA está em quadra, quando seu lado consegue uma Recepção PERFECT, o próximo Ataque Rápido dele ganha 15% do [Ataque Rápido] como poder adicional."},
+  {nome:"BLOQUEIO DE IMPULSO", descricao:"LEV HAIBA realiza um Bloqueio com 105% do seu [Block]."},
+  {nome:"ATLETA DOTADO", descricao:"Quando LEV HAIBA realiza um Ataque Rápido e o bloqueador oponente está sob debuff, reduz o [Block] desse bloqueador em 10% do [Block] dele."},
+  {nome:"SPIKE TALENTOSO", descricao:"LEV HAIBA realiza um Ataque Rápido com 245% do seu [Ataque Rápido]."}
+], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
+
+{ nome: "Aone SP", data: "06/18/26", funcao: "MB", img: "img/aoneSP.png", School: "Dateko", vinculo: ["Natação"], Stats:{Serve:1848,Spike:1788,Set:1754,Receive:1667,Block:1904,Save:1605}, habilidades:[
+  {nome:"Parede Poderosa", descricao:"O [Reflex] de Aone Takanobu (Beach Boys) aumenta em 10/13/16%. Se a Stamina dele for menor que 80, seus [Block] e [Serve] aumentam em 10%. Ao bloquear, se o resultado for bloqueio duplo ou triplo, para cada membro bloqueador com habilidade de bloqueio, o poder do bloqueio aumenta em 20% do [Block] de Aone Takanobu (Beach Boys)."},
+  {nome:"Saque que Motiva o Time", descricao:"Takanobu Aone (Beach Boys) executa um Salto-Saque com 140/160/180% de [Serve] como poder. O cooldown da habilidade do levantador oponente aumenta em 4× o número de cruzamentos de rede. Ao sair da quadra, se Aone ativou [Team Motivating Jump Serve] durante a partida, o [Offensive Technique] e o [Defensive Technique] dos seus jogadores aumentam em 5%. Se os acúmulos de [Tough Block] forem 3 ou mais, aumentam em mais 5%. Dura até a próxima partida de Aone. (Cada acúmulo de [Tough Block] concede +10% de [Reflex], máx. 20)."},
+  {nome:"Paredes Fortes e Altas", descricao:"Quando Aone está em quadra, cada vez que um oponente ataca (Power/Quick), o atacante ganha 1 acúmulo de [Locked On]. No início da partida, todos os oponentes ganham 1 acúmulo. Se um oponente tiver 2 acúmulos, consome-os e Aone ganha [Tough Block]. Com mais de 2 acúmulos de [Tough Block], o [Block] dele aumenta em 10% de [Block] como poder. Com mais de 4 acúmulos, o cooldown de [Sharp, Leading Block] cai para 8 cruzamentos (12 → 8). Com mais de 6, o [Spirit] aumenta em 10%. Com mais de 8, o cooldown cai para 4 (8 → 4)."},
+  {nome:"Bloqueio Afiado e Conduzido", descricao:"Takanobu Aone (Beach Boys) bloqueia com 260/275/290/305/320% do [Block]. Aumenta a Moral do Time em 15."}
+], symbols: [ "img/blocksymbol.png", "img/servesymbol.png" ] },
+
+{ nome: "Aone SSR", funcao: "MB", img: "img/aoneSR.png", School: "Dateko", vinculo: ["O Silencioso e o Sarcástico"], Stats:{Serve:1219,Spike:1316,Set:1146,Receive:1173,Block:1389,Save:1102}, habilidades:[
+  {nome:"TRANCAR O ACE", descricao:"Quando TAKANOBU AONE consegue um Bloqueio PERFECT, marca o spiker adversário, reduzindo o poder do próximo spike em 10% do [Power/Ataque Rápido] e aumentando o consumo de Stamina em 30%."},
+  {nome:"GOLPE PESADO", descricao:"TAKANOBU AONE realiza um Ataque Rápido com 120% do [Ataque Rápido]."},
+  {nome:"FORMAÇÃO TRIPLA", descricao:"Quando TAKANOBU AONE bloqueia, para cada jogador do tipo Block no seu lado (1), aumenta o poder do Bloqueio em 1% do [Block]; quando os 3 da linha de frente são do tipo Block, aumenta em mais 4% do [Block]."},
+  {nome:"PILAR DE FERRO", descricao:"TAKANOBU AONE realiza um Bloqueio com 195% do [Block]. Ao bloquear um Power Spike adversário, aumenta o poder em mais 9% do [Block]."}
+], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
+
+{ nome: "Futakuchi SSR", funcao: "WS", img: "img/futakuchiSR.png", School: "Dateko", vinculo: ["O Silencioso e o Sarcástico" , "O Novo Capitão e o Novato Altão"], Stats:{Serve:1217,Spike:1316,Set:1147,Receive:1184,Block:1385,Save:1122}, habilidades:[
+  {nome:"AUTORIDADE DO CAPITÃO", descricao:"Enquanto KENJI FUTAKUCHI está presente, aumenta o poder de Bloqueio do seu lado em 8% do [Block] de cada jogador."},
+  {nome:"INICIAR ATAQUE", descricao:"KENJI FUTAKUCHI executa um Salto-Saque com 120% do [Serve] como poder."},
+  {nome:"LEVANTANDO A DEFESA", descricao:"Enquanto KENJI FUTAKUCHI está presente, para cada jogador do tipo Block no seu lado (1), aumenta o poder de Bloqueio em 0.5% do [Block]."},
+  {nome:"PAREDE DE FERRO INQUEBRÁVEL", descricao:"KENJI FUTAKUCHI realiza um Bloqueio com 195% do [Block]; quando o atacante adversário está sob debuff, aumenta o poder desse bloqueio em mais 10% do [Block]."}
+], symbols: [ "img/blocksymbol.png", "img/servesymbol.png" ] },
+
+{ nome: "Sasaya SSR", funcao: "OP", img: "img/sasayaSR.png", School: "Dateko", vinculo: [], Stats:{Serve:1184,Spike:1378,Set:1120,Receive:1314,Block:1255,Save:1127}, habilidades:[
+  {nome:"RESPOSTA CALMA", descricao:"Aumenta o [Awareness] de TAKEHITO SASAYA em 5%; enquanto ele estiver presente, aumenta o [Reflex] dos jogadores do seu lado em 5%."},
+  {nome:"DEFESA IMPENETRÁVEL", descricao:"TAKEHITO SASAYA realiza um Bloqueio com 105% do [Block]."},
+  {nome:"PAREDE DE FERRO FORTIFICADA", descricao:"Enquanto TAKEHITO SASAYA estiver presente e seu lado estiver atrás, aumenta o poder das habilidades de Bloqueio do seu time em mais 3% do [Block] de cada bloqueador e aumenta o [Reflex] dos bloqueadores em 5%."},
+  {nome:"JOGADA AGRESSIVA", descricao:"TAKEHITO SASAYA realiza um Power Spike com 240% do [Ataque Potente]."}
+], symbols: [ "img/powersymbol.png" ] },
+
+{ nome: "Koganegawa SSR", funcao: "S", img: "img/koganegawaSR.png", School: "Dateko", vinculo: ["O Novo Capitão e o Novato Altão"], Stats:{Serve:1166,Spike:1302,Set:1365,Receive:1100,Block:1306,Save:1031}, habilidades:[
+  {nome: "Levantador Novato", descricao: "KANJI KOGANEGAWA realiza um Set com 120% do seu [Set]."},
+  {nome: "Faísca do Bloqueio", descricao: "KANJI KOGANEGAWA realiza um Bloqueio com 105% do seu [Block]. Enquanto ele está em quadra, quando o oponente realiza um Power Spike, os bloqueadores do seu lado ganham 3% de poder adicional de Bloqueio com base no próprio [Block]."},
+  {nome: "Parede de Ferro III", descricao: "Enquanto KANJI KOGANEGAWA está em quadra, aumenta o poder das habilidades de Bloqueio dos outros jogadores em 2% do [Block] deles."},
+  {nome: "Finta Relâmpago", descricao: "KANJI KOGANEGAWA realiza um Setter Dump inbloqueável com 210% do seu [Set]."}
+], symbols: [ "img/blocksymbol.png", "img/settersymbol.png" ] }, 
+
+{ nome: "Oikawa UR", data: "09/14/25", funcao: "S", img: "img/oikawaUR.png", School: "Aoba Johsai", vinculo: ["Harmonia Perfeita"], Stats:{Serve:1705,Spike:1533,Set:1627,Receive:1378,Block:1530,Save:1290}, habilidades:[
+  {nome:"Levantamento do Rei", descricao:"Oikawa Tooru realiza Sets com 120/135/150% de [Set] como poder. Se um companheiro em quadra realizar uma jogada com resultado PERFECT, ele ganha 1 acúmulo de [Offensive Rhythm]. Para cada acúmulo, o [Awareness] dos seus jogadores em quadra aumenta em 1%, até 10 acúmulos."},
+  {nome:"Talento Inigualável", descricao:"Oikawa Tooru realiza um Setter Dump com 115% de [Set] como poder. Não pode ser bloqueado. Se Oikawa estiver em quadra, um Ataque Potente de um aliado tem seu [Power] aumentado em 20%."},
+  {nome:"Maestro", descricao:"Quando Oikawa Tooru está em quadra, o [Awareness] dos seus jogadores em quadra aumenta em 10/14/18%. (Se Oikawa tiver 6+ acúmulos de [Offensive Rhythm]). Quando um aliado usa uma habilidade de Ataque Potente, consome 6 acúmulos de [Offensive Rhythm] e garante resultado PERFECT."},
+  {nome:"Salto-Saque do Grande Rei", descricao:"Oikawa Tooru realiza um Salto-Saque com 260/275/290/305/320% de [Serve] como poder. Essa jogada aumenta seu [Awareness] em 20% e seu [Power] em 20%."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Oikawa SSR", funcao: "S", img: "img/oikawaSR.png", School: "Aoba Johsai", vinculo: [], Stats:{Serve:1391,Spike:1327,Set:1327,Receive:1125,Block:1248,Save:1054}, habilidades:[
+  {nome:"VISÃO DE QUADRA", descricao:"Aumenta o [Set] de TORU OIKAWA (Practice) em 10%. Quando seus jogadores lançam uma habilidade de Spike, eles ganham 1 acúmulo de 'Attack Tempo'. Cada acúmulo aumenta o [Awareness] dos seus jogadores em 1%, até 10."},
+  {nome:"MUDANÇA DE JOGO", descricao:"Enquanto TORU OIKAWA (Practice) está em quadra, no início de cada turno, se seu lado estiver atrás, aumenta todos os Stats básicos dos seus jogadores em 6%, por 8 cruzamentos de rede."},
+  {nome:"TORRE DE CONTROLE", descricao:"Enquanto TORU OIKAWA (Practice) está em quadra, aumenta o [Awareness] dos seus jogadores em 6%. Cada acúmulo de 'Attack Tempo' fornece +1% adicional de [Awareness]."},
+  {nome:"SAQUE DE DUAS LÂMINAS", descricao:"TORU OIKAWA (Practice) executa um Power Jump Serve com 240% do [Serve]. Para esse saque, o [Awareness] dele aumenta em 15%. Há 5% de chance fixa de falha."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Iwazumi SSR", funcao: "WS", img: "img/iwazumiSR.png", School: "Aoba Johsai", vinculo: ["Harmonia Perfeita", "A Matilha"], Stats:{Serve:1190,Spike:1385,Set:1118,Receive:1314,Block:1248,Save:1129}, habilidades:[
+  {nome:"Força do Ace", descricao:"Aumenta o [Awareness] de HAJIME IWAIZUMI em 5% e a Força em 10%."},
+  {nome:"Defesa Focada", descricao:"HAJIME IWAIZUMI realiza uma Recepção com 120% de [Receive] como poder."},
+  {nome:"Arenga do Vice-Capitão", descricao:"Enquanto HAJIME IWAIZUMI está presente, aumenta a Força dos jogadores do seu lado em 6%."},
+  {nome:"Frente a Frente", descricao:"HAJIME IWAIZUMI executa um Power Spike com 240% do [Ataque Potente]. Se esse spike for crítico, aumenta o poder em mais 15% do [Ataque Potente]."}
+], symbols: [ "img/powersymbol.png" ] },
+
+{ nome: "Kentaro MAD DOG SSR", funcao: "OP", img: "img/kentaroSR.png", School: "Aoba Johsai", vinculo: ["A Matilha"], Stats:{Serve:1320,Spike:1383,Set:1106,Receive:1235,Block:1179,Save:1109}, habilidades:[
+  {nome:"ATAQUE FEROZ", descricao:"Aumenta o [Awareness] de KENTARO KYOTANI em 8% e o [Ataque Potente] em 5%."},
+  {nome:"SAQUE CÃO LOUCO", descricao:"KENTARO KYOTANI realiza um Saque com 130% do seu [Serve]. Para esse saque, o [Awareness] dele aumenta em 15%, com chance fixa de 10% de falha."},
+  {nome:"EXPLOSÃO DE FORÇA", descricao:"Aumenta a Força de KENTARO KYOTANI em 18%."},
+  {nome:"PRESA DO CÃO LOUCO", descricao:"KENTARO KYOTANI realiza um Power Spike com 210% do [Ataque Potente], reduzindo a Stamina dos bloqueadores e recebedores oponentes em 10."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
+
+{ nome: "Ushijima UR", funcao: "OP", img: "img/ushijimaUR.png", School: "Shiratorizawa", vinculo: ["Bests para a vida", "Campeão Absoluto e Levantador Sólido"], Stats:{Serve:1499,Spike:1574,Set:1261,Receive:1417,Block:1345,Save:1261}, habilidades:[
+  {nome:"NO RITMO", descricao:"Aumenta o [Awareness] de WAKATOSHI USHIJIMA em 8%. Enquanto ele está em quadra, seu [Awareness] aumenta em mais 3% ao fim de cada turno."},
+  {nome:"SAQUE DOMINANTE", descricao:"WAKATOSHI USHIJIMA realiza um Salto-Saque com 125% do [Serve]. Se for um Saque Crítico, os recebedores adversários não podem usar habilidades. Quando esse saque pontua, reduz o cooldown de SAQUE DOMINANTE em 4 cruzamentos de rede."},
+  {nome:"EXPLOSÃO DE FORÇA", descricao:"Aumenta a Força de WAKATOSHI USHIJIMA em 18%."},
+  {nome:"SPIKE ESMAGADOR", descricao:"WAKATOSHI USHIJIMA realiza um Power Spike com 220% do [Ataque Potente]. Esse Spike causa 30% de dano adicional ao Líbero adversário."},
+  {nome:"Estilo Ace", descricao:"Quando seus jogadores acertam Spikes Críticos, WAKATOSHI USHIJIMA ganha +1.5% em todos os Stats Básicos, até 8 acúmulos. Quando ele pontua, remove todos os debuffs de si mesmo."},
+  {nome:"Ace Indiscutível", descricao:"WAKATOSHI USHIJIMA realiza um Power Spike com 250% do [Ataque Potente]. Se for Crítico, reduz o cooldown de [UNDISPUTED ACE] em 1 cruzamento de rede."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
+
+{ nome: "Tendo SSR", funcao: "MB", img: "img/tendoSR.png", School: "Shiratorizawa", vinculo: ["Bests para a vida"], Stats:{Serve:1214,Spike:1314,Set:1140,Receive:1177,Block:1387,Save:1100}, habilidades:[
+  {nome:"No Meu Ritmo", descricao:"O [Reflex] de Tendo Satoru aumenta em 12/17/22%."},
+  {nome:"Ataque Surpresa", descricao:"Tendo Satoru realiza um Ataque Rápido com 120/135/150% de [Ataque Rápido] como poder."},
+  {nome:"Guerra Psicológica do Bloqueio", descricao:"Se o bloqueio de Satoru Tendo resultar em boa jogada, o cooldown de Sharp Reading é reduzido em 1/2/3 × o número de cruzamentos de rede."},
+  {nome:"Leitura Afiada", descricao:"Satoru Tendo bloqueia com 220/235/250/265/280% do seu [Block]. Se o spike adversário (Power ou Quick) for uma boa jogada, o [Reflex] de Tendo Satoru aumenta em 15%."}
+], symbols: [ "img/blocksymbol.png" ] },
+
+{ nome: "Goshiki SSR", funcao: "WS", img: "img/goshikiSR.png", School: "Shiratorizawa", vinculo: ["WS de Shiratorizawa"], Stats:{Serve:1188,Spike:1383,Set:1115,Receive:1314,Block:1240,Save:1122}, habilidades:[
+  {nome:"Corresponder às Expectativas", descricao:"Quando Tsutomu Goshiki pontua, a Moral do Time aumenta em 8/10/12."},
+  {nome:"Recepção Pura", descricao:"Tsutomu Goshiki recebe com 120/135/150% de [Receive] como poder."},
+  {nome:"Próximo Ace", descricao:"Ao fim de cada rali, Tsutomu Goshiki ganha 1 acúmulo de [Sharpness]. Cada acúmulo aumenta o [Ataque Potente] em 2.5/3.3/5%, até 5."},
+  {nome:"Fazer um Milagre", descricao:"Tsutomu Goshiki realiza um Ataque Potente com 225/240/255/270/285% de [Ataque Potente] como poder. Aumenta o [Awareness] em 10%."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
+
+{ nome: "Shirabu SSR", funcao: "S", img: "img/shirabuSR.png", School: "Shiratorizawa", vinculo: ["Campeão Absoluto e Levantador Sólido"], Stats:{Serve:1303,Spike:1382,Set:1242,Receive:1118,Block:1239,Save:1041}, habilidades:[
+  {nome:"Como de Costume", descricao:"Aumenta o [Set] de Kenjiro Shirabu em 10/13/16%. Se o membro que vai atacar (Power/Quick) for um power hitter, o poder do spike aumenta em 8% do [Ataque Potente] desse membro."},
+  {nome:"Setter Dump Simples", descricao:"Kenjiro Shirabu executa um Setter Dump com 120/135/150% de [Set] como poder. Não pode ser bloqueado."},
+  {nome:"Capacidade de Correção", descricao:"O [Awareness] de Kenjiro Shirabu aumenta em 9/12/15%."},
+  {nome:"Levantamento que Tira o Máximo do Atacante", descricao:"Kenjiro Shirabu realiza um Set com 210/225/240/250/270% de [Set] como poder. Aumenta o [Awareness] em 10%."}
+], symbols: [ "img/powersymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Semi SSR", funcao: "S", img: "img/semiSR.png", School: "Shiratorizawa", vinculo: [], Stats:{Serve:1476,Spike:1329,Set:1406,Receive:1184,Block:1329,Save:1111}, habilidades:[
+  {nome:"Controle", descricao:"Quando Eita Semi realiza um saque, o [Receive] do recebedor adversário é reduzido em 13/15.5/18% do [Receive] desse jogador por 4 cruzamentos de rede."},
+  {nome:"Montagem de Protótipo", descricao:"Semi Eita realiza um Set com 120/135/150% de [Set] como poder."},
+  {nome:"Demonstração de Habilidade", descricao:"Quando Eita Semi saca, o [Awareness] aumenta em 5/5/8% e o [Power] em 10/15/15%."},
+  {nome:"Isso Aqui é de Graça", descricao:"Eita Semi executa um Salto-Saque com 220/235/250/265/280% do seu [Serve]. Se marcar ace, o [Awareness] dos companheiros aumenta em 3% e o [Reflex] em 6%."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Ohira SSR", funcao: "WS", img: "img/ohiraSR.png", School: "Shiratorizawa", vinculo: ["WS de Shiratorizawa"], Stats:{Serve:1272,Spike:1477,Set:1188,Receive:1399,Block:1332,Save:1197}, habilidades:[
+  {nome:"Defesa Forte", descricao:"Quando Ohira Reon recebe, se o Ataque Rápido do oponente for uma boa jogada, o poder dessa recepção é 40/55/70% do [Receive]."},
+  {nome:"Defesa que Muda o Rumo", descricao:"Ohira Reon recebe com 120/135/150% de [Receive] como poder."},
+  {nome:"O Gentil “Benkei”", descricao:"O [Awareness] de Ohira Reon aumenta em 5/5/8% e o [Reflex] em 10/15/15%."},
+  {nome:"Spikes Poderosos", descricao:"Ohira Reon realiza um Power Spike com 240/255/270/285/300% de [Ataque Potente] como poder."}
+], symbols: [ "img/receivesymbol.png" ] },
+
+/* ==missing Stats== */{ nome: "Yamagata SSR", funcao: "L", img: "img/yamagataSR.png", School: "Shiratorizawa", vinculo: [], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"Habilidade Estável", descricao:"O [Reflex] de Yamagata Hayato aumenta em 13/20/15%."},
+  {nome:"Amplitude Defensiva", descricao:"Yamagata Hayato realiza um Save com [Save] × 120/135/150% como poder."},
+  {nome:"Reflexos", descricao:"Se o bloqueio do oponente for PERFECT, o Save de Yamagata Hayato aumenta em [Save] × 40/50/60%."},
+  {nome:"Recepção Sólida", descricao:"Yamagata Hayato recebe com [Receive] × 235/250/265/280/295% como poder."}
+], symbols: [ "img/receivesymbol.png" ] },
+
+{ nome: "Bokuto UR", data: "08/30/25", funcao: "WS", img: "img/bokutoUR.png", School: "Fukurodani", vinculo: ["Ás Milagroso e Levantador Carinhoso"], Stats:{Serve:1495,Spike:1572,Set:1262,Receive:1417,Block:1347,Save:1268}, habilidades:[
+  {nome:"Influência do Entusiasmo", descricao:"Quando Bokuto Kotaro joga, a Moral do Time dos aliados aumenta em 20/25/30%. Quando Bokuto Kotaro está em quadra, a Moral aumenta em 4 sempre que um aliado toca na bola. Efeito de Despertar de Moral para aliados alterado: Stats básicos de todos os membros em quadra aumentam em 32/36/40%. Dura até os aliados tocarem na bola quatro vezes."},
+  {nome:"Grande Sacador", descricao:"Kotaro Bokuto executa um Salto-Saque com [Serve] × 125/140/155% de poder."},
+  {nome:"Altos e Baixos de Humor", descricao:"Sob [Excellent Condition], o [Ataque Potente] de Kotaro Bokuto aumenta em 12/15/18% e o [Power] em 18/22.5/27%. Sob [Depressed Mode], Kotaro Bokuto não pode ativar habilidades de Ataque Potente. Quando um aliado ativa o Despertar de Moral, Bokuto obtém [Excellent Condition]. Quando o despertar termina, ele ganha [Depressed Mode]. Ao fim de cada rali, Bokuto perde [Sad Mode]."},
+  {nome:"Ace Graças a Todos", descricao:"Kotaro Bokuto realiza um Ataque Potente com [Ataque Potente] × 260/275/290/305/320% de poder. Se for uma boa jogada, o [Power] de Bokuto aumenta em 12/14/16/18/20% e a Moral do Time aumenta em 16."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
+
+{ nome: "Bokuto SP", data: "05/12/26", funcao: "WS", img: "img/bokutoSP.png", School: "Fukurodani", vinculo: ["Natação", "Ace Milagroso e Levantador Carinhoso"], Stats:{Serve:1673, Spike:1950, Set:1574, Receive:1856, Block:1760, Save:1572}, habilidades:[
+  {nome:"Animar", descricao:"O [Ataque Potente] de Kotaro Bokuto (Beach Boys) aumenta em 13/16/19%. Quando ele está em quadra, os efeitos de aumento de Moral para aliados, exceto 'Encourage', são reduzidos em 100%; a cada 10 de Moral reduzida, o jogador ganha 1 acúmulo de 'United'. Por acúmulo, os Stats básicos dos aliados aumentam em 0.16%, até 199 acúmulos."},
+  {nome:"Participação Defensiva", descricao:"Kotaro Bokuto (Sea Bathing) recebe com [Receive] × 140/160/180% de poder. Ganha 3 acúmulos de [Unity]."},
+  {nome:"Sempre Animado!", descricao:"Se estiver com [Best Condition], quando Kotaro Bokuto (Beach Boys) ativa o Ultimate, seu [Ataque Potente] aumenta em 1% por acúmulo de [United] (máx. +70%) até a bola cruzar a rede duas vezes. Além disso, por acúmulo de [United], o poder do seu Ataque Potente aumenta em [Ataque Potente] × 1.5% (máx. +120%) até a bola cruzar a rede duas vezes. Após o Ultimate, ele ganha [Ups and Downs]."},
+  {nome:"Spike Milagroso", descricao:"Kotaro Bokuto (Beach Boys) realiza um Spike com 260/280/300/320/340% do [Ataque Potente]. Para cada acúmulo de [United], o [Técnica de Ataque] dele aumenta em 0.75%, até 30%, até a bola cruzar a rede duas vezes."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
+
+/* ==missing skills== */{ nome: "Akaashi SP", data: "06/11/26", funcao: "S", img: "img/akaashiSP.png", School: "Fukurodani", vinculo: ["Natação", "Ace Milagroso e Levantador Carinhoso"], Stats:{Serve:1848, Spike:1754, Set:1949, Receive:1581, Block:1758, Save:1489}, habilidades:[
+  {nome: "No info yet", descricao:"No info yet"}, {nome: "No info yet", descricao:"No info yet"}, {nome: "No info yet", descricao:"No info yet"}, {nome: "No info yet", descricao:"No info yet"}
+], symbols: [ "img/powersymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Akaashi SSR", funcao: "S", img: "img/akaashiSR.png", School: "Fukurodani", vinculo: ["Ás Milagroso e Levantador Carinhoso"], Stats:{Serve:1396,Spike:1331,Set:1476,Receive:1191,Block:1334,Save:1123}, habilidades:[
+  {nome:"Intuição Instantânea", descricao:"Quando Keiji Akaashi está em quadra e um aliado consegue bloqueio ou recepção PERFECT, todos os efeitos negativos desse aliado são removidos. O [Awareness] de Akaashi aumenta em 8/10/12% e a Moral do Time aumenta em 3."},
+  {nome:"O Cérebro de Fukurodani", descricao:"Keiji Akaashi executa um Setter Dump com 120/135/150% de [Set] como poder. Não pode ser bloqueado. Se pontuar com esse Setter Dump, o poder do primeiro Saque do próximo companheiro aumenta em 10% do [Serve] dele."},
+  {nome:"Levantamento Devotado", descricao:"Aumenta o [Set] de Keiji Akaashi em 8/10/12%. Enquanto o Despertar de Moral estiver ativo, a cada 4 de Moral, o [Awareness] de Akaashi aumenta em 1.2/1.7/2.3%. Se o set dele resultar em boa jogada, o primeiro Spike (Power/Quick) de um aliado após essa jogada é garantido como NICE."},
+  {nome:"Levantamento de Sempre", descricao:"Keiji Akaashi realiza um Set com 240/255/270/285/300% de [Set] como poder."}
+], symbols: [ "img/powersymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Konoha SSR", funcao: "OP", img: "img/konohaSR.png", School: "Fukurodani", vinculo: [], Stats:{Serve:1256,Spike:1462,Set:1196,Receive:1274,Block:1333,Save:1335}, habilidades:[
+  {nome:"Recepção Excelente", descricao:"O [Receive] de Akinori Konoha aumenta em 8/10/12%. Enquanto o Despertar de Moral estiver ativo, seus [Receive] e [Save] aumentam em 10%."},
+  {nome:"Uma Combinação Primorosa", descricao:"Akinori Konoha realiza um Save com 120/135/150% de [Cover] como poder."},
+  {nome:"Bloqueio do Polivalente", descricao:"Quando Akinori Konoha está na linha de frente, o [Block] e o [Power/Ataque Rápido] de todos os aliados na linha de frente aumentam em 8/10/12%. Se ele estiver na linha de trás, o [Receive] e o [Save] de todos os aliados na linha de trás aumentam em 8/10/12%."},
+  {nome:"Sr. Habilidoso (mas Pobre)", descricao:"Akinori Konoha recebe com 225/240/255/270/285% de [Receive] como poder. Se o resultado não for BAD, a Moral do Time aumenta em 20."}
+], symbols: [ "img/receivesymbol.png" ] },
+
+/* ==missing Stats== */{ nome: "Haruki SSR", funcao: "L", img: "img/harukiSR.png", School: "Fukurodani", vinculo: [], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"Mestre da Defesa", descricao:"O [Receive] de Haruki Komi aumenta em 8/10/12%. Se o resultado da sua recepção não for BAD, a Moral do Time adversário diminui em 12."},
+  {nome:"Lubrificante da Equipe (0_0)", descricao:"Haruki Komi realiza um Save que usa 110/125/140% de [Save] como poder. Se o resultado não for BAD, os Stats principais dos aliados aumentam em 5/6.5/8% por 1 rali."},
+  {nome:"Recepção Comprovada", descricao:"Quando Haruki Komi recebe e o oponente dispara um ataque poderoso, o poder dessa recepção aumenta em 30/40/50% de [Receive] como poder."},
+  {nome:"Centro da Defesa", descricao:"Haruki Komi executa uma recepção com 235/250/265/280/295% de [Receive] como poder."}
+], symbols: [ "img/receivesymbol.png" ] },
+
+/* ==missing Stats== */{ nome: "Tatsuo SSR", funcao: "MB", img: "img/tatsuoSR.png", School: "Fukurodani", vinculo: [], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"Bloqueio Intimidante", descricao:"O [Block] de Tatsuki Washio aumenta em 8/10/12%. Ao bloquear, o poder da primeira recepção do companheiro após essa jogada aumenta em 20% de [Receive]. Se o bloqueio dele não for BAD, o próximo bloqueio dele aumenta em 20% de [Block]."},
+  {nome:"Ataque de Alta Pontuação", descricao:"Tatsuki Washio executa um Ataque Rápido com 120/135/150% de [Ataque Rápido] como poder."},
+  {nome:"Trabalhador de Talento Oculto", descricao:"Quando um oponente faz uma boa jogada, o [Block] e o [Ataque Rápido] de Tatsuki Washio aumentam em 2/2.5/3%, até 5 acúmulos."},
+  {nome:"Bloqueio que Aproveita o Corpo Alto", descricao:"Tatsuki Washio bloqueia com 220/235/250/265/280% de [Block] como poder."}
+], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
+
+{ nome: "Terushima SSR", funcao: "WS", img: "img/terushimaSR.png", School: "Jozenji", vinculo: [], Stats:{Serve:1401,Spike:1470,Set:1196,Receive:1335,Block:1263,Save:1196}, habilidades:[
+  {nome:"Espírito Livre", descricao:"Aumenta o [Ataque Potente] de Terushima Yuji em 8/10/12%. Quando ele está em quadra e o resultado da recepção, Save ou Set de um aliado não for BAD, Terushima Yuji ganha 1 acúmulo de [Play More, Play More]. Cada acúmulo aumenta [Power/Ataque Rápido] em 2.5%, até 4 acúmulos."},
+  {nome:"Saque Divertido", descricao:"Terushima Yuji executa um Salto-Saque com 120/135/150% de [Serve] como poder."},
+  {nome:"Asoviva", descricao:"Para cada membro recebedor na sua equipe, o [Receive] de Terushima Yuji aumenta em 4/5/6%. Se ele errar uma recepção, nenhum ponto é perdido. O cooldown desse efeito dura até a bola cruzar a rede 10 vezes."},
+  {nome:"Spike Empolgante", descricao:"Terushima Yuji executa um Power Spike com 235/250/265/280/295% de [Ataque Potente]. Se marcar ponto, o [Receive] dos aliados aumenta em 10% por 3 cruzamentos de rede."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
+
+{ nome: "Atsumu UR", data: "10/14/25", funcao: "S", img: "img/atsumuUR.png", School: "Inarizaki", vinculo: ["A força dos Gêmeos", "Cabeça dos Gêmeos"], Stats:{Serve:1705,Spike:1539,Set:1629,Receive:1376,Block:1530,Save:1290}, habilidades:[
+  {nome:"Jogada Imprevisível", descricao:"Quando Miya Atsumu realiza um saque, se o alvo for um ponto fraco da defesa adversária, o poder do saque aumenta em 30/40/50% de [Serve]. Se não for em ponto fraco, o [Receive] dos seus jogadores da linha de trás aumenta em 10/12/14% por 1 rali."},
+  {nome:"Levantamento Delicado", descricao:"Miya Atsumu executa um Set com 125/140/155% de [Set] como poder. Esse Set remove todos os debuffs do jogador que vai atacar (Power/Quick)."},
+  {nome:"Levantamento Devoto e Sincero", descricao:"Aumenta o [Set] de Miya Atsumu em 8/11/14%. Quando um jogador seu realiza uma ação e o resultado não é PERFECT, Atsumu ganha 2 acúmulos de [Perfect Timing]. Cada acúmulo aumenta o [Set] em 2% (máx. 10). Ao levantar, ele consome 1 acúmulo, aumentando o [Técnica de Ataque] e o [Ataque Rápido] do atacante em 2.5. Dura por 10 cruzamentos."},
+  {nome:"Saque das Duas Espadas", descricao:"Miya Atsumu alterna entre Salto-Saque e Salto-Saque Flutuante. Jump Float: 230/245/275/290% de [Serve] como poder; impede o uso de ultimates de [Power/Ataque Rápido] por 2 cruzamentos. Jump Serve: 260/275/290/305/320% de [Serve] como poder; a cada 3 de Moral do Time, o [Awareness] de Atsumu aumenta em 1% por 2 cruzamentos."}
+], symbols: [ "img/quicksymbol.png", "img/servesymbol.png", "img/settersymbol.png" ] },
+
+{ nome: "Osamu UR", data: "10/29/25", funcao: "OP", img: "img/osamuUR.png", School: "Inarizaki", vinculo: ["A força dos Gêmeos", "Cabeça dos Gêmeos"], Stats:{Serve:1621, Spike:1685, Set:1426, Receive:1459, Block:1428, Save:1373}, habilidades:[
+  {nome:"Ataque Flexível", descricao:"Aumenta o [Ataque Rápido] de Miya Osamu em 10/12/14%. Início da partida: o [Awareness] de Osamu cai para 0% e, para cada 1% reduzido, o [Técnica de Ataque] aumenta em 1%. (Priorize empilhar [Awareness] para esta habilidade)."},
+  {nome:"Salto-Saque Frio", descricao:"Miya Osamu executa um Salto-Saque com 120/135/150% de [Serve]. Se o recebedor adversário tiver [Suppression], o [Técnica de Ataque] de Osamu aumenta em 10% por 8 cruzamentos."},
+  {nome:"Multitalentoso", descricao:"Aumenta o [Técnica de Ataque] de Miya Osamu em 10/13/16%. Quando ele ataca ou saca, aplica 1 acúmulo de [Suppression] nos jogadores da linha de trás adversária (cada acúmulo reduz o [Receive] em 10%). Dura por 10 cruzamentos."},
+  {nome:"Contra-ataque Flexível", descricao:"Miya Osamu realiza um Ataque Rápido com 260/275/290/305/320% de [Ataque Rápido]. O [Ataque Rápido] dele aumenta em 40% de [Técnica de Ataque] por 2 cruzamentos. (Sinergiza com o [Técnica de Ataque] ganho em Ataque Flexível). SR2: se o recebedor inimigo tiver [Suppression], o poder aumenta em mais 60% de [Ataque Rápido]. SR4: após o Ataque Rápido, as próximas duas vezes que um aliado ativar um ultimate, o [Attack/Defensive Technique] desse jogador aumentará em 20%."}
+], symbols: [ "img/quicksymbol.png", "img/servesymbol.png" ] },
+
+{ nome: "Kita SSR", funcao: "WS", img: "img/kitaSR.png", School: "Inarizaki", vinculo: ["Cabeça dos Gêmeos"], Stats:{Serve:1238, Spike:1219, Set:1333, Receive:1476, Block:1198, Save:1409}, habilidades:[
+  {nome:"Repetição, Continuidade e Cautela", descricao:"Aumenta os Stats Básicos de Kita Shinsuke em 6/8/10%. Se o resultado do [Receive] de Kita for BAD, o [Defensive Technique] aumenta em 80% de [Reflex] como poder."},
+  {nome:"Jogada Calma", descricao:"Kita Shinsuke executa um [Save] com 120/135/150% de [Save] como poder."},
+  {nome:"Vou Fazer do Jeito Certo", descricao:"O [Receive] de Kita Shinsuke aumenta em 8/10/12%. Ele realiza uma [Receive]; se o resultado não for PERFECT, ganha 1 acúmulo de [Reliable Action] (+3% [Receive], até 3). Com 3 acúmulos, consome 3 para aumentar o [Técnica de Ataque] dos jogadores da linha de frente em 10% por 8 cruzamentos."},
+  {nome:"Jogada Sólida", descricao:"Kita Shinsuke realiza um [Receive] com 235/250/265/280/295% do [Receive] como poder."}
+], symbols: [ "img/receivesymbol.png" ] },
+
+{ nome: "Rintaro SSR", funcao: "MB", img: "img/rintaroSR.png", School: "Inarizaki", vinculo: [], Stats:{Serve:1266, Spike:1476, Set:1186, Receive:1258, Block:1324, Save:1318}, habilidades:[
+  {nome:"Fechar o Ângulo", descricao:"Aumenta o [Block] de Rintaro Suna em 10/12/14%. Se ele estiver em quadra e o atacante adversário estiver sob [Confusion], o poder de bloqueio do time aumenta em 15/20/25% do [Block] do bloqueador."},
+  {nome:"Bloqueio Hábil", descricao:"Rintaro Suna bloqueia com 20/35/50% do poder do ataque."},
+  {nome:"Jogada que Pega o Oponente Desprevenido", descricao:"Aumenta o [Ataque Rápido] de Rintaro Suna em 10/12/14%. Ao realizar Ataque Rápido, aplica 1 acúmulo de [Confusion] na linha de frente adversária. Cada acúmulo reduz o [Block] em 10%, por até 8 cruzamentos de rede."},
+  {nome:"Spikes com Amplo Ponto de Impacto", descricao:"Rintaro Suna realiza um Ataque Rápido com 240/255/270/285/300% de [Ataque Rápido] como poder."}
+], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
+
+/* ==missing Stats== */{ nome: "Oshiro SSR", funcao: "WS", img: "img/oshiroSR.png", School: "Inarizaki", vinculo: [], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"Controle de Ritmo", descricao:"Sempre que Oshiro Alan consumir 10 de Stamina, ganha 1 acúmulo de [Quick Breather]. Cada acúmulo aumenta o [Técnica de Ataque] em 3/3.5/4%. Ao final do rali, todos os acúmulos são consumidos; para cada um, Oshiro recupera 4 de Stamina."},
+  {nome:"Saque Altamente Técnico", descricao:"Ojiro Alan executa um Salto-Saque com 110/125/140% de [Serve] como poder. O recebedor adversário terá o [Receive] reduzido em 10% por 6 cruzamentos."},
+  {nome:"Investida Agressiva", descricao:"Aumenta o [Ataque Potente] de Oshiro Alan em 6/8/10% e o [Serve] em 6/8/10%. Ao realizar Ataque Potente, consome 60% da Stamina atual e aumenta o poder do ataque em 30/40/50% de [Ataque Potente]."},
+  {nome:"Spike Trovejante", descricao:"Ojiro Alan executa um Ataque Potente com 240/255/270/285/300% de [Ataque Potente] como poder."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
+
+/* ==missing Stats== */{ nome: "Akagi SSR", funcao: "L", img: "img/akagiSR.png", School: "Inarizaki", vinculo: [], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"Save que Aumenta a Seriedade", descricao:"Aumenta o [Receive] e o [Save] de Akagi Michinari em 8/10/12%. Aumenta a Moral do Time em 10 quando Akagi recebe ou salva."},
+  {nome:"Um Líbero Confiável", descricao:"Akagi Michinari executa um Save com poder igual a 120/135/150% de [Save]. Aumenta o [Defensive Technique] dos aliados em 4/6/8% até a bola cruzar a rede 6 vezes."},
+  {nome:"Perseguir a Bola com a Mão", descricao:"O [Receive] de Akagi Michinari aumenta em 10/12/14%. Quando ele está em quadra, um oponente que dispara um tiro poderoso recebe 1 acúmulo de [Approaching] (reduz [Ataque Potente] em 8/10/12% por acúmulo até a bola cruzar a rede 3 vezes). Se o oponente já tiver [Approaching], o [Defensive Technique] dos aliados aumenta em 4/6/8% por 3 cruzamentos."},
+  {nome:"Recepção Corajosa", descricao:"Akagi Michinari recebe com 240/255/270/285/300% de [Receive] como poder."}
+], symbols: [ "img/receivesymbol.png" ] },
+
+/* ==missing Stats== */{ nome: "Yui SSR", funcao: "WS", img: "img/yuiSR.png", School: "Inarizaki", vinculo: [], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"Ataque e Defesa Estáveis", descricao:"Aumenta o [Ataque Potente] de Ginjima Yui em 6/8/10% e o [Receive] em 6/8/10%. Quando ele recebe, se o oponente realizar Ataque Potente, o poder dessa recepção aumenta em [Receive] × 15/25/35%."},
+  {nome:"Recepção Poderosa", descricao:"Ginjima Yui recebe com [Receive] × 120/135/150% de poder."},
+  {nome:"Um Ataque Entusiasmado", descricao:"Sempre que houver um recebedor na equipe, o [Técnica de Ataque] de Ginjima Yui aumenta em 2/2.5/3%. Se a recepção do companheiro não for BAD, o [Ataque Potente] de Ginjima Yui aumenta em 15% por até quatro cruzamentos de rede."},
+  {nome:"Um Golpe Poderoso", descricao:"Ginjima Yui executa um ataque poderoso com [Ataque Potente] × 225/240/255/270/285% de poder. Se estiver na linha de trás, o poder aumenta em [Ataque Potente] × 30%."}
+], symbols: [ "img/powersymbol.png", "img/receivesymbol.png" ] },
+
+{ nome: "Hoshiumi UR", data: "12/13/25", funcao: "WS", img: "img/hoshiumiUR.png", School: "Kamomedai", vinculo: ["Amigos de longa data"], Stats:{Serve:1621,Spike:1704,Set:1341,Receive:1541,Block:1581,Save:1305}, habilidades:[
+  {nome:"Quebrar a Cadeia", descricao:"Quando Hoshiumi Korai está em quadra e um aliado bloqueia, a cada 50 de [Block] dos bloqueadores, o poder do spike adversário (Power/Quick) é reduzido em [Power/Ataque Rápido] × 0.3/0.4/0.5% (máx. 30%). Para cada 1% reduzido no spike do oponente, o poder da próxima habilidade de Hoshiumi aumenta em 1%."},
+  {nome:"Ótimo Desempenho em Todas as Áreas", descricao:"Hoshiumi Korai pode ativar múltiplas habilidades de jogo (compartilham cooldown).\nSpike Serve: Salto-saque com [Serve] × 140/160/180% de poder.\nRecepção: [Receive] × 140/160/180% de poder.\nBloqueio: [Block] × 140/160/180% de poder."},
+  {nome:"Nº 1 em Pontuar", descricao:"Aumenta o [Ataque Potente] de Hoshiumi Korai em 16/20/24%. Ao ativar <All-Rounded Exploitation>, ganha 1 acúmulo de [All-Rounder]. Ao ativar uma habilidade, consome [All-Rounder] e aplica efeitos conforme a jogada.\nPowerful Blow: [Attention] +14/17/20% até a bola cruzar a rede duas vezes.\nServe: reduz o [Receive] dos jogadores da linha de trás do oponente em 14/17/20% até a bola cruzar a rede duas vezes."},
+  {nome:"Lança Brilhante", descricao:"Executa um ataque poderoso com [Ataque Potente] × 265/280/295/310/325% de poder. Se estiver na linha de frente, o poder aumenta em [Ataque Potente] × 40/45/50/55/60%."}
+], symbols: [ "img/powersymbol.png", "img/servesymbol.png", "img/blocksymbol.png", "img/receivesymbol.png" ] },
+
+{ nome: "Hirugami UR", data: "12/28/25", funcao: "MB", img: "img/hirugamiUR.png", School: "Kamomedai", vinculo: ["Amigos de longa data"], Stats:{Serve:1660,Spike:1630,Set:1629,Receive:1540,Block:1742,Save:1493}, habilidades:[
+  {nome:"O Núcleo do Sistema Kamomedai", descricao:"Quando Hirugami Sachiro saca, seu [Attention] aumenta em 12/16/20%. Estando em quadra, aliados ganham 1 acúmulo de [System] ao bloquear (cada acúmulo aumenta os Stats básicos em 8%, até 5; dura até o aliado pontuar). Cada acúmulo também aumenta os Stats base de Hirugami em 10% adicionais."},
+  {nome:"Saque Psicologicamente Pressionante", descricao:"Executa um Salto-Saque Flutuante com 140/160/180% de [Serve] como poder. Se for uma boa jogada, encerra o Despertar de Moral do oponente, impedindo-o de ganhar Moral por 1 rali."},
+  {nome:"A Defesa é o Melhor Ataque", descricao:"Quando Hirugami está em quadra, ganha 1 acúmulo de [Strong Block] cada vez que a bola cruza a rede. Ao bloquear, efeitos por pilhas:\n2: poder de Bloqueio +15/20/25% do [Block] dos bloqueadores por dois cruzamentos.\n3: poder de Recepção +15/20/25% do [Receive] dos recebedores."},
+  {nome:"O Deus Imóvel do Dia", descricao:"Bloqueia com [Block] × 260/275/290/305/320% de poder. Se o oponente disparar um ataque poderoso, o bloqueio ganha [Block] × 40/45/50/55/60% adicionais."}
+], symbols: [ "img/servesymbol.png", "img/blocksymbol.png" ] },
+
+{ nome: "Hayaseiomi UR", data: "08/10/26", funcao: "WS", img: "img/hayaseiomiUR.png", School: "Itachiyama", vinculo: ["Top Spiker e Top Libero"], Stats:{Serve:1774,Spike:2012,Set:1667,Receive:1928,Block:1699,Save:1656}, habilidades:[
+  {nome:"Ataque Persistente", descricao:"O [Ataque Potente] de Kiyoomi Sakusa aumenta em 10/12.5/15% e seu [Receive] em 20/22/25%. Quando ele recebe um ataque, o [Ataque Potente] aumenta em 6% (até 3 acúmulos) até o próximo Ataque Potente. Quando ele acerta um Power Shot, o [Receive] aumenta em 15% até a próxima recepção."},
+  {nome:"Tomar Todas as Precauções", descricao:"Realiza uma recepção ×1 com 50/70/90% de poder. Se exceder [Receive] × 170%, o [Reflex] aumenta em 10% e o cooldown de <Preparedness> é reduzido em 2× os cruzamentos. Se exceder [Receive] × 200%, o [Defensive Technique] aumenta em 15% até o fim da partida."},
+  {nome:"Top Spiker", descricao:"Estando em quadra, quando aliados fazem boa jogada (receber, salvar, bloquear), ganha 1 acúmulo de [Perfectionism]. Cada acúmulo aumenta [Receive] e [Ataque Potente] em 6%, até 20. Ao atacar, o [Awareness] aumenta em 10% por acúmulo, até a bola cruzar a rede duas vezes."},
+  {nome:"Spikes que Mudam a Trajetória Girando", descricao:"Executa um [Ataque Potente] com × 260/280/300/320/340% de poder. Se estiver na linha de trás, + [Ataque Potente] × 40%. Em caso de boa jogada, a próxima recepção do oponente é reduzida em [Receive] × 15%."}
+], symbols: [ "img/receivesymbol.png", "img/powersymbol.png" ] },
+
+{ nome: "Komori UR", data: "09/09/26", funcao: "L", img: "img/komoriUR.png", School: "Itachiyama", vinculo: ["Top Spiker e Top Libero"], Stats:{Serve:1580,Spike:1579,Set:1904,Receive:2012,Block:1580,Save:1866}, habilidades:[
+  {nome:"Peça-chave da Equipe", descricao:"Estando em quadra, o [Defensive Technique] de todos os jogadores da linha de trás aliados aumenta em 10/13/16%. No início do rali, ganha 6 acúmulos de [Connect to Next]; cada um aumenta [Set] em 3% e [Reflex] em 5%, até 10."},
+  {nome:"Levantamento Habilidoso", descricao:"Realiza Set com [Set] × 140/160/180% de poder, aumentando a Moral do time em 10. O primeiro Spike (Power/Quick) após isso aumenta o [Attention] do atacante em 15% até a bola cruzar a rede duas vezes."},
+  {nome:"Criar o Fluxo do Jogo", descricao:"O [Receive] aumenta em 12/16/20%. Quando um aliado ativa uma recepção não-especial ou Komori ativa uma recepção especial, consome 2 acúmulos de [Connect to Next] para aumentar a recepção em [Receive] × 30% e o primeiro Spike aliado depois disso aumenta o poder (Power/Quick) em 20%."},
+  {nome:"Recepção que Cria Impulso", descricao:"Recebe com [Receive] × 260/275/290/305/320% de poder. O primeiro Spike aliado após isso (Power/Quick) aumenta o [Técnica de Ataque] do spiker em 20% até a bola cruzar a rede duas vezes."}
+], symbols: [ "img/receivesymbol.png", "img/settersymbol.png" ] },
 ];
-    const descricoesSinergia = {
-    "Karasuno": "Aumenta em 10% os atributos Ataque Potente e Ataque Rápido de TODOS os jogadores presentes",
-    "Nekoma": "Aumenta em 15% o atributo Recepção de TODOS os jogadores presentes",
-    "Dateko": "Aumenta em 15% o atributo Bloqueio de TODOS os jogadores presentes",
-    "Aoba Johsai": "Aumenta em 15% o atributo Ataqeu Potente de TODOS os jogadores presentes",
-    "Shiratorizawa": "Aumenta em 10% os atributos Percepção e Força de TODOS os jogadores presentes",
-    "Fukurodani": "Moral da Equipe aumentará em 20",
-    "Inarizaki": "Aumenta em 5% os atributos de Força e Defesa de TODOS os jogadores presentes",
-    "Dupla Excêntrica": "Aumenta a força e percepção do ataque rápido de Hinata e Kageyama.",
-    "Gênios Karasuno": "Reflexo e Recepção de Nishinoya SP aumentam. Quando Nishinoya usa seu movimento especial, Kageyama UR ganha um stack de Espirito Competitivo*. Se seu especial for uma jogada perfeita, o poder da primeira cortada (Ataque Potente ou Ataque Rápido) depois dessa jogada será aumentado em 20% do poder do atacante",
-    "Observação de flores de cerejeira": "Aumenta a percepção de Kenma SP. Aumenta Ataque Rápido de Hinata SP caso seja uma jogada perfeita",
-    "Sol vs Lua": "no info",
-    "Depois da Escola": "Reflexo de Nishinoya SP aumenta, quando seu vigor esta baixo aumenta ainda mais",
-    "Deus Guardião e Ponta": "Quando Nishinoya SSR ou Azumane SSR usam uma habilidade, ambos aumentam suas Técnicas de Ataque e Técnicas de Defesa",
-    "Esquadrão de Kiyoko": "Ao marcar, aumenta o Moral do Time",
-    "Cérebro e Comandante": "Quando Kenma SSR faz um passe, Kuro UR performa um Ataque Rápido fortalecido",
-    "Orientação Educacional": "Aumenta a recepção de Yaku SSR e aumenta o Ataque Rápido de Lev SSR",
-    "Natação": "(Ativa com 3 jogadores) Aumenta a moral da equipe. Quando a moral da equipe for ativa, aumenta o reflexo dos aliados em um bloqueio duplo ou triplo",
-    "O Silencioso e o Sarcástico": "Habilita Aone SSR e Futakuchi SSR a usarem a habilidade Bloqueio Duplo",
-    "O Novo Capitão e o Novato Altão": "Aumenta o Bloqueio dos jogadores da linha de ataque",
-    "Harmonia Perfeita": "Quando Oikawa UR faz um passe, Iwaizumi SSR faz uma cortada com Ataque Potente aumentado. Ganha 2 stacks de Ritmo de Ataque*, para cada stack a percepção da equipe em 1%. Máximo de 10 stacks.",
-    "A Matilha": "Aumenta o Ataque Potente de Iwaizumi SSR e Kentaro SSR",
-    "Bests para a vida": "Aumenta o Ataque Potente de Ushijima UR e a Técnica Defensiva de Tendo SSR",
-    "Campeão Absoluto e Levantador Sólido": "Quando Shirabu SSR faz um passe, Ushijima UR faz uma cortada aumentada em 10%",
-    "WS de Shiratorizawa": "Aumenta o Ataque Potente de TODOS os jogadores presentes",
-    "Ás Milagroso e Levantador Carinhoso": "Bokuto UR sai da depressão. Quando Akaashi SSR faz um passe e Bokuto UR faz uma cortada, aumenta seu Ataque Potente neste ataque em 20% e aumenta a moral do time em 15",
-    "Ace Milagroso e Levantador Carinhoso": "Aumenta o Passe de Akaashi SP. Quando a moral do time for ativada, aumenta o Ataque Potente de Bokuto SP em 18% e o passe de Akaashi SP em 5%",
-    "A força dos Gêmeos": "Quando Atsumu UR faz um passe e Osamu UR faz um Ataque Rapido em Minus Tempo, aumenta o Ataque Rapido deste ataque. Aumenta a Tecnica de Ataque em 15%. O ataque não pode ser bloqueado.",
-    "Cabeça dos Gêmeos": "Aumenta a Tecnica de Ataque de Osamu UR. Aumenta os atributos de Kita SSR. No começo da partida Atusmu ganha 3 stacks de Acerto Perfeito*, cada stack aumenta seu passe em 2%. Maximo de 10 stacks. Kita SSR ganha um buff similar que aumenta sua recepção. Maximo de 3 stacks. O primeiro Ataque Rapido dos gêmeos por set aumentam por Ataque Rapido x 12%",
-    "Amigos de longa data": "Aumenta os atributos de Hoshiumi UR. Aumenta o Bloqueio dos jogadores na rede. Hoshiumi UR e Hirugami UR ganham um buff (no info)",
-    "Top Spiker e Top Libero": "Sakusa UR aumenta seu Ataque Potente. Komori UR aumenta sua recepção. Aumenta a recepção dos aliados em 20%",
-    // ... adicione todas as outras sinergias
-};
-    
 
+const descricoesSinergia = {
+  "Karasuno": "Aumenta em 10% os Stats de Ataque Potente e Ataque Rápido de TODOS os jogadores.",
+  "Nekoma": "Aumenta em 15% o Stat de Recepção de TODOS os jogadores.",
+  "Dateko": "Aumenta em 15% o Stat de Bloqueio de TODOS os jogadores.",
+  "Aoba Johsai": "Aumenta em 15% o Stat de Ataque Potente de TODOS os jogadores.",
+  "Shiratorizawa": "Aumenta em 10% os Stats de Percepção e Força de TODOS os jogadores.",
+  "Fukurodani": "A Moral do Time aumenta em 20.",
+  "Inarizaki": "Aumenta em 5% os Stats de Força e Defesa de TODOS os jogadores.",
+  "Dupla Excêntrica": "Aumenta o poder de Ataque Rápido e o Percepção de Hinata e Kageyama.",
+  "Gênios Karasuno": "Aumenta o Reflexo e a Recepção de Nishinoya SP. Quando Nishinoya usa o especial, Kageyama UR ganha um acúmulo de Competitive Spirit*. Se o especial for PERFECT, o primeiro corte (Power ou Quick) depois disso tem poder aumentado em 20% do Power do atacante.",
+  "Observação de flores de cerejeira": "Aumenta o Percepção de Kenma SP. Aumenta o Ataque Rápido de Hinata SP quando a jogada for PERFECT.",
+  "Sol vs Lua": "sem informações",
+  "Depois da Escola": "Aumenta o Reflexo de Nishinoya SP; quando a Stamina dele estiver baixa, aumenta ainda mais.",
+  "Deus Guardião e Ponta": "Quando Nishinoya SSR ou Azumane SSR usam habilidade, ambos aumentam Técnica de Ataque e Técnica de Defesa.",
+  "Esquadrão de Kiyoko": "Ao pontuar, aumenta a Moral do Time.",
+  "Cérebro e Comandante": "Quando Kenma SSR faz o passe, Kuro UR realiza um Ataque Rápido fortalecido.",
+  "Orientação Educacional": "Aumenta a Recepção de Yaku SSR e o Ataque Rápido de Lev SSR.",
+  "Natação": "Aumenta a Moral do Time. Com Moral ativa, aumenta o Reflexo dos aliados em bloqueios duplos ou triplos.",
+  "O Silencioso e o Sarcástico": "Permite que Aone SSR e Futakuchi SSR usem a habilidade Double Bloqueio.",
+  "O Novo Capitão e o Novato Altão": "Aumenta o Bloqueio dos jogadores na linha de frente.",
+  "Harmonia Perfeita": "Quando Oikawa UR faz o passe, Iwaizumi SSR realiza um corte com Ataque Potente aumentado. Ganha 2 acúmulos de Attack Rhythm*, cada um aumentando o Percepção da equipe em 1% (máx. 10).",
+  "A Matilha": "Aumenta o Ataque Potente de Iwaizumi SSR e Kentaro SSR.",
+  "Bests para a vida": "Aumenta o Ataque Potente de Ushijima UR e o Técnica de Defesa de Tendo SSR.",
+  "Campeão Absoluto e Levantador Sólido": "Quando Shirabu SSR faz o passe, Ushijima UR realiza um corte com 10% mais poder.",
+  "WS de Shiratorizawa": "Aumenta o Ataque Potente de TODOS os jogadores presentes.",
+  "Ás Milagroso e Levantador Carinhoso": "Bokuto UR sai da depressão. Quando Akaashi SSR faz o passe e Bokuto UR spika, aumenta o Ataque Potente desse golpe em 20% e eleva a Moral do Time em 15.",
+  "Ace Milagroso e Levantador Carinhoso": "Aumenta o Passe de Akaashi SP. Com Moral ativa, aumenta o Ataque Potente de Bokuto SP em 18% e o Passe de Akaashi SP em 5%.",
+  "A força dos Gêmeos": "Quando Atsumu UR faz o passe e Osamu UR faz um Ataque Rápido Minus Tempo, aumenta o Ataque Rápido dessa jogada. Aumenta o Técnica de Ataque em 15%. O ataque não pode ser bloqueado.",
+  "Cabeça dos Gêmeos": "Aumenta o Técnica de Ataque de Osamu UR. Aumenta os Stats de Kita SSR. No início da partida, Atsumu ganha 3 acúmulos de Perfect Hit* (+2% de Passe cada, máx. 10). Kita SSR ganha bônus similar em Recepção (máx. 3). O primeiro Ataque Rápido dos gêmeos em cada set recebe +[Ataque Rápido] × 12%.",
+  "Amigos de longa data": "Aumenta os Stats de Hoshiumi UR. Aumenta o Bloqueio para os jogadores da linha de frente. Hoshiumi UR e Hirugami UR recebem um buff (sem info).",
+  "Top Spiker e Top Libero": "Sakusa UR aumenta seu Ataque Potente. Komori UR aumenta seu Recepção. Aumenta a Recepção dos aliados em 20%."
+};
 let selecionados = [];
 
+/* ====== FUNÇÕES ORIGINAIS (mantidas) ====== */
 function addBenchSlot() {
     const benchRow = document.getElementById("bench-row");
     const slot = document.createElement("div");
     slot.className = "player-slot bench";
-    slot.innerHTML = `<div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div>`;
+    slot.innerHTML = `<div class="bench-slot" data-role="bench"></div><div class="player-info">Bench</div>`;
     benchRow.insertBefore(slot, benchRow.querySelector(".add-slot-btn"));
     attachBenchEvents(slot.querySelector(".bench-slot"));
 }
 
 function attachBenchEvents(slot) {
-    slot.addEventListener("click", () => mostrarMenu("bench", slot));
+    slot.addEventListener("click", () => showMenu("bench", slot));
     slot.addEventListener("contextmenu", (e) => {
         e.preventDefault();
-        removerPersonagem(slot);
+        removeCharacter(slot);
     });
 }
 
-function mostrarMenu(role, slot) {
+function showMenu(role, slot) {
+    const scrollMenu = document.getElementById("scrollMenu");
     scrollMenu.innerHTML = '';
     let disponiveis;
 
     if (role === "bench") {
-        disponiveis = personagens.filter(p => !selecionados.includes(p) && respeitaLimiteBanco(p, slot));
+        disponiveis = characters.filter(p => !selecionados.includes(p) && respeitaLimiteBench(p, slot));
     } else {
-        disponiveis = personagens.filter(p => p.funcao === role && !selecionados.includes(p));
+        disponiveis = characters.filter(p => p.funcao === role && !selecionados.includes(p));
     }
 
     disponiveis.forEach(p => {
@@ -294,8 +1018,9 @@ function mostrarMenu(role, slot) {
         img.src = p.img;
         img.alt = p.nome;
         img.title = p.nome;
-        img.addEventListener('click', () => {
-            setPersonagem(slot, p, role);
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setCharacter(slot, p, role);
             scrollMenu.style.display = 'none';
         });
         scrollMenu.appendChild(img);
@@ -304,41 +1029,44 @@ function mostrarMenu(role, slot) {
     scrollMenu.style.display = 'flex';
 }
 
-function respeitaLimiteBanco(p, slot) {
-    const banco = Array.from(document.querySelectorAll(".bench-slot"))
-        .map(s => s.dataset.nome && personagens.find(x => x.nome === s.dataset.nome))
+function respeitaLimiteBench(p, slot) {
+    const Bench = Array.from(document.querySelectorAll(".bench-slot"))
+        .map(s => s.dataset.nome && characters.find(x => x.nome === s.dataset.nome))
         .filter(Boolean);
 
     if (slot.dataset.nome === p.nome) return true;
 
-    const contagem = banco.reduce((acc, cur) => {
+    const contagem = Bench.reduce((acc, cur) => {
         acc[cur.funcao] = (acc[cur.funcao] || 0) + 1;
         return acc;
     }, {});
 
-    if (p.funcao === "MB" && contagem["MB"] >= 2) return false;
-    if (p.funcao === "WS" && contagem["WS"] >= 2) return false;
+    if (p.funcao === "MB" && contagem["MB"] >= 6) return false;
+    if (p.funcao === "WS" && contagem["WS"] >= 6) return false;
     if (["S", "L", "OP"].includes(p.funcao) && contagem[p.funcao] >= 1) return false;
 
     return true;
 }
 
-function setPersonagem(slot, personagem, role) {
+function setCharacter(slot, personagem, role) {
+    // se já tinha alguém nesse slot, remove dos selecionados
     if (slot.dataset.nome) {
         selecionados = selecionados.filter(p => p.nome !== slot.dataset.nome);
     }
 
+    // monta imagem
     slot.innerHTML = `<img src="${personagem.img}" alt="${personagem.nome}">`;
     slot.dataset.nome = personagem.nome;
 
+    // atualiza texto de info (procura .player-info no mesmo player-slot)
     const infoDiv = slot.parentElement.querySelector('.player-info');
-    infoDiv.textContent = `${personagem.nome} - ${personagem.funcao}`;
+    if (infoDiv) infoDiv.textContent = `${personagem.nome} - ${personagem.funcao}`;
 
     selecionados.push(personagem);
-    atualizarSinergias();
+    updateSynergies();
 }
 
-function removerPersonagem(slot) {
+function removeCharacter(slot) {
     if (slot.dataset.nome) {
         selecionados = selecionados.filter(p => p.nome !== slot.dataset.nome);
         slot.innerHTML = ""; 
@@ -346,75 +1074,781 @@ function removerPersonagem(slot) {
 
         const infoDiv = slot.parentElement.querySelector('.player-info');
         if (slot.classList.contains("bench-slot")) {
-            infoDiv.textContent = "Banco";
+            infoDiv.textContent = "Bench";
         } else {
+            // tenta recuperar role
             infoDiv.textContent = slot.dataset.role || slot.getAttribute("data-role") || slot.parentElement.querySelector('.hex')?.dataset.role || "";
         }
 
-        atualizarSinergias();
+        updateSynergies();
     }
 }
 
-function atualizarSinergias() {
+function updateSynergies() {
     const synergyListEl = document.getElementById("synergy-list");
     synergyListEl.innerHTML = "";
 
-    const escolasCount = {};
+    // === CONFIG: which bonds need 3 to activate ===
+    // Put the EXACT vinculo names here (case-sensitive).
+    const bondsRequire3 = new Set([
+      "Natação",  
+     "Cabeça dos Gêmeos", 
+    ]);
+
+    const DEFAULT_BOND_MIN = 2; // all bonds default to 2 unless listed above
+    const SCHOOL_MIN = 4;       // school synergy rule stays the same
+
+    const SchoolsCount = {};
     const vinculosCount = {};
 
-    // Contagem de escolas (apenas titulares)
+    // --- Count Schools (starters only) ---
     document.querySelectorAll(".hex").forEach(slot => {
         if (slot.dataset.nome) {
-            const p = personagens.find(x => x.nome === slot.dataset.nome);
-            escolasCount[p.escola] = (escolasCount[p.escola] || 0) + 1;
+            const p = characters.find(x => x.nome === slot.dataset.nome);
+            if (!p) return;
+            SchoolsCount[p.School] = (SchoolsCount[p.School] || 0) + 1;
         }
     });
 
+    // --- Count Bonds (starters + bench) ---
     document.querySelectorAll(".hex, .bench-slot").forEach(slot => {
-    if (slot.dataset.nome) {
-        const p = personagens.find(x => x.nome === slot.dataset.nome);
-        if (Array.isArray(p.vinculo)) {
-            p.vinculo.forEach(v => {
-                vinculosCount[v] = (vinculosCount[v] || 0) + 1;
-            });
-        } else if (p.vinculo) {
-            vinculosCount[p.vinculo] = (vinculosCount[p.vinculo] || 0) + 1;
-        }
+        if (slot.dataset.nome) {
+            const p = characters.find(x => x.nome === slot.dataset.nome);
+            if (!p) return;
+
+            if (Array.isArray(p.vinculo)) {
+                p.vinculo.forEach(v => {
+                    vinculosCount[v] = (vinculosCount[v] || 0) + 1;
+                });
+            } else if (p.vinculo) {
+                vinculosCount[p.vinculo] = (vinculosCount[p.vinculo] || 0) + 1;
+            }
         }
     });
 
     let algumaSinergia = false;
 
-    // Sinergia de escola (4 ou mais)
-    for (const escola in escolasCount) {
-        if (escolasCount[escola] >= 4) {
-            synergyListEl.innerHTML += `<li>Escola: ${escola} - ${descricoesSinergia[escola] || ""}</li>`;
+    // --- School synergies (>= 4) ---
+    for (const school in SchoolsCount) {
+        if (SchoolsCount[school] >= SCHOOL_MIN) {
+            synergyListEl.innerHTML += `
+                <li>
+                    <button class="bond-btn school-btn" data-school="${school}">
+                        Escola: ${school}
+                    </button>
+                </li>
+            `;
             algumaSinergia = true;
         }
     }
 
-    // Sinergia de vínculo (2 ou mais)
+    // --- Bond synergies (>= per-bond threshold) ---
     for (const vinculo in vinculosCount) {
-        if (vinculosCount[vinculo] >= 2) {
-            synergyListEl.innerHTML += `<li>Vínculo: ${vinculo} - ${descricoesSinergia[vinculo] || ""}</li>`;
+        const required = bondsRequire3.has(vinculo) ? 3 : DEFAULT_BOND_MIN;
+        if (vinculosCount[vinculo] >= required) {
+            synergyListEl.innerHTML += `
+                <li>
+                    <button class="bond-btn synergy-btn" data-bond="${vinculo}">
+                        ${vinculo}
+                    </button>
+                </li>
+            `;
             algumaSinergia = true;
         }
     }
+
+    // === Click: School ===
+    document.querySelectorAll(".school-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const schoolName = btn.dataset.school;
+
+            const relacionados = characters.filter(pers => pers.School === schoolName);
+
+            sidebarContent.innerHTML = `
+                <h3>School: ${schoolName}</h3>
+                <p>${descricoesSinergia[schoolName] || "Sem descrição disponível"}</p>
+                <div class="char-list">
+                    ${relacionados.map(r => `
+                        <div class="char-card" data-nome="${r.nome}">
+                            <img src="${r.img}" alt="${r.nome}">
+                            <p>${r.nome}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <button id="backToSynergies" class="bond-btn">← Voltar</button>
+            `;
+
+            sidebar.classList.add("open");
+            menuBtn.style.display = "none";
+
+            document.getElementById("backToSynergies").addEventListener("click", (e) => {
+                e.stopPropagation();
+                updateSynergies();
+                sidebar.classList.add("open");
+                menuBtn.style.display = "none";
+            });
+
+            sidebarContent.querySelectorAll(".char-card").forEach(card => {
+                card.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const nome = card.dataset.nome;
+                    const personagem = characters.find(x => x.nome === nome);
+                    showCharacterDetails(personagem);
+                    sidebar.classList.add("open");
+                    menuBtn.style.display = "none";
+                });
+            });
+        });
+    });
+
+    // === Click: Bond ===
+    document.querySelectorAll(".synergy-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const bondName = btn.dataset.bond;
+
+            const relacionados = characters.filter(pers => {
+                if (Array.isArray(pers.vinculo)) return pers.vinculo.includes(bondName);
+                return pers.vinculo === bondName;
+            });
+
+            sidebarContent.innerHTML = `
+                <h3>Vínculo: ${bondName}</h3>
+                <p>${descricoesSinergia[bondName] || "Sem descrição disponível"}</p>
+                <div class="char-list">
+                    ${relacionados.map(r => `
+                        <div class="char-card" data-nome="${r.nome}">
+                            <img src="${r.img}" alt="${r.nome}">
+                            <p>${r.nome}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <button id="backToSynergies" class="bond-btn">← Voltar</button>
+            `;
+
+            sidebar.classList.add("open");
+            menuBtn.style.display = "none";
+
+            document.getElementById("backToSynergies").addEventListener("click", (e) => {
+                e.stopPropagation();
+                updateSynergies();
+                sidebar.classList.add("open");
+                menuBtn.style.display = "none";
+            });
+
+            sidebarContent.querySelectorAll(".char-card").forEach(card => {
+                card.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const nome = card.dataset.nome;
+                    const personagem = characters.find(x => x.nome === nome);
+                    showCharacterDetails(personagem);
+                    sidebar.classList.add("open");
+                    menuBtn.style.display = "none";
+                });
+            });
+        });
+    });
 
     if (!algumaSinergia) {
-        synergyListEl.innerHTML = "<li>Nenhuma sinergia ativa</li>";
+        synergyListEl.innerHTML = "<li>Sem sinergias ativas</li>";
     }
 }
-
+/* ====== Eventos iniciais ====== */
 document.querySelectorAll(".hex").forEach(slot => {
-    slot.addEventListener("click", () => mostrarMenu(slot.dataset.role, slot));
+    slot.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showMenu(slot.dataset.role, slot);
+    });
     slot.addEventListener("contextmenu", (e) => {
         e.preventDefault();
-        removerPersonagem(slot);
+        removeCharacter(slot);
     });
 });
 
 document.querySelectorAll(".bench-slot").forEach(slot => attachBenchEvents(slot));
+
+/* ====== SIDEBAR NAV ====== */
+const sidebarContent = document.getElementById("sidebar-content");
+document.querySelectorAll(".menu-link").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const section = btn.dataset.section;
+        if (section === "characters") {
+            showCharacterList();
+        } else if (section === "save") {
+            showSavedTeams();
+        } else if (section === "help") {
+    sidebarContent.innerHTML = `
+        <h3>Info</h3>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+            <button id="faqBtn" class="bond-btn">📄 FAQ</button>
+            <button id="creditsBtn" class="bond-btn">👥 Creditos</button>
+            <button id="patchBtn" class="bond-btn">🔄 Patch</button>
+        </div>
+    `;
+
+    // Botão FAQ
+    document.getElementById("faqBtn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        sidebarContent.innerHTML = `
+            <h3>FAQ</h3>
+            <p>Vínculos entre personagens funcionam caso alguem esteja no banco?</p>
+            <p>Não, os vínculos só entrarão em vigor no jogo caso todos os jogadores do vínculo estejam em quadra</p>
+            <p>"X" vínculo não aparece, porquê?</p>
+            <p>Essa versão só mostra Vínculos de POSICIONAMENTO, logo os vínculos que não aparecem são vínculos normais, que só necessitam ter os jogadores na conta para serem ativos</p>
+            <p>Como posso ajudar com o Team Builder?</p>
+            <p>Contate gon6 no discord para mandar ideias, corrigir erros, mandar informações novas, etc</p>
+            <button id="backToHelp" class="bond-btn">← Voltar</button>
+        `;
+        document.getElementById("backToHelp").addEventListener("click", (e) => {
+            e.stopPropagation();
+            document.querySelector('.menu-link[data-section="help"]').click();
+            sidebar.classList.add("open");
+            menuBtn.style.display = "none";
+        });
+    });
+
+    // Botão Credits
+    document.getElementById("patchBtn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        sidebarContent.innerHTML = `
+            <h3>Patch notes</h3>
+            <p>Correções:</p>
+            <p>Algumas sinergias que precisavam de 3 jogadores não eram mostradas corretamente</p>
+            <p>Algumas regras do banco não funcionavam corretamente, EX: não podia adicionar mais de 2 MBs no banco</p>
+            <p>Adições:</p>
+            <p>Menu Lateral</p>
+            <p>Salvar e carregar times</p>
+            <p>Botão de limpar o time</p>
+            <p>Filtro de personagens no menu lateral</p>
+            <p>Habilidades de personagens</p>
+            <p>Status de personagens</p>
+            <p>Data de lançamento esperada</p>
+            <button id="backToHelp" class="bond-btn">← Voltar</button>
+        `;
+        document.getElementById("backToHelp").addEventListener("click", (e) => {
+            e.stopPropagation();
+            document.querySelector('.menu-link[data-section="help"]').click();
+            sidebar.classList.add("open");
+            menuBtn.style.display = "none";
+        });
+    });
+               // Botão FAQ
+    document.getElementById("creditsBtn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        sidebarContent.innerHTML = `
+            <h3>Creditos</h3>
+            <p>Devoy Aces: goN6 , Kari, Marin, Kaito</p>
+            <p>Tradução para Inglês by KRILL group https://discord.gg/EEBqSKvAsp</p>
+            <button id="backToHelp" class="bond-btn">← Voltar</button>
+            
+        `;
+        document.getElementById("backToHelp").addEventListener("click", (e) => {
+            e.stopPropagation();
+            document.querySelector('.menu-link[data-section="help"]').click();
+            sidebar.classList.add("open");
+            menuBtn.style.display = "none";
+        });
+    });
+}
+    });
+});
+
+/* ====== LISTA / FILTROS DE characters (mantida com stopPropagation nos clicks) ====== */
+function showCharacterList() {
+    const funcoes = [...new Set(characters.map(p => p.funcao))];
+    const escolas = [...new Set(characters.map(p => p.School))];
+    const StatsKeys = [...new Set(characters.flatMap(p => Object.keys(p.Stats || {})))];
+
+    let html = `
+    <h3>Characters</h3>
+    <div class="filtros">
+        <div>
+            <label>Posição:</label>
+            <select id="filtroFuncao">
+                <option value="">Todos</option>
+                ${funcoes.map(f => `<option value="${f}">${f}</option>`).join('')}
+            </select>
+        </div>
+        <div>
+            <label>Escola:</label>
+            <select id="filtroEscola">
+                <option value="">Todos</option>
+                ${escolas.map(e => `<option value="${e}">${e}</option>`).join('')}
+            </select>
+        </div>
+        <div>
+            <label>Stats:</label>
+            <select id="filtroStats">
+                <option value="">Todos</option>
+                ${StatsKeys.map(s => `<option value="${s}">${s}</option>`).join('')}
+            </select>
+        </div>
+                <div>
+            <label>Data de lançamento esperada:</label>
+            <select id="filtroDataOrdem" title="Ordenar pela data (ignora quem não tem data)">
+                <option value="">Ignorar</option>
+                <option value="asc">Crescente (MM/DD/YY)</option>
+                <option value="desc">Decrescente (MM/DD/YY)</option>
+            </select>
+        </div>
+<button id="limparFiltros">Limpar</button>
+    </div>
+<div class='char-list' id="charList"></div>
+    `;
+
+    sidebarContent.innerHTML = html;
+
+    // Helpers de data (MM/DD/YY)
+    function parseDateMMDDYY(s) {
+        if (typeof s !== "string") return null;
+        const m = s.match(/^(\d{2})\/(\d{2})\/(\d{2})$/);
+        if (!m) return null;
+        const mm = parseInt(m[1], 10), dd = parseInt(m[2], 10), yy = 2000 + parseInt(m[3], 10);
+        const d = new Date(yy, mm - 1, dd);
+        return Number.isNaN(d.getTime()) ? null : d;
+    }
+    function hasValidDate(p) {
+        return !!parseDateMMDDYY(p?.data);
+    }
+
+function getStatsSafe(p, key) {
+  const v = p?.Stats?.[key];
+  return (typeof v === "number") ? v : "-";
+}
+
+
+   function renderLista() {
+  const listaEl   = document.getElementById("charList");
+
+  const funcaoSel = (document.getElementById("filtroFuncao").value || "").trim();
+  const escolaSel = (document.getElementById("filtroEscola").value || "").trim();
+  let   StatsSel = (document.getElementById("filtroStats").value || "").trim();
+  const dataOrdem = (document.getElementById("filtroDataOrdem")?.value || "").trim();
+
+  if (StatsSel.toLowerCase() === "todos") StatsSel = "";
+
+  // 1) filtro base
+  let filtrados = characters.filter(p =>
+    (funcaoSel === "" || p.funcao === funcaoSel) &&
+    (escolaSel === "" || p.School === escolaSel)
+  );
+
+  // 2) ordenar por data quando escolhido (e ignorar sem data)
+  if (dataOrdem === "asc" || dataOrdem === "desc") {
+    filtrados = filtrados
+      .filter(hasValidDate)
+      .sort((a, b) => {
+        const da = parseDateMMDDYY(a.data);
+        const db = parseDateMMDDYY(b.data);
+        return dataOrdem === "asc" ? (da - db) : (db - da);
+      });
+  } else if (StatsSel) {
+    // 3) ordenar por Stats quando data está em "Ignorar"
+    filtrados.sort((a, b) => {
+      const bv = (b.Stats && typeof b.Stats[StatsSel] === "number") ? b.Stats[StatsSel] : -Infinity;
+      const av = (a.Stats && typeof a.Stats[StatsSel] === "number") ? a.Stats[StatsSel] : -Infinity;
+      return bv - av;
+    });
+  }
+
+  // 4) render (agora em <li>)
+  const html = filtrados.map((p, i) => {
+    const metaLine =
+      (dataOrdem === "asc" || dataOrdem === "desc")
+        ? (hasValidDate(p) ? `<div class="card-sub">Expected Release Date: ${p.data}</div>` : "")
+        : (StatsSel ? `<div class="card-sub">${StatsSel}: ${getStatsSafe(p, StatsSel)}</div>` : "");
+
+    return `
+      <li class="person-card" data-idx="${i}">
+        <img src="${p.img}" alt="${p.nome}">
+        <div class="card-name">${p.nome}</div>
+        ${metaLine}
+      </li>
+    `;
+  }).join("");
+
+  listaEl.innerHTML = html;
+
+  // 5) clique abre detalhes
+  listaEl.querySelectorAll(".person-card").forEach(card => {
+    card.addEventListener("click", (ev) => {
+      ev.stopPropagation();  
+      const idx = +card.getAttribute("data-idx");
+      const person = filtrados[idx];
+      if (person) showCharacterDetails(person);
+    });
+  });
+}
+
+    // listeners dos filtros
+document.getElementById("filtroFuncao").addEventListener("change", renderLista);
+document.getElementById("filtroEscola").addEventListener("change", renderLista);
+document.getElementById("filtroStats").addEventListener("change", renderLista);
+document.getElementById("filtroDataOrdem").addEventListener("change", renderLista);
+
+// botão Limpar
+document.getElementById("limparFiltros").addEventListener("click", () => {
+  document.getElementById("filtroFuncao").value = "";
+  document.getElementById("filtroEscola").value = "";
+  document.getElementById("filtroStats").value = "";
+  const selData = document.getElementById("filtroDataOrdem");
+  if (selData) selData.value = "";
+  renderLista();
+});
+
+// ⬇️ AQUI (fora do botão, depois dos listeners)
+const listaEl = document.getElementById("charList");
+if (listaEl && !listaEl.dataset.stopCloseBound) {
+  listaEl.addEventListener("click", (ev) => ev.stopPropagation());
+  listaEl.dataset.stopCloseBound = "1";
+}
+
+// primeira renderização
+renderLista();
+}
+
+function showCharacterDetails(p) {
+  // Normalize fields so we can safely render
+  const bonds   = Array.isArray(p?.vinculo) ? p.vinculo.filter(Boolean)
+                : (p?.vinculo ? [p.vinculo] : []);
+  const skills  = Array.isArray(p?.habilidades) ? p.habilidades : [];
+  const symbols = Array.isArray(p?.symbols) ? p.symbols : [];
+  const Stats  = Array.isArray(p?.Stats) ? p.Stats : [];
+
+  sidebarContent.innerHTML = `
+    <h3>${p.nome}</h3>
+    <img src="${p.img}" alt="${p.nome}" style="width:100%;">
+
+    ${symbols.length ? `
+      <div class="person-symbols">
+        ${symbols.map(sym => `<img src="${sym}" class="symbol-icon">`).join("")}
+      </div>` : ""}
+
+    ${p.data ? `<p><b>Expected Release Date:</b> ${p.data}</p>` : ""}
+    <p><b>Posição:</b> ${p.funcao || "-"}</p>
+    <p><b>Escola:</b> ${p.School || "-"}</p>
+
+    ${bonds.length ? `
+      <p><b>Vínculos</b></p>
+      <ul>
+        ${bonds.map(v => `<li><button class="bond-btn bond-link" data-bond="${v}">${v}</button></li>`).join("")}
+      </ul>` : `<p><b>Bonds:</b> <i>None</i></p>`}
+
+    ${skills.length ? `
+      <h4>Habilidades</h4>
+      <ul>
+        ${skills.map(h => `<li><button class="skill-btn" data-skill="${h.nome}">${h.nome}</button></li>`).join("")}
+      </ul>` : ""}
+
+    ${p.descricao ? `<p style="margin-top:8px;">${p.descricao}</p>` : ""}
+    <ul>
+            <li><b>Serve:</b> ${p.Stats.Serve}</li>
+            <li><b>Spike:</b> ${p.Stats.Spike}</li>
+            <li><b>Set:</b> ${p.Stats.Set}</li>
+            <li><b>Receive:</b> ${p.Stats.Receive}</li>
+            <li><b>Block:</b> ${p.Stats.Block}</li>
+            <li><b>Save:</b> ${p.Stats.Save}</li>
+        </ul>
+
+    <button id="backToList" class="bond-btn">← Voltar</button>
+  `;
+
+  // Keep sidebar open
+  sidebar.classList.add("open");
+  menuBtn.style.display = "none";
+
+  // Back to character list
+  document.getElementById("backToList").addEventListener("click", (e) => {
+    e.stopPropagation();
+    showCharacterList();
+  });
+
+  // Open a Bond page
+  sidebarContent.querySelectorAll(".bond-link").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const bondName = btn.dataset.bond;
+
+      const relacionados = characters.filter(pers =>
+        Array.isArray(pers.vinculo) ? pers.vinculo.includes(bondName)
+                                    : pers.vinculo === bondName
+      );
+
+      sidebarContent.innerHTML = `
+        <h3>Bond: ${bondName}</h3>
+        <p>${descricoesSinergia[bondName] || "Sem descrição disponível"}</p>
+        <div class="char-list">
+          ${relacionados.map(r => `
+            <div class="char-card" data-nome="${r.nome}">
+              <img src="${r.img}" alt="${r.nome}">
+              <p>${r.nome}</p>
+            </div>
+          `).join("")}
+        </div>
+        <button id="backToChar" class="bond-btn">← Voltar</button>
+      `;
+
+      sidebar.classList.add("open");
+      menuBtn.style.display = "none";
+
+      // Back to THIS character's details
+      document.getElementById("backToChar").addEventListener("click", (e) => {
+        e.stopPropagation();
+        showCharacterDetails(p);
+      });
+
+      // Jump from bond list to another character
+      sidebarContent.querySelectorAll(".char-card").forEach(card => {
+        card.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const nome = card.dataset.nome;
+          const personagem = characters.find(x => x.nome === nome);
+          if (personagem) showCharacterDetails(personagem);
+        });
+      });
+    });
+  });
+
+  // Open a Skill page
+  sidebarContent.querySelectorAll(".skill-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const skillName = btn.dataset.skill;
+      const habilidade = skills.find(h => h.nome === skillName);
+      if (!habilidade) return;
+
+      sidebarContent.innerHTML = `
+        <h3>Skill: ${habilidade.nome}</h3>
+        <p>${habilidade.descricao || ""}</p>
+        <button id="backToChar" class="bond-btn">← Voltar</button>
+      `;
+      document.getElementById("backToChar").addEventListener("click", (e) => {
+        e.stopPropagation();
+        showCharacterDetails(p);
+      });
+    });
+  });
+}
+
+/* ====== SALVAR / Load TIMES (localStorage) ====== */
+
+// pega composição atual por NOME do personagem (não por src)
+function getCurrentTeamByName() {
+    // titulares: procuramos .hex dentro de .player-slot (apenas as hex)
+    const mainHexes = Array.from(document.querySelectorAll(".hex"));
+    const main = mainHexes.map(h => h.dataset.nome || null);
+
+    // bench: cada .bench-slot
+    const benches = Array.from(document.querySelectorAll(".bench-slot"));
+    const benchNames = benches.map(b => b.dataset.nome || null);
+
+    return { main, bench: benchNames };
+}
+
+const saveTeamBtn = document.getElementById("saveTeamBtn");
+saveTeamBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const teamName = prompt("Digite o nome do time:");
+    if (!teamName) return;
+
+    let teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
+
+    if (teams[teamName]) {
+        if (!confirm(`Time "${teamName}" ja está salvo. Quer substituir?`)) {
+            return;
+        }
+    }
+
+    teams[teamName] = getCurrentTeamByName();
+    localStorage.setItem("savedTeams", JSON.stringify(teams));
+    alert(`Time "${teamName}" salvo!`);
+
+    showSavedTeams();
+    sidebar.classList.add("open");
+    menuBtn.style.display = "none";
+});
+
+/* mostra lista de times salvos no painel lateral */
+function showSavedTeams() {
+    const teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
+    let html = "<h3>Saved teams</h3>";
+
+    if (Object.keys(teams).length === 0) {
+        html += "<p>No saved teams</p>";
+    } else {
+        html += `<div class="saved-list">`;
+        for (const [name, team] of Object.entries(teams)) {
+            html += `
+                <div style="margin-bottom:8px; display:flex; align-items:center; justify-content:space-between;">
+                    <div style="text-align:left;">
+                        <b>${name}</b>
+                    </div>
+                    <div>
+                        <button class="load-btn" data-name="${name}">Carregar</button>
+                        <button class="del-btn" data-name="${name}">Deletar</button>
+                    </div>
+                </div>
+            `;
+        }
+        html += `</div>`;
+    }
+
+    sidebarContent.innerHTML = html;
+
+    document.querySelectorAll(".load-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const name = btn.dataset.name;
+        loadTeam(name);
+
+        // Atualiza sinergias e mantém menu aberto na lista
+        updateSynergies();
+        sidebar.classList.add("open");
+        menuBtn.style.display = "none";
+        });
+    });
+
+    document.querySelectorAll(".del-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const name = btn.dataset.name;
+            if (confirm(`Delete team "${name}"?`)) {
+                deleteTeam(name);
+                showSavedTeams();
+            }
+        });
+    });
+}
+
+function deleteTeam(name) {
+    let teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
+    delete teams[name];
+    localStorage.setItem("savedTeams", JSON.stringify(teams));
+}
+
+/* Carrega time — monta usando setCharacter (assim datas e selected array ficam corretos) */
+function loadTeam(name) {
+    const teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
+    const team = teams[name];
+    if (!team) return;
+
+    selecionados = [];
+
+    document.querySelectorAll(".hex, .bench-slot").forEach(slot => {
+        slot.innerHTML = "";
+        delete slot.dataset.nome;
+        const infoDiv = slot.parentElement.querySelector('.player-info');
+        if (infoDiv) {
+            if (slot.classList.contains("bench-slot")) infoDiv.textContent = "Banco";
+            else infoDiv.textContent = slot.dataset.role || slot.getAttribute("data-role") || "";
+        }
+    });
+
+    const hexes = Array.from(document.querySelectorAll(".hex"));
+    team.main.forEach((nome, i) => {
+        if (!nome) return;
+        const personagem = characters.find(p => p.nome === nome);
+        if (personagem && hexes[i]) {
+            setCharacter(hexes[i], personagem, hexes[i].dataset.role || hexes[i].getAttribute("data-role"));
+        }
+    });
+
+    const benches = Array.from(document.querySelectorAll(".bench-slot"));
+    team.bench.forEach((nome, i) => {
+        if (!nome) return;
+        const personagem = characters.find(p => p.nome === nome);
+        if (personagem && benches[i]) {
+            setCharacter(benches[i], personagem, 'bench');
+            attachBenchEvents(benches[i]);
+        }
+    });
+
+    // atualizar sinergias após Load
+    updateSynergies();
+}
+
+/* ====== ABRIR / FECHAR MENU ====== */
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const closeSidebar = document.getElementById("closeSidebar");
+
+menuBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    sidebar.classList.add("open");
+    menuBtn.style.display = "none";
+});
+
+closeSidebar.addEventListener("click", (e) => {
+    e.stopPropagation();
+    sidebar.classList.remove("open");
+    menuBtn.style.display = "block";
+});
+
+// Fecha se clicar fora do painel (ignora se clicar dentro)
+document.addEventListener("click", (e) => {
+    // Clique dentro do sidebar ou no botão de abrir → não fecha
+    if (sidebar.contains(e.target) || e.target === menuBtn) {
+        return;
+    }
+
+    // Clique num personagem → não fecha
+   if (e.target.closest(".char-card, .person-card, #charList")) {
+  return;
+}
+
+    // Clique em botões de voltar (FAQ, Credits, Synergies, Detalhes) → não fecha
+    if (
+        e.target.closest("#backToHelp") ||
+        e.target.closest("#backToSynergies") ||
+        e.target.closest("#backToChar")
+    ) {
+        return;
+    }
+
+    // Fecha apenas se realmente foi fora
+    if (sidebar.classList.contains("open")) {
+        sidebar.classList.remove("open");
+        menuBtn.style.display = "block";
+    }
+});
+    // Botão para limpar todo o time e resetar o banco
+document.getElementById("clearTeamBtn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (!confirm("Certeza que quer limpar o time atual?")) return;
+
+    // Fecha o Side Menu se estiver aberto
+    sidebar.classList.remove("open");
+    menuBtn.style.display = "block";
+
+    // Limpa seleção
+    selecionados = [];
+
+    // Reseta todos os slots principais
+    document.querySelectorAll(".hex").forEach(slot => {
+        slot.innerHTML = "";
+        delete slot.dataset.nome;
+        const infoDiv = slot.parentElement.querySelector('.player-info');
+        infoDiv.textContent = slot.dataset.role || slot.getAttribute("data-role") || "";
+    });
+
+    // Reseta banco para 3 slots
+    const benchRow = document.getElementById("bench-row");
+    benchRow.querySelectorAll(".player-slot.bench").forEach((benchSlot, index) => {
+        if (index >= 3) {
+            benchSlot.remove();
+        } else {
+            const slot = benchSlot.querySelector(".bench-slot");
+            slot.innerHTML = "";
+            delete slot.dataset.nome;
+            const infoDiv = benchSlot.querySelector('.player-info');
+            infoDiv.textContent = "Bench";
+        }
+    });
+    updateSynergies();
+    });
+
 </script>
 
 </body>
