@@ -1049,21 +1049,45 @@ function respeitaLimiteBench(p, slot) {
 }
 
 function setCharacter(slot, personagem, role) {
-    // se já tinha alguém nesse slot, remove dos selecionados
-    if (slot.dataset.nome) {
-        selecionados = selecionados.filter(p => p.nome !== slot.dataset.nome);
-    }
+  // se já tinha alguém nesse slot, remove dos selecionados
+  if (slot.dataset.nome) {
+    selecionados = selecionados.filter(p => p.nome !== slot.dataset.nome);
+  }
 
-    // monta imagem
-    slot.innerHTML = `<img src="${personagem.img}" alt="${personagem.nome}">`;
-    slot.dataset.nome = personagem.nome;
+  // monta imagem
+  slot.innerHTML = `<img src="${personagem.img}" alt="${personagem.nome}">`;
+  slot.dataset.nome = personagem.nome;
 
-    // atualiza texto de info (procura .player-info no mesmo player-slot)
-    const infoDiv = slot.parentElement.querySelector('.player-info');
-    if (infoDiv) infoDiv.textContent = `${personagem.nome} - ${personagem.funcao}`;
+  // ✅ NOVO: double click na imagem abre os detalhes do personagem
+  const imgEl = slot.querySelector('img');
+  if (imgEl) {
+    imgEl.addEventListener('dblclick', (e) => {
+      e.stopPropagation();
+      // esconde o carrossel de escolhas, se estiver aberto
+      const sm = document.getElementById('scrollMenu');
+      if (sm) sm.style.display = 'none';
 
-    selecionados.push(personagem);
-    updateSynergies();
+      const nome = slot.dataset.nome;
+      const p = characters.find(x => x.nome === nome);
+      if (p && typeof showCharacterDetails === 'function') {
+        showCharacterDetails(p);       // você já tem essa função
+        // garante que o painel lateral fique aberto
+        if (typeof sidebar !== 'undefined' && typeof menuBtn !== 'undefined') {
+          sidebar.classList.add('open');
+          menuBtn.style.display = 'none';
+        }
+      }
+      // marca o último dblclick (útil se quiser bloquear o clique simples opcionalmente)
+      window.__lastDblClickAt = Date.now();
+    });
+  }
+
+  // atualiza texto de info
+  const infoDiv = slot.parentElement.querySelector('.player-info');
+  if (infoDiv) infoDiv.textContent = `${personagem.nome} - ${personagem.funcao}`;
+
+  selecionados.push(personagem);
+  updateSynergies();
 }
 
 function removeCharacter(slot) {
