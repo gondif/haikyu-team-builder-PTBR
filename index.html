@@ -1278,16 +1278,47 @@ function updateSynergies() {
         synergyListEl.innerHTML = "<li>Sem sinergias ativas</li>";
     }
 }
-/* ====== Eventos iniciais ====== */
+// ====== Eventos iniciais (grid principal) ======
 document.querySelectorAll(".hex").forEach(slot => {
-    slot.addEventListener("click", (e) => {
-        e.stopPropagation();
-        showMenu(slot.dataset.role, slot);
-    });
-    slot.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-        removeCharacter(slot);
-    });
+  // Duplo clique: abrir detalhes do personagem do slot
+  slot.addEventListener("dblclick", (e) => {
+    e.stopPropagation();
+    const nome = slot.dataset.nome;
+    if (!nome) return; // slot vazio
+
+    const p = characters.find(x => x.nome === nome);
+    if (!p) return;
+
+    // Fecha o menu de seleção, se estiver aberto
+    const sm = document.getElementById("scrollMenu");
+    if (sm) sm.style.display = "none";
+
+    // Abre detalhes no painel lateral
+    if (typeof showCharacterDetails === "function") {
+      showCharacterDetails(p);
+    }
+    if (typeof sidebar !== "undefined" && typeof menuBtn !== "undefined") {
+      sidebar.classList.add("open");
+      menuBtn.style.display = "none";
+    }
+
+    // Marca o tempo do último dblclick para suprimir o click simples
+    window.__lastDblClickAt = Date.now();
+  });
+
+  // Clique simples: abrir menu de seleção (a menos que tenha sido um dblclick)
+  slot.addEventListener("click", (e) => {
+    // Se um dblclick acabou de ocorrer (<300ms), não abre o menu
+    if (window.__lastDblClickAt && Date.now() - window.__lastDblClickAt < 300) return;
+    e.stopPropagation();
+    showMenu(slot.dataset.role, slot);
+  });
+
+  // Botão direito: remover personagem
+  slot.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    removeCharacter(slot);
+  });
 });
 
 document.querySelectorAll(".bench-slot").forEach(slot => attachBenchEvents(slot));
