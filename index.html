@@ -574,9 +574,22 @@ object-fit: Save;
 #bench-toolbar{
   order: 2;
   display: flex;
+  flex-direction: column;
   gap: 10px;
   justify-content: flex-end; /* ou center/space-between */
   margin-top: 45px;
+}
+
+.symbols {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.symbol {
+  height: 30px !important;
 }
 
 </style>
@@ -1339,8 +1352,11 @@ function setCharacter(slot, personagem, role) {
         selecionados = selecionados.filter(p => p.nome !== slot.dataset.nome);
     }
 
+
+    const symbols = personagem.symbols.map(symbol => `<img class='symbol' src="${symbol}">` ).join('')
+
     // monta imagem
-    slot.innerHTML = `<img src="${personagem.img}" alt="${personagem.nome}">`;
+    slot.innerHTML = `<img src="${personagem.img}" alt="${personagem.nome}"><div class='symbols'>${symbols}</div>`;
     slot.dataset.nome = personagem.nome;
     slot.dataset.role = role; // <-- Ensure correct role is set!
 
