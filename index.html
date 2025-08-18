@@ -4,6 +4,36 @@
 <meta charset="UTF-8">
 <title>Haikyu Fly High - Team Builder by Devoy Aces</title>
 <style>
+    #menuBtn {
+    width: 60px;
+    height: 60px;
+    font-size: 2.5em;
+    padding: 0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+}
+
+#menuBtn:hover {
+    background-color: #218838;
+}
+    #rotateBtn,
+    #saveTeamBtn,
+    #clearTeamBtn {
+        font-size: 2em;
+        padding: 20px 38px;
+        min-width: 180px;
+        border-radius: 8px;
+    }
     body {
         background-color: #222;
         color: #fff;
@@ -102,7 +132,14 @@ object-fit: Save;
     .add-slot-btn:hover {
         background-color: #218838;
     }
-
+.bench-quick{
+  display:flex; gap:6px; margin:0 10px;
+}
+.bench-quick-btn{
+  background:#222; color:#fff; border:1px solid #555;
+  border-radius:6px; padding:4px 6px; font-size:12px; cursor:pointer;
+}
+.bench-quick-btn:hover{ background:#333; }
     #saveTeamBtn {
         background-color: #28a745;
         border: none;
@@ -400,6 +437,16 @@ object-fit: Save;
     #scrollMenu {
     overflow-y: auto; /* já está, mas reforçando */
 }
+   /* header de filtros dentro do scrollMenu (bench) */
+#scrollMenu .bench-quick-inside{
+  display:flex; gap:6px; padding:6px 6px 8px; flex-wrap:wrap;
+}
+#scrollMenu .bench-quick-inside button{
+  background:#222; color:#fff; border:1px solid #555;
+  border-radius:6px; padding:4px 6px; font-size:12px; cursor:pointer;
+}
+#scrollMenu .bench-quick-inside button.active{ outline:2px solid #999; }
+    
 #sidebar-content ul {
     list-style: none;       /* remove bullets */
     padding-left: 0;        /* remove recuo padrão */
@@ -518,6 +565,19 @@ object-fit: Save;
 @media (min-width: 560px){
   #charList{ grid-template-columns: repeat(4, minmax(50px, 1fr)); }
 }
+    #bench-row-wrapper{
+  display: flex;
+  flex-direction: column;   /* empilha título, slots e toolbar */
+  gap: 8px;
+}
+#bench-row{ order: 1; }
+#bench-toolbar{
+  order: 2;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end; /* ou center/space-between */
+  margin-top: 45px;
+}
 
 </style>
 </head>
@@ -526,7 +586,7 @@ object-fit: Save;
 <button id="menuBtn">☰</button>
 <div class="sidebar" id="sidebar">
     <button class="close-btn" id="closeSidebar">×</button>
-    <h2>Menu Lateral</h2>
+    <h2>Side Menu</h2>
     <ul>
         <!-- substituí EStatísticas por Save/Load -->
         <li><button class="menu-link bond-btn" data-section="save">💾 Salvar & Carregar Times</button></li>
@@ -534,7 +594,7 @@ object-fit: Save;
         <li><button class="menu-link bond-btn" data-section="help">ℹ️ Info</button></li>
     </ul>
     <div id="sidebar-content">
-        <p>Selecione uma opção.</p>
+        <p>Select an option above.</p>
     </div>
 </div>
 
@@ -555,10 +615,6 @@ object-fit: Save;
 
     <!-- linha onde fica o botão SALVAR e os bench slots -->
     <div class="row" id="bench-row-wrapper" style="align-items:center;">
-        <div style="display:flex; align-items:center;">
-    <button id="saveTeamBtn" title="Salvar Time" style="background-color:#222222;margin-right:8px;">⬇️</button>
-    <button id="clearTeamBtn" title="Limpar Time" style="background-color:#222222; color:white; padding:6px 10px; border:none; border-radius:5px; font-size:16px; cursor:pointer;">🗑️</button>
-</div>
 
         <div class="row" id="bench-row" style="gap:10px;">
             <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
@@ -566,6 +622,11 @@ object-fit: Save;
             <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
             <button class="add-slot-btn" onclick="addBenchSlot()">+</button>
         </div>
+         <div id="bench-toolbar" style="display:flex; align-items:center; gap:10px; margin-top:8px;">
+    <button id="rotateBtn" title="Rotate clockwise" style="background-color:#222222;color:white;padding:6px 10px; border:none; border-radius:5px; font-size:16px; cursor:pointer;margin-right:8px;">↻</button>
+    <button id="saveTeamBtn" title="Salvar Time" style="background-color:#222222;margin-right:8px;">⬇️</button>
+    <button id="clearTeamBtn" title="Limpar Time" style="background-color:#222222; color:white; padding:6px 10px; border:none; border-radius:5px; font-size:16px; cursor:pointer;">🗑️</button>
+</div>
     </div>
 </div>
 
@@ -995,38 +1056,140 @@ function addBenchSlot() {
 }
 
 function attachBenchEvents(slot) {
-    slot.addEventListener("click", () => showMenu("bench", slot));
-    slot.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-        removeCharacter(slot);
-    });
+  if (slot.__benchBound) return;         // evita duplicar handlers
+  slot.__benchBound = true;
+
+  let clickTimer = null;
+
+  slot.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    // 2º clique dentro da janela => trata como duplo clique
+    if (clickTimer) {
+      clearTimeout(clickTimer);
+      clickTimer = null;
+
+      const nome = slot.dataset.nome;
+      if (!nome) {
+        // slot vazio: no duplo clique, abrimos o menu mesmo assim
+        if (typeof showMenu === "function") showMenu("bench", slot);
+        return;
+      }
+
+      const p = (typeof characters !== "undefined") && characters.find(x => x.nome === nome);
+      if (!p) return;
+
+      const sm = document.getElementById("scrollMenu");
+      if (sm) sm.style.display = "none";     // fecha menu de seleção, se aberto
+
+      if (typeof showCharacterDetails === "function") showCharacterDetails(p);
+
+      const sidebar = document.getElementById("sidebar");
+      const menuBtn = document.getElementById("menuBtn");
+      if (sidebar) sidebar.classList.add("open");
+      if (menuBtn) menuBtn.style.display = "none";
+      return;
+    }
+
+    // 1º clique: se não vier 2º clique rápido, abre o menu do banco
+    clickTimer = setTimeout(() => {
+      clickTimer = null;
+      if (typeof showMenu === "function") showMenu("bench", slot);
+    }, 250);
+  });
+
+  // botão direito: remover do banco
+  slot.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    if (typeof removeCharacter === "function") removeCharacter(slot);
+  });
 }
 
 function showMenu(role, slot) {
-    const scrollMenu = document.getElementById("scrollMenu");
-    scrollMenu.innerHTML = '';
-    let disponiveis;
+  const scrollMenu = document.getElementById("scrollMenu");
+  scrollMenu.innerHTML = '';
 
-    if (role === "bench") {
-        disponiveis = characters.filter(p => !selecionados.includes(p) && respeitaLimiteBench(p, slot));
-    } else {
-        disponiveis = characters.filter(p => p.funcao === role && !selecionados.includes(p));
+  if (role === "bench") {
+    // layout em coluna para botões em cima + grid de imagens embaixo
+    scrollMenu.style.display = 'flex';
+    scrollMenu.style.flexDirection = 'column';
+
+    // --- 5 botões no topo
+    const bar = document.createElement('div');
+    bar.className = 'bench-quick-inside';
+    ['S','MB','WS','OP','L'].forEach(r => {
+      const b = document.createElement('button');
+      b.textContent = r;
+      b.dataset.role = r;
+      b.title = `Bench: ${r}`;
+      b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        render(r); // refiltra a lista
+      });
+      bar.appendChild(b);
+    });
+    scrollMenu.appendChild(bar);
+
+    // --- container das imagens
+    const grid = document.createElement('div');
+    grid.style.display = 'flex';
+    grid.style.flexWrap = 'wrap';
+    grid.style.gap = '8px';
+    scrollMenu.appendChild(grid);
+
+    // renderiza a lista (com ou sem filtro de posição)
+    function render(roleFilter = null) {
+      grid.innerHTML = '';
+      // marca o ativo
+      bar.querySelectorAll('button').forEach(btn =>
+        btn.classList.toggle('active', btn.dataset.role === roleFilter)
+      );
+
+      let disponiveis = characters.filter(p =>
+        !selecionados.includes(p) && respeitaLimiteBench(p, slot)
+      );
+      if (roleFilter) disponiveis = disponiveis.filter(p => p.funcao === roleFilter);
+
+      if (disponiveis.length === 0) {
+        grid.innerHTML = `<div style="color:#ccc; padding:8px;">
+          No available ${roleFilter ? roleFilter : ''} for bench.</div>`;
+      } else {
+        disponiveis.forEach(p => {
+          const img = document.createElement('img');
+          img.src = p.img;
+          img.alt = p.nome;
+          img.title = p.nome;
+          img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setCharacter(slot, p, 'bench');   // adiciona no banco
+            scrollMenu.style.display = 'none';
+          });
+          grid.appendChild(img);
+        });
+      }
     }
 
-    disponiveis.forEach(p => {
-        const img = document.createElement('img');
-        img.src = p.img;
-        img.alt = p.nome;
-        img.title = p.nome;
-        img.addEventListener('click', (e) => {
-            e.stopPropagation();
-            setCharacter(slot, p, role);
-            scrollMenu.style.display = 'none';
-        });
-        scrollMenu.appendChild(img);
-    });
+    // abre já com "todos" (se preferir abrir já em S: troque para render('S'))
+    render(null);
+    return; // não continuar para o caso "não bench"
+  }
 
-    scrollMenu.style.display = 'flex';
+  // ==== restante igual ao original (S, MB, WS, OP, L fora do bench) ====
+  let disponiveis = characters.filter(p => p.funcao === role && !selecionados.includes(p));
+  disponiveis.forEach(p => {
+    const img = document.createElement('img');
+    img.src = p.img;
+    img.alt = p.nome;
+    img.title = p.nome;
+    img.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setCharacter(slot, p, role);
+      scrollMenu.style.display = 'none';
+    });
+    scrollMenu.appendChild(img);
+  });
+
+  scrollMenu.style.display = 'flex';
 }
 
 function respeitaLimiteBench(p, slot) {
@@ -1043,51 +1206,150 @@ function respeitaLimiteBench(p, slot) {
 
     if (p.funcao === "MB" && contagem["MB"] >= 6) return false;
     if (p.funcao === "WS" && contagem["WS"] >= 6) return false;
-    if (["S", "L", "OP"].includes(p.funcao) && contagem[p.funcao] >= 1) return false;
+    if (["L",].includes(p.funcao) && contagem[p.funcao] >= 1) return false;
 
     return true;
 }
+    function getFirstEmptyBenchSlot() {
+  // Procura um slot vazio do banco; se não houver, cria um novo
+  const slots = Array.from(document.querySelectorAll(".bench-slot"));
+  const empty = slots.find(s => !s.dataset.nome);
+  if (empty) return empty;
+  if (typeof addBenchSlot === "function") addBenchSlot(); // cria e já liga eventos
+  const all = Array.from(document.querySelectorAll(".bench-slot"));
+  return all[all.length - 1] || null;
+}
 
-function setCharacter(slot, personagem, role) {
-  // se já tinha alguém nesse slot, remove dos selecionados
-  if (slot.dataset.nome) {
-    selecionados = selecionados.filter(p => p.nome !== slot.dataset.nome);
-  }
+function showBenchMenuByRole(role) {
+  const slot = getFirstEmptyBenchSlot();
+  if (!slot) return;
 
-  // monta imagem
-  slot.innerHTML = `<img src="${personagem.img}" alt="${personagem.nome}">`;
-  slot.dataset.nome = personagem.nome;
+  const scrollMenu = document.getElementById("scrollMenu");
+  scrollMenu.innerHTML = '';
 
-  // ✅ NOVO: double click na imagem abre os detalhes do personagem
-  const imgEl = slot.querySelector('img');
-  if (imgEl) {
-    imgEl.addEventListener('dblclick', (e) => {
-      e.stopPropagation();
-      // esconde o carrossel de escolhas, se estiver aberto
-      const sm = document.getElementById('scrollMenu');
-      if (sm) sm.style.display = 'none';
+  // Filtra por posição + respeita regras do banco
+  const disponiveis = characters.filter(p =>
+    p.funcao === role &&
+    !selecionados.includes(p) &&
+    respeitaLimiteBench(p, slot)   // mesma regra usada quando role === "bench"
+  );
 
-      const nome = slot.dataset.nome;
-      const p = characters.find(x => x.nome === nome);
-      if (p && typeof showCharacterDetails === 'function') {
-        showCharacterDetails(p);       // você já tem essa função
-        // garante que o painel lateral fique aberto
-        if (typeof sidebar !== 'undefined' && typeof menuBtn !== 'undefined') {
-          sidebar.classList.add('open');
-          menuBtn.style.display = 'none';
-        }
-      }
-      // marca o último dblclick (útil se quiser bloquear o clique simples opcionalmente)
-      window.__lastDblClickAt = Date.now();
+  if (disponiveis.length === 0) {
+    scrollMenu.innerHTML = `<div style="color:#ccc; padding:8px;">No available ${role} for bench.</div>`;
+  } else {
+    disponiveis.forEach(p => {
+      const img = document.createElement('img');
+      img.src = p.img;
+      img.alt = p.nome;
+      img.title = p.nome;
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setCharacter(slot, p, 'bench');   // adiciona direto ao banco
+        scrollMenu.style.display = 'none';
+      });
+      scrollMenu.appendChild(img);
     });
   }
 
-  // atualiza texto de info
-  const infoDiv = slot.parentElement.querySelector('.player-info');
-  if (infoDiv) infoDiv.textContent = `${personagem.nome} - ${personagem.funcao}`;
+  scrollMenu.style.display = 'flex';
+}
+document.querySelectorAll(".bench-quick-btn").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    showBenchMenuByRole(btn.dataset.role);
+  });
+});
 
-  selecionados.push(personagem);
-  updateSynergies();
+// índices dos 6 slots que formam o "anel" (L fica fora, é fixo no índice 3)
+const RING_IDX = [0, 1, 2, 6, 5, 4]; // [S, MB, WS, OP, MB, WS] na orientação base
+
+// Rotaciona o anel 'steps' vezes no sentido horário (move conteúdo e data-role)
+function rotateRingClockwise(steps) {
+  const rows = document.querySelectorAll('.team-grid .row');
+  if (rows.length < 2) return;
+  const top = rows[0].querySelectorAll('.player-slot .hex');   // [0,1,2]
+  const bot = rows[1].querySelectorAll('.player-slot .hex');   // [3,4,5,6]
+
+  const hexes = [
+    top[0], top[1], top[2],         // 0,1,2
+    bot[0], bot[1], bot[2], bot[3]  // 3,4,5,6 (3 é L)
+  ];
+
+  const ring = RING_IDX.map(i => hexes[i]);
+  const k = ((steps % 6) + 6) % 6;
+  if (k === 0) return;
+
+  const state = ring.map(h => ({
+    html: h.innerHTML,
+    nome: h.dataset.nome || null,
+    role: h.dataset.role || h.getAttribute('data-role') || ''
+  }));
+
+  // horário: último(s) vai(m) para frente
+  const rotated = state.slice(-k).concat(state.slice(0, -k));
+
+  ring.forEach((h, i) => {
+    const st = rotated[i];
+    h.innerHTML = st.html;
+    if (st.nome) h.dataset.nome = st.nome; else delete h.dataset.nome;
+    h.dataset.role = st.role;
+
+    const info = h.parentElement.querySelector('.player-info');
+    if (info) {
+      if (st.nome) {
+        const p = (typeof characters !== "undefined") && characters.find(x => x.nome === st.nome);
+        info.textContent = p ? `${st.nome} - ${p.funcao}` : st.nome;
+      } else {
+        info.textContent = st.role;
+      }
+    }
+  });
+}
+
+// Ajusta a orientação do grid para coincidir com o time salvo
+function orientGridToSavedTeam(team) {
+  // pega a função (S/MB/WS/OP/L) em cada índice salvo
+  const funcaoEm = (idx) => {
+    const nome = team.main[idx];
+    if (!nome) return null;
+    const p = characters.find(x => x.nome === nome);
+    return p ? p.funcao : null;
+  };
+
+  // Tentamos ancorar por S; se não existir, ancoramos por OP
+  const idxS = RING_IDX.find(i => funcaoEm(i) === 'S');
+  if (idxS !== undefined) {
+    const posNoAnel = RING_IDX.indexOf(idxS); // onde o S está
+    // na base, S está em RING_IDX[0] -> steps = pos atual
+    rotateRingClockwise(posNoAnel);
+    return;
+  }
+  const idxOP = RING_IDX.find(i => funcaoEm(i) === 'OP');
+  if (idxOP !== undefined) {
+    const posNoAnel = RING_IDX.indexOf(idxOP);
+    // na base, OP está em RING_IDX[3] -> passos = pos atual - 3
+    rotateRingClockwise((posNoAnel - 3 + 6) % 6);
+  }
+}
+
+    
+function setCharacter(slot, personagem, role) {
+    // se já tinha alguém nesse slot, remove dos selecionados
+    if (slot.dataset.nome) {
+        selecionados = selecionados.filter(p => p.nome !== slot.dataset.nome);
+    }
+
+    // monta imagem
+    slot.innerHTML = `<img src="${personagem.img}" alt="${personagem.nome}">`;
+    slot.dataset.nome = personagem.nome;
+    slot.dataset.role = role; // <-- Ensure correct role is set!
+
+    // atualiza texto de info (procura .player-info no mesmo player-slot)
+    const infoDiv = slot.parentElement.querySelector('.player-info');
+    if (infoDiv) infoDiv.textContent = `${personagem.nome} - ${personagem.funcao}`;
+
+    selecionados.push(personagem);
+    updateSynergies();
 }
 
 function removeCharacter(slot) {
@@ -1115,8 +1377,8 @@ function updateSynergies() {
     // === CONFIG: which bonds need 3 to activate ===
     // Put the EXACT vinculo names here (case-sensitive).
     const bondsRequire3 = new Set([
-      "Natação",  
-     "Cabeça dos Gêmeos", 
+      "Swimming",  
+     "Twin Heads", 
     ]);
 
     const DEFAULT_BOND_MIN = 2; // all bonds default to 2 unless listed above
@@ -1158,7 +1420,7 @@ function updateSynergies() {
             synergyListEl.innerHTML += `
                 <li>
                     <button class="bond-btn school-btn" data-school="${school}">
-                        Escola: ${school}
+                        School: ${school}
                     </button>
                 </li>
             `;
@@ -1275,7 +1537,7 @@ function updateSynergies() {
     });
 
     if (!algumaSinergia) {
-        synergyListEl.innerHTML = "<li>Sem sinergias ativas</li>";
+        synergyListEl.innerHTML = "<li>No active synergies</li>";
     }
 }
 // ====== Eventos iniciais (grid principal com detecção de duplo clique) ======
@@ -1348,7 +1610,7 @@ document.querySelectorAll(".menu-link").forEach(btn => {
         <h3>Info</h3>
         <div style="display:flex; flex-direction:column; gap:10px;">
             <button id="faqBtn" class="bond-btn">📄 FAQ</button>
-            <button id="creditsBtn" class="bond-btn">👥 Creditos</button>
+            <button id="creditsBtn" class="bond-btn">👥 Credits</button>
             <button id="patchBtn" class="bond-btn">🔄 Patch</button>
         </div>
     `;
@@ -1358,12 +1620,12 @@ document.querySelectorAll(".menu-link").forEach(btn => {
         e.stopPropagation();
         sidebarContent.innerHTML = `
             <h3>FAQ</h3>
-            <p>Vínculos entre personagens funcionam caso alguem esteja no banco?</p>
-            <p>Não, os vínculos só entrarão em vigor no jogo caso todos os jogadores do vínculo estejam em quadra</p>
-            <p>"X" vínculo não aparece, porquê?</p>
-            <p>Essa versão só mostra Vínculos de POSICIONAMENTO, logo os vínculos que não aparecem são vínculos normais, que só necessitam ter os jogadores na conta para serem ativos</p>
-            <p>Como posso ajudar com o Team Builder?</p>
-            <p>Contate gon6 no discord para mandar ideias, corrigir erros, mandar informações novas, etc</p>
+            <p>Player bonds work if one is benched?</p>
+            <p>It doesn't, only gonna be applied in game when the bond players are in court</p>
+            <p>"X" bond doesn't show, why?</p>
+            <p>This version only shows DEPLOYMENT bonds, since "normal" bonds requirements are just to have the characters on the account, meaning they don't have to be in court to activate</p>
+            <p>How can i help with team builderr?</p>
+            <p>Contact goN6 on discord, to send ideas, fixes to erros, new information, etc.</p>
             <button id="backToHelp" class="bond-btn">← Voltar</button>
         `;
         document.getElementById("backToHelp").addEventListener("click", (e) => {
@@ -1383,6 +1645,9 @@ document.querySelectorAll(".menu-link").forEach(btn => {
             <p>Algumas sinergias que precisavam de 3 jogadores não eram mostradas corretamente</p>
             <p>Algumas regras do banco não funcionavam corretamente, EX: não podia adicionar mais de 2 MBs no banco</p>
             <p>Adições:</p>
+            <p>Rotacionar time</p>
+            <p>Double click abre detalhes do personagem</p>
+            <p>Banco tem filtro por função</p>
             <p>Menu Lateral</p>
             <p>Salvar e carregar times</p>
             <p>Botão de limpar o time</p>
@@ -1403,9 +1668,9 @@ document.querySelectorAll(".menu-link").forEach(btn => {
     document.getElementById("creditsBtn").addEventListener("click", (e) => {
         e.stopPropagation();
         sidebarContent.innerHTML = `
-            <h3>Creditos</h3>
+            <h3>Créditos</h3>
             <p>Devoy Aces: goN6 , Kari, Marin, Kaito</p>
-            <p>Tradução para Inglês by KRILL group https://discord.gg/EEBqSKvAsp</p>
+            <p>Tradução para inglês by KRILL group https://discord.gg/EEBqSKvAsp</p>
             <button id="backToHelp" class="bond-btn">← Voltar</button>
             
         `;
@@ -1430,31 +1695,31 @@ function showCharacterList() {
     <h3>Characters</h3>
     <div class="filtros">
         <div>
-            <label>Posição:</label>
+            <label>Posição</label>
             <select id="filtroFuncao">
-                <option value="">Todos</option>
+                <option value="">All</option>
                 ${funcoes.map(f => `<option value="${f}">${f}</option>`).join('')}
             </select>
         </div>
         <div>
             <label>Escola:</label>
             <select id="filtroEscola">
-                <option value="">Todos</option>
+                <option value="">All</option>
                 ${escolas.map(e => `<option value="${e}">${e}</option>`).join('')}
             </select>
         </div>
         <div>
             <label>Stats:</label>
             <select id="filtroStats">
-                <option value="">Todos</option>
+                <option value="">All</option>
                 ${StatsKeys.map(s => `<option value="${s}">${s}</option>`).join('')}
             </select>
         </div>
                 <div>
-            <label>Data de lançamento esperada:</label>
+            <label>Data de lançamento experada:</label>
             <select id="filtroDataOrdem" title="Ordenar pela data (ignora quem não tem data)">
                 <option value="">Ignorar</option>
-                <option value="asc">Crescente (MM/DD/YY)</option>
+                <option value="asc">Ascendente (MM/DD/YY)</option>
                 <option value="desc">Decrescente (MM/DD/YY)</option>
             </select>
         </div>
@@ -1592,17 +1857,17 @@ function showCharacterDetails(p) {
       </div>` : ""}
 
     ${p.data ? `<p><b>Expected Release Date:</b> ${p.data}</p>` : ""}
-    <p><b>Posição:</b> ${p.funcao || "-"}</p>
-    <p><b>Escola:</b> ${p.School || "-"}</p>
+    <p><b>Position:</b> ${p.funcao || "-"}</p>
+    <p><b>School:</b> ${p.School || "-"}</p>
 
     ${bonds.length ? `
-      <p><b>Vínculos</b></p>
+      <p><b>Bonds:</b></p>
       <ul>
         ${bonds.map(v => `<li><button class="bond-btn bond-link" data-bond="${v}">${v}</button></li>`).join("")}
       </ul>` : `<p><b>Bonds:</b> <i>None</i></p>`}
 
     ${skills.length ? `
-      <h4>Habilidades</h4>
+      <h4>Skills</h4>
       <ul>
         ${skills.map(h => `<li><button class="skill-btn" data-skill="${h.nome}">${h.nome}</button></li>`).join("")}
       </ul>` : ""}
@@ -1715,33 +1980,47 @@ function getCurrentTeamByName() {
 const saveTeamBtn = document.getElementById("saveTeamBtn");
 saveTeamBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    const teamName = prompt("Digite o nome do time:");
+    const teamName = prompt("Type team name:");
     if (!teamName) return;
 
     let teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
 
     if (teams[teamName]) {
-        if (!confirm(`Time "${teamName}" ja está salvo. Quer substituir?`)) {
+        if (!confirm(`Team "${teamName}" is already saved. Do you want to replace?`)) {
             return;
         }
     }
 
     teams[teamName] = getCurrentTeamByName();
     localStorage.setItem("savedTeams", JSON.stringify(teams));
-    alert(`Time "${teamName}" salvo!`);
+    alert(`Team "${teamName}" saved!`);
 
     showSavedTeams();
     sidebar.classList.add("open");
     menuBtn.style.display = "none";
 });
 
+    // wrapper: um passo no sentido horário + housekeeping
+function rotateMainGridClockwise() {
+  rotateRingClockwise(1);           // gira o anel (L fica parado)
+  const sm = document.getElementById("scrollMenu");
+  if (sm) sm.style.display = "none";
+  if (typeof updateSynergies === "function") updateSynergies();
+}
+    const rotateBtn = document.getElementById("rotateBtn");
+if (rotateBtn) {
+  rotateBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    rotateMainGridClockwise();
+  });
+}
 /* mostra lista de times salvos no painel lateral */
 function showSavedTeams() {
     const teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
-    let html = "<h3>Saved teams</h3>";
+    let html = "<h3>Times Salvos</h3>";
 
     if (Object.keys(teams).length === 0) {
-        html += "<p>No saved teams</p>";
+        html += "<p>Sem times salvos</p>";
     } else {
         html += `<div class="saved-list">`;
         for (const [name, team] of Object.entries(teams)) {
@@ -1761,6 +2040,7 @@ function showSavedTeams() {
     }
 
     sidebarContent.innerHTML = html;
+
 
     document.querySelectorAll(".load-btn").forEach(btn => {
         btn.addEventListener("click", (e) => {
@@ -1793,32 +2073,37 @@ function deleteTeam(name) {
     localStorage.setItem("savedTeams", JSON.stringify(teams));
 }
 
-/* Carrega time — monta usando setCharacter (assim datas e selected array ficam corretos) */
+/* Carrega time — monta usando setCharacter... */
 function loadTeam(name) {
-    const teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
-    const team = teams[name];
-    if (!team) return;
+  const teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
+  const team = teams[name];
+  if (!team) return;
 
-    selecionados = [];
+  selecionados = [];
 
-    document.querySelectorAll(".hex, .bench-slot").forEach(slot => {
-        slot.innerHTML = "";
-        delete slot.dataset.nome;
-        const infoDiv = slot.parentElement.querySelector('.player-info');
-        if (infoDiv) {
-            if (slot.classList.contains("bench-slot")) infoDiv.textContent = "Banco";
-            else infoDiv.textContent = slot.dataset.role || slot.getAttribute("data-role") || "";
-        }
-    });
+  // limpa grid e bench
+  document.querySelectorAll(".hex, .bench-slot").forEach(slot => {
+    slot.innerHTML = "";
+    delete slot.dataset.nome;
+    const infoDiv = slot.parentElement.querySelector('.player-info');
+    if (infoDiv) {
+      if (slot.classList.contains("bench-slot")) infoDiv.textContent = "Bench"; // ou "Banco"
+      else infoDiv.textContent = slot.dataset.role || slot.getAttribute("data-role") || "";
+    }
+  });
 
-    const hexes = Array.from(document.querySelectorAll(".hex"));
-    team.main.forEach((nome, i) => {
-        if (!nome) return;
-        const personagem = characters.find(p => p.nome === nome);
-        if (personagem && hexes[i]) {
-            setCharacter(hexes[i], personagem, hexes[i].dataset.role || hexes[i].getAttribute("data-role"));
-        }
-    });
+  // 🔧 NOVO: alinhar orientação do grid ao time salvo
+  orientGridToSavedTeam(team);
+
+  // agora preenche titulares nos índices do time salvo
+  const hexes = Array.from(document.querySelectorAll(".hex"));
+  team.main.forEach((nome, i) => {
+    if (!nome) return;
+    const personagem = characters.find(p => p.nome === nome);
+    if (personagem && hexes[i]) {
+      setCharacter(hexes[i], personagem, hexes[i].dataset.role || hexes[i].getAttribute("data-role"));
+    }
+  });
 
     const benches = Array.from(document.querySelectorAll(".bench-slot"));
     team.bench.forEach((nome, i) => {
@@ -1881,7 +2166,7 @@ document.addEventListener("click", (e) => {
     // Botão para limpar todo o time e resetar o banco
 document.getElementById("clearTeamBtn").addEventListener("click", (e) => {
     e.stopPropagation();
-    if (!confirm("Certeza que quer limpar o time atual?")) return;
+    if (!confirm("Are you sure you want to reset court and bench?")) return;
 
     // Fecha o Side Menu se estiver aberto
     sidebar.classList.remove("open");
