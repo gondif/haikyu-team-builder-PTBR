@@ -689,7 +689,7 @@ const characters = [
   {nome: "SUPER DIAGONAL CURTA", descricao:"RYUNOSUKE TANAKA consome 5 de Stamina extra para executar um Spike Diagonal Curto com 250% do [Ataque Potente] como poder; se for o primeiro spike do set, aumenta o poder em mais 30% do [Ataque Potente]."}
 ], symbols: [ "img/powersymbol.png" ] },
 
-{ nome: "Tsuki SP", funcao: "MB", img: "img/tsukiSP.png", School: "Karasuno", vinculo: ["Sol vs Lua"], Stats:{Serve:1685,Spike:1968,Set:1669,Receive:1759,Block:1789,Save:1774}, habilidades:[
+{ nome: "Tsuki SP", funcao: "MB", img: "img/tsukiSP.png", School: "Karasuno", vinculo: ["Sol vs Lua","Festival Fogos de Artificio"], Stats:{Serve:1685,Spike:1968,Set:1669,Receive:1759,Block:1789,Save:1774}, habilidades:[
   {nome:"Grande Cérebro", descricao:"Quando um membro do time adversário estiver sob efeito desfavorável, o [Awareness] e o [Reflex] de Tsukishima Kei (Fireworks Festival) aumentam em 15/20/25%, e o [Offensive Technique] e [Defensive Technique] dos aliados aumentam em 10%. Dura por 1 rali. Quando um aliado ativa uma habilidade de bloqueio, o [Ataque Rápido] de Tsukishima Kei (Fireworks Festival) aumenta em 3% (até 10 acúmulos). Quando um aliado ativa uma habilidade de Ataque Rápido, o [Block] de Tsukishima Kei (Fireworks Festival) aumenta em 3% (até 10 acúmulos)."},
   {nome:"Bloqueio é um Sistema", descricao:"Tsukishima Kei (Fireworks Festival) bloqueia com poder de [Block] × 300/325/350%. Aumenta o [Reflex] dos defensores traseiros aliados em 10% e o [Spirit] em 20%. Dura até a bola cruzar a rede duas vezes."},
   {nome:"Observar Calmamente a Situação", descricao:"No início da partida, se o [Técnica de Ataque] de Tsukishima Kei (Fireworks Festival) for ≥ ao [Defensive Technique], ele recebe o efeito [Attack I/II/III]; caso contrário, recebe [Defensive I/II/III]. Com [Attack I/II/III], o cooldown de 'Bloqueio é um Sistema' é reduzido em 4× o número de cruzamentos de rede, mas o poder dessa habilidade é reduzido em [Block] × 100/80/60%. [Ataque Rápido] é reduzido em 20/30/40."},
@@ -724,7 +724,7 @@ const characters = [
   {nome:"Jogada Sinalizada", descricao:"Sugawara Koushi (Depois da Escola) consome 15 de Stamina extra e realiza um levantamento com 60% ([Set] × 2) / 80% ([Set] × 2) / 300% / 20% ([Set] × 3) / 40% ([Set] × 3) de poder. O primeiro companheiro a atacar (Power/Quick) após essa jogada aumenta o [Técnica de Ataque] em 2.0% até a bola cruzar a rede duas vezes."}
 ], symbols: [ "img/blocksymbol.png", "img/servesymbol.png", "img/settersymbol.png" ] },
 
-{ nome: "Kenma SP", data: "02/26/26", funcao: "S", img: "img/kenmaSP.png", School: "Nekoma", vinculo: ["Observação de flores de cerejeira"], Stats:{Serve:1580,Spike:1700,Set:1990,Receive:1710,Block:1600,Save:1590}, habilidades:[
+{ nome: "Kenma SP", data: "02/26/26", funcao: "S", img: "img/kenmaSP.png", School: "Nekoma", vinculo: ["Observação de flores de cerejeira","Cérebro e Comandante SP"], Stats:{Serve:1580,Spike:1700,Set:1990,Receive:1710,Block:1600,Save:1590}, habilidades:[
   {nome:"Liderança", descricao:"Quando Kozume Kenma (Hanami) está em quadra, os [Reflex] dos aliados aumentam em 10/13/16%. Estando em quadra e um aliado receber ou salvar, ele ganha 1 acúmulo de [Defense that Eliminates Openings] e os [Reflex] dos aliados aumentam em 1.5%, até 10 acúmulos. Se o resultado da recepção/Save do aliado não for BAD, ganha mais 1 acúmulo."},
   {nome:"Levantamento Sem Movimento Desperdiçado", descricao:"Kozume Kenma (Hanami) realiza um levantamento com 140/160/180% de [Set] como poder. Se o atacante (Power/Quick) após essa jogada estiver na linha de trás, o poder do ataque aumenta em 20%."},
   {nome:"Procurar Falhas", descricao:"Quando Kozume Kenma (Hanami) executa Set ou Setter Dump, seu [Awareness] aumenta em 40/60/80% de [Reflex] como poder. Se ele estiver em quadra e o bloqueio do aliado não for BAD, o poder do Spike atual do oponente (Power/Quick) aumenta em 10/13/16% do [Power/Ataque Rápido] correspondente (efeito de enfraquecimento para o oponente)."},
@@ -1009,6 +1009,13 @@ const characters = [
   {nome:"Criar o Fluxo do Jogo", descricao:"O [Receive] aumenta em 12/16/20%. Quando um aliado ativa uma recepção não-especial ou Komori ativa uma recepção especial, consome 2 acúmulos de [Connect to Next] para aumentar a recepção em [Receive] × 30% e o primeiro Spike aliado depois disso aumenta o poder (Power/Quick) em 20%."},
   {nome:"Recepção que Cria Impulso", descricao:"Recebe com [Receive] × 260/275/290/305/320% de poder. O primeiro Spike aliado após isso (Power/Quick) aumenta o [Técnica de Ataque] do spiker em 20% até a bola cruzar a rede duas vezes."}
 ], symbols: [ "img/receivesymbol.png", "img/settersymbol.png" ] },
+
+/* ==missing Stats/skills== */{ nome: "Kuro SP", funcao: "MB", img: "img/kuroSP.png", School: "Nekoma", vinculo: ["Festival Fogos de Artificio","Cérebro e Comandante SP"], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"no info", descricao:"no info"},
+  {nome:"no info", descricao:"no info"},
+  {nome:"no info", descricao:"no info"},
+  {nome:"no info", descricao:"no info"}
+], symbols: [ "img/receivesymbol.png", "img/blocksymbol.png" ] }
 ];
 
 const descricoesSinergia = {
@@ -1041,7 +1048,10 @@ const descricoesSinergia = {
   "A força dos Gêmeos": "Quando Atsumu UR faz o passe e Osamu UR faz um Ataque Rápido Minus Tempo, aumenta o Ataque Rápido dessa jogada. Aumenta o Técnica de Ataque em 15%. O ataque não pode ser bloqueado.",
   "Cabeça dos Gêmeos": "Aumenta o Técnica de Ataque de Osamu UR. Aumenta os Stats de Kita SSR. No início da partida, Atsumu ganha 3 acúmulos de Perfect Hit* (+2% de Passe cada, máx. 10). Kita SSR ganha bônus similar em Recepção (máx. 3). O primeiro Ataque Rápido dos gêmeos em cada set recebe +[Ataque Rápido] × 12%.",
   "Amigos de longa data": "Aumenta os Stats de Hoshiumi UR. Aumenta o Bloqueio para os jogadores da linha de frente. Hoshiumi UR e Hirugami UR recebem um buff (sem info).",
-  "Top Spiker e Top Libero": "Sakusa UR aumenta seu Ataque Potente. Komori UR aumenta seu Recepção. Aumenta a Recepção dos aliados em 20%."
+  "Top Spiker e Top Libero": "Sakusa UR aumenta seu Ataque Potente. Komori UR aumenta seu Recepção. Aumenta a Recepção dos aliados em 20%.",
+  "Cérebro e Comandante SP": "Quando Kenma SP e Kuro SP estão em quadra, podem usar a habilidade de ataque rápido Cérebro e Comandante*",
+  "Festival Fogos de Artificio": "no info"
+    
 };
 let selecionados = [];
 
