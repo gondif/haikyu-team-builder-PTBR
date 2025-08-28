@@ -538,13 +538,15 @@ object-fit: Save;
 
 /* === LISTA NO Side Menu === */
 #charList{
-  display: grid !important;
+  display: grid;
   grid-template-columns: repeat(2, minmax(50px, 1fr)); /* 2 colunas no menu */
   gap: 10px;
   padding: 0;
   margin: 0;
   list-style: none;
 }
+/* nova classe para esconder */
+#charList.is-hidden { display: none !important; }
 
 /* escalar a imagem ao tamanho da coluna */
 #charList .person-card img{
@@ -578,7 +580,249 @@ object-fit: Save;
   justify-content: flex-end; /* ou center/space-between */
   margin-top: 45px;
 }
+/* === ITEMS (Memory + Potential Sets) === */
+.item-badge {
+  position:absolute; bottom:4px; right:6px;
+  background:#111; border:1px solid #666; color:#fff;
+  font-size:11px; padding:2px 6px; border-radius:6px; opacity:.9;
+  max-width: 90%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.item-modal-backdrop{
+  position:fixed; inset:0; background:rgba(0,0,0,.6);
+  display:flex; align-items:center; justify-content:center; z-index:5000;
+}
+.item-modal{
+  background:#2b2b2b; color:#fff; width:min(640px,92vw);
+  border-radius:12px; padding:14px; box-shadow:0 12px 32px rgba(0,0,0,.5);
+}
+.item-row{ display:grid; grid-template-columns: 140px 1fr; gap:10px; align-items:center; margin:10px 0; }
+.item-modal select{
+  width:100%; background:#1f1f1f; color:#fff; border:1px solid #555; border-radius:8px; padding:8px;
+}
+.item-actions{ display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
+.item-btn{
+  background:#444; border:1px solid #666; color:#fff;
+  padding:8px 10px; border-radius:8px; cursor:pointer;
+}
+.item-btn:hover{ background:#555; }
+.item-stats{
+  background:#1e1e1e; border:1px solid #444; border-radius:10px; padding:8px; font-size:13px;
+}
+.item-stats code{ font-family: ui-monospace, Menlo, Consolas, monospace; }
+.item-desc{ opacity:.85; font-size:12px; margin-top:6px; line-height:1.35; }
+.hex, .bench-slot { position: relative; } /* ancora do badge/engrenagem */
+.item-gear{
+  position:absolute; top:4px; right:4px; z-index:5;
+  width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+  border-radius:999px; background:rgba(20,20,20,.85); border:1px solid #666;
+  font-size:14px; cursor:pointer; color:#fff;
+}
+.item-gear:hover{ background:rgba(40,40,40,.95); }
+.item-badge img { width:14px; height:14px; vertical-align:-2px; margin-right:4px; border-radius:3px; }
+.item-choice img {
+  width:28px; height:28px; border-radius:6px; object-fit:cover;
+}
+.item-choice.empty { opacity:.6; }
+/* Linha no formato: [label] [IMG] [select]  */
+.item-row-inline{
+  display: grid;
+  grid-template-columns: 140px 52px 1fr; /* label | img | select */
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0;
+}
 
+/* thumb quadrada */
+.item-thumb{
+  width: 48px; height: 48px;
+  border-radius: 8px;
+  background: #2a2a2a;
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px #444;
+}
+
+/* select estilo “pill” (opcional) */
+.item-select{
+  width: 100%;
+  background:#1f1f1f; color:#fff;
+  border:1px solid #555; border-radius:999px;
+  padding: 8px 12px;
+}
+
+/* descrição fica alinhada sob IMG+select (colunas 2..3) */
+.item-subdesc{
+  grid-column: 2 / span 2;
+  font-size: 12px; opacity: .85; margin-top: 6px;
+}
+/* --- mais espaço no modal de Items --- */
+.item-row-inline{
+  display: grid;
+  grid-template-columns: 170px 56px 1fr; /* label | IMG | select  (era 140px 52px 1fr) */
+  column-gap: 16px;                      /* era 10px */
+  row-gap: 8px;
+  align-items: start;                    /* evita que label fique baixo */
+  margin: 14px 0;                        /* era 10px */
+}
+
+/* o texto do rótulo alinhado ao topo da linha (Memory / Potential...) */
+.item-row-inline > div:first-child{
+  align-self: start;
+  padding-top: 4px;
+}
+
+/* a miniatura um pouco maior */
+.item-thumb{
+  width: 150px; height: 150px;             /* se quiser mais: 56x56 */
+  border-radius: 8px;
+  background: #2a2a2a;
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px #444;
+}
+
+/* select mais “fofo” e com respiro */
+.item-select{
+  width: 100%;
+  background:#1f1f1f; color:#fff;
+  border:1px solid #555; border-radius:999px;
+  padding: 10px 14px;                    /* era 8px 12px */
+}
+
+/* descrição com mais espaço e alinhada sob IMG+select */
+.item-subdesc{
+  grid-column: 2 / span 2;               /* ocupa coluna da IMG + select */
+  margin-top: 8px;                        /* era 6px */
+  font-size: 12px; opacity: .85;
+}
+
+/* dá um espaço extra entre os blocos */
+.item-modal .item-row-inline + .item-row-inline{
+  margin-top: 120px;
+}
+/* === Grid de 2 colunas no modal === */
+.item-modal .items-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;           /* coluna esquerda | direita */
+  column-gap: 28px;                          /* espaço entre colunas */
+  row-gap: 18px;
+  align-items:start;
+  margin-top: 6px;
+}
+
+/* coluna direita ganha um divisor sutil à esquerda */
+.item-modal .items-col + .items-col{ position:relative; }
+.item-modal .items-col + .items-col::before{
+  content:"";
+  position:absolute; left:-14px; top:0; bottom:0; width:1px;
+  background: rgba(255,255,255,.08);
+}
+
+/* linhas internas no formato: label | IMG | select */
+.item-row-inline{
+  display:grid;
+  grid-template-columns: 150px 56px 1fr;     /* label | img | select */
+  column-gap: 16px; row-gap: 8px;
+  align-items:center;
+  margin: 6px 0;
+}
+.item-row-inline > div:first-child{          /* o rótulo (Memory / Potential...) */
+  align-self:start; padding-top: 6px;
+}
+.item-thumb{
+  width: 75px; height: 75px; border-radius: 10px;
+  background:#2a2a2a; object-fit:cover;
+  box-shadow: inset 0 0 0 1px #444;
+}
+.item-select{
+  width:100%; background:#1f1f1f; color:#fff;
+  border:1px solid #555; border-radius:999px;
+  padding:10px 14px;
+}
+.item-subdesc{
+  grid-column: 2 / span 2;                   /* fica alinhado sob IMG+select */
+  font-size:12px; opacity:.85; margin-top:8px;
+}
+
+/* linha “Stats preview” continua em 2 colunas padrão (label | conteúdo) */
+.item-row{
+  display:grid; grid-template-columns: 150px 1fr;
+  column-gap: 16px; align-items:start; margin: 6px 0;
+}
+/* --- Badge só com ícones --- */
+/* === Badge com ícones que se ajustam ao tamanho === */
+.item-badge{
+  --icon: 37px;                 /* ajuste aqui o tamanho do ícone (18–28px) */
+  display:flex; gap:6px; align-items:center;
+  position:absolute; bottom:4px; right:6px;
+  background:rgba(0,0,0,.60);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:8px; padding:3px 6px; z-index:4;
+}
+
+/* cada “slot” de ícone */
+.item-badge .ico{
+  position:relative;
+  width:var(--icon); height:var(--icon);
+  border-radius:4px; overflow:hidden;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+  background:#222;
+}
+
+/* a imagem cobre 100% do slot, sem distorcer */
+.item-badge .ico img{
+  position:absolute; inset:0;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover;
+  display:block;
+}
+
+/* etiqueta “M/4/2” (opcional) escala com o tamanho do ícone */
+.item-badge .tag{
+  position:absolute; right:-2px; bottom:-2px;
+  padding:0 2px;
+  font-size:calc(var(--icon) * 0.42);
+  line-height:1.05;
+  background:rgba(0,0,0,.85); color:#fff;
+  border:1px solid rgba(255,255,255,.35); border-radius:3px;
+}
+/* --- Layout 3 colunas: label | IMG | select --- */
+.items-3col{ display:grid; row-gap:18px; }
+
+.row-3col{
+  display:grid;
+  grid-template-columns: 120px 120px 1fr; /* label | img | select */
+  column-gap:18px; align-items:center;
+}
+
+.row-3col .label{ align-self:center; padding-top:4px; }
+
+.big-thumb{
+  width:120px; height:80px;           /* ajuste como preferir */
+  border-radius:10px;
+  background:#2a2a2a;
+  box-shadow:inset 0 0 0 1px #444;
+  object-fit:cover;
+}
+
+.select-wide{
+  width:100%; background:#1f1f1f; color:#fff;
+  border:1px solid #555; border-radius:10px;
+  padding:10px 12px;
+}
+
+.subdesc{ font-size:12px; opacity:.85; margin-top:8px; }
+
+/* Stats em lista vertical */
+.stats-list{ list-style:none; margin:0; padding:0; }
+.stats-list li{
+  margin:6px 0;
+  font-family:ui-monospace, Menlo, Consolas, monospace;
+  background:#1e1e1e; border:1px solid #444; border-radius:10px;
+  padding:6px 10px;
+}
+.stats-list li b{ margin-right:6px; }
+.hex.drop-ok, .bench-slot.drop-ok { outline: 2px dashed #9cf; }
+.hex.drop-bad, .bench-slot.drop-bad { outline: 2px dashed #f66; }
 </style>
 </head>
 <body>
@@ -591,10 +835,11 @@ object-fit: Save;
         <!-- substituí EStatísticas por Save/Load -->
         <li><button class="menu-link bond-btn" data-section="save">💾 Salvar & Carregar Times</button></li>
         <li><button class="menu-link bond-btn" data-section="characters">🔍 Personagens</button></li>
+        <li><button class="menu-link bond-btn" data-section="schools">🏫 Escolas</button></li>
         <li><button class="menu-link bond-btn" data-section="help">ℹ️ Info</button></li>
     </ul>
     <div id="sidebar-content">
-        <p>Select an option above.</p>
+        <p>Selecione uma opção acima</p>
     </div>
 </div>
 
@@ -624,8 +869,9 @@ object-fit: Save;
         </div>
          <div id="bench-toolbar" style="display:flex; align-items:center; gap:10px; margin-top:8px;">
     <button id="rotateBtn" title="Rotate clockwise" style="background-color:#222222;color:white;padding:6px 10px; border:none; border-radius:5px; font-size:16px; cursor:pointer;margin-right:8px;">↻</button>
-    <button id="saveTeamBtn" title="Salvar Time" style="background-color:#222222;margin-right:8px;">⬇️</button>
-    <button id="clearTeamBtn" title="Limpar Time" style="background-color:#222222; color:white; padding:6px 10px; border:none; border-radius:5px; font-size:16px; cursor:pointer;">🗑️</button>
+    <button id="saveTeamBtn" title="Save Team" style="background-color:#222222;margin-right:8px;">⬇️</button>
+    <button id="clearTeamBtn" title="Clear Team" style="background-color:#222222; color:white; padding:6px 10px; border:none; border-radius:5px; font-size:16px; cursor:pointer;margin-right:55px;">🗑️</button>
+    <button id="recommendBtn" title="Recommend based on highest synergies possible"style="background-color:#222222; color:white; padding:6px 10px; border:none; border-radius:5px; font-size:16px; cursor:pointer;margin-right:55px;">⭐</button>
 </div>
     </div>
 </div>
@@ -633,8 +879,8 @@ object-fit: Save;
 <div class="scroll-menu" id="scrollMenu"></div>
 
 <div id="synergy-panel">
-    <h2>Sinergias</h2>
-    <ul id="synergy-list"><li>Apenas vínculos de posicionamento e escolar serão mostrados. Sinergias só funcionarão, dentro do jogo, quando os jogadores estiverem em quadra.</li></ul>
+    <h2>Sinergies</h2>
+    <ul id="synergy-list"><li>Apenas vínculos de posicionamento são visíveis</li></ul>
 </div>
 
 <script>
@@ -815,7 +1061,7 @@ const characters = [
   {nome:"SAQUE DE DUAS LÂMINAS", descricao:"TORU OIKAWA (Practice) executa um Power Jump Serve com 240% do [Serve]. Para esse saque, o [Percepção] dele aumenta em 15%. Há 5% de chance fixa de falha."}
 ], symbols: [ "img/powersymbol.png", "img/servesymbol.png", "img/settersymbol.png" ] },
 
-{ nome: "Iwazumi SSR", funcao: "WS", img: "img/iwazumiSR.png", School: "Aoba Johsai", vinculo: ["Harmonia Perfeita", "A Matilha"], Stats:{Serve:1190,Spike:1385,Set:1118,Receive:1314,Block:1248,Save:1129}, habilidades:[
+{ nome: "Iwaizumi SSR", funcao: "WS", img: "img/iwazumiSR.png", School: "Aoba Johsai", vinculo: ["Harmonia Perfeita", "A Matilha"], Stats:{Serve:1190,Spike:1385,Set:1118,Receive:1314,Block:1248,Save:1129}, habilidades:[
   {nome:"Força do Ace", descricao:"Aumenta o [Percepção] de HAJIME IWAIZUMI em 5% e a Força em 10%."},
   {nome:"Defesa Focada", descricao:"HAJIME IWAIZUMI realiza uma Recepção com 120% de [Recepção] como poder."},
   {nome:"Arenga do Vice-Capitão", descricao:"Enquanto HAJIME IWAIZUMI está presente, aumenta a Força dos jogadores do seu lado em 6%."},
@@ -1010,7 +1256,7 @@ const characters = [
   {nome:"Recepção que Cria Impulso", descricao:"Recebe com [Recepção] × 260/275/290/305/320% de poder. O primeiro Spike aliado após isso (Power/Quick) aumenta o [Técnica de Ataque] do spiker em 20% até a bola cruzar a rede duas vezes."}
 ], symbols: [ "img/receivesymbol.png", "img/settersymbol.png" ] },
 
-/* ==missing Stats/skills== */{ nome: "Kuro SP", funcao: "MB", img: "img/kuroSP.png", School: "Nekoma", vinculo: ["Festival Fogos de Artificio","Cérebro e Comandante SP"], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+/* ==missing Stats== */{ nome: "Kuro SP", funcao: "MB", img: "img/kuroSP.png", School: "Nekoma", vinculo: ["Festival Fogos de Artificio","Cérebro e Comandante SP"], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
   {nome:"A Torre de Comando Imbatível", descricao:"Quando Kuroo Tetsuro (Hanabi) está em quadra, o [Mental] dos aliados na mesma linha de Kuroo Tetsuro (Hanabi) aumenta em 20/25/30%. Depois que ele toca na bola, o poder da próxima jogada do mesmo tipo que a jogada de Kuroo Tetsuro (Hanabi) é aumentado em 40% × o parâmetro correspondente do membro que fará a jogada. Se a jogada de Kuroo Tetsuro (Hanabi) for crítica, um membro aleatório do time adversário recebe a desvantagem [Raiva] ([Cortada Potente]/[Ataque Rápido] será reduzido em 10%)."},
   {nome:"Recepção Habilidosa", descricao:"Kuroo Tetsuro (Hanabi) realiza uma recepção com poder igual a [Recepção] × 140/160/180%. Se essa jogada for crítica, o poder dessa recepção aumenta em [Recepção] × 20%."},
   {nome:"Um Jogador Completo, Sem Falhas", descricao:"Quando Kuroo Tetsuro (Hanabi) está na linha de frente/traseira e toca na bola, sua [Reação] aumenta em 50% × a [Reação] de cada outro aliado na linha de frente/traseira (máximo 100%), e seu [Mental] aumenta em 50% × o [Mental] de cada outro aliado na linha de frente/traseira (máximo 100%). Além disso, quando Kuroo Tetsuro (Hanabi) está na linha de frente, a [Técnica de Ataque] dos aliados aumenta em 14/17/20%, e seu poder de bloqueio aumenta em [Bloqueio] × 45%. Além disso, quando Kuroo Tetsuro está na linha de trás, a [Técnica Defensiva] dos aliados aumenta em 14/17/20%, e seu poder de recepção aumenta em [Recepção] × 45%."},
@@ -1053,6 +1299,630 @@ const descricoesSinergia = {
   "Festival Fogos de Artificio": "Atributos principais dos aliados aumentam em 6%.Ao fim de cada rali, aplica [Raiva] na linha de frente do oponente (os [Cortada Potente]/[Ataque Rápido] deles ficam –10%).Dura até a bola atravessar a rede 8 vezes.Se o alvo já tiver [Raiva], aplica [Distração] em vez disso (os [Cortada Potente]/[Ataque Rápido] ficam –20%).Também dura até a bola atravessar a rede 8 vezes.[Distração] não pode ser removido."
     
 };
+    
+/** Catálogo de MEMÓRIAS (exemplos; ajuste/expanda à vontade) */
+const memoryCatalog = [
+  {
+    id:"mem_op",
+    name:"Memória de OP",
+    positions:["OP"],
+    bonus:{
+      Serve:{flat:518}, Spike:{flat:663}, Set:{flat:461},
+      Receive:{flat:663}, Block:{flat:605}, Save:{flat:490}
+    },
+    desc:"Quando um membro com esta memória joga pela primeira vez em cada set, sua [Recepção] aumenta em 24%. Este efeito dura por 3 ralis.",
+    img:"img/memories/MemoOP.png"
+  },
+  {
+    id:"mem_l",
+    name:"Memória de L",
+    positions:["L"],
+    bonus:{
+      Serve:{flat:490}, Spike:{flat:518}, Set:{flat:605},
+      Receive:{flat:663}, Block:{flat:461}, Save:{flat:663}
+    },
+    desc:"Os Parâmetros Principais do membro que equipa esta memória aumentam em 6.4%. Se o resultado de recepção do respectivo membro não for BAD, o poder do próximo Ataque Potente do aliado será aumentado em 24% × [Ataque Potente] do membro que executará o Ataque Potente.",
+    img:"img/memories/MemoL.png"
+  },
+  {
+    id:"mem_ws",
+    name:"Memória de WS",
+    positions:["WS"],
+    bonus:{
+      Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461},
+      Receive:{flat:663}, Block:{flat:518}, Save:{flat:490}
+    },
+    desc:"O membro que equipa esta memória tem seu [Ataque Potente] aumentado em 12%. Quando o membro realiza um Ataque Potente, o [Bloqueio] do oponente é reduzido em 6.4% até a bola cruzar a rede uma vez. Se o resultado do bloqueio do oponente nesta jogada for BAD, o membro oponente que bloqueou terá seu [Bloqueio] reduzido em 6.4%. Este efeito dura até a bola cruzar a rede duas vezes.",
+    img:"img/memories/MemoWS.png"
+  },
+  {
+    id:"mem_s",
+    name:"Memória de S",
+    positions:["S"],
+    bonus:{
+      Serve:{flat:663}, Spike:{flat:518}, Set:{flat:663},
+      Receive:{flat:490}, Block:{flat:605}, Save:{flat:461}
+    },
+    desc:"Enquanto houver um membro com esta memória em quadra, o [Passe] dos aliados aumenta em 8%. Uma vez por set, quando a Stamina de um membro cair abaixo de 30, a Stamina desse membro será restaurada em 24.",
+    img:"img/memories/MemoS.png"
+  },
+  {
+    id:"mem_mb",
+    name:"Memória de MB",
+    positions:["MB"],
+    bonus:{
+      Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461},
+      Receive:{flat:518}, Block:{flat:663}, Save:{flat:490}
+    },
+    desc:"O [Ataque Rápido] do membro que equipa esta memória é aumentado em 12%. Para cada membro de Bloqueio na linha de frente do oponente, o [Ataque Rápido] desse membro aumenta em mais 6.4%.",
+    img:"img/memories/MemoMB.png"
+  },
+  {
+    id:"mem_up_consciencia_wakatoshi_ushijima",
+    name:"Ushijima UR",
+    positions:["OP"],
+    bonus:{
+      Serve:{flat:570}, Spike:{flat:729}, Set:{flat:507},
+      Receive:{flat:729}, Block:{flat:665}, Save:{flat:539}
+    },
+    desc:"A [Percepção] do membro que equipa esta memória é aumentada em 20%. Se a [Percepção] do membro exceder 20%, para cada 1% adicional de [Percepção], a [Força] aumenta em 1% (até 100%).",
+    img:"img/memories/MemoUshijimaUR.png"
+  },
+  {
+    id:"mem_ofensive_up_osamu_miya",
+    name:"Osamu UR",
+    positions:["OP"],
+    bonus:{
+      Serve:{flat:570}, Spike:{flat:729}, Set:{flat:507},
+      Receive:{flat:729}, Block:{flat:665}, Save:{flat:539}
+    },
+    desc:"O [Ataque Rápido] do membro que equipa esta memória é aumentado em 24%. Se a [Técnica de Ataque] do membro exceder 40%, o [Ataque Rápido] aumenta em 48% × [Ataque Rápido].",
+    img:"img/memories/MemoOsamuUR.png"
+  },
+  {
+    id:"mem_receba_reforco_hard_hit_daichi_sawamura",
+    name:"Daichi SSR",
+    positions:["OP"],
+    bonus:{
+      Serve:{flat:518}, Spike:{flat:663}, Set:{flat:461},
+      Receive:{flat:663}, Block:{flat:605}, Save:{flat:490}
+    },
+    desc:"A [Recepção] do membro que equipa esta memória é aumentada em 20%. Se o membro estiver em quadra, ganhe 1 acúmulo de [Determinação] sempre que um aliado do tipo Força consumir 20 de Stamina. Cada acúmulo aumenta o poder do Ataque Potente em 4% do atributo [Ataque Potente], até 10 acúmulos.",
+    img:"img/memories/MemoDaichiSSR.png"
+  },
+  {
+    id:"mem_reacao_para_cima_akinori_konoha",
+    name:"Konoha SSR",
+    positions:["OP"],
+    bonus:{
+      Serve:{flat:518}, Spike:{flat:663}, Set:{flat:461},
+      Receive:{flat:663}, Block:{flat:605}, Save:{flat:490}
+    },
+    desc:"Os Parâmetros Principais dos membros que equipam esta memória aumentam em 12%. O [Reflexo] do membro eleva a Moral da Equipe dos aliados em 10%. Enquanto um aliado estiver com [Despertar de Moral da Equipe] ativo, o [Reflexo] desse membro aumenta em 8%.",
+    img:"img/memories/MemoKonohaSSR.png"
+  },
+  {
+    id:"mem_ofensive_up_kentaro_kyotani",
+    name:"Kentaro MAD DOG SSR",
+    positions:["OP"],
+    bonus:{
+      Serve:{flat:518}, Spike:{flat:663}, Set:{flat:461},
+      Receive:{flat:663}, Block:{flat:605}, Save:{flat:490}
+    },
+    desc:"Se o membro com esta memória estiver em quadra, a [Força] do aliado que estiver atacando aumenta em 12%. Enquanto o membro estiver em quadra e a Stamina do oponente estiver abaixo de 60, o [Bloqueio] do oponente é reduzido em 16%. Este efeito dura até a bola cruzar a rede 3 vezes e pode ser ativado uma vez por set por membro.",
+    img:"img/memories/MemoKentaroSSR.png"
+  },
+  {
+    id:"mem_param_main_e_hard_hit_takehito_sasaya",
+    name:"Sasaya SSR",
+    positions:["OP"],
+    bonus:{
+      Serve:{flat:518}, Spike:{flat:663}, Set:{flat:461},
+      Receive:{flat:663}, Block:{flat:605}, Save:{flat:490}
+    },
+    desc:"O [Ataque Potente] e o [Bloqueio] dos membros que equipam esta memória aumentam em 12%. Se o placar estiver favorável ao oponente, o poder do seu Spike aumenta em 28% × [Ataque Potente].",
+    img:"img/memories/MemoSasayaSSR.png"
+  },
+  {
+    id:"mem_defense_up_yu_nishinoya_depois_da_escola",
+    name:"Nishinoya SP",
+    positions:["L"],
+    bonus:{
+      Serve:{flat:619}, Spike:{flat:656}, Set:{flat:765},
+      Receive:{flat:838}, Block:{flat:583}, Save:{flat:838}
+    },
+    desc:"O membro que equipa esta memória tem sua [Recepção] aumentada em 24%. Quando a Habilidade Especial do respectivo membro é ativada, o [Reflexo] aumenta em 1.2% e o [Empenho] aumenta em 2.4% (até 5 acúmulos). Se o membro usar uma Habilidade Especial mais de duas vezes durante um rali, ele recupera 10 de Stamina e, na próxima Habilidade Especial que usar, sua [Técnica de Defesa] aumenta em 16%. Este efeito dura até a bola cruzar a rede duas vezes.",
+    img:"img/memories/MemoNishinoyaSP.png"
+  },
+  {
+    id:"mem_defense_offensive_up_motoya_komori",
+    name:"Komori UR",
+    positions:["L"],
+    bonus:{
+      Serve:{flat:619}, Spike:{flat:656}, Set:{flat:838},
+      Receive:{flat:838}, Block:{flat:583}, Save:{flat:765}
+    },
+    desc:"O membro que equipa esta memória tem sua [Recepção] aumentada em 24%. Quando o respectivo membro recebe, a [Técnica de Defesa] dos aliados na retaguarda aumenta em 2% (até 3 acúmulos). Se o membro estiver em quadra, quando um aliado ativar uma habilidade de Recepção, quem receber recupera 2 de Stamina e tem seu [Ataque Potente/Ataque Rápido] aumentado em 15%. Este efeito dura até a bola cruzar a rede duas vezes.",
+    img:"img/memories/MemoKomoriUR.png"
+  },
+  {
+    id:"mem_defense_up_yu_nishinoya",
+    name:"Nishinoya SSR",
+    positions:["L"],
+    bonus:{
+      Serve:{flat:490}, Spike:{flat:518}, Set:{flat:605},
+      Receive:{flat:663}, Block:{flat:461}, Save:{flat:663}
+    },
+    desc:"Se o membro que equipa esta memória estiver em quadra, aumenta a [Defesa] dos jogadores da linha de trás do seu lado em 8%. Se o consumo de Stamina do equipador for 8 ou mais ao ativar a habilidade de recepção, a [Recepção] do equipador aumenta em 20% e ele recupera 2 de Stamina.",
+    img:"img/memories/MemoNishinoyaSSR.png"
+  },
+  {
+    id:"mem_receba_morisuke_yaku",
+    name:"Yaku SSR",
+    positions:["L"],
+    bonus:{
+      Serve:{flat:490}, Spike:{flat:518}, Set:{flat:605},
+      Receive:{flat:663}, Block:{flat:461}, Save:{flat:663}
+    },
+    desc:"Quando um membro com esta memória recebe, a [Recepção] aumenta em 4% (até 5 acúmulos). Se a recepção do membro for PERFECT, o poder do próximo Ataque Rápido de um aliado aumenta em 32% × [Ataque Rápido] do membro que executará o ataque rápido.",
+    img:"img/memories/MemoYakuSSR.png"
+  },
+  {
+    id:"mem_receba_haruki_komi",
+    name:"Haruki SSR",
+    positions:["L"],
+    bonus:{
+      Serve:{flat:490}, Spike:{flat:518}, Set:{flat:605},
+      Receive:{flat:663}, Block:{flat:461}, Save:{flat:663}
+    },
+    desc:"A [Recepção] e a [Defesa] dos membros que equipam esta memória aumentam em 16%. Se a recepção ou a defesa do membro não for BAD, a Moral da Equipe aumenta em 10. Além disso, o poder do próximo Ataque Potente de um aliado aumenta em 10% × [Ataque Potente] do membro.",
+    img:"img/memories/MemoHarukiSSR.png"
+  },
+  {
+    id:"mem_receba_yamagata_hayato",
+    name:"Memo Yamagata SSR",
+    positions:["L"],
+    bonus:{
+      Serve:{flat:490}, Spike:{flat:518}, Set:{flat:605},
+      Receive:{flat:663}, Block:{flat:461}, Save:{flat:663}
+    },
+    desc:"A [Recepção] do membro que equipa esta memória é aumentada em 20%. Quando o membro ativa a Habilidade Especial de Recepção, o [Reflexo] aumenta em 12%.",
+    img:"img/memories/MemoYamagataSSR.png"
+  },
+  {
+    id:"mem_defense_up_michinari_akagi",
+    name:"Memo Akagi SSR",
+    positions:["L"],
+    bonus:{
+      Serve:{flat:490}, Spike:{flat:518}, Set:{flat:605},
+      Receive:{flat:663}, Block:{flat:461}, Save:{flat:663}
+    },
+    desc:"A [Recepção] do membro que equipa esta memória é aumentada em 20%. Se o resultado de recepção ou defesa do membro não for BAD, a [Técnica de Defesa] do aliado aumenta em 16% (até 3 acúmulos). Este efeito dura por 1 rali.",
+    img:"img/memories/MemoAkagiSSR.png"
+  },
+  {
+    id:"mem_power_up_shouyou_hinata_hanami",
+    name:"Hinata SP",
+    positions:["MB"],
+    bonus:{ Serve:{flat:619}, Spike:{flat:838}, Set:{flat:656}, Receive:{flat:838}, Block:{flat:765}, Save:{flat:583} },
+    desc:"A [Força] do membro que equipa esta memória aumenta em 24%. Se o Ataque Rápido do membro for PERFECT, aumente a [Força] do membro em 2% (até 5 acúmulos). Se o Ataque Rápido de um aliado for PERFECT e o bloqueador oponente não tocar na bola, a [Reflexo] e o [Empenho] da linha de frente inimiga serão reduzidos em 8% cada. Este efeito dura até a bola cruzar a rede 10 vezes.",
+    img:"img/memories/MemoHinataSP.png"
+  },
+  {
+    id:"mem_hast_attack_block_up_tsukishima_firefly_display_de_fogos_de_artificio",
+    name:"Tsuki SP",
+    positions:["MB"],
+    bonus:{ Serve:{flat:619}, Spike:{flat:838}, Set:{flat:656}, Receive:{flat:765}, Block:{flat:838}, Save:{flat:583} },
+    desc:"O [Ataque Rápido] do membro que equipa esta memória aumenta em 24%. Se o membro fizer um PERFECT, o [Bloqueio] aumenta em 9% (até 3 acúmulos). Aplica aleatoriamente o efeito negativo [Supressão] a um membro do time adversário em quadra (Parâmetros Principais reduzidos em 5%). Este efeito dura até a bola cruzar a rede 8 vezes.",
+    img:"img/memories/MemoTsukiSP.png"
+  },
+  {
+    id:"mem_kurosp",
+    name:"Kuro SP",
+    positions:["MB"],
+    bonus:{ Serve:{flat:765}, Spike:{flat:656}, Set:{flat:619}, Receive:{flat:838}, Block:{flat:838}, Save:{flat:583} },
+    desc:"O [Bloqueio] aumenta em 12%. Quando o membro bloquear ou receber, se houver um inimigo em quadra com efeito negativo, a [Técnica de Defesa] do respectivo membro aumenta em 20%. Este efeito dura até a bola cruzar a rede quatro vezes.",
+    img:"img/memories/MemoKuroSP.png"
+  },
+  {
+    id:"mem_tecnica_de_defesa_bloqueio_takashi_aone_banho_de_mar",
+    name:"Aone SP",
+    positions:["MB"],
+    bonus:{ Serve:{flat:838}, Spike:{flat:765}, Set:{flat:656}, Receive:{flat:619}, Block:{flat:838}, Save:{flat:583} },
+    desc:"A [Técnica de Defesa] do membro que equipa esta memória aumenta em 12.8%. Quando este membro participa de um bloqueio de 2 ou 3 jogadores, o [Bloqueio] da linha de frente aliada aumenta em 12% até a bola cruzar a rede duas vezes. Quando o membro bloquear, se a jogada resultar em bloqueio de 2/3, o [Bloqueio] do membro aumenta em mais 15% até a bola cruzar a rede duas vezes.",
+    img:"img/memories/MemoAoneSP.png"
+  },
+  {
+    id:"mem_hast_attack_blockup_tetsuro_kuroo",
+    name:"Kuro UR",
+    positions:["MB"],
+    bonus:{ Serve:{flat:665}, Spike:{flat:729}, Set:{flat:507}, Receive:{flat:570}, Block:{flat:729}, Save:{flat:539} },
+    desc:"O membro que equipa esta memória tem seu [Bloqueio] aumentado em 24%. Cada vez que o membro receber um aumento de [Ataque Rápido] proveniente de uma habilidade de aliado, ganha 1 acúmulo de [Ajuste]. Cada acúmulo de [Ajuste] aumenta o [Bloqueio] em 2.4% (máx. 10). Quando a Habilidade Especial de Bloqueio do membro for ativada, consuma 10 acúmulos do efeito [Constrição] e reduza a recarga da Habilidade Especial de Bloqueio do membro em 10 cruzadas de rede.",
+    img:"img/memories/MemoKuroUR.png"
+  },
+  {
+    id:"mem_block_up_hirugami_yukoro",
+    name:"Hirugami UR",
+    positions:["MB"],
+    bonus:{ Serve:{flat:729}, Spike:{flat:665}, Set:{flat:507}, Receive:{flat:570}, Block:{flat:729}, Save:{flat:539} },
+    desc:"O membro que equipa esta memória tem seu [Bloqueio] aumentado em 20%. Quando um aliado pontua, o [Bloqueio] dele aumenta em 4.8% (até 3 acúmulos). Se um aliado possuir o efeito [Bloqueio Forte], ao bloquear sua [Técnica de Defesa] aumenta em 2.4% até a bola cruzar a rede quatro vezes (até 3 acúmulos).",
+    img:"img/memories/MemoHirugamiUR.png"
+  },
+  {
+    id:"mem_increase_consciousness_shoyo_hinata",
+    name:"Hinata SSR",
+    positions:["MB"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:518}, Block:{flat:663}, Save:{flat:490} },
+    desc:"A [Percepção] dos membros que equipam esta memória aumenta em 16%. Se a [Percepção] do membro for 40% ou maior, a [Percepção] aumenta em mais 16% e sofrer bloqueio é reduzido em 8%.",
+    img:"img/memories/MemoHinataSSR.png"
+  },
+  {
+    id:"mem_block_up_tsukishima",
+    name:"Tsuki SSR",
+    positions:["MB"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:518}, Block:{flat:663}, Save:{flat:490} },
+    desc:"O [Bloqueio] do membro que equipa esta memória aumenta em 20%. Quando o membro ativa a Habilidade Especial de Bloqueio, se o oponente que realizou o spike (Ataque Potente/Rápido) tiver um efeito negativo, o poder deste bloqueio aumenta em 32% × [Bloqueio] do membro.",
+    img:"img/memories/MemoTsukiSSR.png"
+  },
+  {
+    id:"mem_offensive_up_tetsuro_kuroo_pratica",
+    name:"Kuro SSR",
+    positions:["MB"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:518}, Block:{flat:663}, Save:{flat:490} },
+    desc:"A [Percepção] dos membros que equipam esta memória aumenta em 16%. Quando o membro for bloqueado, sua [Técnica de Defesa] aumenta em 24% da sua [Força].",
+    img:"img/memories/MemoKuroSSR.png"
+  },
+  {
+    id:"mem_block_up_tatsuo",
+    name:"Tatsuo SSR",
+    positions:["MB"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:518}, Block:{flat:663}, Save:{flat:490} },
+    desc:"O [Bloqueio] do membro que equipa esta memória aumenta em 24%. Quando o membro bloquear, se o spike do oponente (potente/rápido) for PERFECT, este bloqueio será garantidamente PERFECT. Se o resultado deste bloqueio não for BAD, o [Bloqueio] do membro aumenta em 5% (até 3 acúmulos).",
+    img:"img/memories/MemoTatsuoSSR.png"
+  },
+  {
+    id:"mem_receive_up_ataque_rapido_reforco_haiba_lev",
+    name:"Lev SSR",
+    positions:["MB"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:518}, Block:{flat:663}, Save:{flat:490} },
+    desc:"Se o membro que equipa esta memória estiver em quadra, a [Recepção] dos defensores aliados aumenta em 12%. Se o membro estiver em quadra e o resultado da recepção aliada for PERFECT, o poder da próxima Habilidade Especial de Ataque Rápido do membro aumenta em 24% × [Ataque Rápido].",
+    img:"img/memories/MemoLevSSR.png"
+  },
+  {
+    id:"mem_defense_up_takanobu_aone",
+    name:"Aone SSR",
+    positions:["MB"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:518}, Block:{flat:663}, Save:{flat:490} },
+    desc:"A [Técnica de Defesa] dos membros que equipam esta memória aumenta em 16%. Se o resultado de bloqueio do membro não for BAD, a Stamina do oponente é reduzida em 2 após o spike (potente/rápido). Se o atacante oponente for um membro de Ataque Potente, ele perde mais 1 de Stamina.",
+    img:"img/memories/MemoAoneSSR.png"
+  },
+  {
+    id:"mem_block_up_tendo_satoru",
+    name:"Tendo SSR",
+    positions:["MB"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:518}, Block:{flat:663}, Save:{flat:490} },
+    desc:"O [Bloqueio] do membro que equipa esta memória aumenta em 28%. Se o bloqueio do membro for PERFECT, a recarga da Habilidade Especial de Bloqueio é reduzida em 3 cruzadas de rede.",
+    img:"img/memories/MemoTendoSSR.png"
+  },
+  {
+    id:"mem_fast_attack_up_rintaro_suna",
+    name:"Rintaro SSR",
+    positions:["MB"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:518}, Block:{flat:663}, Save:{flat:490} },
+    desc:"O [Ataque Rápido] do membro que equipa esta memória aumenta em 20%. Se o bloqueador oponente tiver um efeito negativo quando o membro atacar rapidamente, o poder deste Ataque Rápido aumenta em 40% × [Ataque Rápido] do membro.",
+    img:"img/memories/MemoRintaroSSR.png"
+  },
+  {
+id:"mem_akaashi_sp",
+name:"Akaashi SP",
+positions:["S"],
+bonus:{ Serve:{flat:838}, Spike:{flat:656}, Set:{flat:838}, Receive:{flat:619}, Block:{flat:765}, Save:{flat:583} },
+desc:"O [Passe] do equipador aumenta em 24%. Enquanto o [Despertar de Moral da Equipe] de um aliado estiver ativo, a [Percepção] do equipador aumenta em 10%. Aliados com o efeito [Condição Excelente] recebem +15% em seus Parâmetros Principais. Quando um aliado perde o efeito [Condição Excelente], o [Reflexo] de todos os aliados aumenta em 10% até a bola cruzar a rede 8 vezes.",
+img:"img/memories/MemoAkaashiSP.png"
+},
+  {
+id:"mem_sugawara_sp",
+name:"Sugawara SP",
+positions:["S"],
+bonus:{ Serve:{flat:838}, Spike:{flat:656}, Set:{flat:838}, Receive:{flat:619}, Block:{flat:765}, Save:{flat:583} },
+desc:"Os Parâmetros Principais do equipador aumentam em 16%. Quando o equipador realiza um Passe, para cada 6 de Stamina atual que possuir, o [Ataque Potente/Ataque Rápido] do atacante aumenta em 2% (até 30%). Este efeito dura até a bola cruzar a rede duas vezes. Quando o equipador ativa uma Habilidade e consome Stamina, restaure 10 de Stamina ao aliado com a menor Stamina.",
+img:"img/memories/MemoSugawaraSP.png"
+},
+  {
+id:"mem_kenma_sp",
+name:"Kenma SP",
+positions:["S"],
+bonus:{ Serve:{flat:765}, Spike:{flat:656}, Set:{flat:838}, Receive:{flat:838}, Block:{flat:619}, Save:{flat:583} },
+desc:"O [Reflexo] aumenta em 16%. Quando um Ataque Potente/Rápido do oponente for PERFECT, um aliado que ativar uma habilidade de Bloqueio ou Recepção ganha 1 acúmulo de [Adesão]; para cada acúmulo, o [Reflexo] aumenta em 4% (máx. 3). Se tal aliado atingir 3 acúmulos, consuma-os para aumentar em 100% o [Reflexo] desse aliado até a bola cruzar a rede uma vez.",
+img:"img/memories/MemoKenmaSP.png"
+},
+  {
+id:"mem_oikawa_ur",
+name:"Oikawa UR",
+positions:["S"],
+bonus:{ Serve:{flat:729}, Spike:{flat:570}, Set:{flat:729}, Receive:{flat:539}, Block:{flat:665}, Save:{flat:507} },
+desc:"O [Saque] aumenta em 24%. Quando o saque deste membro for [PERFECT], ganhe 2 acúmulos de [Ritmo de Ataque]. Para cada acúmulo, aliados em quadra recebem +1% de [Percepção], até 10 acúmulos. Se o saque resultar em ace, ganhe 4 acúmulos adicionais. Enquanto este membro estiver em quadra, cada vez que o [Ritmo de Ataque] atingir 6 acúmulos, a [Força] e o [Empenho] dos aliados aumentam em 4% (até 3 acúmulos).",
+img:"img/memories/MemoOikawaUR.png"
+},
+  {
+id:"mem_kageyama_ur",
+name:"Kageyama UR",
+positions:["S"],
+bonus:{ Serve:{flat:729}, Spike:{flat:570}, Set:{flat:729}, Receive:{flat:539}, Block:{flat:665}, Save:{flat:507} },
+desc:"O [Passe] aumenta em 24%. Quando este membro ativar uma habilidade de Ataque de Dois Toques, sua [Força] aumenta em 40% da [Percepção], até +100%. Além disso, quando este membro ativar uma habilidade de Dois Toques, o poder do próximo Spike aliado (Potente/Rápido) aumenta em 28% do [Ataque Potente/Ataque Rápido] do atacante.",
+img:"img/memories/MemoKageyamaUR.png"
+},
+  {
+id:"mem_atsumu_ur",
+name:"Atsumu UR",
+positions:["S"],
+bonus:{ Serve:{flat:729}, Spike:{flat:570}, Set:{flat:729}, Receive:{flat:539}, Block:{flat:665}, Save:{flat:507} },
+desc:"O [Passe] aumenta em 24%. Enquanto o equipador estiver em quadra, aliados em quadra cuja [Percepção] e [Reflexo] estejam abaixo de 20% recebem +6.4% em [Técnica de Ataque] e [Técnica de Defesa]. Se a jogada de um aliado não for [PERFECT], a [Técnica de Ataque] e a [Técnica de Defesa] do equipador aumentam em 2% por acúmulo (máx. 5), durando por 1 rali.",
+img:"img/memories/MemoAtsumuUR.png"
+},
+  {
+id:"mem_kageyama_ssr_serve",
+name:"Kageyama SSR",
+positions:["S"],
+bonus:{ Serve:{flat:663}, Spike:{flat:518}, Set:{flat:663}, Receive:{flat:490}, Block:{flat:605}, Save:{flat:461} },
+desc:"O [Saque] aumenta em 20%. Quando este membro ativar um Supremo de Dois Toques, a [Percepção] dos aliados aumenta em 20% e a [Percepção] deste membro aumenta em mais 15%.",
+img:"img/memories/MemoKageyamaSSR.png"
+},
+  {
+id:"mem_kenma_ssr",
+name:"Kenma SSR",
+positions:["S"],
+bonus:{ Serve:{flat:663}, Spike:{flat:518}, Set:{flat:663}, Receive:{flat:490}, Block:{flat:605}, Save:{flat:461} },
+desc:"O [Passe] aumenta em 8%. Enquanto o equipador estiver em quadra, a [Recepção] dos aliados da linha de trás aumenta em 12%. Enquanto o equipador estiver em quadra, quando as pilhas de [Conexão] de um aliado diminuírem, os aliados ganham 1 acúmulo de [Conexão]; para cada acúmulo, aliados em quadra recebem +1% de [Recepção], até 6 acúmulos.",
+img:"img/memories/MemoKenmaSSR.png"
+},
+  {
+id:"mem_akaashi_ssr",
+name:"Akaashi SSR",
+positions:["S"],
+bonus:{ Serve:{flat:663}, Spike:{flat:518}, Set:{flat:663}, Receive:{flat:490}, Block:{flat:605}, Save:{flat:461} },
+desc:"O [Passe] aumenta em 12%. Enquanto o [Despertar de Moral da Equipe] de um aliado estiver ativo, quando este membro realizar um Passe, o aliado que for atacar (Potente/Rápido) recupera 4 de Stamina e esse Spike recebe +16% de [Técnica de Ataque]. Quando este membro dissipar um debuff de um aliado, também remove o efeito [Modo de Baixa] desse aliado.",
+img:"img/memories/MemoAkaashiSSR.png"
+},
+  {
+id:"mem_oikawa_ssr",
+name:"Oikawa SSR",
+positions:["S"],
+bonus:{ Serve:{flat:663}, Spike:{flat:518}, Set:{flat:663}, Receive:{flat:490}, Block:{flat:605}, Save:{flat:461} },
+desc:"O [Passe] aumenta em 20%. Na primeira vez em cada set que o [Ritmo de Ataque] dos aliados atingir 10 ou mais acúmulos, o [Passe] deste membro aumenta em mais 20% (dura 1 set). Para cada acúmulo de [Ritmo de Ataque], aliados em quadra recebem +1% de [Percepção], até 10 acúmulos.",
+img:"img/memories/MemoOikawaSSR.png"
+},
+  {
+id:"mem_koganegawa_ssr",
+name:"Koganegawa SSR",
+positions:["S"],
+bonus:{ Serve:{flat:663}, Spike:{flat:518}, Set:{flat:663}, Receive:{flat:490}, Block:{flat:605}, Save:{flat:461} },
+desc:"O [Passe] aumenta em 16%. Enquanto o equipador estiver em quadra, se o resultado de Bloqueio de um aliado não for [BAD], o poder do próximo Ataque Potente do oponente diminui em 20% do atributo [Ataque Potente] do atacante. Enquanto o equipador estiver em quadra, se o resultado de Bloqueio de um aliado for [BAD], o poder do próximo Bloqueio aliado aumenta em 32% do [Bloqueio] do bloqueador.",
+img:"img/memories/MemoKoganegawaSSR.png"
+},
+  {
+id:"mem_shirabu_ssr",
+name:"Shirabu SSR",
+positions:["S"],
+bonus:{ Serve:{flat:663}, Spike:{flat:518}, Set:{flat:663}, Receive:{flat:490}, Block:{flat:605}, Save:{flat:461} },
+desc:"O [Passe] aumenta em 16%. Quando o Passe deste membro for [PERFECT], o aliado que executar um Ataque Potente recebe +32% de [Força] até a bola cruzar a rede uma vez.",
+img:"img/memories/MemoShirabuSSR.png"
+},
+  {
+id:"mem_semi_ssr",
+name:"Semi SSR",
+positions:["S"],
+bonus:{ Serve:{flat:663}, Spike:{flat:518}, Set:{flat:663}, Receive:{flat:490}, Block:{flat:605}, Save:{flat:461} },
+desc:"Quando este membro sacar, a [Percepção] aumenta em 16%. Ao ativar um Supremo de Saque, o [Saque] aumenta em 6.4%, até 3 acúmulos.",
+img:"img/memories/MemoSemiSSR.png"
+},
+    {
+    id:"mem_bokuto_sp",
+    name:"Bokuto SP",
+    positions:["WS"],
+    bonus:{ Serve:{flat:765}, Spike:{flat:838}, Set:{flat:583}, Receive:{flat:838}, Block:{flat:656}, Save:{flat:619} },
+    desc:"A [Força] do membro que equipa esta memória aumenta em 24%. Quando o membro atacar com força, a [Técnica de Ataque] aumenta em 5%. Se a duração restante do [Despertar de Moral da Equipe] de um aliado for de 6 ou mais cruzadas de rede, a [Técnica de Ataque] aumenta em mais 20%.",
+    img:"img/memories/MemoBokutoSP.png"
+},
+  {
+    id:"mem_offense_defense_up_hoshiumi_ur",
+    name:"Hoshiumi UR",
+    positions:["WS"],
+    bonus:{ Serve:{flat:665}, Spike:{flat:729}, Set:{flat:507}, Receive:{flat:729}, Block:{flat:570}, Save:{flat:539} },
+    desc:"A [Técnica de Ataque] e a [Técnica de Defesa] aumentam em 6.4%. Quando a Habilidade/Habilidade Especial do membro é ativada, seus [Parâmetros Principais] aumentam em 2% (máx. 10 acúmulos). Se a jogada for [PERFECT], ganhe 1 acúmulo adicional.",
+    img:"img/memories/MemoHoshiumiUR.png"
+},
+  {
+    id:"mem_bokuto_ur",
+    name:"Bokuto UR",
+    positions:["WS"],
+    bonus:{ Serve:{flat:665}, Spike:{flat:729}, Set:{flat:507}, Receive:{flat:729}, Block:{flat:570}, Save:{flat:539} },
+    desc:"O membro que equipa esta memória tem seu [Ataque Potente] aumentado em 24%. Cada vez que um aliado ativar o [Despertar de Moral da Equipe], o [Ataque Potente] desse membro aumenta em 8% (até 3 acúmulos). Enquanto o membro estiver em quadra, a duração do bônus de Moral da Equipe dos aliados é aumentada em 2 cruzadas de rede.",
+    img:"img/memories/MemoBokutoUR.png"
+    },
+  {
+    id:"mem_hayaseomi_ur",
+    name:"Hayaseomi UR",
+    positions:["WS"],
+    bonus:{ Serve:{flat:765}, Spike:{flat:838}, Set:{flat:583}, Receive:{flat:838}, Block:{flat:656}, Save:{flat:619} },
+    desc:"O membro que equipa esta memória tem seu [Ataque Potente] aumentado em 24%. Quando o membro receber, a [Técnica de Ataque] aumenta em 15% até a bola cruzar a rede duas vezes. Após receber, o [Empenho] do membro aumenta em 8% (até 4 acúmulos).",
+    img:"img/memories/MemoHayaseomiUR.png"
+    },
+   {
+    id:"mem_yui_ssr",
+    name:"Yui SSR",
+    positions:["WS"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
+    desc:"A [Recepção] aumenta em 20%. Quando este membro receber, o [Ataque Potente] aumenta em 16% e dura até a bola cruzar a rede seis vezes. Se a recepção deste membro for [PERFECT], seu próximo Ataque Potente será garantidamente [PERFECT].",
+    img:"img/memories/MemoYuiSSR.png"
+    },
+   {
+    id:"mem_oshiro_ssr",
+    name:"Oshiro SSR",
+    positions:["WS"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
+    desc:"O [Ataque Potente] aumenta em 20%. Para cada 6 de Stamina recuperada por este membro, o [Ataque Potente] aumenta em 6.3%. Este efeito dura até a bola cruzar a rede cinco vezes. Se a Stamina recuperada em uma única instância exceder 10, a [Técnica de Ataque] aumenta em 6.4% até a bola cruzar a rede cinco vezes.",
+    img:"img/memories/MemoOshiroSSR.png"
+},
+    {
+    id:"mem_kita_ssr",
+    name:"Kita SSR",
+    positions:["WS"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
+    desc:"A [Recepção] aumenta em 20%. Se a recepção deste membro não for [PERFECT], o poder da próxima recepção de um aliado aumenta em 40% da [Recepção] do membro que receber.",
+    img:"img/memories/MemoKitaSSR.png"
+},
+    {
+    id:"mem_tanaka_ssr",
+    name:"Tanaka SSR",
+    positions:["WS"],
+    bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
+    desc:"O [Ataque Potente] aumenta em 20%. Para este membro, até o segundo Ataque Potente de cada set, o poder de finalização aumenta em 36% do [Ataque Potente].",
+    img:"img/memories/MemoTanakaSSR.png"
+},
+    {
+id:"mem_azumane_ssr",
+name:"Azumane SSR",
+positions:["WS"],
+bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
+desc:"Se o membro que equipa esta memória tiver 50 ou mais de Stamina, o [Ataque Potente] aumenta em 36%. Quando este membro ativar uma habilidade de Ataque Potente e a Stamina consumida for 20 ou mais, o poder desse Ataque Potente aumenta em 32% do [Ataque Potente].",
+img:"img/memories/MemoAzumaneSSR.png"
+},
+    {
+id:"mem_iwaizumi_ssr",
+name:"Iwaizumi SSR",
+positions:["WS"],
+bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
+desc:"Exclusivo de [WS]: aumenta a [Recepção] em 10%. Quando o equipador executar um Supremo de Ataque Potente Crítico, aumenta o [Ataque Potente] em 8% da [Recepção] por 3 cruzadas de rede.",
+img:"img/memories/MemoIwaizumiSSR.png"
+},
+    {
+id:"mem_futakuchi_ssr",
+name:"Futakuchi SSR",
+positions:["WS"],
+bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
+desc:"O [Bloqueio] aumenta em 20%. Para cada aliado do tipo Bloqueio em quadra, o poder de finalização da Habilidade Especial deste membro aumenta em 6.4% do parâmetro correspondente a essa Especial.",
+img:"img/memories/MemoFutakuchiSSR.png"
+},
+    {
+id:"mem_goshiki_ssr",
+name:"Goshiki SSR",
+positions:["WS"],
+bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
+desc:"O [Ataque Potente] aumenta em 20%. Enquanto o [Despertar de Moral da Equipe] de um aliado estiver ativo, o [Ataque Potente] deste membro aumenta em 32%.",
+img:"img/memories/MemoGoshikiSSR.png"
+},
+    {
+id:"mem_awareness_reaction_up_oshiro_ssr",
+name:"Oshiro SSR",
+positions:["WS"],
+bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
+desc:"Quando este membro ativar uma Habilidade, a [Percepção] aumenta em 3.2% e o [Reflexo] aumenta em 3.2%, até 5 acúmulos.",
+img:"img/memories/MemoOshiroSSR.png"
+},
+    {
+id:"mem_terushima_ssr",
+name:"Terushima SSR",
+positions:["WS"],
+bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
+desc:"O [Ataque Potente] aumenta em 24%. Quando este membro ativar o efeito [Escolha Mais], ganhe 2 acúmulos de [Escolha Mais] e aumente a [Recepção] dos aliados da linha de trás em 12% por 1 rali. Para cada acúmulo de [Escolha Mais], o [Ataque Potente]/[Ataque Rápido] aumenta em 2.5%, até 4 acúmulos.",
+img:"img/memories/MemoTerushimaSSR.png"
+}
+];
+
+/** Catálogo de SETS (POTENTIAL)  * */
+const setCatalog = [
+  {
+  id:"set_rapid_quick_attack",
+  name:"Rapid Quick Attack",
+  twoPiece:{ Spike:{ pct:15 } },
+  fourPiece:{Spike:{ pct:15 }}, // condicional
+  img:"img/sets/rapid_quick_attack.png",
+  desc2:"2p: Aumenta o atributo de Ataque Rápido em 15%.",
+  desc4:"2p: Aumenta o atributo de Ataque Rápido em 15%. 4p: Cada vez que um Ataque Rápido for usado, aumenta o atributo de Ataque Rápido em 5%, até 5 acúmulos."
+},
+{
+  id:"set_sharp_sense",
+  name:"Sharp Sense",
+  twoPiece:{ Spike:{ pct:15 } },
+  fourPiece:{Spike:{ pct:15 }}, // condicional
+  img:"img/sets/sharp_sense.png",
+  desc2:"2p: Aumenta o atributo de Ataque Rápido em 15%.",
+  desc4:"2p: Aumenta o atributo de Ataque Rápido em 15%. 4p: Aumenta a Percepção em 15%; quando um Ataque Rápido for Crítico, aumenta a Força em 10%."
+},
+{
+  id:"set_power_vibe",
+  name:"Power Vibe",
+  twoPiece:{ Spike:{ pct:15 } },
+  fourPiece:{Spike:{ pct:15 }}, // condicional
+  img:"img/sets/power_vibe.png",
+  desc2:"2p: Aumenta o atributo de Ataque Potente em 15%.",
+  desc4:"2p: Aumenta o atributo de Ataque Potente em 15%. 4p: Aumenta a Percepção em 15%; quando um Ataque Potente for Crítico, aumenta a Força em 10%."
+},
+{
+  id:"set_power_rise",
+  name:"Power Rise",
+  twoPiece:{ Spike:{ pct:15 } },
+  fourPiece:{Spike:{ pct:15 }}, // condicional
+  img:"img/sets/power_rise.png",
+  desc2:"2p: Aumenta o atributo de Ataque Potente em 15%.",
+  desc4:"2p: Aumenta o atributo de Ataque Potente em 15%. 4p: Aumenta a Técnica de Ataque em 10% ao usar Ataque Potente; ao pontuar com Ataque Potente, recupera 5 de Stamina."
+},
+{
+  id:"set_precise_serve",
+  name:"Precise Serve",
+  twoPiece:{ Set:{ pct:15 } },
+  fourPiece:{Set:{ pct:15 }}, // condicional
+  img:"img/sets/precise_serve.png",
+  desc2:"2p: Aumenta o atributo de Passe em 15%.",
+  desc4:"2p: Aumenta o atributo de Passe em 15%. 4p: Os saques nunca falham e a Técnica de Ataque aumenta em 15% ao sacar."
+},
+{
+  id:"set_precise_set",
+  name:"Precise Set",
+  twoPiece:{ Set:{ pct:15 } },
+  fourPiece:{Set:{ pct:15 } }, // condicional
+  img:"img/sets/precise_set.png",
+  desc2:"2p: Aumenta o atributo de Passe em 15%.",
+  desc4:"2p: Aumenta o atributo de Passe em 15%. 4p: Aumenta o poder do passe em 15% do atributo de Passe." 
+},
+{
+  id:"set_precise_block",
+  name:"Precise Block",
+  twoPiece:{ Block:{ pct:15 } },
+  fourPiece:{Block:{ pct:15 }}, // efeito condicional descrito abaixo
+  img:"img/sets/precise_block.png",
+  desc2:"2p: Aumenta o atributo de Bloqueio em 15%.",
+  desc4:"2p: Aumenta o atributo de Bloqueio em 15%. 4p: Ao bloquear um Ataque Potente, aumenta o poder deste bloqueio em 20% do atributo de Bloqueio."
+},
+{
+  id:"set_block_movement",
+  name:"Block Movement",
+  twoPiece:{ Block:{ pct:15 } },
+  fourPiece:{Block:{ pct:15 }}, // efeito condicional descrito abaixo
+  img:"img/sets/block_movement.png",
+  desc2:"2p: Aumenta o atributo de Bloqueio em 15%.",
+  desc4:"2p: Aumenta o atributo de Bloqueio em 15%. 4p: Ao bloquear um ataque com outros jogadores do tipo Bloqueio presentes na linha de frente, aumenta o poder deste bloqueio em 20% do atributo de Bloqueio."
+},
+ {
+    id:"set_assist_receive",
+    name:"Assist Receive",
+    twoPiece:{ Receive:{ pct:15 } },
+    fourPiece:{Receive:{ pct:15 }}, // efeito condicional descrito abaixo
+    img:"img/sets/assist_receive.png",
+    desc2:"2p: Aumenta o atributo de Recepção em 15%.",
+    desc4:"2p: Aumenta o atributo de Recepção em 15%. 4p: Ao obter uma recepção PERFECT, aumenta o poder do próximo Spike do seu lado em 30% do atributo de Ataque Potente/Ataque Rápido do atacante."
+  },
+  {
+    id:"set_supreme_receive",
+    name:"Supreme Receive",
+    twoPiece:{ Receive:{ pct:15 } },
+    fourPiece:{Receive:{ pct:15 }}, // efeito condicional descrito abaixo
+    img:"img/sets/supreme_receive.png",
+    desc2:"2p: Aumenta o atributo de Recepção em 15%.",
+    desc4:"2p: Aumenta o atributo de Recepção em 15%. 4p: Ao receber um Ataque Rápido, aumenta o poder desta recepção em 30% do atributo de Recepção."
+  }
+];
 let selecionados = [];
 
 /* ====== FUNÇÕES ORIGINAIS (mantidas) ====== */
@@ -1060,7 +1930,7 @@ function addBenchSlot() {
     const benchRow = document.getElementById("bench-row");
     const slot = document.createElement("div");
     slot.className = "player-slot bench";
-    slot.innerHTML = `<div class="bench-slot" data-role="bench"></div><div class="player-info">Bench</div>`;
+    slot.innerHTML = `<div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div>`;
     benchRow.insertBefore(slot, benchRow.querySelector(".add-slot-btn"));
     attachBenchEvents(slot.querySelector(".bench-slot"));
 }
@@ -1115,6 +1985,7 @@ function attachBenchEvents(slot) {
   });
 }
 
+
 function showMenu(role, slot) {
   const scrollMenu = document.getElementById("scrollMenu");
   scrollMenu.innerHTML = '';
@@ -1131,7 +2002,7 @@ function showMenu(role, slot) {
       const b = document.createElement('button');
       b.textContent = r;
       b.dataset.role = r;
-      b.title = `Bench: ${r}`;
+      b.title = `Banco: ${r}`;
       b.addEventListener('click', (e) => {
         e.stopPropagation();
         render(r); // refiltra a lista
@@ -1274,36 +2145,37 @@ document.querySelectorAll(".bench-quick-btn").forEach(btn => {
 const RING_IDX = [0, 1, 2, 6, 5, 4]; // [S, MB, WS, OP, MB, WS] na orientação base
 
 // Rotaciona o anel 'steps' vezes no sentido horário (move conteúdo e data-role)
-function rotateRingClockwise(steps) {
-  const rows = document.querySelectorAll('.team-grid .row');
-  if (rows.length < 2) return;
-  const top = rows[0].querySelectorAll('.player-slot .hex');   // [0,1,2]
-  const bot = rows[1].querySelectorAll('.player-slot .hex');   // [3,4,5,6]
-
-  const hexes = [
-    top[0], top[1], top[2],         // 0,1,2
-    bot[0], bot[1], bot[2], bot[3]  // 3,4,5,6 (3 é L)
-  ];
-
+function rotateRingClockwise(steps){
+  const hexes = [...document.querySelectorAll('.hex')];
   const ring = RING_IDX.map(i => hexes[i]);
   const k = ((steps % 6) + 6) % 6;
   if (k === 0) return;
-
+const ids = ring.map(h => getSlotId(h));
+  const eq = ids.map(id => equipState.get(id) || null);
+  const eqRot = eq.slice(-k).concat(eq.slice(0, -k));
+  ids.forEach((id, idx) => {
+    if (eqRot[idx]) equipState.set(id, eqRot[idx]); else equipState.delete(id);
+  });
+  // 1) Captura estado completo (inclui charName!)
   const state = ring.map(h => ({
     html: h.innerHTML,
     nome: h.dataset.nome || null,
+    charName: h.dataset.charName || null,
     role: h.dataset.role || h.getAttribute('data-role') || ''
   }));
 
-  // horário: último(s) vai(m) para frente
+  // 2) Roda
   const rotated = state.slice(-k).concat(state.slice(0, -k));
 
+  // 3) Aplica e reanexa handlers/badges
   ring.forEach((h, i) => {
     const st = rotated[i];
-    h.innerHTML = st.html;
+    h.innerHTML = st.html;                  // isto remove listeners antigos
     if (st.nome) h.dataset.nome = st.nome; else delete h.dataset.nome;
     h.dataset.role = st.role;
+    if (st.charName) h.dataset.charName = st.charName; else delete h.dataset.charName; // **novo**
 
+    // atualiza o label do slot
     const info = h.parentElement.querySelector('.player-info');
     if (info) {
       if (st.nome) {
@@ -1313,6 +2185,11 @@ function rotateRingClockwise(steps) {
         info.textContent = st.role;
       }
     }
+    
+    // **importante**: recriar o botão ⚙️ com listener e a badge
+    removeItemGear(h);
+    ensureItemGear(h);
+    updateItemBadge(h);
   });
 }
 
@@ -1350,9 +2227,11 @@ function setCharacter(slot, personagem, role) {
     }
 
     // monta imagem
-    slot.innerHTML = `<img src="${personagem.img}" alt="${personagem.nome}">`;
-    slot.dataset.nome = personagem.nome;
-    slot.dataset.role = role; // <-- Ensure correct role is set!
+   slot.innerHTML = `<img src="${personagem.img}" alt="${personagem.nome}">`;
+slot.dataset.nome = personagem.nome;
+slot.dataset.role = role;
+
+    afterAssignCharacter(slot, personagem.nome);
 
     // atualiza texto de info (procura .player-info no mesmo player-slot)
     const infoDiv = slot.parentElement.querySelector('.player-info');
@@ -1363,21 +2242,29 @@ function setCharacter(slot, personagem, role) {
 }
 
 function removeCharacter(slot) {
-    if (slot.dataset.nome) {
-        selecionados = selecionados.filter(p => p.nome !== slot.dataset.nome);
-        slot.innerHTML = ""; 
-        delete slot.dataset.nome;
+  if (slot.dataset.nome) {
+    selecionados = selecionados.filter(p => p.nome !== slot.dataset.nome);
 
-        const infoDiv = slot.parentElement.querySelector('.player-info');
-        if (slot.classList.contains("bench-slot")) {
-            infoDiv.textContent = "Bench";
-        } else {
-            // tenta recuperar role
-            infoDiv.textContent = slot.dataset.role || slot.getAttribute("data-role") || slot.parentElement.querySelector('.hex')?.dataset.role || "";
-        }
-
-        updateSynergies();
+    // CHAME O HOOK ANTES de limpar o slot
+    if (typeof window.afterRemoveCharacter === "function") {
+      window.afterRemoveCharacter(slot);
     }
+
+    slot.innerHTML = "";
+    delete slot.dataset.nome;
+
+    const infoDiv = slot.parentElement.querySelector('.player-info');
+    if (slot.classList.contains("bench-slot")) {
+      infoDiv.textContent = "Banco";
+    } else {
+      infoDiv.textContent = slot.dataset.role
+        || slot.getAttribute("data-role")
+        || slot.parentElement.querySelector('.hex')?.dataset.role || "";
+    }
+
+    updateSynergies();
+    if (typeof afterRemoveCharacter === "function") afterRemoveCharacter(slot);
+  }
 }
 
 function updateSynergies() {
@@ -1387,8 +2274,8 @@ function updateSynergies() {
     // === CONFIG: which bonds need 3 to activate ===
     // Put the EXACT vinculo names here (case-sensitive).
     const bondsRequire3 = new Set([
-      "Natação",  
-     "Cabeça dos Gêmeos", 
+      "Swimming",  
+     "Twin Heads", 
     ]);
 
     const DEFAULT_BOND_MIN = 2; // all bonds default to 2 unless listed above
@@ -1547,7 +2434,7 @@ function updateSynergies() {
     });
 
     if (!algumaSinergia) {
-        synergyListEl.innerHTML = "<li>No active synergies</li>";
+        synergyListEl.innerHTML = "<li>Apenas vínculos de posicionamento são visíveis.</li>";
     }
 }
 // ====== Eventos iniciais (grid principal com detecção de duplo clique) ======
@@ -1608,19 +2495,21 @@ document.querySelectorAll(".bench-slot").forEach(slot => attachBenchEvents(slot)
 /* ====== SIDEBAR NAV ====== */
 const sidebarContent = document.getElementById("sidebar-content");
 document.querySelectorAll(".menu-link").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const section = btn.dataset.section;
-        if (section === "characters") {
-            showCharacterList();
-        } else if (section === "save") {
-            showSavedTeams();
-        } else if (section === "help") {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const section = btn.dataset.section;
+    if (section === "characters") {
+      showCharacterList();
+    } else if (section === "schools") {
+      showSchoolsList();             
+    } else if (section === "save") {
+      showSavedTeams();
+    } else if (section === "help") {
     sidebarContent.innerHTML = `
         <h3>Info</h3>
         <div style="display:flex; flex-direction:column; gap:10px;">
             <button id="faqBtn" class="bond-btn">📄 FAQ</button>
-            <button id="creditsBtn" class="bond-btn">👥 Credits</button>
+            <button id="creditsBtn" class="bond-btn">👥 Créditos</button>
             <button id="patchBtn" class="bond-btn">🔄 Patch</button>
         </div>
     `;
@@ -1651,6 +2540,12 @@ document.querySelectorAll(".menu-link").forEach(btn => {
         e.stopPropagation();
         sidebarContent.innerHTML = `
             <h3>Patch notes</h3>
+            <p>Patch 1.2 Adições:</p>
+            <p>Drag/drop jogadores para a quadra e banco</p>
+            <p>Filtro de jogadores por "tipo" (rapido/potente/etc)</p>
+            <p>Recomendações de time baseadas em sinergias</p>
+            <p>Memórias e Potenciais</p>
+            <p>Página de escolas adicionada ao menu lateral</p>
             <p>Correções:</p>
             <p>Algumas sinergias que precisavam de 3 jogadores não eram mostradas corretamente</p>
             <p>Algumas regras do banco não funcionavam corretamente, EX: não podia adicionar mais de 2 MBs no banco</p>
@@ -1678,7 +2573,7 @@ document.querySelectorAll(".menu-link").forEach(btn => {
     document.getElementById("creditsBtn").addEventListener("click", (e) => {
         e.stopPropagation();
         sidebarContent.innerHTML = `
-            <h3>Créditos</h3>
+            <h3>Credits</h3>
             <p>Devoy Aces: goN6 , Kari, Marin, Kaito</p>
             <p>Tradução para inglês by KRILL group https://discord.gg/EEBqSKvAsp</p>
             <button id="backToHelp" class="bond-btn">← Voltar</button>
@@ -1700,38 +2595,65 @@ function showCharacterList() {
     const funcoes = [...new Set(characters.map(p => p.funcao))];
     const escolas = [...new Set(characters.map(p => p.School))];
     const StatsKeys = [...new Set(characters.flatMap(p => Object.keys(p.Stats || {})))];
+    function symbolToType(sym){
+  const s = String(sym||"").toLowerCase();
+  if (s.includes("quicksymbol"))   return "quick";
+  if (s.includes("powersymbol"))   return "power";
+  if (s.includes("servesymbol"))   return "serve";
+  if (s.includes("settersymbol"))  return "setter";
+  if (s.includes("receivesymbol")) return "receive";
+  if (s.includes("blocksymbol"))   return "block";
+  if (s.includes("savesymbol"))    return "save";
+  return null;
+}
+
+// tipos únicos lendo characters[*].symbols
+const allTypes = [...new Set(
+  characters.flatMap(p => (Array.isArray(p.symbols) ? p.symbols : [])
+    .map(symbolToType).filter(Boolean))
+)].sort();
 
     let html = `
     <h3>Characters</h3>
     <div class="filtros">
         <div>
-            <label>Posição</label>
+            <label>Posição:</label>
             <select id="filtroFuncao">
-                <option value="">All</option>
+                <option value="">Todos</option>
                 ${funcoes.map(f => `<option value="${f}">${f}</option>`).join('')}
             </select>
         </div>
         <div>
             <label>Escola:</label>
             <select id="filtroEscola">
-                <option value="">All</option>
+                <option value="">Todos</option>
                 ${escolas.map(e => `<option value="${e}">${e}</option>`).join('')}
             </select>
         </div>
         <div>
-            <label>Stats:</label>
+            <label>Status:</label>
             <select id="filtroStats">
-                <option value="">All</option>
+                <option value="">Todos</option>
                 ${StatsKeys.map(s => `<option value="${s}">${s}</option>`).join('')}
             </select>
         </div>
                 <div>
-            <label>Data de lançamento experada:</label>
+            <label>Data de Lançamento Esperada:</label>
             <select id="filtroDataOrdem" title="Ordenar pela data (ignora quem não tem data)">
                 <option value="">Ignorar</option>
                 <option value="asc">Ascendente (MM/DD/YY)</option>
-                <option value="desc">Decrescente (MM/DD/YY)</option>
+                <option value="desc">Descendente (MM/DD/YY)</option>
             </select>
+        </div>
+        <div>
+             <label>Tipo:</label>
+             <div id="filtroType">
+             ${allTypes.map(t => `
+             <label style="display:inline-flex;align-items:center;gap:6px;margin:2px 8px 2px 0;">
+             <input type="checkbox" name="typeFilter" value="${t}"> ${t.toUpperCase()}
+             </label>
+             `).join("")}
+             </div>
         </div>
 <button id="limparFiltros">Limpar</button>
     </div>
@@ -1739,6 +2661,9 @@ function showCharacterList() {
     `;
 
     sidebarContent.innerHTML = html;
+    const list = document.getElementById('charList');
+if (list) list.classList.remove('is-hidden');
+    enableCloseOutsideCharList();
 
     // Helpers de data (MM/DD/YY)
     function parseDateMMDDYY(s) {
@@ -1761,18 +2686,31 @@ function getStatsSafe(p, key) {
 
    function renderLista() {
   const listaEl   = document.getElementById("charList");
+  if (listaEl) listaEl.classList.remove('is-hidden');
 
   const funcaoSel = (document.getElementById("filtroFuncao").value || "").trim();
   const escolaSel = (document.getElementById("filtroEscola").value || "").trim();
   let   StatsSel = (document.getElementById("filtroStats").value || "").trim();
   const dataOrdem = (document.getElementById("filtroDataOrdem")?.value || "").trim();
+  const typeSel = Array.from(
+  document.querySelectorAll('#filtroType input[name="typeFilter"]:checked')
+).map(el => el.value);
+  const typeBox = document.getElementById('filtroType');
+if (typeBox) typeBox.addEventListener('change', renderLista);
+
+  function getCharTypes(p){
+  const arr = Array.isArray(p?.symbols) ? p.symbols : [];
+  const types = new Set(arr.map(symbolToType).filter(Boolean));
+  return [...types];
+}
 
   if (StatsSel.toLowerCase() === "todos") StatsSel = "";
 
   // 1) filtro base
   let filtrados = characters.filter(p =>
     (funcaoSel === "" || p.funcao === funcaoSel) &&
-    (escolaSel === "" || p.School === escolaSel)
+    (escolaSel === "" || p.School === escolaSel) &&
+    (typeSel.length === 0 || typeSel.every(t => getCharTypes(p).includes(t)))
   );
 
   // 2) ordenar por data quando escolhido (e ignorar sem data)
@@ -1828,11 +2766,13 @@ document.getElementById("filtroEscola").addEventListener("change", renderLista);
 document.getElementById("filtroStats").addEventListener("change", renderLista);
 document.getElementById("filtroDataOrdem").addEventListener("change", renderLista);
 
+
 // botão Limpar
 document.getElementById("limparFiltros").addEventListener("click", () => {
   document.getElementById("filtroFuncao").value = "";
   document.getElementById("filtroEscola").value = "";
   document.getElementById("filtroStats").value = "";
+  document.querySelectorAll('#filtroType input[name="typeFilter"]').forEach(cb => cb.checked = false);
   const selData = document.getElementById("filtroDataOrdem");
   if (selData) selData.value = "";
   renderLista();
@@ -1847,6 +2787,82 @@ if (listaEl && !listaEl.dataset.stopCloseBound) {
 
 // primeira renderização
 renderLista();
+}
+
+function showSchoolsList(){
+  const sidebar = document.getElementById("sidebar");
+  const menuBtn  = document.getElementById("menuBtn");
+
+  const schools = [...new Set(characters.map(p => p.School))].sort((a,b)=>a.localeCompare(b));
+
+  sidebarContent.innerHTML = `
+    <h3>Schools</h3>
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      ${schools.map(s => `
+        <button class="bond-btn school-open" data-school="${s}">
+           ${s}
+        </button>
+      `).join("")}
+    </div>
+  `;
+
+  // abre e esconde o botão verde
+  if (sidebar) sidebar.classList.add("open");
+  if (menuBtn) menuBtn.style.display = "none";
+
+  // clique de cada escola abre a página detalhada
+  sidebarContent.querySelectorAll(".school-open").forEach(btn=>{
+    btn.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      showSchoolDetail(btn.dataset.school);
+    });
+  });
+}
+
+// Página de uma escola específica: descrição + personagens
+function showSchoolDetail(schoolName){
+  const sidebar = document.getElementById("sidebar");
+  const menuBtn  = document.getElementById("menuBtn");
+
+  const relacionados = characters.filter(p => p.School === schoolName);
+  const desc = (typeof descricoesSinergia === "object" && descricoesSinergia[schoolName])
+             ? descricoesSinergia[schoolName]
+             : "No description available.";
+
+  sidebarContent.innerHTML = `
+    <h3>School: ${schoolName}</h3>
+    <p>${desc}</p>
+    <div class="char-list">
+      ${relacionados.map(r => `
+        <div class="char-card" data-nome="${r.nome}">
+          <img src="${r.img}" alt="${r.nome}">
+          <p>${r.nome}</p>
+        </div>
+      `).join("")}
+    </div>
+    <button id="backToSchools" class="bond-btn">← Voltar</button>
+  `;
+
+  if (sidebar) sidebar.classList.add("open");
+  if (menuBtn) menuBtn.style.display = "none";
+
+  // voltar para a lista de Schools
+  document.getElementById("backToSchools").addEventListener("click", (e)=>{
+    e.stopPropagation();
+    showSchoolsList();
+  });
+
+  // clicar num personagem abre os detalhes dele (já existe showCharacterDetails)
+  sidebarContent.querySelectorAll(".char-card").forEach(card=>{
+    card.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      const nome = card.dataset.nome;
+      const p = characters.find(x => x.nome === nome);
+      if (p && typeof showCharacterDetails === "function") {
+        showCharacterDetails(p);
+      }
+    });
+  });
 }
 
 function showCharacterDetails(p) {
@@ -2001,8 +3017,13 @@ saveTeamBtn.addEventListener("click", (e) => {
         }
     }
 
-    teams[teamName] = getCurrentTeamByName();
-    localStorage.setItem("savedTeams", JSON.stringify(teams));
+    const savePayload = {
+  ...getCurrentTeamByName(),   // { main: [...], bench: [...] }
+  items: serializeTeamItems()  // <- memories / potentials por slot
+};
+
+teams[teamName] = savePayload;
+localStorage.setItem("savedTeams", JSON.stringify(teams));
     alert(`Team "${teamName}" saved!`);
 
     showSavedTeams();
@@ -2011,19 +3032,19 @@ saveTeamBtn.addEventListener("click", (e) => {
 });
 
     // wrapper: um passo no sentido horário + housekeeping
-function rotateMainGridClockwise() {
+  function rotateMainGridClockwise() {
   rotateRingClockwise(1);           // gira o anel (L fica parado)
   const sm = document.getElementById("scrollMenu");
   if (sm) sm.style.display = "none";
   if (typeof updateSynergies === "function") updateSynergies();
-}
+  }
     const rotateBtn = document.getElementById("rotateBtn");
-if (rotateBtn) {
+  if (rotateBtn) {
   rotateBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    rotateMainGridClockwise();
-  });
-}
+      e.stopPropagation();
+      rotateMainGridClockwise();
+    });
+  }
 /* mostra lista de times salvos no painel lateral */
 function showSavedTeams() {
     const teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
@@ -2085,6 +3106,7 @@ function deleteTeam(name) {
 
 /* Carrega time — monta usando setCharacter... */
 function loadTeam(name) {
+  equipState.clear();  // evita lixo de items grudado em slots antigos
   const teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
   const team = teams[name];
   if (!team) return;
@@ -2097,7 +3119,7 @@ function loadTeam(name) {
     delete slot.dataset.nome;
     const infoDiv = slot.parentElement.querySelector('.player-info');
     if (infoDiv) {
-      if (slot.classList.contains("bench-slot")) infoDiv.textContent = "Bench"; // ou "Banco"
+      if (slot.classList.contains("bench-slot")) infoDiv.textContent = "Banco"; // ou "Banco"
       else infoDiv.textContent = slot.dataset.role || slot.getAttribute("data-role") || "";
     }
   });
@@ -2125,7 +3147,8 @@ function loadTeam(name) {
         }
     });
 
-    // atualizar sinergias após Load
+    equipState.clear();                 // (garante que nada antigo fique no Map)
+    restoreTeamItems(team.items);       // <- aplica memories/potentials
     updateSynergies();
 }
 
@@ -2174,7 +3197,7 @@ document.addEventListener("click", (e) => {
     }
 });
     // Botão para limpar todo o time e resetar o banco
-document.getElementById("clearTeamBtn").addEventListener("click", (e) => {
+    document.getElementById("clearTeamBtn").addEventListener("click", (e) => {
     e.stopPropagation();
     if (!confirm("Are you sure you want to reset court and bench?")) return;
 
@@ -2184,7 +3207,14 @@ document.getElementById("clearTeamBtn").addEventListener("click", (e) => {
 
     // Limpa seleção
     selecionados = [];
+    equipState.clear();
+    document.querySelectorAll('.hex, .bench-slot')
+   .forEach(el => el.querySelectorAll('.item-badge,.item-gear').forEach(n => n.remove()));
 
+    clearAllEquips();
+    document.querySelectorAll('.hex, .bench-slot').forEach(el => {
+    if (el.dataset.nome || el.dataset.charName) removeCharacter(el);
+});
     // Reseta todos os slots principais
     document.querySelectorAll(".hex").forEach(slot => {
         slot.innerHTML = "";
@@ -2203,11 +3233,1096 @@ document.getElementById("clearTeamBtn").addEventListener("click", (e) => {
             slot.innerHTML = "";
             delete slot.dataset.nome;
             const infoDiv = benchSlot.querySelector('.player-info');
-            infoDiv.textContent = "Bench";
+            infoDiv.textContent = "Banco";
         }
     });
     updateSynergies();
     });
+    /* ===================== ITEMS: Memory + Potential (4p/2p) ===================== */
+
+/** Estat keys do seu dataset */
+const STAT_KEYS = ["Serve","Spike","Set","Receive","Block","Save"];
+
+/** Estado por slot: { memoryId, set4, set2 } */
+const equipState = new Map();
+
+/** Utils de slot */
+function getSlotId(el){
+  if(!el.dataset.slotId){
+    const prefix = el.classList.contains('bench-slot') ? 'bench' : 'court';
+    const all = [...document.querySelectorAll('.hex, .bench-slot')];
+    const idx = all.indexOf(el);
+    el.dataset.slotId = `${prefix}-${idx >= 0 ? idx : Math.random().toString(36).slice(2,8)}`;
+  }
+  return el.dataset.slotId;
+}
+function getSlotChar(el){ return el?.dataset?.charName || null; }
+function findCharacterByName(name){ return characters.find(c => c.nome === name) || null; }
+
+/** Aplicadores de bônus */
+function applyBonus(twoPiece, bonus){
+  if(!bonus) return;
+  for(const [stat, mod] of Object.entries(bonus)){
+    if(twoPiece[stat] == null) continue;
+    if(mod.pct)  twoPiece[stat] = Math.round(twoPiece[stat]*(1+mod.pct/100));
+    if(mod.flat) twoPiece[stat] = Math.max(0, twoPiece[stat]+mod.flat);
+  }
+}
+function computeEffectiveStats(baseStats, memoryId, set4Id, set2Id){
+  const out = {...baseStats};
+  // Memory
+  if(memoryId){
+    const mem = memoryCatalog.find(m=>m.id===memoryId);
+    if(mem) applyBonus(out, mem.bonus);
+  }
+  // Potential (sets)
+  if(set2Id){
+    const s2 = setCatalog.find(s=>s.id===set2Id);
+    if(s2) applyBonus(out, s2.twoPiece);
+  }
+  if(set4Id){
+    const s4 = setCatalog.find(s=>s.id===set4Id);
+    if(s4){
+      // comportamento comum: 4p também concede o 2p do mesmo set
+      if(!set2Id || set2Id===set4Id) applyBonus(out, s4.twoPiece);
+      applyBonus(out, s4.fourPiece);
+    }
+  }
+  return out;
+}
+
+
+// normaliza função (role) do personagem para os códigos do catálogo
+function normalizeRole(role){
+  const r = String(role||"").toLowerCase();
+  if (["s","setter","levantador"].includes(r)) return "S";
+  if (["mb","middle","middle blocker","central","meio"].includes(r)) return "MB";
+  if (["ws","wing","wing spiker","ponteiro","ponta"].includes(r)) return "WS";
+  if (["op","opposite","oposto"].includes(r)) return "OP";
+  if (["l","libero","líbero","libero"].includes(r)) return "L";
+  return role || "WS"; // fallback
+}
+
+// pega % de um bônus {pct} dado um stat
+function pctOf(obj, key){
+  return (obj && obj[key] && typeof obj[key].pct === "number") ? obj[key].pct : 0;
+}
+
+// normaliza nomes p/ casar personagem com memória
+function norm(s){
+  return (s||"").toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // sem acento
+    .replace(/[^\p{L}\p{N}]+/gu,' ')                 // sem pontuação
+    .trim();
+}
+function recommendMemoryForCharacter(ch, allowedMem){
+  if (!allowedMem || allowedMem.length === 0) return null;
+  const cname = norm(ch.nome || ch.name);
+
+  // 1) owner explícito (se você usa esse campo)
+  let cand = allowedMem.find(m => m.owner && norm(m.owner) === cname);
+  if (cand) return cand.id;
+
+  // 2) nome/id contém o nome do personagem (ex.: "Ushijima UR")
+  cand = allowedMem.find(m => norm(m.name).includes(cname) || norm(m.id).includes(cname.replace(/\s+/g,'_')));
+  if (cand) return cand.id;
+
+  // 3) todos os tokens do nome do personagem aparecem no nome da memória
+  const tokens = cname.split(' ').filter(Boolean);
+  cand = allowedMem.find(m => tokens.every(t => norm(m.name).includes(t)));
+  if (cand) return cand.id;
+
+  // 4) fallback: primeira compatível
+  return allowedMem[0]?.id || null;
+}
+
+
+function topStatKey(stats){
+  let bestK=null, bestV=-Infinity;
+  for(const k of STAT_KEYS){
+    const v = typeof stats?.[k] === "number" ? stats[k] : -Infinity;
+    if (v > bestV){ bestV=v; bestK=k; }
+  }
+  return bestK;
+}
+
+function totalPctForCombo(set4, set2, statKey){
+  let total = 0;
+  if (set4){
+    // 4p concede 2p do mesmo set quando não há 2p selecionado ou quando é o mesmo set
+    if ((!set2 || set2.id === set4.id) && set4.twoPiece) total += pctOf(set4.twoPiece, statKey);
+    if (set4.fourPiece) total += pctOf(set4.fourPiece, statKey);
+  }
+  if (set2 && (!set4 || set2.id !== set4.id) && set2.twoPiece){
+    total += pctOf(set2.twoPiece, statKey);
+  }
+  return total;
+}
+
+// util: pega % de um bônus para um stat
+function pctOf(obj, key){
+  return (obj && obj[key] && typeof obj[key].pct === 'number') ? obj[key].pct : 0;
+}
+// util: qual o maior stat base do personagem
+function topStatKey(stats){
+  let bestK=null, bestV=-Infinity;
+  for(const k of STAT_KEYS){
+    const v = typeof stats?.[k] === "number" ? stats[k] : -Infinity;
+    if (v > bestV){ bestV=v; bestK=k; }
+  }
+  return bestK;
+}
+
+function recommendSetsByTopStat(ch, allowedSet){
+  if (!allowedSet || allowedSet.length === 0) return { set4:null, set2:null };
+
+  // helpers locais
+  const findSetIdByName = (arr, name) => {
+    const n = (name||"").toLowerCase();
+    const hit = arr.find(s =>
+      (s.name && s.name.toLowerCase() === n) ||
+      (s.id   && s.id.toLowerCase()   === n)
+    );
+    return hit ? hit.id : null;
+  };
+  const hasSymbol = (sym) => Array.isArray(ch.symbols) && ch.symbols.includes(sym);
+
+  // escolhe o melhor 4p e 2p para um stat (mantém a sua regra anterior)
+  const bestByStat = (statKey) => {
+    let best4 = null, best4Score = -Infinity;
+    for (const s4 of allowedSet){
+      const score = pctOf(s4.twoPiece, statKey) + pctOf(s4.fourPiece, statKey);
+      if (score > best4Score){ best4Score = score; best4 = s4; }
+    }
+    let best2 = null, best2Score = -Infinity;
+    for (const s2 of allowedSet){
+      if (best4 && s2.id === best4.id) continue;      // 2p diferente do 4p
+      const score = pctOf(s2.twoPiece, statKey);
+      if (score > best2Score){ best2Score = score; best2 = s2; }
+    }
+    return { set4: best4?.id || null, set2: best2?.id || null };
+  };
+
+  const role = normalizeRole(ch.funcao); // já existe no seu código
+  const top  = topStatKey(ch.Stats || {}); // já existe no seu código
+
+  // --- Regra 1: Setters (S) têm recomendação fixa
+  if (role === 'S'){ // Ex.: é montado a partir de ch.funcao na abertura do modal
+    const s4 = findSetIdByName(allowedSet, 'Precise Set');
+    const s2 = findSetIdByName(allowedSet, 'Precise Serve');
+    return { set4: s4, set2: (s2 && s2 !== s4) ? s2 : null };
+  }
+
+  // --- Regra 3: maior atributo = Spike -> símbolos "quick" ou "power"
+  if (top === 'Spike'){
+    if (hasSymbol('img/quicksymbol.png')){
+      const s4 = findSetIdByName(allowedSet, 'Rapid Quick Attack');
+      const s2 = findSetIdByName(allowedSet, 'Sharp Sense');
+      if (s4 || s2) return { set4: s4, set2: (s2 && s2 !== s4) ? s2 : null };
+      // se não achar pelos nomes (catálogo diferente), cai no fallback
+    }
+    if (hasSymbol('img/powersymbol.png')){
+      const s4 = findSetIdByName(allowedSet, 'Power Vibe');
+      const s2 = findSetIdByName(allowedSet, 'Power Rise');
+      if (s4 || s2) return { set4: s4, set2: (s2 && s2 !== s4) ? s2 : null };
+    }
+  }
+
+  // --- Regra 2 (fallback): como antes, escolher pelo maior atributo
+  return bestByStat(top || 'Spike'); // se não houver top claro, Spike como padrão
+}
+
+// helper p/ gerar HTML de um ícone com etiqueta opcional
+function badgeIconHTML(src, title, tagText){
+  if(!src) return "";
+  return `
+    <span class="ico" title="${title || ""}">
+      <img src="${src}" alt="">
+      ${tagText ? `<span class="tag">${tagText}</span>` : ""}
+    </span>`;
+}
+
+function updateItemBadge(slotEl){
+  // remove a badge anterior
+  slotEl.querySelectorAll('.item-badge').forEach(n=>n.remove());
+
+  // não mostra badge se o slot estiver vazio
+  if(!slotEl.dataset.charName) return;
+
+  const slotId = getSlotId(slotEl);
+  const eq = equipState.get(slotId);
+  if(!eq) return;
+
+  const mem = eq.memoryId ? memoryCatalog.find(m=>m.id===eq.memoryId) : null;
+  const s4  = eq.set4      ? setCatalog.find(s=>s.id===eq.set4)       : null;
+  const s2  = eq.set2      ? setCatalog.find(s=>s.id===eq.set2)       : null;
+
+  if(!mem && !s4 && !s2) return;
+
+  const badge = document.createElement('div');
+  badge.className = 'item-badge';
+
+  // ÍCONES (sem texto). Etiqueta pequena: "M", "4", "2" (remova se não quiser nada)
+  const parts = [];
+  if(mem) parts.push(badgeIconHTML(mem.img,  `Memory: ${mem.name}`,          "M"));
+  if(s4)  parts.push(badgeIconHTML(s4.img,   `Potential 4-Piece: ${s4.name}`, "4"));
+  if(s2)  parts.push(badgeIconHTML(s2.img,   `Potential 2-Piece: ${s2.name}`, "2"));
+
+  badge.innerHTML = parts.join("");
+  slotEl.appendChild(badge);
+}
+
+/** Botão ⚙️ para abrir o modal (não conflita com seu dblclick de Details) */
+function ensureItemGear(slotEl){
+  if(slotEl.querySelector('.item-gear')) return;
+  if(!slotEl.dataset.charName) return;
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'item-gear';
+  btn.title = 'Items (Memory + Potential)';
+  btn.innerHTML = '⚙️';
+  btn.addEventListener('click', (e)=>{ e.stopPropagation(); e.preventDefault(); openItemModal(slotEl); });
+  slotEl.appendChild(btn);
+}
+function removeItemGear(slotEl){ slotEl.querySelectorAll('.item-gear').forEach(n=>n.remove()); }
+
+/** MODAL com Memory + Potential (4p/2p) */
+function openItemModal(slotEl){
+  const charName = getSlotChar(slotEl);
+  if(!charName){ alert('Coloque um personagem no slot antes de equipar.'); return; }
+  const ch = findCharacterByName(charName);
+  if(!ch){ alert('Personagem não encontrado.'); return; }
+
+  const slotId = getSlotId(slotEl);
+  const current = equipState.get(slotId) || { memoryId:null, set4:null, set2:null };
+
+  const role = normalizeRole(ch.funcao);
+const allowedMem = memoryCatalog.filter(m => m.positions?.includes(role));
+const allowedSet = setCatalog.filter(s => !s.positions || s.positions.includes(role));
+
+  const $back = document.createElement('div'); $back.className = 'item-modal-backdrop';
+  const $box  = document.createElement('div'); $box.className  = 'item-modal';
+  $back.appendChild($box);
+
+  $box.innerHTML = `
+  <h3>Items for <b>${ch.nome}</b> (${ch.funcao})</h3>
+
+   <div class="items-3col">
+    <div class="row-3col">
+      <div class="label">Memory</div>
+      <img id="memThumb" class="big-thumb" src="" alt="">
+      <div>
+        <select id="memSel" class="select-wide">
+          <option value="">— none —</option>
+          ${allowedMem.map(m=>`<option value="${m.id}" ${m.id===current.memoryId?'selected':''}>${m.name}</option>`).join('')}
+        </select>
+        <div id="memDesc" class="subdesc"></div>
+      </div>
+    </div>
+
+    <div class="row-3col">
+      <div class="label">4-Piece</div>
+      <img id="set4Thumb" class="big-thumb" src="" alt="">
+      <div>
+        <select id="set4Sel" class="select-wide">
+          <option value="">— none —</option>
+          ${allowedSet.map(s=>`<option value="${s.id}" ${s.id===current.set4?'selected':''}>${s.name}</option>`).join('')}
+        </select>
+        <div id="set4Desc" class="subdesc"></div>
+      </div>
+    </div>
+
+    <div class="row-3col">
+      <div class="label">2-Piece</div>
+      <img id="set2Thumb" class="big-thumb" src="" alt="">
+      <div>
+        <select id="set2Sel" class="select-wide">
+          <option value="">— none —</option>
+          ${allowedSet.map(s=>`<option value="${s.id}" ${s.id===current.set2?'selected':''}>${s.name}</option>`).join('')}
+        </select>
+        <div id="set2Desc" class="subdesc"></div>
+      </div>
+    </div>
+
+    <div class="row-3col">
+      <div class="label">Stats</div>
+      <div></div>
+      <div><ul id="statsList" class="stats-list"></ul></div>
+    </div>
+  </div>
+
+  <div class="item-actions">
+    <button class="item-btn" id="btnRec">Recommend</button>
+    <button class="item-btn" id="btnClear">Clear</button>
+    <button class="item-btn" id="btnSave">Save</button>
+    <button class="item-btn" id="btnClose">Close</button>
+  </div>
+`;
+  document.body.appendChild($back);
+
+  const $mem  = $box.querySelector('#memSel');
+  const $mD   = $box.querySelector('#memDesc');
+  const $set4 = $box.querySelector('#set4Sel');
+  const $set2 = $box.querySelector('#set2Sel');
+  const $d4   = $box.querySelector('#set4Desc');
+  const $d2   = $box.querySelector('#set2Desc');
+  const $statsList = $box.querySelector('#statsList');
+  const $memThumb  = $box.querySelector('#memThumb');
+  const $set4Thumb = $box.querySelector('#set4Thumb');
+  const $set2Thumb = $box.querySelector('#set2Thumb');
+
+  function getSetBonusPct(statKey){
+  let total = 0;
+  const s4 = setCatalog.find(s => s.id === $set4.value);
+  const s2 = setCatalog.find(s => s.id === $set2.value);
+
+  if (s4){
+    if (s4.twoPiece && s4.twoPiece[statKey] && typeof s4.twoPiece[statKey].pct === "number")
+      total += s4.twoPiece[statKey].pct;   // 2p “embutido” no 4p
+    if (s4.fourPiece && s4.fourPiece[statKey] && typeof s4.fourPiece[statKey].pct === "number")
+      total += s4.fourPiece[statKey].pct;  // 4p
+  }
+  // só soma 2p diferente do 4p
+  if (s2 && (!s4 || s2.id !== s4.id)){
+    if (s2.twoPiece && s2.twoPiece[statKey] && typeof s2.twoPiece[statKey].pct === "number")
+      total += s2.twoPiece[statKey].pct;
+  }
+  return total;
+}
+
+  function refreshThumbs(){
+  const mem = memoryCatalog.find(m=>m.id===$mem.value);
+  const s4  = setCatalog.find(s=>s.id===$set4.value);
+  const s2  = setCatalog.find(s=>s.id===$set2.value);
+  $memThumb.src  = mem?.img  || "";
+  $set4Thumb.src = s4?.img   || "";
+  $set2Thumb.src = s2?.img   || "";
+}
+
+  function renderChoice($el, item, fallbackTitle){
+  if(item){
+    $el.classList.remove('empty');
+    $el.querySelector('img').src = item.img || "";
+    $el.querySelector('.title').textContent = item.name;
+    $el.querySelector('.subtitle').textContent = item.short || ""; // opcional
+  }else{
+    $el.classList.add('empty');
+    $el.querySelector('img').src = "";
+    $el.querySelector('.title').textContent = fallbackTitle || "— none —";
+    $el.querySelector('.subtitle').textContent = "";
+  }
+}
+
+function refreshChoices(){
+  const mem = memoryCatalog.find(m=>m.id===$mem.value);
+  const s4  = setCatalog.find(s=>s.id===$set4.value);
+  const s2  = setCatalog.find(s=>s.id===$set2.value);
+  renderChoice($box.querySelector('#memChoice'),  mem, "— none —");
+  renderChoice($box.querySelector('#set4Choice'), s4,  "— none —");
+  renderChoice($box.querySelector('#set2Choice'), s2,  "— none —");
+}
+  function updateSetLocks(){
+  const v4 = $set4.value, v2 = $set2.value;
+  [...$set2.options].forEach(o => o.disabled = !!v4 && o.value === v4 && o.value !== "");
+  [...$set4.options].forEach(o => o.disabled = !!v2 && o.value === v2 && o.value !== "");
+}
+$set4.addEventListener('change', ()=>{ updateSetLocks(); refreshDescs(); renderStats(); });
+$set2.addEventListener('change', ()=>{ updateSetLocks(); refreshDescs(); renderStats(); });
+updateSetLocks();
+
+  function refreshDescs(){
+  const mem = memoryCatalog.find(m=>m.id===$mem.value);
+  const s4  = setCatalog.find(s=>s.id===$set4.value);
+  const s2  = setCatalog.find(s=>s.id===$set2.value);
+  $mD.textContent = mem ? (mem.desc || '') : '';
+  $d4.textContent = s4 ? (s4.desc4 || '') : '';
+  $d2.textContent = s2 ? (s2.desc2 || '') : '';
+  refreshThumbs();
+}
+// Retorna quanto a Memory soma EM PONTOS para um stat específico
+function getMemoryBonusAbs(statKey){
+  const mem = memoryCatalog.find(m=>m.id===$mem.value);
+  if(!mem || !mem.bonus || !mem.bonus[statKey]) return 0;
+  const base = ch.Stats[statKey] || 0;
+  const mod  = mem.bonus[statKey];
+  const pct  = mod.pct ? Math.round(base * (mod.pct/100)) : 0;
+  const flat = mod.flat ? mod.flat : 0;
+  return pct + flat; // valor absoluto adicionado pela memória
+}
+
+// Retorna o TOTAL de % dos sets (2p/4p) efetivamente aplicados para o stat
+function getSetBonusPct(statKey){
+  let total = 0;
+
+  const s4 = setCatalog.find(s=>s.id===$set4.value);
+  const s2 = setCatalog.find(s=>s.id===$set2.value);
+
+  // 4p selecionado: normalmente concede o 2p do mesmo set se o 2p não estiver escolhido
+  if(s4){
+    // aplica 2p do 4p quando NÃO há set2 OU quando set2 é o mesmo set
+    if((!s2 || s2.id === s4.id) && s4.twoPiece && s4.twoPiece[statKey]?.pct){
+      total += s4.twoPiece[statKey].pct;
+    }
+    // aplica 4p
+    if(s4.fourPiece && s4.fourPiece[statKey]?.pct){
+      total += s4.fourPiece[statKey].pct;
+    }
+  }
+
+  // 2p de um set diferente do 4p
+  if(s2 && (!s4 || s2.id !== s4.id)){
+    if(s2.twoPiece && s2.twoPiece[statKey]?.pct){
+      total += s2.twoPiece[statKey].pct;
+    }
+  }
+
+  return total; // só porcentagem
+}
+
+  // helper para considerar 0, 0.0, null etc.
+function zeroish(x){ return !x || Math.abs(x) < 1e-6; }
+
+function renderStats(){
+  const rows = STAT_KEYS.map((k)=>{
+    const base   = ch.Stats[k] || 0;
+    const memAbs = getMemoryBonusAbs(k);   // pontos absolutos da Memory
+    const setPct = getSetBonusPct(k);      // % total dos sets para esse stat
+
+    const parts = [String(base)];
+    if (!zeroish(memAbs)) parts.push(`+ ${memAbs}`);
+    if (!zeroish(setPct)) parts.push(`+ ${setPct}%`); // só mostra se > 0%
+
+    return `<li><b>${k}:</b> ${parts.join(' ')}</li>`;
+  }).join('');
+  $statsList.innerHTML = rows;
+}
+
+  $mem.addEventListener('change', ()=>{ refreshDescs(); renderStats(); });
+  $set4.addEventListener('change', ()=>{ updateSetLocks(); refreshDescs(); renderStats(); });
+  $set2.addEventListener('change', ()=>{ updateSetLocks(); refreshDescs(); renderStats(); });
+  updateSetLocks();refreshDescs(); renderStats();
+
+  $box.querySelector('#btnClose').onclick = ()=> $back.remove();
+  $box.querySelector('#btnClear').onclick = ()=>{
+    $mem.value=""; $set4.value=""; $set2.value="";
+    refreshDescs(); renderStats();
+  };
+  $box.querySelector('#btnSave').onclick = ()=>{
+    const data = { memoryId: $mem.value || null, set4: $set4.value || null, set2: $set2.value || null };
+    equipState.set(slotId, data);
+    updateItemBadge(slotEl);
+    $back.remove();
+  };
+  $box.querySelector('#btnRec').onclick = ()=>{
+  const memId = recommendMemoryForCharacter(ch, allowedMem);
+  const rec   = recommendSetsByTopStat(ch, allowedSet);
+
+  if (memId) $mem.value = memId;
+  if (rec.set4) $set4.value = rec.set4;
+  $set2.value = rec.set2 || "";           // sempre tenta diferente; se não houver, fica vazio
+
+  updateSetLocks();                        // mantém 4p/2p mutuamente exclusivos na UI
+  refreshDescs();
+  renderStats();
+};
+}
+
+/** Hooks para seu fluxo atual */
+window.afterAssignCharacter = function(slotEl, charName){
+  slotEl.dataset.charName = charName;
+  updateItemBadge(slotEl);
+  ensureItemGear(slotEl); // botão ⚙️ para abrir o modal (não conflita com dblclick de detalhes)
+};
+window.afterRemoveCharacter = function(slotEl){
+  delete slotEl.dataset.charName;   // mantém compatibilidade com suas badges
+  clearSlotEquip(slotEl);           // <- limpa Map + badges/engrenagem
+  updateItemBadge(slotEl);          // defensivo (como já faz no assign)
+};
+
+// Guarda por slot, mas também salva o nome do char para restaurar por nome
+function serializeTeamItems(){
+  const data = {};
+  document.querySelectorAll('.hex, .bench-slot').forEach(el=>{
+    const id = getSlotId(el);
+    const charName = el.dataset.charName || el.dataset.nome || null;
+    if (!charName) return;
+    const eq = equipState.get(id) || { memoryId:null, set4:null, set2:null };
+    data[id] = { charName, ...eq };
+  });
+  return data;
+}
+
+// Ao carregar: 1) limpa tudo; 2) tenta aplicar itens pelo NOME do char.
+// Se não achar o nome no grid atual, cai no slot salvo (fallback).
+function restoreTeamItems(saved){
+  clearAllEquips();
+  if (!saved) return;
+
+  const allSlots = Array.from(document.querySelectorAll('.hex, .bench-slot'));
+
+  // mapa rápido: nome -> slot atual
+  const byName = new Map();
+  allSlots.forEach(el=>{
+    const n = el.dataset.charName || el.dataset.nome || null;
+    if (n) byName.set(n, el);
+  });
+
+  for (const [slotId, payload] of Object.entries(saved)){
+    const target =
+      byName.get(payload.charName) ||
+      allSlots.find(e => getSlotId(e) === slotId);
+
+    if (!target) continue;
+
+    const id = getSlotId(target);
+    equipState.set(id, {
+      memoryId: payload.memoryId || null,
+      set4:     payload.set4     || null,
+      set2:     payload.set2     || null
+    });
+    updateItemBadge(target);
+    ensureItemGear(target);
+  }
+}
+// ========= DRAG & DROP (compatível com sua estrutura) =========
+(function(){
+  if (window.__dndFix) return; window.__dndFix = true;
+
+  const getChar = n => characters.find(c => c.nome === n);
+  let dragCtx = null; // {type:'character'|'slot', nome?, id?}
+
+  function setDragCtx(obj, e){
+    dragCtx = obj;
+    try { e.dataTransfer.setData('application/json', JSON.stringify(obj)); } catch(_) {}
+    try { e.dataTransfer.setData('text/plain', JSON.stringify(obj)); } catch(_) {}
+    e.dataTransfer.effectAllowed = (obj.type === 'slot') ? 'move' : 'copyMove';
+  }
+
+  function canDropCharOn(slot, p){
+    const isBench = slot.classList.contains('bench-slot');
+    if (isBench) return respeitaLimiteBench(p, slot);
+    const role = slot.dataset.role || slot.getAttribute('data-role');
+    return p.funcao === role;
+  }
+
+  function dropCharacterOn(slot, p) {
+  // zera items pendurados nesse slot (é um overwrite vindo do menu)
+  equipState.delete(getSlotId(slot));
+
+  const isBench = slot.classList.contains('bench-slot');
+  const role = isBench ? 'bench' : (slot.dataset.role || slot.getAttribute('data-role'));
+  setCharacter(slot, p, role);
+
+  const sm = document.getElementById("scrollMenu");
+  if (sm) sm.style.display = "none";
+}
+
+  function moveBetweenSlots(srcEl, dstEl){
+  if (srcEl === dstEl) return;
+
+  const pSrc = characters.find(x => x.nome === srcEl.dataset.nome);
+  const pDst = dstEl.dataset.nome ? characters.find(x => x.nome === dstEl.dataset.nome) : null;
+
+  const dstIsBench = dstEl.classList.contains('bench-slot');
+  const srcIsBench = srcEl.classList.contains('bench-slot');
+  const dstRole = dstIsBench ? 'bench' : (dstEl.dataset.role || dstEl.getAttribute('data-role'));
+  const srcRole = srcIsBench ? 'bench' : (srcEl.dataset.role || srcEl.getAttribute('data-role'));
+
+  // 🔒 TRAVAS: destino precisa aceitar o personagem
+  if (!dstIsBench && pSrc.funcao !== dstRole) return;
+  if (dstIsBench && !respeitaLimiteBench(pSrc, dstEl)) return;
+
+  // --- MIGRAÇÃO/SWAP DE ITENS (equipState) ---
+  const srcId = getSlotId(srcEl);
+  const dstId = getSlotId(dstEl);
+  const srcEq = equipState.get(srcId) || null;
+  const dstEq = equipState.get(dstId) || null;
+
+  if (pDst){
+    // 🔒 TRAVAS simétricas para a volta
+    if (!srcIsBench && pDst.funcao !== srcRole) return;
+    if (srcIsBench && !respeitaLimiteBench(pDst, srcEl)) return;
+
+    // swap de itens
+    if (srcEq) equipState.set(dstId, srcEq); else equipState.delete(dstId);
+    if (dstEq) equipState.set(srcId, dstEq); else equipState.delete(srcId);
+
+    setCharacter(dstEl, pSrc, dstRole);
+    setCharacter(srcEl, pDst, srcRole);
+  } else {
+    // mover p/ slot vazio: leva os itens juntos
+    const keep = srcEq ? { ...srcEq } : null;
+    equipState.delete(srcId);
+    if (keep) equipState.set(dstId, keep);
+
+    removeCharacter(srcEl);
+    setCharacter(dstEl, pSrc, dstRole);
+  }
+}
+
+  function decorateDropTarget(slot){
+    slot.addEventListener('dragover', (e)=>{
+      // permita o drop SEM depender de getData()
+      e.preventDefault();
+      const ctx = dragCtx;
+      let ok = false;
+      if (ctx?.type === 'character'){
+        const p = getChar(ctx.nome);
+        ok = !!p && canDropCharOn(slot, p);
+      } else if (ctx?.type === 'slot'){
+        const srcEl = Array.from(document.querySelectorAll('.hex, .bench-slot')).find(el => getSlotId(el) === ctx.id);
+        const p = srcEl?.dataset.nome ? getChar(srcEl.dataset.nome) : null;
+        ok = !!p && (slot === srcEl || canDropCharOn(slot, p));
+      }
+      slot.classList.toggle('drop-ok', ok);
+      slot.classList.toggle('drop-bad', ctx && !ok);
+    });
+
+    slot.addEventListener('dragleave', ()=> slot.classList.remove('drop-ok','drop-bad'));
+
+    slot.addEventListener('drop', (e)=>{
+      e.preventDefault();
+      slot.classList.remove('drop-ok','drop-bad');
+      const ctx = dragCtx; dragCtx = null; // consome o contexto
+
+      if (!ctx) return;
+      if (ctx.type === 'character'){
+        const p = getChar(ctx.nome);
+        if (p && canDropCharOn(slot, p)) dropCharacterOn(slot, p);
+      } else if (ctx.type === 'slot'){
+        const srcEl = Array.from(document.querySelectorAll('.hex, .bench-slot')).find(el => getSlotId(el) === ctx.id);
+        if (srcEl) moveBetweenSlots(srcEl, slot);
+      }
+    });
+
+    // habilita arrastar a partir do slot quando tiver personagem
+    const refresh = ()=> slot.setAttribute('draggable', slot.dataset.nome ? 'true' : 'false');
+    refresh();
+    slot.addEventListener('dragstart', (e)=>{
+      if (!slot.dataset.nome) return;
+      setDragCtx({ type:'slot', id:getSlotId(slot), nome:slot.dataset.nome }, e);
+    });
+
+    // atualiza o draggable quando setar/remover
+    const oldAssign = window.afterAssignCharacter;
+    window.afterAssignCharacter = function(el, name){
+      if (typeof oldAssign === 'function') oldAssign(el, name);
+      if (el === slot) slot.setAttribute('draggable','true');
+    };
+    const oldRemove = window.afterRemoveCharacter;
+    window.afterRemoveCharacter = function(el){
+      if (typeof oldRemove === 'function') oldRemove(el);
+      if (el === slot) slot.setAttribute('draggable','false');
+    };
+  }
+
+  function decorateAll(){ document.querySelectorAll('.hex, .bench-slot').forEach(decorateDropTarget); }
+
+  function initDnd(){
+    // 1) Fontes: **#charList** (lista do menu lateral)
+    const list = document.getElementById('charList');
+    if (list){
+      list.addEventListener('dragstart', (e)=>{
+        const img = e.target.closest('img'); if (!img) return;
+        const nome = img.alt || img.title;
+        if (getChar(nome)) { img.setAttribute('draggable','true'); setDragCtx({type:'character', nome}, e); }
+      });
+      list.querySelectorAll('img').forEach(img => img.setAttribute('draggable','true'));
+    }
+
+    // 2) Fontes: #scrollMenu (seu menu flutuante por posição)
+    const sm = document.getElementById('scrollMenu');
+    if (sm){
+      sm.addEventListener('dragstart', (e)=>{
+        const img = e.target.closest('img'); if (!img) return;
+        const nome = img.alt || img.title;
+        if (getChar(nome)) { img.setAttribute('draggable','true'); setDragCtx({type:'character', nome}, e); }
+      });
+      sm.querySelectorAll('img').forEach(img => img.setAttribute('draggable','true'));
+    }
+
+    // 3) Alvos e fontes: quadra + banco
+    decorateAll();
+
+    // redecorar após rotacionar (se você rotaciona os hex com innerHTML)
+    if (typeof window.rotateRingClockwise === 'function' && !window.__dndWrapRot){
+      const old = window.rotateRingClockwise;
+      window.rotateRingClockwise = function(){
+        const r = old.apply(this, arguments);
+        try { RING_IDX.map(i => document.querySelectorAll('.hex')[i]).forEach(decorateDropTarget); }
+        catch(_) { decorateAll(); }
+        return r;
+      };
+      window.__dndWrapRot = true;
+    }
+
+    // redecorar após adicionar novo slot de bench
+    if (typeof window.addBenchSlot === 'function' && !window.__dndWrapAdd){
+      const old = window.addBenchSlot;
+      window.addBenchSlot = function(){
+        const r = old.apply(this, arguments);
+        const last = Array.from(document.querySelectorAll('.bench-slot')).pop();
+        if (last) decorateDropTarget(last);
+        return r;
+      };
+      window.__dndWrapAdd = true;
+    }
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initDnd);
+  } else {
+    initDnd();
+  }
+})();
+
+// === fechar #charList ao clicar fora / ESC, ligado sob demanda ===
+(function(){
+  let off = null; // guard para remover handlers antigos
+
+  function enableCloseOutsideCharList(){
+  if (off) { off(); off = null; }
+
+  const list = document.getElementById('charList');
+  if (!list) return;
+
+  const onDown = (e) => {
+    // ✅ qualquer clique dentro do sidebar (filtros + lista) NÃO fecha
+    if (e.target.closest('#sidebar-content')) return;
+
+    // cliques no link que abre Characters também não fecham
+    if (e.target.closest("[data-section='characters'], [data-open-charlist]")) return;
+
+    // ❌ clique realmente fora => fecha
+    list.classList.add('is-hidden');
+    cleanup();
+  };
+
+    const onEsc = (e)=>{
+      if (e.key === "Escape") {
+        list.classList.add('is-hidden');
+        cleanup();
+      }
+    };
+
+    function cleanup(){
+      document.removeEventListener('pointerdown', onDown, true);
+      document.removeEventListener('keydown', onEsc);
+      off = null;
+    }
+
+    document.addEventListener('pointerdown', onDown, true); // captura cedo
+    document.addEventListener('keydown', onEsc);
+
+    // fornece um “desligar” externo para quando trocar de seção
+    off = cleanup;
+  }
+
+  // deixa acessível para chamar ao montar a seção
+  window.enableCloseOutsideCharList = enableCloseOutsideCharList;
+})();
+
+function clearSlotEquip(slotEl){
+  const id = getSlotId(slotEl);
+  equipState.delete(id);
+  slotEl.querySelectorAll('.item-badge,.item-gear').forEach(n=>n.remove());
+}
+
+function clearAllEquips(){
+  equipState.clear();
+  document.querySelectorAll('.hex, .bench-slot')
+    .forEach(el => el.querySelectorAll('.item-badge,.item-gear').forEach(n=>n.remove()));
+}
+
+// mover o “equip” junto com o personagem (A -> B), trocando se B já tiver algo
+function transferEquipState(fromEl, toEl){
+  const a = getSlotId(fromEl);
+  const b = getSlotId(toEl);
+  const aEq = equipState.get(a) || null;
+  const bEq = equipState.get(b) || null;
+
+  if (aEq == null && bEq == null) return;
+
+  // se B já tem alguém, trocamos; se B estava vazio, apenas movemos
+  if (bEq != null && aEq != null){
+    equipState.set(a, bEq);
+    equipState.set(b, aEq);
+  } else if (aEq != null){
+    equipState.delete(a);
+    equipState.set(b, aEq);
+  } else { // bEq != null
+    equipState.set(a, bEq);
+    equipState.delete(b);
+  }
+
+  updateItemBadge(fromEl);
+  updateItemBadge(toEl);
+}
+// ===== Recommend: preenche os slots vazios maximizando sinergias =====
+
+// Soma total dos Stats do personagem
+function sumStats(p){
+  const S = p.Stats || {};
+  let total = 0;
+  for (const k in S) total += (S[k] || 0);
+  return total;
+}
+
+// Coleta nomes atuais (starters e bench)
+function getCurrentTeamNames(){
+  const main = [...document.querySelectorAll('.hex')]
+    .map(s => s.dataset.nome).filter(Boolean);
+  const bench = [...document.querySelectorAll('.bench-slot')]
+    .map(s => s.dataset.nome).filter(Boolean);
+  return { main, bench };
+}
+
+// Quais slots de titulares estão vazios
+function getEmptyStarterSlots(){
+  return [...document.querySelectorAll('.hex')].filter(s => !s.dataset.nome);
+}
+
+// === Índices de sinergias (construídos 1x) ===
+let BOND_INDEX = null;    // { bondName -> Set(nomes) }
+let SCHOOL_INDEX = null;  // { schoolName -> Set(nomes) }
+
+function buildSynergyIndices(){
+  if (BOND_INDEX && SCHOOL_INDEX) return;
+  BOND_INDEX = {};
+  SCHOOL_INDEX = {};
+
+  for (const p of characters){
+    // Schools
+    if (p.School){
+      if (!SCHOOL_INDEX[p.School]) SCHOOL_INDEX[p.School] = new Set();
+      SCHOOL_INDEX[p.School].add(p.nome);
+    }
+    // Bonds (vinculo pode ser string ou array)
+    const vs = Array.isArray(p.vinculo) ? p.vinculo : (p.vinculo ? [p.vinculo] : []);
+    for (const v of vs){
+      if (!BOND_INDEX[v]) BOND_INDEX[v] = new Set();
+      BOND_INDEX[v].add(p.nome);
+    }
+  }
+}
+
+// Conta quantas sinergias ativas (Schools + Bonds) do time final
+// incluem ao menos 1 dos titulares que já estavam no grid (âncora).
+function anchoredSynergyScore(activeSchools, activeBonds, oldMainSet){
+  let score = 0;
+
+  // Schools: se a school ativa tem pelo menos 1 membro já presente no grid original
+  for (const sch of activeSchools){
+    const members = SCHOOL_INDEX[sch];
+    if (!members) continue;
+    for (const name of members){
+      if (oldMainSet.has(name)){
+        score++;
+        break;
+      }
+    }
+  }
+  // Bonds: se o bond ativo tem pelo menos 1 participante que já estava no grid original
+  for (const bond of activeBonds){
+    const members = BOND_INDEX[bond];
+    if (!members) continue;
+    for (const name of members){
+      if (oldMainSet.has(name)){
+        score++;
+        break;
+      }
+    }
+  }
+  return score;
+}
+
+// Conta quantas sinergias ficariam ativas com os nomes passados
+// (mesma regra do updateSynergies: Schools=starter-only com 4+, Bonds=starter+bench com 2+, exceto algumas que pedem 3)
+function computeActivatedSynergyCount(mainNames, benchNames){
+  // Mesmas exceções do seu painel
+  const bondsRequire3 = new Set(["Swimming","Twin Heads"]);  // idem ao updateSynergies
+  const DEFAULT_BOND_MIN = 2;
+  const SCHOOL_MIN = 4;
+
+  const SchoolsCount = {};
+  const vinculosCount = {};
+
+  // Contagem de School: só starters
+  for (const nome of mainNames){
+    const p = characters.find(x => x.nome === nome);
+    if (!p) continue;
+    SchoolsCount[p.School] = (SchoolsCount[p.School] || 0) + 1;
+  }
+
+  // Contagem de Bonds: starters + bench
+  const allForBonds = [...mainNames, ...benchNames];
+  for (const nome of allForBonds){
+    const p = characters.find(x => x.nome === nome);
+    if (!p) continue;
+    const vs = Array.isArray(p.vinculo) ? p.vinculo : (p.vinculo ? [p.vinculo] : []);
+    for (const v of vs){
+      vinculosCount[v] = (vinculosCount[v] || 0) + 1;
+    }
+  }
+
+  let count = 0;
+  const activeSchools = new Set();
+  const activeBonds = new Set();
+
+  // Schools
+  for (const school in SchoolsCount){
+    if (SchoolsCount[school] >= SCHOOL_MIN){
+      count++;
+      activeSchools.add(school);
+    }
+  }
+  // Bonds
+  for (const v in vinculosCount){
+    const required = bondsRequire3.has(v) ? 3 : DEFAULT_BOND_MIN;
+    if (vinculosCount[v] >= required){
+      count++;
+      activeBonds.add(v);
+    }
+  }
+
+  return { count, activeSchools, activeBonds };
+}
+
+// Gera todas as combinações escolhendo 1 candidato por slot (sem repetir nomes)
+function* cartesianByIndex(lists){
+  // lists: array de arrays (candidatos por slot)
+  const idx = lists.map(()=>0);
+  const lens = lists.map(l=>l.length);
+  if (lens.some(len => len===0)) return;
+
+  while (true){
+    // combinação atual
+    const combo = lists.map((l,i)=>l[idx[i]]);
+    // valida duplicados de nomes
+    const names = new Set(combo.map(c=>c.nome));
+    if (names.size === combo.length) yield combo;
+
+    // próximo índice (odômetro)
+    let k = lists.length - 1;
+    while (k >= 0){
+      idx[k]++;
+      if (idx[k] < lens[k]) break;
+      idx[k] = 0;
+      k--;
+    }
+    if (k < 0) break;
+  }
+}
+
+// Principal
+function recommendFill(){
+  buildSynergyIndices();
+  const emptySlots = getEmptyStarterSlots();
+  if (emptySlots.length === 0){
+    alert("No free slots available.");
+    return;
+  }
+
+  const roles = emptySlots.map(s => s.dataset.role || s.getAttribute('data-role') || "");
+  const { main: mainNow, bench: benchNow } = getCurrentTeamNames();
+  const used = new Set([...mainNow, ...benchNow]);
+
+  // Lista de candidatos por índice de slot (respeita função e evita duplicados já em uso)
+  let lists = roles.map(role =>
+    characters.filter(p => p.funcao === role && !used.has(p.nome))
+  );
+
+  // Se faltar candidato pra alguma posição, avisa
+  if (lists.some(l => l.length === 0)){
+    alert("Não há candidatos para pelo menos uma das posições restantes.");
+    return;
+  }
+
+  // Base de sinergias atuais
+  const base = computeActivatedSynergyCount(mainNow, benchNow).count;
+
+  // Heurística de limitação: se <=3 slots vazios, busca exaustiva;
+  // senão, poda pra top-N por potencial + stats pra não explodir combinatórias.
+  const MAX_PER_ROLE = 8;
+  if (emptySlots.length > 3){
+    lists = lists.map(list => {
+      // “delta sozinho”: o quanto ativaria se colocar só este personagem
+      const scored = list.map(p => {
+        const m = [...mainNow, p.nome];
+        const c = computeActivatedSynergyCount(m, benchNow).count - base;
+        return { p, delta: c, stats: sumStats(p) };
+      });
+      scored.sort((a,b) => (b.delta - a.delta) || (b.stats - a.stats));
+      // pega top por delta/Stats; completa com top Stats se necessário
+      const top = scored.slice(0, MAX_PER_ROLE).map(x => x.p);
+      if (top.length < Math.min(MAX_PER_ROLE, list.length)){
+        const restByStats = [...list]
+          .filter(p => !top.includes(p))
+          .sort((a,b)=>sumStats(b)-sumStats(a))
+          .slice(0, MAX_PER_ROLE - top.length);
+        return [...top, ...restByStats];
+      }
+      return top;
+    });
+  }
+
+  // Se o produto das listas ficar absurdo, aplica um teto simples
+  const totalComb = lists.reduce((acc, l)=>acc * l.length, 1);
+  if (totalComb > 60000){
+    lists = lists.map(list =>
+      list.sort((a,b)=>sumStats(b)-sumStats(a)).slice(0, MAX_PER_ROLE)
+    );
+  }
+
+  // Busca melhor combinação
+  let best = { improvement: -Infinity, stats: -Infinity, combo: null };
+
+  for (const combo of cartesianByIndex(lists)){
+  if (combo.some(p => used.has(p.nome))) continue;
+
+  const newMain = [...mainNow, ...combo.map(c=>c.nome)];
+  const res = computeActivatedSynergyCount(newMain, benchNow);
+  const improvement = res.count - base;
+  const stats = combo.reduce((s,p)=>s+sumStats(p),0);
+  const anchored = anchoredSynergyScore(res.activeSchools, res.activeBonds, new Set(mainNow));
+
+  // ordem de prioridade: 1) melhoria de sinergias  2) sinergias ancoradas  3) soma de stats
+  if (
+    improvement > best.improvement ||
+    (improvement === best.improvement && anchored > best.anchored) ||
+    (improvement === best.improvement && anchored === best.anchored && stats > best.stats)
+  ){
+    best = { improvement, stats, combo, res, anchored };
+  }
+}
+
+  if (!best.combo){
+    alert("Não foi possível calcular uma recomendação.");
+    return;
+  }
+
+  // Regra: se não aumentar sinergia, escolhe por maior soma de Stats (já é o desempate acima)
+  // Aplicar no grid
+  best.combo.forEach((person, i) => {
+    const slot = emptySlots[i];
+    const role = roles[i];
+    setCharacter(slot, person, role); // usa sua função; atualiza infos e sinergias automaticamente
+  });
+
+  // Opcional: feedback
+  const picked = best.combo.map(p=>p.nome).join(", ");
+  if (best.improvement > 0){
+    console.log(`Recommend: +${best.improvement} sinergias → ${picked}`);
+  } else {
+    console.log(`Recommend (Stats): ${picked}`);
+  }
+}
+
+
+// Liga o botão
+const $rec = document.getElementById("recommendBtn");
+if ($rec) $rec.addEventListener("click", recommendFill);
+
 
 </script>
 
