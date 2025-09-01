@@ -823,6 +823,34 @@ object-fit: Save;
 .stats-list li b{ margin-right:6px; }
 .hex.drop-ok, .bench-slot.drop-ok { outline: 2px dashed #9cf; }
 .hex.drop-bad, .bench-slot.drop-bad { outline: 2px dashed #f66; }
+/* título + badge lado a lado */
+.synergy-header{ display:flex; align-items:baseline; gap:12px; margin-bottom:8px; }
+.team-type-badge{ font-size:.95rem; font-weight:600; opacity:.9; }
+.multi-teams{ display:flex; align-items:center; gap:10px; margin:10px 0 16px; }
+.team-tabs{ display:flex; gap:8px; flex-wrap:wrap; }
+.team-tab{
+  padding:6px 12px; border-radius:9999px; border:1px solid #444;
+  background:#2a2a2a; color:#ddd; cursor:pointer; font-weight:600;
+}
+.team-tab.active{ background:#3a3a3a; border-color:#666; }
+.add-team{
+  padding:6px 10px; border-radius:8px; border:1px solid #444;
+  background:#2f6; color:#000; font-weight:700; cursor:pointer;
+}
+.team-tab.editing{ pointer-events:auto; }
+.team-tab-edit{
+  width:120px; max-width:160px;
+  background:transparent; color:inherit;
+  border:1px dashed #777; border-radius:9999px;
+  padding:4px 8px; outline:none; font:inherit; font-weight:600;
+}
+.multi-teams, #teamBar {
+  display: flex;
+  justify-content: center;   /* <— centraliza horizontalmente */
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 16px;
+}
 </style>
 </head>
 <body>
@@ -844,6 +872,10 @@ object-fit: Save;
 </div>
 
 <h1>Haikyu Fly High - Team Builder by Devoy Aces</h1>
+<div id="multiTeams" class="multi-teams">
+  <div id="teamTabs" class="team-tabs"></div>
+  <button id="addTeamBtn" class="add-team" type="button">+ Time</button>
+</div>
 
 <div class="team-grid">
     <div class="row top-row">
@@ -1138,7 +1170,7 @@ const characters = [
   {nome:"Participação Defensiva", descricao:"Kotaro Bokuto (Sea Bathing) recebe com [Recepção] × 140/160/180% de poder. Ganha 3 acúmulos de [Unity]."},
   {nome:"Sempre Animado!", descricao:"Se estiver com [Best Condition], quando Kotaro Bokuto (Beach Boys) ativa o Ultimate, seu [Ataque Potente] aumenta em 1% por acúmulo de [United] (máx. +70%) até a bola cruzar a rede duas vezes. Além disso, por acúmulo de [United], o poder do seu Ataque Potente aumenta em [Ataque Potente] × 1.5% (máx. +120%) até a bola cruzar a rede duas vezes. Após o Ultimate, ele ganha [Ups and Downs]."},
   {nome:"Spike Milagroso", descricao:"Kotaro Bokuto (Beach Boys) realiza um Spike com 260/280/300/320/340% do [Ataque Potente]. Para cada acúmulo de [United], o [Técnica de Ataque] dele aumenta em 0.75%, até 30%, até a bola cruzar a rede duas vezes."}
-], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
+], symbols: [ "img/powersymbol.png", "img/receivesymbol.png" ] },
 
 /* ==missing skills== */{ nome: "Akaashi SP", data: "06/11/26", funcao: "S", img: "img/akaashiSP.png", School: "Fukurodani", vinculo: ["Natação", "Ace Milagroso e Levantador Carinhoso"], Stats:{Serve:1848, Spike:1754, Set:1949, Receive:1581, Block:1758, Save:1489}, habilidades:[
   {nome: "No info yet", descricao:"No info yet"}, {nome: "No info yet", descricao:"No info yet"}, {nome: "No info yet", descricao:"No info yet"}, {nome: "No info yet", descricao:"No info yet"}
@@ -1925,6 +1957,10 @@ const setCatalog = [
 ];
 let selecionados = [];
 
+let teams = window.teams || [];            // se já existir, reutiliza
+let currentTeamIndex = window.currentTeamIndex || 0;
+let __mtAdding = false;                    // lock anti-duplo clique
+
 /* ====== FUNÇÕES ORIGINAIS (mantidas) ====== */
 function addBenchSlot() {
     const benchRow = document.getElementById("bench-row");
@@ -1985,92 +2021,110 @@ function attachBenchEvents(slot) {
   });
 }
 
+function isAllowedForStarterSlot(slotRole, charRole) {
+  const slot = String(slotRole || '').toUpperCase();
+  const role = String(charRole || '').toUpperCase();
+  if (!slot || slot === 'BENCH') return true;   // segurança
+  if (slot === 'L') return role === 'L';
+  return role !== 'L';
+}
 
 function showMenu(role, slot) {
   const scrollMenu = document.getElementById("scrollMenu");
   scrollMenu.innerHTML = '';
+  scrollMenu.style.display = 'flex';
+  scrollMenu.style.flexDirection = 'column';
 
-  if (role === "bench") {
-    // layout em coluna para botões em cima + grid de imagens embaixo
-    scrollMenu.style.display = 'flex';
-    scrollMenu.style.flexDirection = 'column';
+  const isBench = (role === 'bench');
+  const slotRole = isBench ? 'bench' : (slot.dataset.role || slot.getAttribute('data-role'));
 
-    // --- 5 botões no topo
-    const bar = document.createElement('div');
-    bar.className = 'bench-quick-inside';
-    ['S','MB','WS','OP','L'].forEach(r => {
-      const b = document.createElement('button');
-      b.textContent = r;
-      b.dataset.role = r;
-      b.title = `Banco: ${r}`;
-      b.addEventListener('click', (e) => {
-        e.stopPropagation();
-        render(r); // refiltra a lista
-      });
-      bar.appendChild(b);
-    });
-    scrollMenu.appendChild(bar);
+  // Cabeçalho com botões
+  const bar = document.createElement('div');
+  bar.className = 'bench-quick-inside';
 
-    // --- container das imagens
-    const grid = document.createElement('div');
-    grid.style.display = 'flex';
-    grid.style.flexWrap = 'wrap';
-    grid.style.gap = '8px';
-    scrollMenu.appendChild(grid);
+  const ROLES = ['All','S','MB','WS','OP','L'];
+  // Filtro inicial: se for L, começa em L; caso contrário, começa em All (não-L).
+  let currentFilter = isBench ? 'All' : (ROLES.includes(String(slotRole).toUpperCase()) ? String(slotRole).toUpperCase() : 'All');
 
-    // renderiza a lista (com ou sem filtro de posição)
-    function render(roleFilter = null) {
-      grid.innerHTML = '';
-      // marca o ativo
-      bar.querySelectorAll('button').forEach(btn =>
-        btn.classList.toggle('active', btn.dataset.role === roleFilter)
-      );
-
-      let disponiveis = characters.filter(p =>
-        !selecionados.includes(p) && respeitaLimiteBench(p, slot)
-      );
-      if (roleFilter) disponiveis = disponiveis.filter(p => p.funcao === roleFilter);
-
-      if (disponiveis.length === 0) {
-        grid.innerHTML = `<div style="color:#ccc; padding:8px;">
-          No available ${roleFilter ? roleFilter : ''} for bench.</div>`;
-      } else {
-        disponiveis.forEach(p => {
-          const img = document.createElement('img');
-          img.src = p.img;
-          img.alt = p.nome;
-          img.title = p.nome;
-          img.addEventListener('click', (e) => {
-            e.stopPropagation();
-            setCharacter(slot, p, 'bench');   // adiciona no banco
-            scrollMenu.style.display = 'none';
-          });
-          grid.appendChild(img);
-        });
-      }
-    }
-
-    // abre já com "todos" (se preferir abrir já em S: troque para render('S'))
-    render(null);
-    return; // não continuar para o caso "não bench"
+  function roleAllowedInThisSlot(r){
+    if (r === 'All') return true; // "All" será interpretado como "todos permitidos"
+    if (slotRole === 'bench') return true; // bench não restringe por função aqui
+    // starters
+    return isAllowedForStarterSlot(slotRole, r);
   }
 
-  // ==== restante igual ao original (S, MB, WS, OP, L fora do bench) ====
-  let disponiveis = characters.filter(p => p.funcao === role && !selecionados.includes(p));
-  disponiveis.forEach(p => {
-    const img = document.createElement('img');
-    img.src = p.img;
-    img.alt = p.nome;
-    img.title = p.nome;
-    img.addEventListener('click', (e) => {
+  ROLES.forEach(r => {
+    const b = document.createElement('button');
+    b.textContent = r;
+    b.dataset.role = r;
+
+    // Botões inválidos para o slot ficam desabilitados
+    if (!roleAllowedInThisSlot(r)) {
+      b.disabled = true;
+      b.classList.add('disabled');
+    }
+
+    if (r === currentFilter) b.classList.add('active');
+    b.addEventListener('click', (e) => {
       e.stopPropagation();
-      setCharacter(slot, p, role);
-      scrollMenu.style.display = 'none';
+      if (b.disabled) return;
+      currentFilter = r;
+      bar.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
+      render();
     });
-    scrollMenu.appendChild(img);
+    bar.appendChild(b);
   });
 
-  scrollMenu.style.display = 'flex';
+  scrollMenu.appendChild(bar);
+
+  // Container das imagens
+  const grid = document.createElement('div');
+  grid.style.display = 'flex';
+  grid.style.flexWrap  = 'wrap';
+  grid.style.gap = '8px';
+  scrollMenu.appendChild(grid);
+
+  function render(){
+    grid.innerHTML = '';
+
+    let disponiveis = characters.filter(p => !selecionados.includes(p));
+
+    // 1) aplica filtro por botão (exceto 'All')
+    if (currentFilter !== 'All') {
+      disponiveis = disponiveis.filter(p => p.funcao === currentFilter);
+    }
+
+    // 2) aplica regra do slot (para starters). Em 'All', isso converte "todos" em "todos permitidos"
+    if (!isBench) {
+      disponiveis = disponiveis.filter(p => isAllowedForStarterSlot(slotRole, p.funcao));
+    } else {
+      // bench mantém os próprios limites, se você quiser já pré-filtrar, pode aplicar aqui
+      disponiveis = disponiveis.filter(p => respeitaLimiteBench(p, slot));
+    }
+
+    if (disponiveis.length === 0){
+      grid.innerHTML = `<div style="color:#ccc; padding:8px;">
+        No available ${currentFilter === 'All' ? '' : currentFilter}${isBench ? ' for bench' : ''}.
+      </div>`;
+      return;
+    }
+
+    disponiveis.forEach(p => {
+      const img = document.createElement('img');
+      img.src = p.img;
+      img.alt = p.nome;
+      img.title = p.nome;
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const keepRole = isBench ? 'bench' : slotRole; // preserva o label do slot
+        setCharacter(slot, p, keepRole);
+        scrollMenu.style.display = 'none';
+      });
+      grid.appendChild(img);
+    });
+  }
+
+  render();
 }
 
 function respeitaLimiteBench(p, slot) {
@@ -2436,6 +2490,72 @@ function updateSynergies() {
     if (!algumaSinergia) {
         synergyListEl.innerHTML = "<li>Apenas vínculos de posicionamento são visíveis.</li>";
     }
+    // --- Tipo do time (apenas titulares) ---
+(function renderTeamType(){
+  function symbolToType(sym){
+    const s = String(sym||"").toLowerCase();
+    if (s.includes("quicksymbol"))   return "quick";
+    if (s.includes("powersymbol"))   return "power";
+    if (s.includes("receivesymbol")) return "receive";
+    if (s.includes("blocksymbol"))   return "block";
+    return null;
+  }
+
+  const TYPE_DEFAULT_MIN = 4;
+  const typeCounts = {};
+
+  // conta tipos só dos titulares (.hex)
+  document.querySelectorAll(".hex").forEach(slot => {
+    const nome = slot.dataset?.nome;
+    if (!nome) return;
+    const p = characters.find(x => x.nome === nome);
+    if (!p) return;
+    const syms = Array.isArray(p.symbols) ? p.symbols : [];
+    const types = new Set(syms.map(symbolToType).filter(Boolean));
+    types.forEach(t => { typeCounts[t] = (typeCounts[t] || 0) + 1; });
+  });
+
+  // vencedores entre os ativados
+  let top = []; let topCount = 0;
+  for (const [t, c] of Object.entries(typeCounts)) {
+    const min = (t === "receive") ? 5 : TYPE_DEFAULT_MIN;
+    if (c >= min) {
+      if (c > topCount) { top = [t]; topCount = c; }
+      else if (c === topCount) top.push(t);
+    }
+  }
+
+  // garante cabeçalho flex ao redor do título "Sinergias"
+  const box = synergyListEl?.parentElement || document; // container da lista
+  let title = box.querySelector('h2');
+  if (!title) return;
+
+  let header = title.closest('.synergy-header');
+  if (!header){
+    header = document.createElement('div');
+    header.className = 'synergy-header';
+    title.replaceWith(header);
+    header.appendChild(title);
+  }
+
+  // cria/atualiza a badge ao lado do título
+  let badge = header.querySelector('.team-type-badge');
+  if (!badge){
+    badge = document.createElement('span');
+    badge.className = 'team-type-badge';
+    header.appendChild(badge);
+  }
+
+  if (top.length){
+    const label = {
+      quick:"Ataque Rápido", power:"Ataque Potente", receive:"Recepção", block:"Bloqueio"
+    };
+    const names = top.map(t => label[t] || t).join(" ou ");
+    badge.textContent = `Tipo do time: ${names} (${topCount})`;
+  } else {
+    badge.textContent = ''; // nada ativado, não mostra texto
+  }
+})();
 }
 // ====== Eventos iniciais (grid principal com detecção de duplo clique) ======
 document.querySelectorAll(".hex").forEach(slot => {
@@ -3269,7 +3389,7 @@ function applyBonus(twoPiece, bonus){
   }
 }
 function computeEffectiveStats(baseStats, memoryId, set4Id, set2Id){
-  const out = {...baseStats};
+  const out = { ...baseStats};
   // Memory
   if(memoryId){
     const mem = memoryCatalog.find(m=>m.id===memoryId);
@@ -3797,13 +3917,20 @@ function restoreTeamItems(saved){
     try { e.dataTransfer.setData('text/plain', JSON.stringify(obj)); } catch(_) {}
     e.dataTransfer.effectAllowed = (obj.type === 'slot') ? 'move' : 'copyMove';
   }
+  function isAllowedForStarterSlot(slotRole, charRole) {
+  if (!slotRole || slotRole === 'bench') return true; // não é starter
+  if (slotRole === 'L') return charRole === 'L';
+  return charRole !== 'L';
+}
 
   function canDropCharOn(slot, p){
-    const isBench = slot.classList.contains('bench-slot');
-    if (isBench) return respeitaLimiteBench(p, slot);
-    const role = slot.dataset.role || slot.getAttribute('data-role');
-    return p.funcao === role;
-  }
+  const isBench = slot.classList.contains('bench-slot');
+  if (isBench) return respeitaLimiteBench(p, slot);
+
+  const role = (slot.dataset.role || slot.getAttribute('data-role') || '').toUpperCase();
+  if (role === 'L') return p.funcao === 'L';  // Líbero só no L
+  return p.funcao !== 'L';                    // demais titulares: qualquer NÃO-L
+}
 
   function dropCharacterOn(slot, p) {
   // zera items pendurados nesse slot (é um overwrite vindo do menu)
@@ -3816,48 +3943,82 @@ function restoreTeamItems(saved){
   const sm = document.getElementById("scrollMenu");
   if (sm) sm.style.display = "none";
 }
+ // Helper: pega o personagem de um slot (titular ou banco)
+function getCharacterFromSlot(el){
+  if (!el) return null;
+  const n = el.dataset?.nome || el.dataset?.charName || null;
+  return n ? (characters.find(c => c.nome === n) || null) : null;
+}
 
-  function moveBetweenSlots(srcEl, dstEl){
-  if (srcEl === dstEl) return;
+  // Troca/move entre slots (qualquer posição entre si, exceto L só em L)
+function moveBetweenSlots(srcEl, dstEl){
+  if (!srcEl || !dstEl || srcEl === dstEl) return;
 
-  const pSrc = characters.find(x => x.nome === srcEl.dataset.nome);
-  const pDst = dstEl.dataset.nome ? characters.find(x => x.nome === dstEl.dataset.nome) : null;
+  const pSrc = getCharacterFromSlot(srcEl);
+  const pDst = getCharacterFromSlot(dstEl);
+  if (!pSrc && !pDst) return;   // nada para fazer
+  if (!pSrc) return;            // origem vazia (arraste inválido)
 
-  const dstIsBench = dstEl.classList.contains('bench-slot');
   const srcIsBench = srcEl.classList.contains('bench-slot');
-  const dstRole = dstIsBench ? 'bench' : (dstEl.dataset.role || dstEl.getAttribute('data-role'));
-  const srcRole = srcIsBench ? 'bench' : (srcEl.dataset.role || srcEl.getAttribute('data-role'));
+  const dstIsBench = dstEl.classList.contains('bench-slot');
 
-  // 🔒 TRAVAS: destino precisa aceitar o personagem
-  if (!dstIsBench && pSrc.funcao !== dstRole) return;
-  if (dstIsBench && !respeitaLimiteBench(pSrc, dstEl)) return;
+  const srcRole = ((srcEl.dataset.role || srcEl.getAttribute('data-role') || '') + '').toUpperCase();
+  const dstRole = ((dstEl.dataset.role || dstEl.getAttribute('data-role') || '') + '').toUpperCase();
 
-  // --- MIGRAÇÃO/SWAP DE ITENS (equipState) ---
+  // Regras dos titulares: L só em L; demais titulares: qualquer NÃO-L
+  function allowedForStarter(slotRole, charRole){
+    if (!slotRole || slotRole === 'BENCH') return true;
+    if (slotRole === 'L') return charRole === 'L';
+    return charRole !== 'L';
+  }
+
+  // 1) Validar destino para pSrc
+  if (dstIsBench) {
+    if (!respeitaLimiteBench(pSrc, dstEl)) return;
+  } else {
+    if (!allowedForStarter(dstRole, pSrc.funcao)) return;
+  }
+
+  // 2) Se houver pDst (swap), validar “volta” para pDst
+  if (pDst){
+    if (srcIsBench) {
+      if (!respeitaLimiteBench(pDst, srcEl)) return;
+    } else {
+      if (!allowedForStarter(srcRole, pDst.funcao)) return;
+    }
+  }
+
+  // --- Itens (equipState): preparar ids e estados
   const srcId = getSlotId(srcEl);
   const dstId = getSlotId(dstEl);
   const srcEq = equipState.get(srcId) || null;
   const dstEq = equipState.get(dstId) || null;
 
-  if (pDst){
-    // 🔒 TRAVAS simétricas para a volta
-    if (!srcIsBench && pDst.funcao !== srcRole) return;
-    if (srcIsBench && !respeitaLimiteBench(pDst, srcEl)) return;
+  const srcKeepRole = srcIsBench ? 'bench' : srcRole;
+  const dstKeepRole = dstIsBench ? 'bench' : dstRole;
 
-    // swap de itens
+  if (pDst){
+    // SWAP: troca itens também
     if (srcEq) equipState.set(dstId, srcEq); else equipState.delete(dstId);
     if (dstEq) equipState.set(srcId, dstEq); else equipState.delete(srcId);
 
-    setCharacter(dstEl, pSrc, dstRole);
-    setCharacter(srcEl, pDst, srcRole);
+    removeCharacter(srcEl);
+    removeCharacter(dstEl);
+    setCharacter(srcEl, pDst, srcKeepRole);
+    setCharacter(dstEl, pSrc, dstKeepRole);
   } else {
-    // mover p/ slot vazio: leva os itens juntos
+    // MOVE: leva itens juntos
     const keep = srcEq ? { ...srcEq } : null;
     equipState.delete(srcId);
     if (keep) equipState.set(dstId, keep);
 
     removeCharacter(srcEl);
-    setCharacter(dstEl, pSrc, dstRole);
+    setCharacter(dstEl, pSrc, dstKeepRole);
   }
+
+  // Atualiza badges/engrenagem (seu fluxo atual)
+  if (typeof updateItemBadge === 'function') { updateItemBadge(srcEl); updateItemBadge(dstEl); }
+  if (typeof ensureItemGear   === 'function') { ensureItemGear(srcEl); ensureItemGear(dstEl); }
 }
 
   function decorateDropTarget(slot){
@@ -3969,11 +4130,17 @@ function restoreTeamItems(saved){
     }
   }
 
-  if (document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', initDnd);
-  } else {
-    initDnd();
+  (function bootOnce(){
+  function start(){
+    if (!window.__dndInited){ window.__dndInited = true; initDnd(); }
+    if (!window.__mtInited){ window.__mtInited = true; initMultiTeams(); }
   }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
 })();
 
 // === fechar #charList ao clicar fora / ESC, ligado sob demanda ===
@@ -4323,6 +4490,193 @@ function recommendFill(){
 const $rec = document.getElementById("recommendBtn");
 if ($rec) $rec.addEventListener("click", recommendFill);
 
+// ======================= Multi Teams =========================
+
+// Coleta estado atual do grid (titulares + banco + itens)
+function collectTeamState(name){
+  const state = { name: name || `Time ${currentTeamIndex+1}`, starters:{}, bench:{}, equip:{} };
+
+  // titulares
+  document.querySelectorAll('.hex').forEach(slot=>{
+    const id   = getSlotId(slot);
+    const nome = slot.dataset?.nome || null;
+    if (nome) state.starters[id] = nome;
+    const eq = equipState.get(id);
+    if (eq) state.equip[id] = JSON.parse(JSON.stringify(eq));
+  });
+
+  // banco
+  document.querySelectorAll('.bench-slot').forEach(slot=>{
+    const id   = getSlotId(slot);
+    const nome = slot.dataset?.nome || null;
+    if (nome) state.bench[id] = nome;
+    const eq = equipState.get(id);
+    if (eq) state.equip[id] = JSON.parse(JSON.stringify(eq));
+  });
+
+  return state;
+}
+
+// Cria um estado vazio (novo time)
+function makeEmptyTeamState(name){
+  return { name: name || `Time ${teams.length+1}`, starters:{}, bench:{}, equip:{} };
+}
+
+// Limpa completamente o grid atual (remove personagens e itens)
+function clearWholeGrid(){
+  document.querySelectorAll('.hex,.bench-slot').forEach(slot=>{
+    if (slot.dataset?.nome) removeCharacter(slot);
+    const id = getSlotId(slot);
+    equipState.delete(id);
+  });
+}
+
+// Aplica um estado ao grid
+function applyTeamState(state){
+  clearWholeGrid();
+
+  // titulares
+  Object.entries(state.starters || {}).forEach(([slotId, nome])=>{
+    const slot = document.querySelector(`[data-slot-id="${slotId}"]`) || document.getElementById(slotId);
+    if (!slot) return;
+    const role = slot.classList.contains('bench-slot') ? 'bench' : (slot.dataset.role || slot.getAttribute('data-role'));
+    const p = characters.find(c => c.nome === nome);
+    if (p) setCharacter(slot, p, role);
+  });
+
+  // banco
+  Object.entries(state.bench || {}).forEach(([slotId, nome])=>{
+    const slot = document.querySelector(`[data-slot-id="${slotId}"]`) || document.getElementById(slotId);
+    if (!slot) return;
+    const role = 'bench';
+    const p = characters.find(c => c.nome === nome);
+    if (p) setCharacter(slot, p, role);
+  });
+
+  // itens
+  Object.entries(state.equip || {}).forEach(([slotId, obj])=>{
+    equipState.set(slotId, JSON.parse(JSON.stringify(obj)));
+  });
+
+  // atualiza UI dependente
+  if (typeof updateSynergies === 'function') updateSynergies();
+  if (typeof refreshAllGears  === 'function') refreshAllGears();
+}
+
+// Salva o time atual no array
+function saveCurrentTeam(){
+  if (!teams.length) return;
+  const oldName = teams[currentTeamIndex]?.name || `Time ${currentTeamIndex+1}`;
+  teams[currentTeamIndex] = collectTeamState(oldName);
+}
+
+// Renderiza as abas
+function renderTeamTabs(){
+  const tabs = document.getElementById('teamTabs');
+  if (!tabs) return;
+  tabs.innerHTML = '';
+
+  teams.forEach((t, i)=>{
+    const b = document.createElement('button');
+    b.className = 'team-tab' + (i===currentTeamIndex ? ' active' : '');
+    b.textContent = t.name;
+    b.title = `Selecionar ${t.name}`;
+
+    // evita troca enquanto estiver editando
+    b.addEventListener('click', ()=>{
+      if (b.classList.contains('editing')) return;
+      if (i === currentTeamIndex) return;
+      saveCurrentTeam();
+      currentTeamIndex = i;
+      applyTeamState(teams[i]);
+      renderTeamTabs();
+    });
+
+    // === Renomear no dblclick ===
+    b.addEventListener('dblclick', (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      if (b.classList.contains('editing')) return;
+
+      b.classList.add('editing');
+      const oldName = teams[i].name;
+      b.textContent = ''; // limpar para inserir input
+
+      const input = document.createElement('input');
+      input.className = 'team-tab-edit';
+      input.type = 'text';
+      input.value = oldName;
+      input.setAttribute('maxlength', 40);
+      b.appendChild(input);
+      input.focus();
+      input.select();
+
+      const commit = ()=>{
+        const val = (input.value || '').trim();
+        teams[i].name = val || oldName; // se vazio, mantém
+        b.classList.remove('editing');
+        renderTeamTabs();
+      };
+      const cancel = ()=>{
+        b.classList.remove('editing');
+        renderTeamTabs();
+      };
+
+      input.addEventListener('keydown', (ev)=>{
+        if (ev.key === 'Enter') commit();
+        else if (ev.key === 'Escape') cancel();
+      });
+      input.addEventListener('blur', commit);
+    });
+
+    tabs.appendChild(b);
+  });
+}
+
+// Inicializa a barra de times
+function initMultiTeams(){
+  const addBtn = document.getElementById('addTeamBtn');
+
+  if (teams.length === 0){
+    teams.push(collectTeamState('Time 1'));
+    currentTeamIndex = 0;
+  }
+  renderTeamTabs();
+
+  // evita ligar o clique mais de uma vez
+  if (addBtn && !addBtn.__mtBound){
+    addBtn.__mtBound = true;
+    addBtn.addEventListener('click', ()=>{
+      if (__mtAdding) return;          // trava se já estiver rodando
+      __mtAdding = true;
+      try {
+        saveCurrentTeam();
+        const newIdx = teams.length + 1;
+        const empty = makeEmptyTeamState(`Time ${newIdx}`);
+        teams.push(empty);
+        currentTeamIndex = teams.length - 1;
+        applyTeamState(empty);
+        renderTeamTabs();
+      } finally {
+        // solta o lock no próximo ciclo do event loop
+        setTimeout(()=>{ __mtAdding = false; }, 0);
+      }
+    });
+  }
+
+  // opcional: salvar automaticamente após qualquer mudança
+  // se você já usa hooks globais, podemos plugar aqui:
+  const oldAfterAssign = window.afterAssignCharacter;
+  window.afterAssignCharacter = function(el, nome){
+    if (typeof oldAfterAssign === 'function') oldAfterAssign(el, nome);
+    saveCurrentTeam();
+  };
+  const oldAfterRemove = window.afterRemoveCharacter;
+  window.afterRemoveCharacter = function(el){
+    if (typeof oldAfterRemove === 'function') oldAfterRemove(el);
+    saveCurrentTeam();
+  };
+}
 
 </script>
 
