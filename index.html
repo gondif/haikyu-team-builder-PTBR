@@ -851,6 +851,46 @@ object-fit: Save;
   gap: 10px;
   margin: 10px 0 16px;
 }
+    /* impede scroll no fundo quando o modal está aberto */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* backdrop já é fixed e centraliza; só adiciono padding e contenção de overscroll */
+.item-modal-backdrop{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.6);           /* alpha válido (antes estava 6) */
+  display:flex; align-items:center; justify-content:center;
+  padding:16px;                         /* respiro nas bordas em zoom alto */
+  overscroll-behavior: contain;         /* evita “vazar” scroll para o body */
+  z-index:5000;
+}
+
+/* painel do modal com limite de altura e rolagem própria */
+.item-modal{
+  background:#2b2b2b; color:#fff;
+  width:min(640px,92vw);
+  border-radius:12px; padding:14px;
+  box-shadow:0 12px 32px rgba(0,0,0,.5);
+
+  max-height: calc(100dvh - 32px);      /* cabe na tela */
+  overflow: auto;                        /* rola por dentro */
+}
+/* fallback para navegadores sem dvh */
+@supports not (height: 100dvh){
+  .item-modal{ max-height: calc(100vh - 32px); }
+}
+
+/* barra de botões sempre visível no rodapé do modal */
+.item-actions{
+  position: sticky;
+  bottom: 0;
+  background: rgba(43,43,43,.95);
+  border-top: 1px solid #444;
+  margin-top:12px;
+  padding:8px 0;
+  display:flex; gap:8px; justify-content:flex-end;
+}
 </style>
 </head>
 <body>
