@@ -1333,7 +1333,14 @@ const characters = [
   {nome:"Recepção Habilidosa", descricao:"Kuroo Tetsuro (Hanabi) realiza uma recepção com poder igual a [Recepção] × 140/160/180%. Se essa jogada for crítica, o poder dessa recepção aumenta em [Recepção] × 20%."},
   {nome:"Um Jogador Completo, Sem Falhas", descricao:"Quando Kuroo Tetsuro (Hanabi) está na linha de frente/traseira e toca na bola, sua [Reação] aumenta em 50% × a [Reação] de cada outro aliado na linha de frente/traseira (máximo 100%), e seu [Mental] aumenta em 50% × o [Mental] de cada outro aliado na linha de frente/traseira (máximo 100%). Além disso, quando Kuroo Tetsuro (Hanabi) está na linha de frente, a [Técnica de Ataque] dos aliados aumenta em 14/17/20%, e seu poder de bloqueio aumenta em [Bloqueio] × 45%. Além disso, quando Kuroo Tetsuro está na linha de trás, a [Técnica Defensiva] dos aliados aumenta em 14/17/20%, e seu poder de recepção aumenta em [Recepção] × 45%."},
   {nome:"Bloqueio Desagradável", descricao:"Kuroo Tetsuro (Hanabi) realiza um bloqueio com poder de [Bloqueio] × 280/300/320/340/360%. Se esse bloqueio não devolver a bola para a quadra adversária, a primeira recepção de um aliado após essa jogada não resultará em ponto. Se esse bloqueio devolver a bola para a quadra adversária, os atributos principais de todos os aliados aumentam em 15%. Esse efeito dura até a bola atravessar a rede 8 vezes."}
-], symbols: [ "img/receivesymbol.png", "img/blocksymbol.png" ] }
+], symbols: [ "img/receivesymbol.png", "img/blocksymbol.png" ] },
+
+{ nome: "Kunimi SP", funcao: "OP", img: "img/kunimiSP.png", School: "Aoba Johsai", vinculo: [""], Stats:{Serve:1,Spike:2,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"Guardar Fôlego", descricao:"O [Ataque Potente] de Kunimi (Festival Esportivo) aumenta em +10%/13%/16%. Se a Stamina de Kunimi estiver abaixo de 80, o [Ataque Potente] dele recebe +12% adicionais.Enquanto Kunimi estiver em quadra, no fim de cada rali, se o limite máximo de Stamina de Kunimi exceder 80, o limite diminui em 10 e ele recupera 120 de Stamina.Enquanto Kunimi estiver em quadra, cada vez que a Stamina de um aliado diminuir em 10, Kunimi ganha 1 acúmulo de [Reserva de Stamina].Para cada acúmulo de [Reserva de Stamina], a [Percepção] de Kunimi aumenta em 7%.Máximo de 30 acúmulos; máximo de 10 acúmulos por rali. "},
+  {nome:"Defesa Precisa", descricao:"Kunimi Akira (Festival Esportivo) realiza uma recepção com poder de [Recepção] × 140%/160%/180%, e o parâmetro principal dos aliados aumenta em 10%. Este efeito dura até a bola cruzar a rede 2 vezes."},
+  {nome:"Dar o Máximo", descricao:"Toda vez que a Stamina de Kunimi (Festival Esportivo) é recuperada, o [Ataque Potente] dele aumenta em 0.8%/1.1%/1.4% (up to +16%/22%/28%). No início do rali, se o limite de Stamina de Kunimi for 80 ou menos, ele obtém o efeito [Momento Decisivo].Enquanto estiver com [Momento Decisivo], o tempo de recarga de <Espírito de Luta Ardente> passa a ser de 6 travessias de rede.Se a [Percepção] de Kunimi exceder 100%, a cada +1% excedente, o [Poder] aumenta em 0,9% (até +90% máx.).Depois de obter [Momento Decisivo], nas primeiras 2 ativações, sempre que <Espírito de Luta Ardente> for usado, o tempo de recarga dessa habilidade é redefinido."},
+  {nome:"Espírito de Luta Ardente", descricao:"Kunimi Akira (Festival Esportivo) consome +8 de Stamina e executa um [Ataque Potente] com poder de [Ataque Potente] × 295%/315%/335%/355%/375%Se a Stamina de Kunimi exceder 50, o poder deste ataque aumenta em [Ataque Potente] × 50%."}
+], symbols: [ "img/receivesymbol.png", "img/powersymbol.png" ] }
 ];
 
 const descricoesSinergia = {
@@ -1899,7 +1906,18 @@ positions:["WS"],
 bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
 desc:"O [Ataque Potente] aumenta em 24%. Quando este membro ativar o efeito [Escolha Mais], ganhe 2 acúmulos de [Escolha Mais] e aumente a [Recepção] dos aliados da linha de trás em 12% por 1 rali. Para cada acúmulo de [Escolha Mais], o [Ataque Potente]/[Ataque Rápido] aumenta em 2.5%, até 4 acúmulos.",
 img:"img/memories/MemoTerushimaSSR.png"
-}
+},
+    {
+    id:"mem_kunimi",
+    name:"Kunimi SP",
+    positions:["OP"],
+    bonus:{
+      Serve:{flat:765}, Spike:{flat:838}, Set:{flat:583},
+      Receive:{flat:838}, Block:{flat:656}, Save:{flat:619}
+    },
+    desc:"Enquanto esta memória estiver equipada, o [Ataque Potente] do membro aumenta em 24%.Se a Stamina desse membro estiver abaixo de 80, sua [Técnica de Ataque] aumenta em 12%.Sempre que a Stamina desse membro for recuperada, o [Poder] dele aumenta em 6% (máx. 5 acúmulos).",
+    img:"img/memories/MemoKunimiSP.png"
+  },
 ];
 
 /** Catálogo de SETS (POTENTIAL)  * */
