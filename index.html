@@ -891,6 +891,286 @@ body.modal-open {
   padding:8px 0;
   display:flex; gap:8px; justify-content:flex-end;
 }
+.recommend-panel{
+  display:flex; flex-direction:column; gap:8px; 
+  align-items:center; margin:10px 0 16px;
+}
+.recommend-panel .row{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; }
+.recommend-panel label{ color:#ddd; font-weight:600; display:flex; gap:6px; align-items:center; }
+.recommend-panel input[type="range"]{ width:120px; }
+.recommend-panel button{
+  padding:6px 12px; border-radius:10px; border:1px solid #444;
+  background:#40f06a; color:#000; font-weight:800; cursor:pointer;
+}
+.recommend-bar{ display:flex; justify-content:center; margin:6px 0 10px; }
+
+.recommend-panel{
+  display:none;                     /* oculto por padrão */
+  flex-direction:column; gap:8px;
+  align-items:center; margin:6px 0 16px;
+  padding:10px; border:1px solid #444; border-radius:10px; background:#2a2a2a;
+}
+.recommend-panel.open{ display:flex; }  /* abre quando adicionamos .open */
+
+.recommend-panel .row{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; }
+.recommend-panel label{ color:#ddd; font-weight:600; display:flex; gap:6px; align-items:center; }
+.recommend-panel input[type="range"]{ width:120px; }
+
+.recommend-bar button,
+.recommend-panel button{
+  padding:6px 12px; border-radius:10px; border:1px solid #444;
+  background:#40f06a; color:#000; font-weight:800; cursor:pointer;
+}
+.type-prefs{ border:1px solid #444; border-radius:8px; padding:6px 10px; }
+.type-prefs legend{ padding:0 6px; font-size:.9rem; color:#bbb; }
+.type-prefs label{ font-weight:500; }
+.banner-img{
+  width: 40px; height: 40px; object-fit: contain;
+  background:#0003; border-radius:8px; border:1px solid #3a3a3a; display:block;
+}
+/* collapse da coluna esquerda */
+body.planner-collapsed .panel.sources { display:none !important; }
+body.planner-collapsed .planner-wrap { grid-template-columns: 1fr !important; }
+
+/* botão compacto */
+.btn.mini{ padding:4px 8px; font-size:.85rem; border-radius:7px; }
+/* reserva largura para a coluna Sistema */
+#tblFree td.col-sistema, #tblFree th.col-sistema { width: 260px; }
+#tblCash td.col-sistema, #tblCash th.col-sistema { width: 260px; }
+
+/* inputs de texto com largura mínima e sem cortar texto */
+.grid-table input[type="text"]{
+  min-width: 240px;      /* garante leitura */
+  white-space: nowrap;   /* não quebra no meio */
+  text-overflow: clip;   /* sem "..." cortando */
+  overflow: visible;
+}
+/* container por mês */
+.month-group{ margin:14px 0 18px; }
+.month-title{ font-weight:800; margin:0 0 8px; opacity:.9; }
+
+
+/* cartão */
+.banner-card{
+  background:#1e1e1e; border:1px solid #3a3a3a; border-radius:12px; padding:10px;
+}
+.banner-card h5{ margin:0 0 6px; font-size:.95rem; opacity:.9; }
+.banner-card img{ width:160px; height:210px; object-fit:cover; display:block; border-radius:10px; border:1px solid #3a3a3a; }
+.banner-fields label{ display:block; font-size:.95rem; margin-top:6px; }
+.banner-fields input{ width:100%; background:#1d1d1d; color:#fff; border:1px solid #555; border-radius:8px; padding:6px 8px; }
+
+.rebanner-col{ grid-column: 1 / -1; display:flex; justify-content:center; }
+/* Reabrir fontes quando colapsado */
+#reopenSources {
+  position: fixed; left: 14px; bottom: 18px; z-index: 10000;
+  background:#ffd54f; color:#222; border:0; font-weight:800;
+  padding:8px 12px; border-radius:10px; cursor:pointer;
+  box-shadow:0 3px 0 rgba(0,0,0,.25); display:none;
+}
+body.planner-collapsed #reopenSources { display:block; }
+
+/* Coluna central de rebanners pode ter 1..N cartões empilhados */
+.rebanner-col { grid-column: 1 / -1; display:flex; flex-direction:column; gap:18px; align-items:center; }
+
+/* Linhas informativas (Tickets/Memórias/Cashback) no cartão */
+.banner-lines { margin-top:10px; font-weight:700; line-height:1.6; }
+.banner-lines span { display:block; }
+
+.banner-card img{ display:block; margin:0 auto; }
+body.planner-collapsed .panel.sources{ display:none !important; }
+body.planner-collapsed .planner-wrap{ grid-template-columns: 1fr  }
+
+.rebanners-row{ display:flex; gap:18px; justify-content:center; }
+/* Alinha o botão à direita no cabeçalho do painel */
+#synergy-panel .synergy-header{ justify-content: space-between; }
+
+/* Lista dentro do modal (apresentação dos bonds) */
+.stats-bond-list{ background:#2a2a2a; border:1px solid #444; border-radius:10px; padding:10px; }
+.stats-bond-item{ margin:10px 0; }
+.stats-bond-item h4{ margin:0 0 6px; font-size:1rem; }
+.stats-bond-item ul{ margin:0; padding-left:16px; }
+.stats-bond-item li{ margin:4px 0; font-family: ui-monospace, Menlo, Consolas, monospace; }
+/* --- Stats bonds (modal) --- */
+.stats-bond-item ul li{display:flex;align-items:center;gap:8px;margin:6px 0;}
+.stats-char-thumb{width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid #444}
+
+/* ações no rodapé do modal */
+.item-actions{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+
+/* picker de “personagens da conta” */
+.owned-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;
+  max-height:50vh;overflow:auto;margin-top:8px}
+.owned-card{display:flex;gap:8px;align-items:center;padding:6px;border:1px solid #555;border-radius:10px}
+.owned-card input{margin-left:auto}
+
+/* pills de Stat Bonds no painel lateral */
+.pill{display:inline-block;padding:4px 10px;border-radius:14px;border:1px solid #666;
+  cursor:pointer;margin:3px 4px;font-size:.95em;background:#222}
+.pill:hover{background:#2a2a2a}
+.subdesc{opacity:.9;margin-top:8px}
+/* Cabeçalho de cada bond + botão See details */
+.stats-bond-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.see-details-btn{font-size:.85em;padding:3px 8px;border:1px solid #666;border-radius:8px;background:#222;cursor:pointer}
+.see-details-btn:hover{background:#2a2a2a}
+
+/* Lista de personagens "faltando" (fora do time) */
+.missing-char{color:#ff5c5c;font-style:italic}
+/* Deixa o planner idêntico aos outros botões do menu */
+#sidebar #openPlannerBtn,
+#openPlannerBtn.menu-link.bond-btn{
+  background-color:#444;
+  color:#fff;
+  border:1px solid #666;
+  border-radius:6px;
+  padding:4px 8px;
+  font-size:14px;
+  cursor:pointer;
+  transition:background-color .2s, transform .2s;
+  box-shadow:none;
+  font-weight:normal;
+}
+#sidebar #openPlannerBtn:hover{ background-color:#666; transform:scale(1.05); }
+#sidebar #openPlannerBtn:active{ background-color:#888; transform:scale(.98); }
+/* === Planner em tela cheia === */
+#pagePlanner{
+  position: fixed;      /* vira um overlay */
+  inset: 0;             /* top/right/bottom/left = 0 */
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 16px clamp(12px,2vw,24px) 24px;
+  background: #121212;  /* use a cor do seu tema, se tiver variável */
+  z-index: 999;         /* acima do restante da UI */
+  overflow: auto;       /* rolagem interna */
+}
+
+/* evita “caixa” estreita por max-width herdado */
+#pagePlanner .container,
+#pagePlanner .planner-box,
+#pagePlanner .planner-wrap,
+#pagePlanner .planner-grid{
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* mantém cabeçalho/toolbar visível enquanto rola o planner */
+#pagePlanner .planner-header{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: inherit;
+  padding-bottom: 8px;
+}
+
+/* quando o planner está aberto, trava o scroll do body atrás */
+body.planner-open{ overflow: hidden; }
+/* ===== Planner: layout em duas colunas ===== */
+#pagePlanner .planner-two-col{
+  display: grid;
+  grid-template-columns: minmax(640px, 1fr) minmax(360px, 30vw);
+  gap: 16px;
+  align-items: start;
+}
+
+/* permite o conteúdo da coluna esquerda encolher corretamente */
+#pagePlanner .planner-main{ min-width: 0; }
+
+/* Simulação fixa ao rolar (dentro do overlay fullscreen) */
+#pagePlanner .planner-sim{
+  position: sticky;
+  top: 12px;                 /* ajuste se tiver header fixo maior */
+  max-height: calc(100vh - 24px);
+  overflow: auto;
+  /* aparência opcional */
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+/* cards/linhas de mês ocupam toda a largura disponível */
+#plannerMonths > *{ width: 100%; }
+
+/* responsivo: empilha em telas menores */
+@media (max-width: 1100px){
+  #pagePlanner .planner-two-col{
+    grid-template-columns: 1fr;
+  }
+  #pagePlanner .planner-sim{
+    position: static;
+    max-height: none;
+  }
+}
+.banner-card{
+  width: 320px;          /* mesma idea do .rebanner-card */
+  margin: 0 auto;        /* centraliza dentro da coluna */
+  flex: 0 0 320px;       /* evita “esticar” */
+}
+@media (max-width: 1200px){
+  .banner-card{ width: 280px; } /* opcional, igual aos rebanners menores */
+}
+/* ===== Modal genérica ===== */
+.modal-overlay{
+  position: fixed; inset: 0; display: none;
+  align-items: center; justify-content: center;
+  z-index: 2000;  /* acima do planner */
+}
+.modal-overlay.open{ display: flex; }
+.modal-backdrop{
+  position: absolute; inset: 0; background: rgba(0,0,0,.55);
+}
+.modal-dialog{
+  position: relative;
+  width: clamp(780px, 80vw, 1100px);
+  max-height: 90vh;
+  background: #1b1b1b;
+  border: 1px solid #333; border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.modal-header{
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; background: #222; border-bottom: 1px solid #333;
+  position: sticky; top: 0; z-index: 1;
+}
+.modal-body{
+  padding: 12px; overflow: auto;
+  max-height: calc(90vh - 56px);
+}
+
+/* trava scroll atrás da modal */
+body.modal-open{ overflow: hidden; }
+
+/* quando o painel está dentro da modal, deixe ele ocupar 100% */
+.modal-body .panel.sources{ margin: 0; width: 100%; box-sizing: border-box; }
+/* Alternador de servidor (JP / CN) */
+.server-switch{
+  display:flex; gap:8px; justify-content:center; margin:6px 0 12px;
+}
+.server-btn{
+  background:#2a2a2a; color:#ddd; border:1px solid #444;
+  padding:6px 12px; border-radius:10px; cursor:pointer; font-weight:700;
+}
+.server-btn:hover{ background:#333; border-color:#666; color:#fff; }
+.server-btn.active{ background:#3a3a3a; border-color:#777; color:#fff; }
+/* Grade fluida: cabe 1 ou 2 cards por linha conforme espaço disponible */
+.month-row{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--card-w), 1fr));
+  gap: 16px 24px;               /* gap menor ajuda a fechar com a Simulação */
+  align-items: start;
+}
+.rebanner-card{ width: var(--card-w); }
+/* Reduz larguras só nos campos do painel de Simulação */
+#simPane #simInputs label { display: flex; align-items: center; gap: 10px; }
+
+/* Garante que estes inputs não ocupem 100% da coluna */
+#simPane #simInputs input { width: auto; }
+
+/* Larguras finais: número e data */
+#simPane #simInputs .planner-input[type="number"] { width: 140px; }   /* Saldo inicial */
+#simPane #simInputs .planner-input[type="date"]   { width: 170px; }   /* Data de início */
+
 </style>
 </head>
 <body>
@@ -901,20 +1181,22 @@ body.modal-open {
     <h2>Side Menu</h2>
     <ul>
         <!-- substituí EStatísticas por Save/Load -->
-        <li><button class="menu-link bond-btn" data-section="save">💾 Salvar & Carregar Times</button></li>
-        <li><button class="menu-link bond-btn" data-section="characters">🔍 Personagens</button></li>
-        <li><button class="menu-link bond-btn" data-section="schools">🏫 Escolas</button></li>
+        <li><button class="menu-link bond-btn" data-section="save">💾 Save & Load Teams</button></li>
+        <li><button class="menu-link bond-btn" data-section="characters">🔍 Characters</button></li>
+        <li><button class="menu-link bond-btn" data-section="schools">🏫 Schools</button></li>
         <li><button class="menu-link bond-btn" data-section="help">ℹ️ Info</button></li>
-    </ul>
+        <li><button id="openPlannerBtn" class="menu-link bond-btn">💎 Planejador de Recursos</button></li>
+      </ul>
     <div id="sidebar-content">
-        <p>Selecione uma opção acima</p>
+        <p>Select an option above.</p>
     </div>
 </div>
 
 <h1>Haikyu Fly High - Team Builder by Devoy Aces</h1>
+
 <div id="multiTeams" class="multi-teams">
   <div id="teamTabs" class="team-tabs"></div>
-  <button id="addTeamBtn" class="add-team" type="button">+ Time</button>
+  <button id="addTeamBtn" class="add-team" type="button">+ Team</button>
 </div>
 
 <div class="team-grid">
@@ -934,9 +1216,9 @@ body.modal-open {
     <div class="row" id="bench-row-wrapper" style="align-items:center;">
 
         <div class="row" id="bench-row" style="gap:10px;">
-            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
-            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
-            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
+            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Bench</div></div>
+            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Bench</div></div>
+            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Bench</div></div>
             <button class="add-slot-btn" onclick="addBenchSlot()">+</button>
         </div>
          <div id="bench-toolbar" style="display:flex; align-items:center; gap:10px; margin-top:8px;">
@@ -948,15 +1230,58 @@ body.modal-open {
     </div>
 </div>
 
+<!-- Painel de sliders (inicialmente oculto) -->
+<div id="recoPanel" class="recommend-panel">
+  <div class="row">
+    <label>Sinergias
+      <input id="wSynergy" type="range" min="0" max="5" step="0.5" value="3">
+      <span id="wSynergyVal">3</span>
+    </label>
+    <label>Âncora
+      <input id="wAnchor" type="range" min="0" max="5" step="0.5" value="1">
+      <span id="wAnchorVal">1</span>
+    </label>
+    <label>Tipo do time
+      <input id="wTeamType" type="range" min="0" max="5" step="0.5" value="1.5">
+      <span id="wTeamTypeVal">1.5</span>
+    </label>
+    <label>Stats
+      <input id="wStats" type="range" min="0" max="5" step="0.5" value="1">
+      <span id="wStatsVal">1</span>
+    </label>
+  </div>
+  <div class="row">
+  <label><input id="allowCrossRole" type="checkbox" checked> Permitir cross-role (exceto L)</label>
+
+  <fieldset class="type-prefs">
+    <legend>Tipo do time</legend>
+    <label><input type="checkbox" id="prefQuick"> Quick</label>
+    <label><input type="checkbox" id="prefPower"> Power</label>
+    <label><input type="checkbox" id="prefBlock"> Block</label>
+    <label><input type="checkbox" id="prefReceive"> Reception</label>
+  </fieldset>
+
+  <button id="runRecommendBtn" type="button">Aplicar</button>
+  <button id="closeRecoBtn" type="button">Fechar</button>
+</div>
+</div>
+
 <div class="scroll-menu" id="scrollMenu"></div>
 
 <div id="synergy-panel">
-    <h2>Sinergias</h2>
-    <ul id="synergy-list"><li>Apenas vínculos de posicionamento são visíveis</li></ul>
+  <div class="synergy-header" style="justify-content:space-between;">
+    <h2>Synergies</h2>
+    <button id="statsBondBtn" class="btn mini" type="button" title="Mostrar vínculos de stats">
+      Stats bonds
+    </button>
+  </div>
+  <ul id="synergy-list">
+    <li>Only Deployment Synergies are displayed.Synergies will only work when players are in court inside the game.</li>
+  </ul>
 </div>
-<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script> <script> kofiWidgetOverlay.draw('gon6dif', { 'type': 'floating-chat', 'floating-chat.donateButton.text': 'Ajudar', 'floating-chat.donateButton.background-color': '#794bc4', 'floating-chat.donateButton.text-color': '#fff' });
+<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script> <script> kofiWidgetOverlay.draw('gondif', { 'type': 'floating-chat', 'floating-chat.donateButton.text': 'Support Us', 'floating-chat.donateButton.background-color': '#794bc4', 'floating-chat.donateButton.text-color': '#fff' });
 </script>
-    <script>
+<script>
 /* ====== DADOS (mantidos) ====== */
 const characters = [
 { nome: "Kageyama UR", data: "01/12/26", funcao: "S", img: "img/kageyamaUR.png", School: "Karasuno", vinculo: ["Dupla Excêntrica", "Gênios Karasuno"], Stats:{Serve:1782,Spike:1948,Set:1911,Receive:1625,Block:1709,Save:1539}, habilidades:[
@@ -1009,17 +1334,17 @@ const characters = [
 ], symbols: [ "img/powersymbol.png" ] },
 
 { nome: "Tsuki SP", funcao: "MB", img: "img/tsukiSP.png", School: "Karasuno", vinculo: ["Sol vs Lua","Festival Fogos de Artificio"], Stats:{Serve:1685,Spike:1968,Set:1669,Receive:1759,Block:1789,Save:1774}, habilidades:[
-  {nome:"Grande Cérebro", descricao:"Quando um membro do time adversário estiver sob efeito desfavorável, o [Percepção] e o [Reflexo] de Tsukishima Kei (Fireworks Festival) aumentam em 15/20/25%, e o [Offensive Technique] e [Defensive Technique] dos aliados aumentam em 10%. Dura por 1 rali. Quando um aliado ativa uma habilidade de bloqueio, o [Ataque Rápido] de Tsukishima Kei (Fireworks Festival) aumenta em 3% (até 10 acúmulos). Quando um aliado ativa uma habilidade de Ataque Rápido, o [Bloqueio] de Tsukishima Kei (Fireworks Festival) aumenta em 3% (até 10 acúmulos)."},
-  {nome:"Bloqueio é um Sistema", descricao:"Tsukishima Kei (Fireworks Festival) bloqueia com poder de [Bloqueio] × 300/325/350%. Aumenta o [Reflexo] dos defensores traseiros aliados em 10% e o [Spirit] em 20%. Dura até a bola cruzar a rede duas vezes."},
-  {nome:"Observar Calmamente a Situação", descricao:"No início da partida, se o [Técnica de Ataque] de Tsukishima Kei (Fireworks Festival) for ≥ ao [Defensive Technique], ele recebe o efeito [Attack I/II/III]; caso contrário, recebe [Defensive I/II/III]. Com [Attack I/II/III], o cooldown de 'Bloqueio é um Sistema' é reduzido em 4× o número de cruzamentos de rede, mas o poder dessa habilidade é reduzido em [Bloqueio] × 100/80/60%. [Ataque Rápido] é reduzido em 20/30/40."},
-  {nome:"Ataques que Aproveitam sua Altura", descricao:"Tsukishima Kei (Fireworks Festival) executa um Ataque Rápido com poder de [Ataque Rápido] × 260/280/300/320/340%. Se algum oponente tiver efeito desfavorável, o poder aumenta em [Ataque Rápido] × 60%."}
+  {nome:"Grande Cérebro", descricao:"Quando um membro do time adversário estiver sob efeito desfavorável, o [Percepção] e o [Reflexo] de Tsuki Kei (Fireworks Festival) aumentam em 15/20/25%, e o [Offensive Technique] e [Defensive Technique] dos aliados aumentam em 10%. Dura por 1 rali. Quando um aliado ativa uma habilidade de bloqueio, o [Ataque Rápido] de Tsuki Kei (Fireworks Festival) aumenta em 3% (até 10 acúmulos). Quando um aliado ativa uma habilidade de Ataque Rápido, o [Bloqueio] de Tsuki Kei (Fireworks Festival) aumenta em 3% (até 10 acúmulos)."},
+  {nome:"Bloqueio é um Sistema", descricao:"Tsuki Kei (Fireworks Festival) bloqueia com poder de [Bloqueio] × 300/325/350%. Aumenta o [Reflexo] dos defensores traseiros aliados em 10% e o [Spirit] em 20%. Dura até a bola cruzar a rede duas vezes."},
+  {nome:"Observar Calmamente a Situação", descricao:"No início da partida, se o [Técnica de Ataque] de Tsuki Kei (Fireworks Festival) for ≥ ao [Defensive Technique], ele recebe o efeito [Attack I/II/III]; caso contrário, recebe [Defensive I/II/III]. Com [Attack I/II/III], o cooldown de 'Bloqueio é um Sistema' é reduzido em 4× o número de cruzamentos de rede, mas o poder dessa habilidade é reduzido em [Bloqueio] × 100/80/60%. [Ataque Rápido] é reduzido em 20/30/40."},
+  {nome:"Ataques que Aproveitam sua Altura", descricao:"Tsuki Kei (Fireworks Festival) executa um Ataque Rápido com poder de [Ataque Rápido] × 260/280/300/320/340%. Se algum oponente tiver efeito desfavorável, o poder aumenta em [Ataque Rápido] × 60%."}
 ], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
 
 { nome: "Tsuki SSR", funcao: "MB", img: "img/tsukiSR.png", School: "Karasuno", vinculo: [], Stats: { Serve:1210, Spike:1314, Set:1153, Receive:1173, Block:1389, Save:1102 }, habilidades:[
-  {nome: "A CALMA DE KARASUNO", descricao:"Enquanto KEI TSUKISHIMA estiver em quadra, aumenta a Força dos jogadores do tipo Ataque Rápido do seu lado em 10%."},
-  {nome: "ATAQUE RÁPIDO TÁTICO", descricao:"KEI TSUKISHIMA realiza um Ataque Rápido com 115% do seu [Ataque Rápido]. Na próxima vez que um companheiro usar uma habilidade de Spike, o [Percepção] dele aumenta em 5%."},
-  {nome: "NASCER DA LUA", descricao:"Enquanto KEI TSUKISHIMA estiver presente, aumenta o poder de Bloqueio dos jogadores da linha de frente do seu lado em 8% do [Bloqueio]."},
-  {nome: "RÉPLICA DO KEI", descricao:"KEI TSUKISHIMA realiza um Bloqueio com 195% do seu [Bloqueio] como poder. Aplica o debuff \"Enrage\" no atacante adversário (reduz os Stats de [Power/Ataque Rápido] em 10%)."}
+  {nome: "A CALMA DE KARASUNO", descricao:"Enquanto KEI Tsuki estiver em quadra, aumenta a Força dos jogadores do tipo Ataque Rápido do seu lado em 10%."},
+  {nome: "ATAQUE RÁPIDO TÁTICO", descricao:"KEI Tsuki realiza um Ataque Rápido com 115% do seu [Ataque Rápido]. Na próxima vez que um companheiro usar uma habilidade de Spike, o [Percepção] dele aumenta em 5%."},
+  {nome: "NASCER DA LUA", descricao:"Enquanto KEI Tsuki estiver presente, aumenta o poder de Bloqueio dos jogadores da linha de frente do seu lado em 8% do [Bloqueio]."},
+  {nome: "RÉPLICA DO KEI", descricao:"KEI Tsuki realiza um Bloqueio com 195% do seu [Bloqueio] como poder. Aplica o debuff \"Enrage\" no atacante adversário (reduz os Stats de [Power/Ataque Rápido] em 10%)."}
 ], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
 
 { nome: "Daichi SSR", funcao: "OP", img: "img/daichiSR.png", School: "Karasuno", vinculo: [], Stats: { Serve:1182, Spike:1250, Set:1123, Receive:1385, Block:1248, Save:1191 }, habilidades:[
@@ -1030,10 +1355,10 @@ const characters = [
 ], symbols: [ "img/receivesymbol.png" ] },
 
 { nome: "Azumane SSR", funcao: "WS", img: "img/azumaneSR.png", School: "Karasuno", vinculo: ["Deus Guardião e Ponta"], Stats: { Serve:1322, Spike:1387, Set:1118, Receive:1254, Block:1190, Save:1122 }, habilidades:[
-  {nome: "DEFESA PROFICIENTE", descricao:"ASAHI AZUMANE realiza uma Recepção com 120% de [Recepção] como poder."},
-  {nome: "SAQUE BALA", descricao:"ASAHI AZUMANE realiza um Salto-Saque com 120% de [Serve] como poder."},
-  {nome: "AURA DO ACE", descricao:"Quando a Stamina de ASAHI AZUMANE está acima de 70, aumenta o poder do seu Power Spike em 15% do [Ataque Potente]."},
-  {nome: "SPIKE CARREGADO", descricao:"ASAHI AZUMANE consome 30 de Stamina adicional para realizar um Power Spike com 235% do [Ataque Potente] como poder e recebe 1 acúmulo de \"Power Charge\"; ao lançar [SPIKE CARREGADO], cada acúmulo de \"Power Charge\" aumenta o poder em 50% do [Ataque Potente]."}
+  {nome: "DEFESA PROFICIENTE", descricao:"Azumane AZUMANE realiza uma Recepção com 120% de [Recepção] como poder."},
+  {nome: "SAQUE BALA", descricao:"Azumane AZUMANE realiza um Salto-Saque com 120% de [Serve] como poder."},
+  {nome: "AURA DO ACE", descricao:"Quando a Stamina de Azumane AZUMANE está acima de 70, aumenta o poder do seu Power Spike em 15% do [Ataque Potente]."},
+  {nome: "SPIKE CARREGADO", descricao:"Azumane AZUMANE consome 30 de Stamina adicional para realizar um Power Spike com 235% do [Ataque Potente] como poder e recebe 1 acúmulo de \"Power Charge\"; ao lançar [SPIKE CARREGADO], cada acúmulo de \"Power Charge\" aumenta o poder em 50% do [Ataque Potente]."}
 ], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
 
 { nome: "Sugawara SP", data: "04/12/26", funcao: "S", img: "img/sugawaraSP.png", School: "Karasuno", vinculo: ["Depois da Escola"], Stats:{Serve:1849,Spike:1758,Set:1950,Receive:1667,Block:1774,Save:1605}, habilidades:[
@@ -1065,17 +1390,17 @@ const characters = [
 ], symbols: [ "img/receivesymbol.png" ] },
 
 { nome: "Kuro SSR", funcao: "MB", img: "img/kuroSR.png", School: "Nekoma", vinculo: [], Stats:{Serve:1221,Spike:1318,Set:1149,Receive:1186,Block:1389,Save:1123}, habilidades:[
-  {nome:"AURA DO ESPECIALISTA", descricao:"Enquanto TETSURO KUROO (Practice) está presente, aumenta a Força dos jogadores do tipo Ataque Rápido do seu lado em 16%."},
-  {nome:"ATAQUE CONSTANTE", descricao:"TETSURO KUROO (Practice) realiza um Ataque Rápido com 125% de [Ataque Rápido] como poder e recebe 1 acúmulo de 'Power Charge'; ao lançar [ATAQUE CONSTANTE], cada acúmulo aumenta o poder do spike em 15% de [Ataque Rápido] (máx. 2)."},
-  {nome:"TORRE DE CONTROLE DO BLOQUEIO", descricao:"Enquanto TETSURO KUROO (Practice) está presente, aumenta o [Bloqueio] dos seus jogadores em 8%."},
-  {nome:"BLOQUEIO TOTAL", descricao:"TETSURO KUROO (Practice) realiza um Bloqueio com 170% de [Bloqueio] como poder; quando outros jogadores de bloqueio na linha de frente estão presentes, aumenta o poder deste bloqueio em 15% do [Bloqueio]."}
+  {nome:"AURA DO ESPECIALISTA", descricao:"Enquanto TETSURO Kuro (Practice) está presente, aumenta a Força dos jogadores do tipo Ataque Rápido do seu lado em 16%."},
+  {nome:"ATAQUE CONSTANTE", descricao:"TETSURO Kuro (Practice) realiza um Ataque Rápido com 125% de [Ataque Rápido] como poder e recebe 1 acúmulo de 'Power Charge'; ao lançar [ATAQUE CONSTANTE], cada acúmulo aumenta o poder do spike em 15% de [Ataque Rápido] (máx. 2)."},
+  {nome:"TORRE DE CONTROLE DO BLOQUEIO", descricao:"Enquanto TETSURO Kuro (Practice) está presente, aumenta o [Bloqueio] dos seus jogadores em 8%."},
+  {nome:"BLOQUEIO TOTAL", descricao:"TETSURO Kuro (Practice) realiza um Bloqueio com 170% de [Bloqueio] como poder; quando outros jogadores de bloqueio na linha de frente estão presentes, aumenta o poder deste bloqueio em 15% do [Bloqueio]."}
 ], symbols: [ "img/blocksymbol.png", "img/quicksymbol.png" ] },
 
 { nome: "Kuro UR", funcao: "MB", img: "img/kuroUR.png", School: "Nekoma", vinculo: ["Cérebro e Comandante"], Stats:{Serve:1558,Spike:1673,Set:1551,Receive:1581,Block:1740,Save:1533}, habilidades:[
-  {nome:"Versátil", descricao:"Aumenta o [Ataque Rápido] de Tetsuro Kuroo em 10/12/14%. Quando ele está em quadra, seu [Bloqueio] e [Ataque Rápido] aumentam em 5% cada vez que a bola cruza a rede, até 5 vezes."},
-  {nome:"Ataque Rápido", descricao:"Tetsuro Kuroo realiza um Ataque Rápido com poder de [Ataque Rápido] × 125% e ganha 1 acúmulo de [Charge]. Ao ativar Ataque Rápido, o poder aumenta em [Ataque Rápido] × 5% por acúmulo de [Charge], até 3 acúmulos."},
-  {nome:"Liderança", descricao:"Aumenta o [Bloqueio] de Tetsuro Kuroo em 14/16/18%. Se o resultado do bloqueio for PERFECT, o atacante adversário (Power/Quick) recebe o debuff [Rage] (redução de 10% em [Power/Ataque Rápido])."},
-  {nome:"Bloqueio Líder", descricao:"Tetsuro Kuroo bloqueia com poder de [Bloqueio] × 235/250/265/280/295%. Se o atacante adversário tiver um efeito desfavorável, o poder desse bloqueio aumenta em [Bloqueio] × 20% adicionais."}
+  {nome:"Versátil", descricao:"Aumenta o [Ataque Rápido] de Tetsuro Kuro em 10/12/14%. Quando ele está em quadra, seu [Bloqueio] e [Ataque Rápido] aumentam em 5% cada vez que a bola cruza a rede, até 5 vezes."},
+  {nome:"Ataque Rápido", descricao:"Tetsuro Kuro realiza um Ataque Rápido com poder de [Ataque Rápido] × 125% e ganha 1 acúmulo de [Charge]. Ao ativar Ataque Rápido, o poder aumenta em [Ataque Rápido] × 5% por acúmulo de [Charge], até 3 acúmulos."},
+  {nome:"Liderança", descricao:"Aumenta o [Bloqueio] de Tetsuro Kuro em 14/16/18%. Se o resultado do bloqueio for PERFECT, o atacante adversário (Power/Quick) recebe o debuff [Rage] (redução de 10% em [Power/Ataque Rápido])."},
+  {nome:"Bloqueio Líder", descricao:"Tetsuro Kuro bloqueia com poder de [Bloqueio] × 235/250/265/280/295%. Se o atacante adversário tiver um efeito desfavorável, o poder desse bloqueio aumenta em [Bloqueio] × 20% adicionais."}
 ], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
 
 { nome: "Lev SSR", funcao: "MB", img: "img/levSR.png", School: "Nekoma", vinculo: ["Orientação Educacional"], Stats:{Serve:1206,Spike:1318,Set:1138,Receive:1166,Block:1378,Save:1100}, habilidades:[
@@ -1213,8 +1538,8 @@ const characters = [
   {nome:"Spike Milagroso", descricao:"Kotaro Bokuto (Beach Boys) realiza um Spike com 260/280/300/320/340% do [Ataque Potente]. Para cada acúmulo de [United], o [Técnica de Ataque] dele aumenta em 0.75%, até 30%, até a bola cruzar a rede duas vezes."}
 ], symbols: [ "img/powersymbol.png", "img/receivesymbol.png" ] },
 
-{ nome: "Akaashi SP", data: "06/11/26", funcao: "S", img: "img/akaashiSP.png", School: "Fukurodani", vinculo: ["Natação", "Ace Milagroso e Levantador Carinhoso"], Stats:{Serve:1848, Spike:1754, Set:1949, Receive:1581, Block:1758, Save:1489}, habilidades:[
-  {nome: "Organizador de time", descricao:"A [Saque] do Akaashi Kyoji (Beach Boy) aumenta em 13/15/18%. Quando a moral do time de um aliado sobe, o Akaashi Kyoji (Beach Boy) ganha 1 acúmulo do efeito [Mente Tranquila] a cada 10 pontos de moral. Cada acúmulo de [Mente Tranquila] aumenta o [Levantamento] dele em 1,5%, até 10 acúmulos. Enquanto o Despertar da Moral do Time não estiver ativo, todos os acúmulos de [Mente Tranquila] são consumidos quando o Akaashi Kyoji (Beach Boy) toca na bola. Cada vez que um acúmulo de [Mente Tranquila] é consumido, o [Espírito] do Akaashi Kyoji (Beach Boy) aumenta em 3%, chegando a no máximo 30%. Esse efeito dura por 2 passagens pela rede."}, {nome: "Aproveitamento Maximo", descricao:"Keiji Akaashi (Beach Boy) executa um Levantamento com poder de 140/155/170% do seu [Levantamento]. Depois dessa jogada, na próxima vez que ele ativar o Ultimate, o [Levantamento] dele aumenta em 15%. Esse efeito dura por 2 passagens pela rede."}, {nome: "Atacar", descricao:"Enquanto um aliado estiver com o Despertar da Moral do Time ativo, quando o Keiji Akaashi (Beach Boy) tocar na bola, 5 acúmulos de [Mente Tranquila] são consumidos e o [Espírito] dele aumenta em 70%. Esse efeito dura por 2 passagens pela rede.Se o levantamento do Keiji Akaashi (Beach Boy) for um Acerto Crítico, a [Percepção] do primeiro jogador a cortar (Ataque Potente/Ataque Rápido) depois dessa jogada aumenta em 50% da [Percepção] do Keiji Akaashi (Beach Boy), até no máximo 60%.Se essa cortada for um Ataque Potente, a [Percepção] de quem realizou a cortada recebe mais 50% da [Percepção] do Keiji Akaashi (Beach Boy), até no máximo 60%.Quando [Mostre 100% do Seu Treino] for ativado, para cada acúmulo de [Mente Tranquila] que ele tiver, o [Ataque Potente] de quem fizer a cortada aumenta em 3/3,5/4%, até no máximo 24/28/32%."}, {nome: "Jogada Decisiva", descricao:"Akaashi Kyoji (Beach Boy) executa uma Finta do Levantador com poder de 260/280/300/320/340% do seu [Levantamento]. A Finta do Levantador não pode ser bloqueada.Se essa finta for um Acerto Crítico, o tempo de recarga de [Mostre 100% do Seu Treino] é reduzido em 4 passagens pela rede.Ganha 1 acúmulo de [Mente Tranquila]."}
+/* ==missing skills== */{ nome: "Akaashi SP", data: "06/11/26", funcao: "S", img: "img/akaashiSP.png", School: "Fukurodani", vinculo: ["Natação", "Ace Milagroso e Levantador Carinhoso"], Stats:{Serve:1848, Spike:1754, Set:1949, Receive:1581, Block:1758, Save:1489}, habilidades:[
+  {nome: "No info yet", descricao:"No info yet"}, {nome: "No info yet", descricao:"No info yet"}, {nome: "No info yet", descricao:"No info yet"}, {nome: "No info yet", descricao:"No info yet"}
 ], symbols: [ "img/powersymbol.png", "img/settersymbol.png" ] },
 
 { nome: "Akaashi SSR", funcao: "S", img: "img/akaashiSR.png", School: "Fukurodani", vinculo: ["Ás Milagroso e Levantador Carinhoso"], Stats:{Serve:1396,Spike:1331,Set:1476,Receive:1191,Block:1334,Save:1123}, habilidades:[
@@ -1316,7 +1641,7 @@ const characters = [
 ], symbols: [ "img/servesymbol.png", "img/blocksymbol.png" ] },
 
 { nome: "Hayaseiomi UR", data: "08/10/26", funcao: "WS", img: "img/hayaseiomiUR.png", School: "Itachiyama", vinculo: ["Top Spiker e Top Libero"], Stats:{Serve:1774,Spike:2012,Set:1667,Receive:1928,Block:1699,Save:1656}, habilidades:[
-  {nome:"Ataque Persistente", descricao:"O [Ataque Potente] de Kiyoomi Sakusa aumenta em 10/12.5/15% e seu [Recepção] em 20/22/25%. Quando ele recebe um ataque, o [Ataque Potente] aumenta em 6% (até 3 acúmulos) até o próximo Ataque Potente. Quando ele acerta um Power Shot, o [Recepção] aumenta em 15% até a próxima recepção."},
+  {nome:"Ataque Persistente", descricao:"O [Ataque Potente] de Kiyoomi Hayaseiomi aumenta em 10/12.5/15% e seu [Recepção] em 20/22/25%. Quando ele recebe um ataque, o [Ataque Potente] aumenta em 6% (até 3 acúmulos) até o próximo Ataque Potente. Quando ele acerta um Power Shot, o [Recepção] aumenta em 15% até a próxima recepção."},
   {nome:"Tomar Todas as Precauções", descricao:"Realiza uma recepção ×1 com 50/70/90% de poder. Se exceder [Recepção] × 170%, o [Reflexo] aumenta em 10% e o cooldown de <Preparedness> é reduzido em 2× os cruzamentos. Se exceder [Recepção] × 200%, o [Defensive Technique] aumenta em 15% até o fim da partida."},
   {nome:"Top Spiker", descricao:"Estando em quadra, quando aliados fazem boa jogada (receber, salvar, bloquear), ganha 1 acúmulo de [Perfectionism]. Cada acúmulo aumenta [Recepção] e [Ataque Potente] em 6%, até 20. Ao atacar, o [Percepção] aumenta em 10% por acúmulo, até a bola cruzar a rede duas vezes."},
   {nome:"Spikes que Mudam a Trajetória Girando", descricao:"Executa um [Ataque Potente] com × 260/280/300/320/340% de poder. Se estiver na linha de trás, + [Ataque Potente] × 40%. Em caso de boa jogada, a próxima recepção do oponente é reduzida em [Recepção] × 15%."}
@@ -1330,12 +1655,11 @@ const characters = [
 ], symbols: [ "img/receivesymbol.png", "img/settersymbol.png" ] },
 
 /* ==missing Stats== */{ nome: "Kuro SP", funcao: "MB", img: "img/kuroSP.png", School: "Nekoma", vinculo: ["Festival Fogos de Artificio","Cérebro e Comandante SP"], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
-  {nome:"A Torre de Comando Imbatível", descricao:"Quando Kuroo Tetsuro (Hanabi) está em quadra, o [Mental] dos aliados na mesma linha de Kuroo Tetsuro (Hanabi) aumenta em 20/25/30%. Depois que ele toca na bola, o poder da próxima jogada do mesmo tipo que a jogada de Kuroo Tetsuro (Hanabi) é aumentado em 40% × o parâmetro correspondente do membro que fará a jogada. Se a jogada de Kuroo Tetsuro (Hanabi) for crítica, um membro aleatório do time adversário recebe a desvantagem [Raiva] ([Cortada Potente]/[Ataque Rápido] será reduzido em 10%)."},
-  {nome:"Recepção Habilidosa", descricao:"Kuroo Tetsuro (Hanabi) realiza uma recepção com poder igual a [Recepção] × 140/160/180%. Se essa jogada for crítica, o poder dessa recepção aumenta em [Recepção] × 20%."},
-  {nome:"Um Jogador Completo, Sem Falhas", descricao:"Quando Kuroo Tetsuro (Hanabi) está na linha de frente/traseira e toca na bola, sua [Reação] aumenta em 50% × a [Reação] de cada outro aliado na linha de frente/traseira (máximo 100%), e seu [Mental] aumenta em 50% × o [Mental] de cada outro aliado na linha de frente/traseira (máximo 100%). Além disso, quando Kuroo Tetsuro (Hanabi) está na linha de frente, a [Técnica de Ataque] dos aliados aumenta em 14/17/20%, e seu poder de bloqueio aumenta em [Bloqueio] × 45%. Além disso, quando Kuroo Tetsuro está na linha de trás, a [Técnica Defensiva] dos aliados aumenta em 14/17/20%, e seu poder de recepção aumenta em [Recepção] × 45%."},
-  {nome:"Bloqueio Desagradável", descricao:"Kuroo Tetsuro (Hanabi) realiza um bloqueio com poder de [Bloqueio] × 280/300/320/340/360%. Se esse bloqueio não devolver a bola para a quadra adversária, a primeira recepção de um aliado após essa jogada não resultará em ponto. Se esse bloqueio devolver a bola para a quadra adversária, os atributos principais de todos os aliados aumentam em 15%. Esse efeito dura até a bola atravessar a rede 8 vezes."}
+  {nome:"A Torre de Comando Imbatível", descricao:"Quando Kuro Tetsuro (Hanabi) está em quadra, o [Mental] dos aliados na mesma linha de Kuro Tetsuro (Hanabi) aumenta em 20/25/30%. Depois que ele toca na bola, o poder da próxima jogada do mesmo tipo que a jogada de Kuro Tetsuro (Hanabi) é aumentado em 40% × o parâmetro correspondente do membro que fará a jogada. Se a jogada de Kuro Tetsuro (Hanabi) for crítica, um membro aleatório do time adversário recebe a desvantagem [Raiva] ([Cortada Potente]/[Ataque Rápido] será reduzido em 10%)."},
+  {nome:"Recepção Habilidosa", descricao:"Kuro Tetsuro (Hanabi) realiza uma recepção com poder igual a [Recepção] × 140/160/180%. Se essa jogada for crítica, o poder dessa recepção aumenta em [Recepção] × 20%."},
+  {nome:"Um Jogador Completo, Sem Falhas", descricao:"Quando Kuro Tetsuro (Hanabi) está na linha de frente/traseira e toca na bola, sua [Reação] aumenta em 50% × a [Reação] de cada outro aliado na linha de frente/traseira (máximo 100%), e seu [Mental] aumenta em 50% × o [Mental] de cada outro aliado na linha de frente/traseira (máximo 100%). Além disso, quando Kuro Tetsuro (Hanabi) está na linha de frente, a [Técnica de Ataque] dos aliados aumenta em 14/17/20%, e seu poder de bloqueio aumenta em [Bloqueio] × 45%. Além disso, quando Kuro Tetsuro está na linha de trás, a [Técnica Defensiva] dos aliados aumenta em 14/17/20%, e seu poder de recepção aumenta em [Recepção] × 45%."},
+  {nome:"Bloqueio Desagradável", descricao:"Kuro Tetsuro (Hanabi) realiza um bloqueio com poder de [Bloqueio] × 280/300/320/340/360%. Se esse bloqueio não devolver a bola para a quadra adversária, a primeira recepção de um aliado após essa jogada não resultará em ponto. Se esse bloqueio devolver a bola para a quadra adversária, os atributos principais de todos os aliados aumentam em 15%. Esse efeito dura até a bola atravessar a rede 8 vezes."}
 ], symbols: [ "img/receivesymbol.png", "img/blocksymbol.png" ] },
-
 { nome: "Kunimi SP", funcao: "OP", img: "img/kunimiSP.png", School: "Aoba Johsai", vinculo: [""], Stats:{Serve:1674,Spike:1950,Set:1573,Receive:1857,Block:1762,Save:1570}, habilidades:[
   {nome:"Guardar Fôlego", descricao:"O [Ataque Potente] de Kunimi (Festival Esportivo) aumenta em +10%/13%/16%. Se a Stamina de Kunimi estiver abaixo de 80, o [Ataque Potente] dele recebe +12% adicionais.Enquanto Kunimi estiver em quadra, no fim de cada rali, se o limite máximo de Stamina de Kunimi exceder 80, o limite diminui em 10 e ele recupera 120 de Stamina.Enquanto Kunimi estiver em quadra, cada vez que a Stamina de um aliado diminuir em 10, Kunimi ganha 1 acúmulo de [Reserva de Stamina].Para cada acúmulo de [Reserva de Stamina], a [Percepção] de Kunimi aumenta em 7%.Máximo de 30 acúmulos; máximo de 10 acúmulos por rali. "},
   {nome:"Defesa Precisa", descricao:"Kunimi Akira (Festival Esportivo) realiza uma recepção com poder de [Recepção] × 140%/160%/180%, e o parâmetro principal dos aliados aumenta em 10%. Este efeito dura até a bola cruzar a rede 2 vezes."},
@@ -1343,6 +1667,7 @@ const characters = [
   {nome:"Espírito de Luta Ardente", descricao:"Kunimi Akira (Festival Esportivo) consome +8 de Stamina e executa um [Ataque Potente] com poder de [Ataque Potente] × 295%/315%/335%/355%/375%Se a Stamina de Kunimi exceder 50, o poder deste ataque aumenta em [Ataque Potente] × 50%."}
 ], symbols: [ "img/receivesymbol.png", "img/powersymbol.png" ] }
 ];
+
 
 const descricoesSinergia = {
   "Karasuno": "Aumenta em 10% os Stats de Ataque Potente e Ataque Rápido de TODOS os jogadores.",
@@ -1355,7 +1680,7 @@ const descricoesSinergia = {
   "Dupla Excêntrica": "Aumenta o poder de Ataque Rápido e o Percepção de Hinata e Kageyama.",
   "Gênios Karasuno": "Aumenta o Reflexo e a Recepção de Nishinoya SP. Quando Nishinoya usa o especial, Kageyama UR ganha um acúmulo de Competitive Spirit*. Se o especial for PERFECT, o primeiro corte (Power ou Quick) depois disso tem poder aumentado em 20% do Power do atacante.",
   "Observação de flores de cerejeira": "Aumenta o Percepção de Kenma SP. Aumenta o Ataque Rápido de Hinata SP quando a jogada for PERFECT.",
-  "Sol vs Lua": "Quando um aliado faz um levantamento (Passe), a [Percepção] dele aumenta em 10%.Dura até a bola atravessar a rede 2 vezes.Se o Ataque Rápido do Shoyo Hinata (Hanami) virar um PERFECT, o tempo de recarga de 〈Pulo Alto〉 é reduzido em 2 contagens de atravessar a rede.Kei Tsukishima (Festival de Fogos) recebe [Percepção] igual a 50% da [Percepção] do Hinata (Hanami), até +50%.Esse efeito dura até a bola atravessar a rede 4 vezes.",
+  "Sol vs Lua": "Quando um aliado faz um levantamento (Passe), a [Percepção] dele aumenta em 10%.Dura até a bola atravessar a rede 2 vezes.Se o Ataque Rápido do Shoyo Hinata (Hanami) virar um PERFECT, o tempo de recarga de 〈Pulo Alto〉 é reduzido em 2 contagens de atravessar a rede.Kei Tsuki (Festival de Fogos) recebe [Percepção] igual a 50% da [Percepção] do Hinata (Hanami), até +50%.Esse efeito dura até a bola atravessar a rede 4 vezes.",
   "Depois da Escola": "Aumenta o Reflexo de Nishinoya SP; quando a Stamina dele estiver baixa, aumenta ainda mais.",
   "Deus Guardião e Ponta": "Quando Nishinoya SSR ou Azumane SSR usam habilidade, ambos aumentam Técnica de Ataque e Técnica de Defesa.",
   "Esquadrão de Kiyoko": "Ao pontuar, aumenta a Moral do Time.",
@@ -1374,7 +1699,7 @@ const descricoesSinergia = {
   "A força dos Gêmeos": "Quando Atsumu UR faz o passe e Osamu UR faz um Ataque Rápido Minus Tempo, aumenta o Ataque Rápido dessa jogada. Aumenta o Técnica de Ataque em 15%. O ataque não pode ser bloqueado.",
   "Cabeça dos Gêmeos": "Aumenta o Técnica de Ataque de Osamu UR. Aumenta os Stats de Kita SSR. No início da partida, Atsumu ganha 3 acúmulos de Perfect Hit* (+2% de Passe cada, máx. 10). Kita SSR ganha bônus similar em Recepção (máx. 3). O primeiro Ataque Rápido dos gêmeos em cada set recebe +[Ataque Rápido] × 12%.",
   "Amigos de longa data": "Aumenta os Stats de Hoshiumi UR. Aumenta o Bloqueio para os jogadores da linha de frente. Hoshiumi UR e Hirugami UR recebem um buff (sem info).",
-  "Top Spiker e Top Libero": "Sakusa UR aumenta seu Ataque Potente. Komori UR aumenta seu Recepção. Aumenta a Recepção dos aliados em 20%.",
+  "Top Spiker e Top Libero": "Hayaseiomi UR aumenta seu Ataque Potente. Komori UR aumenta seu Recepção. Aumenta a Recepção dos aliados em 20%.",
   "Cérebro e Comandante SP": "Quando Kenma SP e Kuro SP estão em quadra, podem usar a habilidade de ataque rápido Cérebro e Comandante*",
   "Festival Fogos de Artificio": "Atributos principais dos aliados aumentam em 6%.Ao fim de cada rali, aplica [Raiva] na linha de frente do oponente (os [Cortada Potente]/[Ataque Rápido] deles ficam –10%).Dura até a bola atravessar a rede 8 vezes.Se o alvo já tiver [Raiva], aplica [Distração] em vez disso (os [Cortada Potente]/[Ataque Rápido] ficam –20%).Também dura até a bola atravessar a rede 8 vezes.[Distração] não pode ser removido."
     
@@ -1589,7 +1914,7 @@ const memoryCatalog = [
     img:"img/memories/MemoHinataSP.png"
   },
   {
-    id:"mem_hast_attack_block_up_tsukishima_firefly_display_de_fogos_de_artificio",
+    id:"mem_hast_attack_block_up_Tsuki_firefly_display_de_fogos_de_artificio",
     name:"Tsuki SP",
     positions:["MB"],
     bonus:{ Serve:{flat:619}, Spike:{flat:838}, Set:{flat:656}, Receive:{flat:765}, Block:{flat:838}, Save:{flat:583} },
@@ -1637,7 +1962,7 @@ const memoryCatalog = [
     img:"img/memories/MemoHinataSSR.png"
   },
   {
-    id:"mem_block_up_tsukishima",
+    id:"mem_block_up_Tsuki",
     name:"Tsuki SSR",
     positions:["MB"],
     bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:518}, Block:{flat:663}, Save:{flat:490} },
@@ -1821,12 +2146,12 @@ img:"img/memories/MemoSemiSSR.png"
     img:"img/memories/MemoBokutoUR.png"
     },
   {
-    id:"mem_Hayaseiomi_ur",
-    name:"Hayaseiomi UR",
+    id:"mem_hayaseomi_ur",
+    name:"Hayaseomi UR",
     positions:["WS"],
     bonus:{ Serve:{flat:765}, Spike:{flat:838}, Set:{flat:583}, Receive:{flat:838}, Block:{flat:656}, Save:{flat:619} },
     desc:"O membro que equipa esta memória tem seu [Ataque Potente] aumentado em 24%. Quando o membro receber, a [Técnica de Ataque] aumenta em 15% até a bola cruzar a rede duas vezes. Após receber, o [Empenho] do membro aumenta em 8% (até 4 acúmulos).",
-    img:"img/memories/MemoHayaseiomiUR.png"
+    img:"img/memories/MemoHayaseomiUR.png"
     },
    {
     id:"mem_yui_ssr",
@@ -1893,12 +2218,12 @@ desc:"O [Ataque Potente] aumenta em 20%. Enquanto o [Despertar de Moral da Equip
 img:"img/memories/MemoGoshikiSSR.png"
 },
     {
-id:"mem_awareness_reaction_up_oshira_ssr",
-name:"Ohira SSR",
+id:"mem_awareness_reaction_up_oshiro_ssr",
+name:"Oshiro SSR",
 positions:["WS"],
 bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, Block:{flat:518}, Save:{flat:490} },
 desc:"Quando este membro ativar uma Habilidade, a [Percepção] aumenta em 3.2% e o [Reflexo] aumenta em 3.2%, até 5 acúmulos.",
-img:"img/memories/MemoOhiraSSR.png"
+img:"img/memories/MemoOshiroSSR.png"
 },
     {
 id:"mem_terushima_ssr",
@@ -1908,7 +2233,7 @@ bonus:{ Serve:{flat:605}, Spike:{flat:663}, Set:{flat:461}, Receive:{flat:663}, 
 desc:"O [Ataque Potente] aumenta em 24%. Quando este membro ativar o efeito [Escolha Mais], ganhe 2 acúmulos de [Escolha Mais] e aumente a [Recepção] dos aliados da linha de trás em 12% por 1 rali. Para cada acúmulo de [Escolha Mais], o [Ataque Potente]/[Ataque Rápido] aumenta em 2.5%, até 4 acúmulos.",
 img:"img/memories/MemoTerushimaSSR.png"
 },
-    {
+{
     id:"mem_kunimi",
     name:"Kunimi SP",
     positions:["OP"],
@@ -2014,6 +2339,136 @@ const setCatalog = [
     desc4:"2p: Aumenta o atributo de Recepção em 15%. 4p: Ao receber um Ataque Rápido, aumenta o poder desta recepção em 30% do atributo de Recepção."
   }
 ];
+window.STATS_BONDS = {
+  "Aoba Johsai's Sophomore": { "Watari SR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Yahaba SR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Kentaro SSR": "No buff" },
+  "Behind the Smile": { "Daichi SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Kuro UR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%" },
+  "Bench cheer": { "Hisashi R": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Kazuhito R": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "Building Team Chemistry": { "Kageyama SSR": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Tanaka SR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%" },
+  "Cannon \\& Iron Wall": { "Azumane SSR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%", "Aone SSR": "No buff" },
+  "Cannon and Iron Wall": { "Aone SP": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Azumane SSR": "" },
+  "Classmates": { "Suna SSR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%", "Osamu UR": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "Date Kogyo's Captains": { "Kaname SR": "No buff", "Kenji SSR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%" },
+  "Date Kogyo's Junior": { "Jingo R": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Sakunami R": "Quick Attack +5/7/9/12/15, Quick Attack stat by 6/7/8/9/10%" },
+  "Date Kogyo's Setter": { "Kaname SR": "No buff", "Kaji SSR": "Set +5/7/9/12/15, Set +1/2/3/4/5%" },
+  "Fated Rivals": { "Oikawa UR": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%", "Ushijima UR": "" },
+  "Flexible Aces": { "Hinata SSR": "Block +5/7/9/12/15, Block +1/2/3/4/5%", "Lev SSR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%" },
+  "Formidable Opponent": { "Nishinoya SR": "Save +5/7/9/12/15, Save +1/2/3/4/5%", "Yaku SR": "Set +5/7/9/12/15, Set +1/2/3/4/5%" },
+  "Friends from Volleyball Class": { "Atsumu UR": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Osamu UR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%", "Ojiro SSR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%" },
+  "Fukurodani 3rd Years": { "Bokuto UR": "", "Komi SR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Konoha": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Sarukui SSR": "Power +5/7/9/12/15, Power +1/2/3/4/5%", "Washio SSR": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "Fukurodani MBs": { "Washio SSR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%", "Onaga R": "" },
+  "Fukurodani WS": { "Bokuto UR": "", "Sarukui": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%" },
+  "Grit and Competitive": { "Yamamoto SR": "No buff", "Kenma SSR": "Set +5/7/9/12/15, Set +1/2/3/4/5%" },
+  "Hidden Fire": { "Kentaro SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Yahaba SR": "No buff" },
+  "Inarizaki 2nd Years": { "Suna SSR": "Quick Spike +5/7/9/12/15, Quick Spike +1/2/3/4/5%", "Ginjima SSR": "Power Spike +5/7/9/12/15, Power Spike +1/2/3/4/5%", "Osamu UR": "Quick Spike +5/7/9/12/15, Quick Spike +1/2/3/4/5%", "Atsumu UR": "", "Kosaku R": "" },
+  "Inarizaki WS Teammates": { "Kita SSR": "Cover +5/7/9/12/15, Cover +1/2/3/4/5%", "Ojiro SSR": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Ginjima SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Kosaku R": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Riseki R": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%" },
+  "Japan Youth Training Camp Teammates": { "Kageyama UR": "", "Atsumu UR": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%", "Hayaseiomi UR": "Strong Spike +5/7/9/12/15, Strong Spike +1/2/3/4/5%", "Komori UR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Hoshiumi UR": "Strong Spike +5/7/9/12/15, Strong Spike +1/2/3/4/5%" },
+  "Karasuno 3rd Years": { "Azumane SSR": "Power +5/7/9/12/15, Power +1/2/3/4/5%", "Daichi SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Sugawara SP": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "Karasuno's Failing Grades Group": { "Hinata SSR": "", "Kageyama UR": "", "Nishinoya SSR": "", "Tanaka SSR": "Strong Attack +5/7/9/12/15, Strong Attack +1/2/3/4/5%" },
+  "Karasuno's Red Mark Squad (Hanami ver.)": { "Hinata SP": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Nishinoya SP": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%", "Tanaka SSR": "", "Kageyama UR": "" },
+  "Karasuno's Setters": { "Sugawara SR": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%", "Kageyama UR": "" },
+  "Karasuno's Wing Spiker": { "Tanaka SR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%", "Azumane SR": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Chikara SR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%" },
+  "Leaders Cut from the Same Cloth": { "Daichi SR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Kuro SSR": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "Master and Apprentice": { "Tsuki SSR": "Block +5/7/9/12/15, Block +1/2/3/4/5%", "Kuro UR": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "Nekoma's Junior": { "Teshiro SR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Inuoka SR": "No buff", "Lev SSR": "No Buff" },
+  "Number One Disciple": { "Bokuto UR": "Spike +5/7/9/12/15, Spike +1/2/3/4/5%", "Hinata SSR": "" },
+  "Number One Disciple SP": { "Hinata SP": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%", "Bokuto SP": "Strong Attack +5/7/9/12/15, Strong Attack +1/2/3/4/5%" },
+  "One-on-One Training": { "Lev SR": "Block +5/7/9/12/15, Block +1/2/3/4/5%", "Yaku SR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%" },
+  "Perseverance and Tenacity": { "Kenma SP": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%", "Yamamoto SR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%" },
+  "Prediction VS System": { "Tsuki SSR": "No buff", "Tendo SSR": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "Promising Senpai": { "Tendo SSR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%", "Goshiki SSR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%" },
+  "Reliable Seniors": { "Kuro UR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%", "Yaku SSR": "", "Kai SR": "" },
+  "Rival Friends": { "Hinata SSR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%", "Kenma SSR": "Set +5/7/9/12/15, Set +1/2/3/4/5%" },
+  "Shiratorizawa 2nd Years": { "Shirabu SSR": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%", "Taichi SR": "Quick +5/7/9/12/15, Quick +1/2/3/4/5%" },
+  "Shiratorizawa 3rd Years": { "Ushijima UR": "", "Yamagata SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Ohira SSR": "Spike +5/7/9/12/15, Spike +1/2/3/4/5%", "Semi SSR": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Tendo SSR": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "Silence and Sarcasm": { "Aone SP": "Block +5/7/9/12/15, Block +1/2/3/4/5%", "Futakuchi SSR": "" },
+  "Simulated Junior Training Teamate": { "Kanji SR": "Set +5/7/9/12/15, Set +1/2/3/4/5%", "Tsuki SR": "No buff" },
+  "Strange Friendship": { "Hinata SP": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%", "Aone SP": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "Team's Guardians": { "Nishinoya SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Yaku SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%" },
+  "Team's Guardians (After School)": { "Nishinoya SP": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Yaku SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%" },
+  "The \"Enigmatic\" Teammate": { "Lev SSR": "Block +5/7/9/12/15, Block +1/2/3/4/5%", "Kenma SSR": "No buff" },
+  "The Absolute King VS the Freak Duo": { "Ushijima UR": "Spike +5/7/9/12/15, Spike +1/2/3/4/5%", "Hinata SSR": "", "Kageyama UR": "" },
+  "The King and The Great King": { "Kageyama UR": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Oikawa UR": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%" },
+  "The Moment They Fell for Volleyball": { "Bokuto SP": "Spikes +5/7/9/12/15, Spikes +1/2/3/4/5%", "Tsuki SP": "Quick +5/7/9/12/15, Quick +1/2/3/4/5%" },
+  "Third Year from Inarizaki": { "Kita SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Ojiro SSR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%", "Akagi SSR": "Cover +5/7/9/12/15, Cover +1/2/3/4/5%", "Omimi SR": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "To Greater Heights": { "Kindaichi SR": "", "Oikawa UR": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%" },
+  "Tokyo Training Camp Buddies": { "Bokuto SP": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Akaashi SP": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%", "Tsuki SP": "Block +5/7/9/12/15, Block +1/2/3/4/5%", "Kuro SP": "Block +5/7/9/12/15, Block +1/2/3/4/5%" },
+  "Tokyo Training Camp Self-Practice Buddies": { "Bokuto UR": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Akaashi SSR": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%", "Kuro UR": "", "Tsuki SSR": "" },
+  "Two High-Energy Guys": { "Bobata R": "", "Terushima SSR": "Attack +5/7/9/12/15, Attack +1/2/3/4/5%" },
+  "Undisputed Aces": { "Goshiki SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Ushijima UR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%" },
+  "Ushiwaka and Benkei": { "Ushijima UR": "Block +5/7/9/12/15, Block +1/2/3/4/5%", "Ohira SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%" },
+  "Worthy Rival": { "Hinata SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Inuoka SR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%" },
+  "Youth Camp Setters": { "Kageyama UR": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%", "Atsumu UR": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%" },
+  "Youth Training Camp": { "Hoshiumi UR": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%", "Kageyama UR": "" },
+  "Similar Builds": { "Hinata SP": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%", "Hoshiumi UR": "Strong Attack +5/7/9/12/15, Strong Attack +1/2/3/4/5%" },
+  "Similar Physique Teammates": { "Hinata SSR": "", "Hoshiumi UR": "Power Strike +5/7/9/12/15, Power Strike +1/2/3/4/5%" },
+  "Kiyoko's Protection Group": {"Tanaka SSR":"Strong Attack +5/7/9/12/15, Strong Attack +1/2/3/4/5%", "Nishinoya SP":"Receive +5/7/9/12/15, Receive +1/2/3/4/5%"}
+};
+window.STATS_BOND_MEMBERS = {
+  // Exemplo; substitua pelo seu conteúdo completo:
+  "Aoba Johsai's Sophomore": ["Watari SR, Yahaba SR, Kentaro SSR"],
+  "Behind the Smile": ["Daichi SSR, Kuro UR"],
+  "Bench cheer": ["Hisashi R, Kazuhito R"],
+  "Building Team Chemistry": ["Kageyama SSR, Tanaka SR"],
+  "Cannon \\& Iron Wall": ["Azumane SSR, Aone SSR"],
+  "Cannon and Iron Wall": ["Aone SP, Azumane SSR"],
+  "Classmates": ["Suna SSR, Osamu UR"],
+  "Date Kogyo's Captains": ["Kaname SR, Kenji SSR"],
+  "Date Kogyo's Junior": ["Jingo R, Sakunami R"],
+  "Date Kogyo's Setter": ["Kaname SR, Kaji SSR"],
+  "Fated Rivals": ["Oikawa UR, Ushijima UR"],
+  "Flexible Aces": ["Hinata SSR, Lev SSR"],
+  "Formidable Opponent": ["Nishinoya SR, Yaku SR"],
+  "Friends from Volleyball Class": ["Atsumu UR, Osamu UR, Ojiro SSR"],
+  "Fukurodani 3rd Years": ["Bokuto UR, Komi SR, Konoha, Sarukui SSR, Washio SSR"],
+  "Fukurodani MBs": ["Washio SSR, Onaga R"],
+  "Fukurodani WS": ["Bokuto UR, Sarukui"],
+  "Grit and Competitive": ["Yamamoto SR, Kenma SSR"],
+  "Hidden Fire": ["Kentaro SSR, Yahaba SR"],
+  "Inarizaki 2nd Years": ["Suna SSR, Ginjima SSR, Osamu UR, Atsumu UR, Kosaku R"],
+  "Inarizaki WS Teammates": ["Kita SSR, Ojiro SSR, Ginjima SSR, Kosaku R, Riseki R"],
+  "Japan Youth Training Camp Teammates": ["Kageyama UR, Atsumu UR, Hayaseiomi UR, Komori UR, Hoshiumi UR"],
+  "Karasuno 3rd Years": ["Azumane SSR, Daichi SSR, Sugawara SP"],
+  "Karasuno's Failing Grades Group": ["Hinata SSR, Kageyama UR, Nishinoya SSR, Tanaka SSR"],
+  "Karasuno's Red Mark Squad (Hanami ver.)": ["Hinata SP, Nishinoya SP, Tanaka SSR, Kageyama UR"],
+  "Karasuno's Setters": ["Sugawara SP, Kageyama UR"],
+  "Karasuno's Wing Spiker": ["Tanaka SR, Azumane SR, Chikara SR"],
+  "Leaders Cut from the Same Cloth": ["Daichi SR, Kuro SSR"],
+  "Master and Apprentice": ["Tsuki SSR, Kuro UR"],
+  "Nekoma's Junior": ["Teshiro SR, Inuoka SR, Lev SSR"],
+  "Number One Disciple": ["Bokuto UR, Hinata SSR"],
+  "Number One Disciple SP": ["Hinata SP, Bokuto SP"],
+  "One-on-One Training": ["Lev SR, Yaku SR"],
+  "Perseverance and Tenacity": ["Kenma SP, Yamamoto SR"],
+  "Prediction VS System": ["Tsuki SSR, Tendo SSR"],
+  "Promising Senpai": ["Tendo SSR, Goshiki SSR"],
+  "Reliable Seniors": ["Kuro UR, Yaku SSR, Kai SR"],
+  "Rival Friends": ["Hinata SSR, Kenma SSR"],
+  "Shiratorizawa 2nd Years": ["Shirabu SSR, Taichi SR"],
+  "Shiratorizawa 3rd Years": ["Ushijima UR, Yamagata SSR, Ohira SSR, Semi SSR, Tendo SSR"],
+  "Silence and Sarcasm": ["Aone SP, Futakuchi SSR"],
+  "Simulated Junior Training Teamate": ["Kanji SR, Tsuki SR"],
+  "Strange Friendship": ["Hinata SP, Aone SP"],
+  "Team's Guardians": ["Nishinoya SSR, Yaku SSR"],
+  "Team's Guardians (After School)": ["Nishinoya SP, Yaku SSR"],
+  "The \"Enigmatic\" Teammate": ["Lev SSR, Kenma SSR"],
+  "The Absolute King VS the Freak Duo": ["Ushijima UR, Hinata SSR, Kageyama UR"],
+  "The King and The Great King": ["Kageyama UR, Oikawa UR"],
+  "The Moment They Fell for Volleyball": ["Bokuto SP, Tsuki SP"],
+  "Third Year from Inarizaki": ["Kita SSR, Ojiro SSR, Akagi SSR, Omimi SR"],
+  "To Greater Heights": ["Kindaichi SR, Oikawa UR"],
+  "Tokyo Training Camp Buddies": ["Bokuto SP, Akaashi SP, Tsuki SP, Kuro SP"],
+  "Tokyo Training Camp Self-Practice Buddies": ["Bokuto UR, Akaashi SSR, Kuro UR, Tsuki SSR"],
+  "Two High-Energy Guys": ["Bobata R, Terushima SSR"],
+  "Undisputed Aces": ["Goshiki SSR, Ushijima UR"],
+  "Ushiwaka and Benkei": ["Ushijima UR, Ohira SSR"],
+  "Worthy Rival": ["Hinata SSR, Inuoka SR"],
+  "Youth Camp Setters": ["Kageyama UR, Atsumu UR"],
+  "Youth Training Camp": ["Hoshiumi UR, Kageyama UR"],
+  "Similar Builds": ["Hinata SP, Hoshiumi UR"],
+  "Similar Physique Teammates": ["Hinata SSR, Hoshiumi UR"],
+  "Kiyoko's Protection Group": ["Tanaka SSR, Nishinoya SP"]  
+};
+
 let selecionados = [];
 
 let teams = window.teams || [];            // se já existir, reutiliza
@@ -2025,7 +2480,7 @@ function addBenchSlot() {
     const benchRow = document.getElementById("bench-row");
     const slot = document.createElement("div");
     slot.className = "player-slot bench";
-    slot.innerHTML = `<div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div>`;
+    slot.innerHTML = `<div class="bench-slot" data-role="bench"></div><div class="player-info">Bench</div>`;
     benchRow.insertBefore(slot, benchRow.querySelector(".add-slot-btn"));
     attachBenchEvents(slot.querySelector(".bench-slot"));
 }
@@ -2368,7 +2823,7 @@ function removeCharacter(slot) {
 
     const infoDiv = slot.parentElement.querySelector('.player-info');
     if (slot.classList.contains("bench-slot")) {
-      infoDiv.textContent = "Banco";
+      infoDiv.textContent = "Bench";
     } else {
       infoDiv.textContent = slot.dataset.role
         || slot.getAttribute("data-role")
@@ -2387,8 +2842,8 @@ function updateSynergies() {
     // === CONFIG: which bonds need 3 to activate ===
     // Put the EXACT vinculo names here (case-sensitive).
     const bondsRequire3 = new Set([
-      "Natação",  
-     "Cabeça dos Gêmeos", 
+      "Swimming",  
+     "Twin Heads", 
     ]);
 
     const DEFAULT_BOND_MIN = 2; // all bonds default to 2 unless listed above
@@ -2547,7 +3002,7 @@ function updateSynergies() {
     });
 
     if (!algumaSinergia) {
-        synergyListEl.innerHTML = "<li>Apenas vínculos de posicionamento são visíveis.</li>";
+        synergyListEl.innerHTML = "<li>Only Deployment Synergies are displayed.Synergies will only work when players are in court inside the game.</li>";
     }
     // --- Tipo do time (apenas titulares) ---
 (function renderTeamType(){
@@ -2584,7 +3039,7 @@ function updateSynergies() {
     }
   }
 
-  // garante cabeçalho flex ao redor do título "Sinergias"
+  // garante cabeçalho flex ao redor do título "Synergies"
   const box = synergyListEl?.parentElement || document; // container da lista
   let title = box.querySelector('h2');
   if (!title) return;
@@ -2607,10 +3062,10 @@ function updateSynergies() {
 
   if (top.length){
     const label = {
-      quick:"Ataque Rápido", power:"Ataque Potente", receive:"Recepção", block:"Bloqueio"
+      quick:"Quick Attack", power:"Power Attack", receive:"Receive", block:"Block"
     };
     const names = top.map(t => label[t] || t).join(" ou ");
-    badge.textContent = `Tipo do time: ${names} (${topCount})`;
+    badge.textContent = `Team type: ${names} (${topCount})`;
   } else {
     badge.textContent = ''; // nada ativado, não mostra texto
   }
@@ -2688,7 +3143,7 @@ document.querySelectorAll(".menu-link").forEach(btn => {
         <h3>Info</h3>
         <div style="display:flex; flex-direction:column; gap:10px;">
             <button id="faqBtn" class="bond-btn">📄 FAQ</button>
-            <button id="creditsBtn" class="bond-btn">👥 Créditos</button>
+            <button id="creditsBtn" class="bond-btn">👥 Credits</button>
             <button id="patchBtn" class="bond-btn">🔄 Patch</button>
         </div>
     `;
@@ -2719,27 +3174,30 @@ document.querySelectorAll(".menu-link").forEach(btn => {
         e.stopPropagation();
         sidebarContent.innerHTML = `
             <h3>Patch notes</h3>
-            <p>Patch 1.2 Adições:</p>
-            <p>Drag/drop jogadores para a quadra e banco</p>
-            <p>Filtro de jogadores por "tipo" (rapido/potente/etc)</p>
-            <p>Recomendações de time baseadas em sinergias</p>
-            <p>Memórias e Potenciais</p>
-            <p>Página de escolas adicionada ao menu lateral</p>
-            <p>Correções:</p>
-            <p>Algumas sinergias que precisavam de 3 jogadores não eram mostradas corretamente</p>
-            <p>Algumas regras do banco não funcionavam corretamente, EX: não podia adicionar mais de 2 MBs no banco</p>
-            <p>Adições:</p>
-            <p>Rotacionar time</p>
-            <p>Double click abre detalhes do personagem</p>
-            <p>Banco tem filtro por função</p>
-            <p>Menu Lateral</p>
-            <p>Salvar e carregar times</p>
-            <p>Botão de limpar o time</p>
-            <p>Filtro de personagens no menu lateral</p>
-            <p>Habilidades de personagens</p>
-            <p>Status de personagens</p>
-            <p>Data de lançamento esperada</p>
-            <button id="backToHelp" class="bond-btn">← Voltar</button>
+            <p>Patch 1.2.1 Added:</p>
+            <p>NO position restriction filter for new JP mechanic</p>
+            <p>Shows new "Team Type" mechanic</p>
+            <p>Multi teams function</p>
+            <p>Patch 1.2 Added:</p>
+            <p>Drag/drop players to bench and to starting line up</p>
+            <p>Filter players by type (quick/power/etc)</p>
+            <p>Team recommendations based on most synergies</p>
+            <p>Memory and potential sets on character</p>
+            <p>School page with all characters from each school and its buff</p>
+            <p>Fixed:</p>
+            <p>Some synergies that required 3 players were not being displayed correctly</p>
+            <p>Some bench rules were not working correctly, EX: couldnt add more than 2 MB's on bench</p>
+            <p>Added:</p>
+            <p>Double click opens character details</p>
+            <p>Bench filter per positions</p>
+            <p>Side menu</p>
+            <p>Save and Load teams</p>
+            <p>Clear all button</p>
+            <p>Filter characters on side menu</p>
+            <p>Character Skills description</p>
+            <p>Character Stats</p>
+            <p>Expected release date</p>
+            <button id="backToHelp" class="bond-btn">← Back</button>
         `;
         document.getElementById("backToHelp").addEventListener("click", (e) => {
             e.stopPropagation();
@@ -2796,28 +3254,28 @@ const allTypes = [...new Set(
     <h3>Characters</h3>
     <div class="filtros">
         <div>
-            <label>Posição:</label>
+            <label>Role:</label>
             <select id="filtroFuncao">
-                <option value="">Todos</option>
+                <option value="">All</option>
                 ${funcoes.map(f => `<option value="${f}">${f}</option>`).join('')}
             </select>
         </div>
         <div>
-            <label>Escola:</label>
+            <label>School:</label>
             <select id="filtroEscola">
-                <option value="">Todos</option>
+                <option value="">All</option>
                 ${escolas.map(e => `<option value="${e}">${e}</option>`).join('')}
             </select>
         </div>
         <div>
-            <label>Status:</label>
+            <label>Stats:</label>
             <select id="filtroStats">
-                <option value="">Todos</option>
+                <option value="">All</option>
                 ${StatsKeys.map(s => `<option value="${s}">${s}</option>`).join('')}
             </select>
         </div>
                 <div>
-            <label>Data de Lançamento Esperada:</label>
+            <label>Expected Release Date:</label>
             <select id="filtroDataOrdem" title="Ordenar pela data (ignora quem não tem data)">
                 <option value="">Ignorar</option>
                 <option value="asc">Ascendente (MM/DD/YY)</option>
@@ -2825,7 +3283,7 @@ const allTypes = [...new Set(
             </select>
         </div>
         <div>
-             <label>Tipo:</label>
+             <label>Type:</label>
              <div id="filtroType">
              ${allTypes.map(t => `
              <label style="display:inline-flex;align-items:center;gap:6px;margin:2px 8px 2px 0;">
@@ -3051,6 +3509,17 @@ function showCharacterDetails(p) {
   const skills  = Array.isArray(p?.habilidades) ? p.habilidades : [];
   const symbols = Array.isArray(p?.symbols) ? p.symbols : [];
   const Stats  = Array.isArray(p?.Stats) ? p.Stats : [];
+ // Stat Bonds que esse personagem participa
+  const myStatBonds = Object.entries(window.STATS_BONDS || {})
+    .filter(([bondName, map]) => Object.prototype.hasOwnProperty.call(map, p.nome));
+
+  const pillsHtml = myStatBonds.length ? `
+    <h4 style="margin-top:12px;">Stat Bonds</h4>
+    <div>
+      ${myStatBonds.map(([bn])=>`<button class="pill statbond-pill" data-bond="${bn}">${bn}</button>`).join('')}
+    </div>
+    <div id="statBondDesc" class="subdesc"></div>
+  ` : '';
 
   sidebarContent.innerHTML = `
     <h3>${p.nome}</h3>
@@ -3078,17 +3547,100 @@ function showCharacterDetails(p) {
       </ul>` : ""}
 
     ${p.descricao ? `<p style="margin-top:8px;">${p.descricao}</p>` : ""}
-    <ul>
-            <li><b>Serve:</b> ${p.Stats.Serve}</li>
-            <li><b>Spike:</b> ${p.Stats.Spike}</li>
-            <li><b>Set:</b> ${p.Stats.Set}</li>
-            <li><b>Receive:</b> ${p.Stats.Receive}</li>
-            <li><b>Block:</b> ${p.Stats.Block}</li>
-            <li><b>Save:</b> ${p.Stats.Save}</li>
-        </ul>
+
+    ${p.Stats ? `
+      <ul>
+        <li><b>Serve:</b> ${p.Stats.Serve}</li>
+        <li><b>Spike:</b> ${p.Stats.Spike}</li>
+        <li><b>Set:</b> ${p.Stats.Set}</li>
+        <li><b>Receive:</b> ${p.Stats.Receive}</li>
+        <li><b>Block:</b> ${p.Stats.Block}</li>
+        <li><b>Save:</b> ${p.Stats.Save}</li>
+      </ul>` : ""}
+
+    ${pillsHtml}
 
     <button id="backToList" class="bond-btn">← Voltar</button>
   `;
+
+  // Mantém aberto etc. (o resto do teu código permanece)
+  sidebar.classList.add("open"); menuBtn.style.display = "none";
+
+  // Back → lista
+  document.getElementById("backToList").addEventListener("click", (e) => {
+    e.stopPropagation(); showCharacterList();
+  });
+
+  // Abrir “Bond” normal (já existia)
+  sidebarContent.querySelectorAll(".bond-link").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const bondName = btn.dataset.bond;
+      const relacionados = characters.filter(pers =>
+        Array.isArray(pers.vinculo) ? pers.vinculo.includes(bondName) : pers.vinculo === bondName
+      );
+      sidebarContent.innerHTML = `
+        <h3>Bond: ${bondName}</h3>
+        <p>${descricoesSinergia[bondName] || "Sem descrição disponível"}</p>
+        <div class="char-list">
+          ${relacionados.map(r => `
+            <div class="char-card" data-nome="${r.nome}">
+              <img src="${r.img}" alt="${r.nome}">
+              <p>${r.nome}</p>
+            </div>
+          `).join("")}
+        </div>
+        <button id="backToChar" class="bond-btn">← Voltar</button>
+      `;
+      document.getElementById("backToChar").addEventListener("click", (e) => {
+        e.stopPropagation(); showCharacterDetails(p);
+      });
+      sidebarContent.querySelectorAll(".char-card").forEach(card => {
+        card.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const nome = card.dataset.nome;
+          const personagem = characters.find(x => x.nome === nome);
+          if (personagem) showCharacterDetails(personagem);
+        });
+      });
+    });
+  });
+
+  // Clique nas pills de Stat Bonds → descreve os participantes + buffs
+  sidebarContent.querySelectorAll(".statbond-pill").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const bondName = btn.dataset.bond;
+      const mapping = (window.STATS_BONDS||{})[bondName] || {};
+      const html = `
+        <b>${bondName}</b>
+        <ul>
+          ${Object.entries(mapping).map(([nm,buff])=>`
+            <li><b>${nm}</b> — ${String(buff||'').trim() ? buff : '<em>sem buff</em>'}</li>
+          `).join('')}
+        </ul>`;
+      const box = sidebarContent.querySelector('#statBondDesc');
+      if (box) box.innerHTML = html;
+    });
+  });
+
+  // Skills (mantido)
+  sidebarContent.querySelectorAll(".skill-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const skillName = btn.dataset.skill;
+      const habilidade = skills.find(h => h.nome === skillName);
+      if (!habilidade) return;
+      sidebarContent.innerHTML = `
+        <h3>Skill: ${habilidade.nome}</h3>
+        <p>${habilidade.descricao || ""}</p>
+        <button id="backToChar" class="bond-btn">← Voltar</button>
+      `;
+      document.getElementById("backToChar").addEventListener("click", (e) => {
+        e.stopPropagation(); showCharacterDetails(p);
+      });
+    });
+  });
+
 
   // Keep sidebar open
   sidebar.classList.add("open");
@@ -3227,7 +3779,7 @@ localStorage.setItem("savedTeams", JSON.stringify(teams));
 /* mostra lista de times salvos no painel lateral */
 function showSavedTeams() {
     const teams = JSON.parse(localStorage.getItem("savedTeams") || "{}");
-    let html = "<h3>Times Salvos</h3>";
+    let html = "<h3>Saved teams</h3>";
 
     if (Object.keys(teams).length === 0) {
         html += "<p>Sem times salvos</p>";
@@ -3240,8 +3792,8 @@ function showSavedTeams() {
                         <b>${name}</b>
                     </div>
                     <div>
-                        <button class="load-btn" data-name="${name}">Carregar</button>
-                        <button class="del-btn" data-name="${name}">Deletar</button>
+                        <button class="load-btn" data-name="${name}">Load</button>
+                        <button class="del-btn" data-name="${name}">Delete</button>
                     </div>
                 </div>
             `;
@@ -3298,7 +3850,7 @@ function loadTeam(name) {
     delete slot.dataset.nome;
     const infoDiv = slot.parentElement.querySelector('.player-info');
     if (infoDiv) {
-      if (slot.classList.contains("bench-slot")) infoDiv.textContent = "Banco"; // ou "Banco"
+      if (slot.classList.contains("bench-slot")) infoDiv.textContent = "Bench"; // ou "Bench"
       else infoDiv.textContent = slot.dataset.role || slot.getAttribute("data-role") || "";
     }
   });
@@ -3412,7 +3964,7 @@ document.addEventListener("click", (e) => {
             slot.innerHTML = "";
             delete slot.dataset.nome;
             const infoDiv = benchSlot.querySelector('.player-info');
-            infoDiv.textContent = "Banco";
+            infoDiv.textContent = "Bench";
         }
     });
     updateSynergies();
@@ -4193,6 +4745,7 @@ function moveBetweenSlots(srcEl, dstEl){
   function start(){
     if (!window.__dndInited){ window.__dndInited = true; initDnd(); }
     if (!window.__mtInited){ window.__mtInited = true; initMultiTeams(); }
+    if (!window.__recoInited){ window.__recoInited = true; bindRecommendControls(); }
   }
   if (document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', start);
@@ -4439,115 +4992,445 @@ function* cartesianByIndex(lists){
     if (k < 0) break;
   }
 }
+// Contagens de school/bond a partir de conjuntos de nomes (starters e bench)
+function synergyCounts(startersSet, benchSet){
+  const all = new Set(startersSet);
+  if (benchSet) benchSet.forEach(n=> all.add(n));
+  const schools = {};  // {name: count}
+  const bonds   = {};  // {name: count}
 
-// Principal
-function recommendFill(){
-  buildSynergyIndices();
-  const emptySlots = getEmptyStarterSlots();
-  if (emptySlots.length === 0){
-    alert("No free slots available.");
-    return;
+  all.forEach(n=>{
+    const p = characters.find(x=>x.nome === n); if (!p) return;
+    if (p.School) schools[p.School] = (schools[p.School]||0)+1;
+    (Array.isArray(p.vinculo)?p.vinculo:[]).forEach(b=>{
+      bonds[b] = (bonds[b]||0)+1;
+    });
+  });
+  return {schools, bonds};
+}
+
+// Ativadas (o que você já usava) a partir das contagens
+function synergyActivatedTotalFromCounts(cnt){
+  const actSchools = Object.values(cnt.schools).filter(c=> c>=4).length;
+  const actBonds   = Object.entries(cnt.bonds).filter(([b,c])=> c >= bondRequired(b)).length;
+  return actSchools + actBonds;
+}
+
+// 🔥 Progresso fracionado rumo à ativação (0..nSchools+nBonds)
+function synergyProgressFromCounts(cnt){
+  let prog = 0;
+  // schools (precisam de 4)
+  for (const c of Object.values(cnt.schools)) prog += Math.min(c/4, 1);
+  // bonds (precisam de 2, exceto alguns = 3)
+  for (const [b,c] of Object.entries(cnt.bonds)) {
+    const need = bondRequired(b);
+    prog += Math.min(c/need, 1);
   }
+  return prog;
+}
+function bondRequired(b){
+  const k = String(b||'').trim().toLowerCase();
+  return (k === 'swimming' || k === 'twin heads') ? 3 : 2;
+}
+// ==================== Recommend 2.0 ====================
+const RecommendCfg = {
+  wSynergy: 3, wAnchor: 1, wStats: 1,
+  allowCrossRole: true,
+  preferTypes: new Set(),     // 'quick','power','block','receive'
 
-  const roles = emptySlots.map(s => s.dataset.role || s.getAttribute('data-role') || "");
-  const { main: mainNow, bench: benchNow } = getCurrentTeamNames();
-  const used = new Set([...mainNow, ...benchNow]);
+  // 🔥 pesos governados pelo slider wTeamType:
+  typePrefWeight: 2.0,        // progresso
+  typeActivateBonus: 6.0,     // ativou (4 / 5) -> bônus forte
+  typeMajorityBonus: 3.0,     // virou majoritário
+  typeNonPreferredPenalty: 2.0, // majoritário ≠ preferido? penaliza
 
-  // Lista de candidatos por índice de slot (respeita função e evita duplicados já em uso)
-  let lists = roles.map(role =>
-    characters.filter(p => p.funcao === role && !used.has(p.nome))
-  );
+  preselectPerSlot: 10,
+  beamWidth: 100
+};
 
-  // Se faltar candidato pra alguma posição, avisa
-  if (lists.some(l => l.length === 0)){
-    alert("Não há candidatos para pelo menos uma das posições restantes.");
-    return;
-  }
+// Liga os controles de recomendação (abre/fecha painel e botão Aplicar)
+function bindRecommendControls(){
+  const panel = document.getElementById('recoPanel');
+  const btnToggle = document.getElementById('recommendBtn');
+  const btnRun = document.getElementById('runRecommendBtn');
+  const btnClose = document.getElementById('closeRecoBtn');
 
-  // Base de sinergias atuais
-  const base = computeActivatedSynergyCount(mainNow, benchNow).count;
+  function initSlidersOnce(){
+    if (panel.__inited) return;
+    panel.__inited = true;
 
-  // Heurística de limitação: se <=3 slots vazios, busca exaustiva;
-  // senão, poda pra top-N por potencial + stats pra não explodir combinatórias.
-  const MAX_PER_ROLE = 8;
-  if (emptySlots.length > 3){
-    lists = lists.map(list => {
-      // “delta sozinho”: o quanto ativaria se colocar só este personagem
-      const scored = list.map(p => {
-        const m = [...mainNow, p.nome];
-        const c = computeActivatedSynergyCount(m, benchNow).count - base;
-        return { p, delta: c, stats: sumStats(p) };
+    // sliders principais
+    [
+      ['wSynergy','wSynergyVal','wSynergy'],
+      ['wAnchor','wAnchorVal','wAnchor'],
+      ['wStats','wStatsVal','wStats']
+    ].forEach(([inputId, outId, key])=>{
+      const el = document.getElementById(inputId);
+      const out = document.getElementById(outId);
+      if (!el || !out) return;
+      el.value = RecommendCfg[key];
+      out.textContent = el.value;
+      el.addEventListener('input', ()=>{ RecommendCfg[key] = +el.value; out.textContent = el.value; });
+    });
+
+    // 🔥 slider de Tipo do time -> typePrefWeight
+    const wTT = document.getElementById('wTeamType');
+const wTTv = document.getElementById('wTeamTypeVal');
+if (wTT && wTTv){
+  const applyTypeWeights = v => {
+    const x = +v;              // 0..5 (ou o range que você definiu)
+    RecommendCfg.typePrefWeight       = x;        // progresso
+    RecommendCfg.typeActivateBonus    = 3 * x;    // ativar vale bastante
+    RecommendCfg.typeMajorityBonus    = 1.5 * x;  // ser majoritário também ajuda
+    RecommendCfg.typeNonPreferredPenalty = 1 * x; // e punimos majoritário “errado”
+    wTTv.textContent = v;
+  };
+  wTT.value = String(RecommendCfg.typePrefWeight);
+  applyTypeWeights(wTT.value);
+  wTT.addEventListener('input', ()=> applyTypeWeights(wTT.value));
+}
+
+    const chkCR = document.getElementById('allowCrossRole');
+    if (chkCR){
+      chkCR.checked = RecommendCfg.allowCrossRole;
+      chkCR.addEventListener('change', ()=> RecommendCfg.allowCrossRole = chkCR.checked);
+    }
+
+    // checkboxes de tipo preferido
+    [
+      ['prefQuick','quick'],
+      ['prefPower','power'],
+      ['prefBlock','block'],
+      ['prefReceive','receive'],
+    ].forEach(([id, t])=>{
+      const cb = document.getElementById(id);
+      if (!cb) return;
+      cb.checked = RecommendCfg.preferTypes.has(t);
+      cb.addEventListener('change', ()=>{
+        if (cb.checked) RecommendCfg.preferTypes.add(t);
+        else RecommendCfg.preferTypes.delete(t);
       });
-      scored.sort((a,b) => (b.delta - a.delta) || (b.stats - a.stats));
-      // pega top por delta/Stats; completa com top Stats se necessário
-      const top = scored.slice(0, MAX_PER_ROLE).map(x => x.p);
-      if (top.length < Math.min(MAX_PER_ROLE, list.length)){
-        const restByStats = [...list]
-          .filter(p => !top.includes(p))
-          .sort((a,b)=>sumStats(b)-sumStats(a))
-          .slice(0, MAX_PER_ROLE - top.length);
-        return [...top, ...restByStats];
-      }
-      return top;
     });
   }
 
-  // Se o produto das listas ficar absurdo, aplica um teto simples
-  const totalComb = lists.reduce((acc, l)=>acc * l.length, 1);
-  if (totalComb > 60000){
-    lists = lists.map(list =>
-      list.sort((a,b)=>sumStats(b)-sumStats(a)).slice(0, MAX_PER_ROLE)
-    );
+  if (btnToggle && !btnToggle.__bound){
+    btnToggle.__bound = true;
+    btnToggle.addEventListener('click', ()=>{
+      initSlidersOnce();
+      panel.classList.toggle('open');
+    });
   }
-
-  // Busca melhor combinação
-  let best = { improvement: -Infinity, stats: -Infinity, combo: null };
-
-  for (const combo of cartesianByIndex(lists)){
-  if (combo.some(p => used.has(p.nome))) continue;
-
-  const newMain = [...mainNow, ...combo.map(c=>c.nome)];
-  const res = computeActivatedSynergyCount(newMain, benchNow);
-  const improvement = res.count - base;
-  const stats = combo.reduce((s,p)=>s+sumStats(p),0);
-  const anchored = anchoredSynergyScore(res.activeSchools, res.activeBonds, new Set(mainNow));
-
-  // ordem de prioridade: 1) melhoria de sinergias  2) sinergias ancoradas  3) soma de stats
-  if (
-    improvement > best.improvement ||
-    (improvement === best.improvement && anchored > best.anchored) ||
-    (improvement === best.improvement && anchored === best.anchored && stats > best.stats)
-  ){
-    best = { improvement, stats, combo, res, anchored };
+  if (btnRun && !btnRun.__bound){
+    btnRun.__bound = true;
+    btnRun.addEventListener('click', ()=>{ recommendFillSlots2(); /* panel.classList.remove('open'); */ });
+  }
+  if (btnClose && !btnClose.__bound){
+    btnClose.__bound = true;
+    btnClose.addEventListener('click', ()=> panel.classList.remove('open'));
   }
 }
 
-  if (!best.combo){
-    alert("Não foi possível calcular uma recomendação.");
-    return;
-  }
+// helpers
+function symbolToType(sym){
+  const s = String(sym||"").toLowerCase();
+  if (s.includes("quicksymbol"))   return "quick";
+  if (s.includes("powersymbol"))   return "power";
+  if (s.includes("servesymbol"))   return "serve";
+  if (s.includes("settersymbol"))  return "setter";
+  if (s.includes("receivesymbol")) return "receive";
+  if (s.includes("blocksymbol"))   return "block";
+  if (s.includes("savesymbol"))    return "save";
+  return null;
+}
+const TYPE_MIN = t => (t === 'receive' ? 5 : 4);
+const RARITY_TOKENS = new Set(['UR','SSR','SP','SR','R','N','MR']);
+function baseName(name){
+  const parts = String(name||'').trim().split(/\s+/);
+  if (!parts.length) return '';
+  const last = parts[parts.length-1].toUpperCase().replace(/[+]/g,'');
+  if (RARITY_TOKENS.has(last)) parts.pop();   // remove “UR/SSR/SP/…”
+  return parts.join(' ');
+}
 
-  // Regra: se não aumentar sinergia, escolhe por maior soma de Stats (já é o desempate acima)
-  // Aplicar no grid
-  best.combo.forEach((person, i) => {
-    const slot = emptySlots[i];
-    const role = roles[i];
-    setCharacter(slot, person, role); // usa sua função; atualiza infos e sinergias automaticamente
+function typeProgress(counts, preferSet){
+  let total = 0;
+  preferSet.forEach(t=>{
+    const c = counts[t] || 0;
+    total += c / TYPE_MIN(t);
+  });
+  return total;
+}
+function startersSlots(){ return Array.from(document.querySelectorAll('.hex')); }
+function benchSlots(){ return Array.from(document.querySelectorAll('.bench-slot')); }
+function slotRole(el){ return (el.dataset.role || el.getAttribute('data-role') || '').toUpperCase(); }
+function slotName(el){ return el?.dataset?.nome || null; }
+function charByName(n){ return characters.find(c => c.nome === n); }
+function sumStats(p){
+  const S = p?.Stats || {};
+  return (S.Serve|0)+(S.Spike|0)+(S.Set|0)+(S.Receive|0)+(S.Block|0)+(S.Save|0);
+}
+function allowedRolesForSlot(role, allowCross){
+  if (role === 'L') return ['L'];
+  return allowCross ? ['S','MB','WS','OP'] /* não-L */ : [role];
+}
+
+// contagem de tipos entre titulares (Set de nomes)
+function teamTypeCountsFromNames(nameSet){
+  const counts = {};
+  nameSet.forEach(n=>{
+    const p = characters.find(x => x.nome === n); if (!p) return;
+    (Array.isArray(p.symbols)?p.symbols:[]).map(symbolToType).filter(Boolean)
+      .forEach(t => counts[t] = (counts[t]||0)+1);
+  });
+  return counts;
+}
+function maxTypeInfo(counts){
+  let best = [], bestN = 0;
+  for (const [t,c] of Object.entries(counts)){
+    if (c > bestN){ best=[t]; bestN=c; }
+    else if (c === bestN) best.push(t);
+  }
+  return {types:best, count:bestN};
+}
+
+// Schools e Bonds ativados, recebendo SET de titulares e SET de banco (opcional)
+function schoolsAndBondsActivated(startersSet, benchSet){
+  const all = new Set(startersSet);
+  if (benchSet) benchSet.forEach(n=> all.add(n));
+
+  const schoolCount = {};
+  const bondCount = {};
+  all.forEach(n=>{
+    const p = characters.find(x => x.nome === n); if (!p) return;
+    if (p.School) schoolCount[p.School] = (schoolCount[p.School]||0)+1;
+    (Array.isArray(p.vinculo)?p.vinculo:[]).forEach(b=>{
+      bondCount[b] = (bondCount[b]||0)+1;
+    });
   });
 
-  // Opcional: feedback
-  const picked = best.combo.map(p=>p.nome).join(", ");
-  if (best.improvement > 0){
-    console.log(`Recommend: +${best.improvement} sinergias → ${picked}`);
-  } else {
-    console.log(`Recommend (Stats): ${picked}`);
+  const schoolsActive = Object.values(schoolCount).filter(c=>c>=4).length;
+  const bondsActive = Object.entries(bondCount).filter(([b,c])=> c >= bondRequired(b)).length;
+  return {schoolsActive, bondsActive, total: schoolsActive + bondsActive};
+}
+
+// âncora: quantas novas sinergias (school/bond) incluem ao menos 1 nome já existente
+function anchorGain(beforeSet, afterSet){
+  const added = new Set([...afterSet].filter(n=>!beforeSet.has(n)));
+  if (!added.size) return 0;
+
+  const bondMembers = {}, schoolMembers = {};
+  afterSet.forEach(n=>{
+    const p = characters.find(x => x.nome === n); if (!p) return;
+    if (p.School) (schoolMembers[p.School]||(schoolMembers[p.School]=new Set())).add(n);
+    (Array.isArray(p.vinculo)?p.vinculo:[]).forEach(b=>{
+      (bondMembers[b]||(bondMembers[b]=new Set())).add(n);
+    });
+  });
+
+  let gain = 0;
+  for (const [school, members] of Object.entries(schoolMembers)){
+    if (members.size>=4){
+      const hasOld = [...members].some(n=>beforeSet.has(n));
+      const hasNew = [...members].some(n=>added.has(n));
+      if (hasOld && hasNew) gain += 1;
+    }
+  }
+  for (const [bond, members] of Object.entries(bondMembers)){
+    if (members.size>=bondRequired(bond)){
+      const hasOld = [...members].some(n=>beforeSet.has(n));
+      const hasNew = [...members].some(n=>added.has(n));
+      if (hasOld && hasNew) gain += 1;
+    }
+  }
+  return gain;
+}
+
+// construção de candidatos por slot
+function candidatePoolForSlot(slot, excludeNames, allowCross){
+  const role = slotRole(slot);
+  const allowed = new Set(allowedRolesForSlot(role, allowCross));
+  return characters.filter(p=>{
+    if (excludeNames.has(p.nome)) return false;
+    // L só pode ir no L; se allowed == [role] no modo não-cross, já restringe
+    if (role === 'L') return p.funcao === 'L';
+    if (!allowCross) return p.funcao === role;
+    return p.funcao !== 'L'; // cross-role: qualquer não-L em slots não-L
+  });
+}
+
+// cria produto cartesiano limitado
+function* cartesianLimited(arrays, limit){
+  const idx = arrays.map(()=>0);
+  let produced = 0;
+  while (arrays.length && produced < limit){
+    // yield combinação atual
+    yield arrays.map((a,i)=>a[idx[i]]);
+    produced++;
+    // incrementa
+    let k = arrays.length - 1;
+    while (k>=0){
+      idx[k]++;
+      if (idx[k] < arrays[k].length) break;
+      idx[k]=0; k--;
+    }
+    if (k<0) break;
   }
 }
 
+function recommendFillSlots2(){
+  const starterEls = Array.from(document.querySelectorAll('.hex'));
+  const benchEls   = Array.from(document.querySelectorAll('.bench-slot'));
 
-// Liga o botão
-const $rec = document.getElementById("recommendBtn");
-if ($rec) $rec.addEventListener("click", recommendFill);
+  // 1) Estado atual
+  const beforeStarters = new Set(starterEls.map(s => s.dataset?.nome).filter(Boolean));
+  const benchNames     = new Set(benchEls.map(s => s.dataset?.nome).filter(Boolean));
+  const emptySlots     = starterEls.filter(s => !s.dataset?.nome);
+  if (!emptySlots.length) return;
+
+  // 2) Sinergias "antes"
+  const beforeCnt     = synergyCounts(beforeStarters, benchNames);
+  const synBeforeAct  = synergyActivatedTotalFromCounts(beforeCnt);
+  const synBeforeProg = synergyProgressFromCounts(beforeCnt);
+
+  // 3) Pré-cálculos
+  const filledBase       = new Set([...beforeStarters, ...benchNames].map(baseName));
+  const beforeTypeCounts = teamTypeCountsFromNames(beforeStarters);
+  const baseTypeProg     = typeProgress(beforeTypeCounts, RecommendCfg.preferTypes);
+  const synBeforeTotal   = schoolsAndBondsActivated(beforeStarters, benchNames).total;
+
+  // utils
+  const slotRole = el => (el.dataset.role || el.getAttribute('data-role') || '').toUpperCase();
+  const allowedRolesForSlot = role => role==='L' ? ['L'] : (RecommendCfg.allowCrossRole ? ['S','MB','WS','OP'] : [role]);
+  const sumStats = p => { const S=p.Stats||{}; return (S.Serve|0)+(S.Spike|0)+(S.Set|0)+(S.Receive|0)+(S.Block|0)+(S.Save|0); };
+
+  // 4) Pools por slot (pré-seleção por sinergia + tipo + stats)
+  const pools = emptySlots.map(slot=>{
+    const role = slotRole(slot);
+
+    let list = characters.filter(p=>{
+      if (beforeStarters.has(p.nome) || benchNames.has(p.nome)) return false;
+      if (filledBase.has(baseName(p.nome))) return false;      // evita duplicar jogador em outra raridade
+      if (role==='L') return p.funcao==='L';
+      return RecommendCfg.allowCrossRole ? (p.funcao!=='L') : (p.funcao===role);
+    });
+
+    list = list.map(p=>{
+      // --- Sinergia 1 passo: ativadas + progresso ---
+      const afterStarters = new Set(beforeStarters); afterStarters.add(p.nome);
+      const cntAfter   = synergyCounts(afterStarters, benchNames);
+      const synAct     = synergyActivatedTotalFromCounts(cntAfter);
+      const synProg    = synergyProgressFromCounts(cntAfter);
+      const synDeltaAct  = synAct  - synBeforeAct;
+      const synDeltaProg = synProg - synBeforeProg;
+      const synScore     = RecommendCfg.wSynergy * (synDeltaAct + 0.5*synDeltaProg);
+
+      // --- Tipo preferido ---
+      const typeCountsAfter = {...beforeTypeCounts};
+      (Array.isArray(p.symbols)?p.symbols:[]).map(symbolToType).filter(Boolean)
+        .forEach(t=> typeCountsAfter[t]=(typeCountsAfter[t]||0)+1);
+
+      const prefProgressAfter = typeProgress(typeCountsAfter, RecommendCfg.preferTypes);
+      const prefDelta         = prefProgressAfter - baseTypeProg;
+
+      const afterMax = maxTypeInfo(typeCountsAfter);
+      const activatedPreferred   = afterMax.types.some(t=>RecommendCfg.preferTypes.has(t)) && afterMax.count >= TYPE_MIN(afterMax.types[0]||'');
+      const majorityPreferred    = afterMax.types.some(t=>RecommendCfg.preferTypes.has(t));
+      const majorityActivated    = afterMax.count >= TYPE_MIN(afterMax.types[0]||'');
+      const nonPreferredMajority = majorityActivated && !majorityPreferred;
+
+      const typeScore =
+        (RecommendCfg.typePrefWeight * prefDelta) +
+        (activatedPreferred   ? RecommendCfg.typeActivateBonus       : 0) +
+        (majorityPreferred    ? RecommendCfg.typeMajorityBonus       : 0) +
+        (nonPreferredMajority ? -RecommendCfg.typeNonPreferredPenalty: 0);
+
+      return { p,
+        heur: synScore + typeScore + (RecommendCfg.wStats * (sumStats(p)/2000))
+      };
+    })
+    .sort((a,b)=> b.heur - a.heur)
+    .slice(0, RecommendCfg.preselectPerSlot)
+    .map(x=>x.p);
+
+    // fallback por stats
+    if (!list.length){
+      list = characters
+        .filter(p=> !beforeStarters.has(p.nome)
+                 && !benchNames.has(p.nome)
+                 && !filledBase.has(baseName(p.nome))
+                 && (role==='L' ? p.funcao==='L'
+                                 : (RecommendCfg.allowCrossRole ? p.funcao!=='L' : p.funcao===role)))
+        .sort((a,b)=> sumStats(b)-sumStats(a))
+        .slice(0, RecommendCfg.preselectPerSlot);
+    }
+    return list;
+  });
+
+  // 5) BEAM search
+  let beam = [{ pick:[], names:new Set(), base:new Set(filledBase), score:0, stats:0 }];
+  emptySlots.forEach((slot, stepIdx)=>{
+    const next = [];
+    for (const state of beam){
+      for (const p of pools[stepIdx]){
+        if (state.names.has(p.nome)) continue;
+        const b = baseName(p.nome);
+        if (state.base.has(b)) continue;
+
+        const namesAfter = new Set([...beforeStarters, ...state.names, p.nome]);
+
+        const synAfter = schoolsAndBondsActivated(namesAfter, benchNames).total;
+        const synDelta = synAfter - synBeforeTotal;
+
+        const ancGain = anchorGain(beforeStarters, namesAfter);
+
+        const afterTypeCounts   = teamTypeCountsFromNames(namesAfter);
+        const prefProgressAfter = typeProgress(afterTypeCounts, RecommendCfg.preferTypes);
+        const prefDelta         = prefProgressAfter - baseTypeProg;
+
+        const afterMax = maxTypeInfo(afterTypeCounts);
+        const activatedPreferred   = afterMax.types.some(t=>RecommendCfg.preferTypes.has(t)) && afterMax.count >= TYPE_MIN(afterMax.types[0]||'');
+        const majorityPreferred    = afterMax.types.some(t=>RecommendCfg.preferTypes.has(t));
+        const majorityActivated    = afterMax.count >= TYPE_MIN(afterMax.types[0]||'');
+        const nonPreferredMajority = majorityActivated && !majorityPreferred;
+
+        const typeScore =
+          (RecommendCfg.typePrefWeight * prefDelta) +
+          (activatedPreferred   ? RecommendCfg.typeActivateBonus       : 0) +
+          (majorityPreferred    ? RecommendCfg.typeMajorityBonus       : 0) +
+          (nonPreferredMajority ? -RecommendCfg.typeNonPreferredPenalty: 0);
+
+        const statsSum   = state.stats + sumStats(p);
+        const statsScore = statsSum / ((state.pick.length + 1) * 2000);
+
+        const score = (RecommendCfg.wSynergy*synDelta)
+                    + (RecommendCfg.wAnchor*ancGain)
+                    + typeScore
+                    + (RecommendCfg.wStats*statsScore);
+
+        next.push({
+          pick:[...state.pick, {slot, p}],
+          names:new Set([...state.names, p.nome]),
+          base:new Set([...state.base, b]),
+          score, stats: statsSum
+        });
+      }
+    }
+    next.sort((a,b)=> b.score - a.score);
+    beam = next.slice(0, RecommendCfg.beamWidth);
+  });
+
+  if (!beam.length || !beam[0].pick?.length) return;
+
+  // 6) Aplicar nos slots vazios
+  beam[0].pick.forEach(({slot, p})=>{
+    const keepRole = slotRole(slot)==='L' ? 'L' : (slot.dataset.role || slot.getAttribute('data-role'));
+    setCharacter(slot, p, keepRole);
+  });
+
+  if (typeof updateSynergies === 'function') updateSynergies();
+}
+
+
 
 // ======================= Multi Teams =========================
 
@@ -4697,7 +5580,7 @@ function initMultiTeams(){
   const addBtn = document.getElementById('addTeamBtn');
 
   if (teams.length === 0){
-    teams.push(collectTeamState('Time 1'));
+    teams.push(collectTeamState('Team 1'));
     currentTeamIndex = 0;
   }
   renderTeamTabs();
@@ -4711,7 +5594,7 @@ function initMultiTeams(){
       try {
         saveCurrentTeam();
         const newIdx = teams.length + 1;
-        const empty = makeEmptyTeamState(`Time ${newIdx}`);
+        const empty = makeEmptyTeamState(`Team ${newIdx}`);
         teams.push(empty);
         currentTeamIndex = teams.length - 1;
         applyTeamState(empty);
@@ -4736,6 +5619,1642 @@ function initMultiTeams(){
     saveCurrentTeam();
   };
 }
+
+</script>
+
+
+<!-- ===================== PLANEJADOR DE RECURSOS (PÁGINA NOVA) ===================== -->
+<style>
+  /* Páginas alternáveis */
+  .page { display: none; }
+  .page.active { display: block; }
+  /* Quando a classe show-planner está no <body>, mostramos o planner em overlay e ocultamos overflow */
+  body.show-planner { overflow: hidden; }
+  body.show-planner .hide-when-planner { display: none !important; }
+  body.show-planner #pagePlanner { display: block; position: fixed; inset: 0; z-index: 9999; background:#111; overflow:auto; }
+
+  /* Barra do botão Planejador acima de Save & Load */
+  #plannerTopBar {
+    display:flex; gap:10px; align-items:center; justify-content:center;
+    margin: 14px 0 0;
+  }
+  #openPlannerBtn {
+    background:#ffd54f; color:#222; border:0; font-weight:800;
+    padding:10px 14px; border-radius:10px; cursor:pointer;
+    box-shadow:0 3px 0 rgba(0,0,0,.25);
+  }
+  #openPlannerBtn:hover{ transform: translateY(-1px); }
+
+  /* Layout do Planejador */
+  #pagePlanner { padding: 18px; }
+  .planner-wrap{
+    max-width: 1180px; margin: 0 auto;
+    display:grid; grid-template-columns: 1.1fr .9fr;
+    gap: 20px;
+    background:#2a2a2a; border:1px solid #3a3a3a; border-radius:14px; padding:16px;
+  }
+  @media (max-width: 980px){
+    .planner-wrap{ grid-template-columns: 1fr; }
+  }
+
+  .panel {
+    background:#242424; border:1px solid #3a3a3a; border-radius:12px; padding:12px;
+  }
+  .panel h3{ margin: 0 0 10px; }
+  .panel .sub{ opacity:.8; font-size:.9rem; margin-top:-6px; }
+
+  /* tabelas editáveis */
+  .grid-table{ width:100%; border-collapse: collapse; }
+  .grid-table th, .grid-table td{
+    border-bottom: 1px solid #3a3a3a; padding:6px 8px; text-align:left;
+  }
+  .grid-table th{ background:#1f1f1f; position:sticky; top:0; z-index:1; }
+  .grid-table input[type="number"], .grid-table input[type="text"], .grid-table select{
+    width:100%; background:#1d1d1d; color:#fff; border:1px solid #555; border-radius:8px;
+    padding:6px 8px; box-sizing:border-box;
+  }
+  .grid-table input[type="checkbox"]{ transform: scale(1.2); }
+
+  .row-actions{ display:flex; gap:6px; }
+  .btn { background:#333; color:#fff; border:1px solid #666; border-radius:8px; padding:8px 10px; cursor:pointer; }
+  .btn.del{ background:#a33; border-color:#d66; }
+  .btn.add{ background:#2f6; color:#000; font-weight:800; }
+  .btn.primary{ background:#40f06a; color:#000; font-weight:800; }
+  .btn.light{ background:#111; border-color:#444; }
+
+  .flex { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .right { text-align:right; }
+
+  /* Resumo */
+  .summary{ display:grid; grid-template-columns: repeat(4,1fr); gap:10px; margin-top:10px; }
+  .metric{
+    background:#1e1e1e; border:1px solid #3a3a3a; border-radius:10px; padding:10px;
+    text-align:center;
+  }
+  .metric b{ display:block; font-size:1.1rem; }
+
+  /* Tabela de Simulação por Banner */
+  #simTable{ width:100%; border-collapse: collapse; margin-top:10px; }
+  #simTable th, #simTable td{ border-bottom:1px solid #3a3a3a; padding:8px; text-align:right; }
+  #simTable th{ text-align:center; background:#1f1f1f; }
+  #simTable td:first-child, #simTable th:first-child{ text-align:left; }
+  /* === Planner em tela cheia === */
+#pagePlanner{
+  position: fixed;      /* vira um overlay */
+  inset: 0;             /* top/right/bottom/left = 0 */
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 16px clamp(12px,2vw,24px) 24px;
+  background: #121212;  /* use a cor do seu tema, se tiver variável */
+  z-index: 999;         /* acima do restante da UI */
+  overflow: auto;       /* rolagem interna */
+}
+
+/* evita “caixa” estreita por max-width herdado */
+#pagePlanner .container,
+#pagePlanner .planner-box,
+#pagePlanner .planner-wrap,
+#pagePlanner .planner-grid{
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* mantém cabeçalho/toolbar visível enquanto rola o planner */
+#pagePlanner .planner-header{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: inherit;
+  padding-bottom: 8px;
+}
+
+/* quando o planner está aberto, trava o scroll do body atrás */
+body.planner-open{ overflow: hidden; }
+#simInputs small.muted{opacity:.9}
+#simTable tfoot{ display:none; }
+#simTable .neg{ color:#ff5c5c; font-weight:700; }
+/* Caixa numérica padrão do planner (usar em Saldo Inicial, Tickets e Memórias) */
+.planner-input{
+  width: 140px;      /* ajuste conforme seu layout */
+  padding: 6px 10px;
+  background:#111;
+  color:#fff;
+  border:1px solid #444;
+  border-radius:8px;
+  outline:none;
+}
+.planner-input:focus{ border-color:#777; }
+.sim-extras{
+  border-top:1px solid #333;
+  padding-top:8px;
+  font-weight:600;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 16px;
+}
+.sim-extras .pill{
+  background:#1d1d1d;
+  border:1px solid #444;
+  border-radius:999px;
+  padding:4px 10px;
+}
+/* ===== Planner: 2 colunas mais equilibradas ===== */
+
+
+/* Simulação (direita) garante que não estoure a largura */
+#pagePlanner .planner-sim{
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Evita qualquer overflow horizontal do planner */
+#pagePlanner{ overflow-x: hidden; }
+
+/* ===== Cartões de banner mais enxutos ===== */
+/* use uma “variável” pra controlar o tamanho dos cards */
+:root{ --card-w: 200px; }          /* antes: 320px */
+.banner-card,
+.rebanner-card{
+  width: var(--card-w);
+  flex: 0 0 var(--card-w);         /* não estica */
+  margin: 0 auto;
+}
+.month-row > div{ min-width: 0; }  /* impede que colunas internas forcem largura */
+
+/* Em telas um pouco menores, encolhe mais um pouco os cards */
+@media (max-width: 1700px){
+  :root{ --card-w: 280px; }
+}
+
+/* === 50% | 50%: Banners (esq) e Simulação (dir) === */
+#pagePlanner .planner-right-grid,
+#pagePlanner .planner-two-col{
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* META: meio a meio */
+  gap: 12px;
+  align-items: start;
+}
+
+/* Simulação fixa visível e scrollável dentro da metade direita (opcional) */
+#simPane{
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 120px);
+  overflow: auto;
+}
+
+/* Em telas menores, caia para 1 coluna para não esmagar conteúdo */
+@media (max-width: 1200px){
+  #pagePlanner .planner-right-grid,
+  #pagePlanner .planner-two-col{
+    grid-template-columns: 1fr;
+  }
+}
+/* Gutter (recuo) à direita da aba Simulação */
+:root{
+  --sim-gutter: clamp(8px, 1vw, 16px); /* ajuste aqui se quiser mais/menos */
+}
+
+#simPane{
+  padding-right: calc(var(--sim-gutter) + env(safe-area-inset-right, 0px));
+  box-sizing: border-box;   /* evita “estourar” a metade direita */
+  /* já deve existir overflow:auto; mantenha */
+}
+/* ---------- Desktop (já existente): duas colunas ---------- */
+/* (mantenha como estiver hoje; não precisa mexer) */
+
+
+/* ---------- Mobile: <= 980px ---------- */
+@media (max-width: 980px){
+
+  /* A grade vira 1 coluna, e controlamos a ordem com áreas */
+  #pagePlanner .planner-right-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "sim"
+      "banners";
+    row-gap: 14px;
+  }
+
+  /* Nomear as áreas */
+  #bannersPane{ grid-area: banners; }
+  #simPane{ grid-area: sim; }
+
+  /* A Simulação NÃO deve ser sticky no mobile: mostra tudo */
+  #simPane{
+    position: static;
+    max-height: none;
+    overflow: visible;
+    padding-right: var(--sim-gutter, 12px); /* mantém o leve recuo que fizemos */
+    box-sizing: border-box;
+  }
+
+  /* Cards de banner ocupam 100% da linha para caber bem */
+  .month-row{
+    grid-template-columns: 1fr;   /* 1 por linha */
+    gap: 12px;
+  }
+  .banner-card,
+  .rebanner-card{
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Inputs da Simulação não estourarem largura */
+  #simPane #simInputs label{ display:flex; align-items:center; gap:10px; }
+  #simPane #simInputs input{ max-width: 240px; }
+}
+
+
+</style>
+
+<!-- ===================== PLANEJADOR DE RECURSOS (NOVA PÁGINA) ===================== -->
+<section id="pagePlanner" class="page"
+  style="display:none; text-align:left; position:fixed; inset:0; width:100vw; height:100vh; margin:0; padding:16px 20px; background:#121212; overflow:auto; z-index:999;">
+
+  <!-- Cabeçalho -->
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+    <h3 style="margin:0;">Planejamento de Banners</h3>
+    <button id="btnVoltarBuilder" class="btn" type="button"
+      style="background:#444;border:1px solid #777;color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer">
+      ← Voltar ao Builder
+    </button>
+  </div>
+
+  <!-- Duas colunas principais: Fontes (esq) | Painel de Banners+Simulação (dir) -->
+  <div class="planner-wrap" style="display:grid; grid-template-columns: 420px 1fr; gap:16px; align-items:start;">
+
+    <!-- Coluna ESQUERDA: Fontes de diamantes -->
+    <div class="panel sources" style="background:#2a2a2a;border:1px solid #444;border-radius:10px;padding:10px;">
+      <h3 style="display:flex;align-items:center;justify-content:space-between;margin:0 0 8px;">
+        Fontes de Diamantes (editáveis)
+        <button id="toggleSources" class="btn mini" type="button"
+          style="background:#555;border:1px solid #777;color:#fff;border-radius:8px;padding:4px 8px;cursor:pointer">
+          Minimizar
+        </button>
+      </h3>
+
+      <!-- FREE -->
+      <div style="font-weight:700;opacity:.9;margin-top:6px;">Fontes FREE</div>
+      <table id="tblFree" class="grid-table" style="width:100%;border-collapse:separate;border-spacing:6px 6px;">
+        <thead>
+          <tr><th>Usar</th><th class="col-sistema">Sistema</th><th>Quantidade</th><th>Frequência</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button id="addFree" class="btn" type="button"
+        style="background:#3a6bd4;color:#fff;border:0;border-radius:8px;padding:6px 10px;cursor:pointer">+ Fonte FREE</button>
+
+      <!-- CASH -->
+      <div style="font-weight:700;opacity:.9;margin-top:14px;">Fontes CASH</div>
+      <table id="tblCash" class="grid-table" style="width:100%;border-collapse:separate;border-spacing:6px 6px;">
+        <thead>
+          <tr><th>Usar</th><th class="col-sistema">Sistema</th><th>Quantidade</th><th>Frequência</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button id="addCash" class="btn" type="button"
+        style="background:#3a6bd4;color:#fff;border:0;border-radius:8px;padding:6px 10px;cursor:pointer">+ Fonte CASH</button>
+
+      <!-- (qualquer outro bloco/observação que você já tinha pode ficar aqui) -->
+    </div>
+
+    <!-- Coluna DIREITA: Controles + Banners (esq) | Simulação (dir) -->
+    <div class="panel" style="background:#2a2a2a;border:1px solid #444;border-radius:10px;padding:10px;">
+
+      <!-- Controles do plano -->
+
+        <label>Nome do Planejamento:
+          <input id="nomePlano" type="text"
+            style="background:#1d1d1d;color:#fff;border:1px solid #555;border-radius:8px;padding:4px 6px;min-width:220px;">
+        </label>
+
+        <select id="slotsPlanos"
+          style="background:#1d1d1d;color:#fff;border:1px solid #555;border-radius:8px;padding:6px;">
+          <option value="">(selecione um plano salvo)</option>
+        </select>
+
+        <button id="btnSalvarPlano" class="btn"
+          style="background:#3a6bd4;color:#fff;border:0;border-radius:8px;padding:6px 10px;">Salvar / Atualizar</button>
+        <button id="btnNovoPlano" class="btn"
+          style="background:#555;color:#fff;border:0;border-radius:8px;padding:6px 10px;">Novo</button>
+        <button id="btnExcluirPlano" class="btn"
+          style="background:#b63a3a;color:#fff;border:0;border-radius:8px;padding:6px 10px;">Excluir</button>
+      </div>
+
+      <!-- Grid interno: Banners (esquerda) + Simulação (direita/sticky) -->
+      <div class="planner-right-grid">
+
+        <!-- BANNERS POR MÊS (ESQUERDA) -->
+        <section id="bannersPane">
+          <h4 style="margin:12px 0 6px;text-align:center;">Ordem dos Banners</h4>
+<!-- NOVO: alternador de servidor -->
+<div id="serverSwitch" class="server-switch">
+  <button id="serverJPBtn" class="server-btn active" type="button">Japão</button>
+  <button id="serverCNBtn" class="server-btn" type="button">China</button>
+</div>
+
+<!-- já existente -->
+<div id="bannersCards"></div>
+        </section>
+
+        <!-- SIMULAÇÃO (DIREITA, STICKY) -->
+        <aside id="simPane" style="position:sticky; top:12px; max-height:calc(100vh - 120px); overflow:auto;">
+          <h4 style="margin:12px 0 6px;text-align:center;">Simulação</h4>
+          <!-- Inputs iniciais (agora dentro da Simulação) -->
+<div id="simInputs" style="display:flex; flex-direction:column; gap:8px; margin-bottom:10px;">
+
+  <label style="display:flex; gap:8px; align-items:center;">
+    <label>Saldo Inicial (cristais):
+  <input id="saldoInicial" type="number" class="planner-input" inputmode="numeric">
+</label>
+
+  <label style="display:flex; gap:8px; align-items:center;">
+  <label>Data de início:
+  <input id="planStartDate" type="date" class="planner-input">
+  <button id="startTodayBtn" class="btn mini" type="button">Hoje</button>
+</label>
+
+  <div style="display:flex; gap:8px;">
+    <button id="openSourcesBtn" class="bond-btn" type="button">+ Recursos de cristais</button>
+  </div>
+  
+</div>
+          <table id="simTable" style="width:100%;border-collapse:separate;border-spacing:6px 6px;">
+            <thead>
+              <tr>
+                <th>Mês</th>
+                
+                <th>Ganhos (FREE+CASH)</th>
+                <th>Gasto Bruto</th>
+                <th>Cashback</th>
+                <th>Custo Líquido</th>
+                <th>Saldo Início</th>
+                <th>Saldo Final</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+              <tr style="font-weight:800;">
+                <td>Total</td>
+                <td></td>
+                <td class="right" id="tGanhos">0</td>
+                <td class="right" id="tGastoBruto">0</td>
+                <td class="right" id="tCashback">0</td>
+                <td class="right" id="tLiquido">0</td>
+                <td></td>
+                <td class="right" id="tSaldoFinal">0</td>
+              </tr>
+            </tfoot>
+          </table>
+          <div id="simExtras" class="sim-extras"></div>
+        </aside>
+
+      </div><!-- /planner-right-grid -->
+    </div><!-- /panel direita -->
+  </div><!-- /planner-wrap -->
+
+
+  <!-- Modal de Recursos (FREE/CASH) -->
+<div id="sourcesModal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-backdrop" data-close="1"></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="sourcesTitle">
+    <div class="modal-header">
+      <h3 id="sourcesTitle">Recursos de cristais</h3>
+      <button id="closeSourcesBtn" class="bond-btn">Fechar</button>
+    </div>
+    <div id="sourcesModalBody" class="modal-body">
+      <!-- o painel .panel.sources será movido pra cá ao abrir -->
+    </div>
+  </div>
+</div>
+
+</section>
+
+<!-- =================== FIM DO PLANEJADOR =================== -->
+
+
+<script>
+  
+(function(){
+  // ===== Configurações =====
+  const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const FREQS  = ['Diário','Semanal','Quinzenal','Mensal'];
+  const TYPE_ORDER = { 'Banner 1': 0, 'Rebanner': 1, 'Banner 2': 2 };
+  const COLLAPSE_KEY = 'hqPlannerSourcesCollapsed';
+  const PLANS_KEY = 'hqPlannerPlansV1';
+  const DRAFT_KEY = 'hqPlannerDraftV1';
+
+  // ===== Defaults de fontes =====
+  const DEFAULT_FREE = [
+    {usar:true, nome:'Programa de Treinamento', qtd:75,  freq:'Diário'},
+    {usar:true, nome:'Missão Diária',            qtd:60,  freq:'Diário'},
+    {usar:true, nome:'Missão Semanal',           qtd:100, freq:'Semanal'},
+    {usar:true, nome:'Desafio Máximo',           qtd:15,  freq:'Diário'},
+    {usar:true, nome:'Desafio Máximo Ranking',   qtd:20,  freq:'Diário'},
+    {usar:true, nome:'Jogos Casuais',            qtd:150, freq:'Semanal'},
+    {usar:true, nome:'Quiz',                     qtd:10,  freq:'Diário'},
+    {usar:true, nome:'Exercícios',               qtd:10,  freq:'Diário'},
+    {usar:true, nome:'Bonus Fim de Semana',      qtd:120, freq:'Semanal'},
+    {usar:true, nome:'Sequência de Partidas',    qtd:640, freq:'Quinzenal'},
+    {usar:true, nome:'Teste de Especialidade',   qtd:320, freq:'Semanal'},
+  ];
+
+  const DEFAULT_CASH = [
+    {usar:true, nome:'Passe Mensal',           porDia:90,  dias:30},
+    {usar:true, nome:'Passe Mensal Premium',   porDia:100, dias:30},
+    {usar:true, nome:'Conversão Diária 80',    porDia:80,  dias:30},
+    {usar:true, nome:'Conversão Diária 60',    porDia:60,  dias:14},
+  ];
+
+  // ===== Cronograma da planilha (por mês) =====
+  const BANNER_SHEET = {
+    'Agosto':   { b1:'Ushijima UR',      rebs:[],                           b2:'Kuroo UR' },
+    'Setembro': { b1:'Oikawa UR',        rebs:[],                           b2:'Bokuto UR' },
+    'Outubro':  { b1:'Miya Atsumu UR',   rebs:[],                           b2:'Miya Osamu UR' },
+    'Novembro': { b1:'Hoshiumi UR',         rebs:['Oikawa UR'],                b2:'Hirugami UR' },
+    'Dezembro': { b1:'Kageyama UR',      rebs:['Bokuto UR','Hoshiumi UR'],     b2:'Hinata SP' },
+    'Janeiro':  { b1:'Kenma SP',         rebs:['Hirugami UR'],              b2:'Nishinoya SP' },
+    'Fevereiro':{ b1:'Sugawara SP',      rebs:['Kuro UR'],                 b2:'Bokuto SP' },
+    'Março':    { b1:'Akaashi SP',       rebs:['Kageyama UR'],   b2:'Aone SP' },
+    'Abril':    { b1:'Hayaseiomi UR',    rebs:['Osamu UR'],                 b2:'Komori UR' },
+    'Maio':     { b1:'Tsuki SP',         rebs:[],                           b2:'Kuro SP' },
+    'Junho':    { b1:'Kunimi SP',        rebs:[],                           b2:'Koganegawa SP' },
+  };
+
+  // ===== Estado =====
+  let planner = {
+    saldoInicial: 0,
+    nomePlano: '',
+    free: JSON.parse(JSON.stringify(DEFAULT_FREE)),
+    cash: JSON.parse(JSON.stringify(DEFAULT_CASH)),
+    banners: []
+  };
+
+  // ===== Helpers =====
+  const $ = (s, el=document)=>el.querySelector(s);
+  const $$ = (s, el=document)=>Array.from(el.querySelectorAll(s));
+  const fmt = n => (Math.round((+n||0))).toLocaleString('pt-BR');
+
+  // liga a data de início ao render dos banners e à simulação
+(function bindPlanStartDate(){
+  const dateEl = document.getElementById('planStartDate');
+  const btnToday = document.getElementById('startTodayBtn');
+  if(!dateEl) return;
+
+  // quando mudar a data, re-renderiza e recalcula
+  const onChange = ()=>{
+    if (typeof renderBanners === 'function') renderBanners();
+    if (typeof recalc === 'function') recalc();
+  };
+  dateEl.addEventListener('change', onChange);
+
+  // botão "Hoje"
+  if(btnToday){
+    btnToday.addEventListener('click', ()=>{
+      const now = new Date();
+      dateEl.value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+      onChange();
+    });
+  }
+
+  // define um valor padrão (hoje) se estiver vazio ao abrir
+  if(!dateEl.value){
+    const now = new Date();
+    dateEl.value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  }
+})();
+
+
+  function setCollapsed(on){
+    document.body.classList.toggle('planner-collapsed', !!on);
+    const btn = document.getElementById('toggleSources');
+    if(btn) btn.textContent = on ? 'Maximizar' : 'Minimizar';
+    try{ localStorage.setItem(COLLAPSE_KEY, on?'1':'0'); }catch(e){}
+  }
+
+  function sortBannersFixed(){
+  const monthsSeq = Object.keys(BANNER_SHEET);
+  planner.banners.sort((a,b)=>{
+    const am = monthsSeq.indexOf(a.mes);
+    const bm = monthsSeq.indexOf(b.mes);
+    if (am !== bm) return am - bm;                    // ordem da planilha
+    return (TYPE_ORDER[a.tipo] ?? 99) - (TYPE_ORDER[b.tipo] ?? 99); // dentro do mês
+  });
+}
+
+
+  // Geração de caminho de imagem a partir do nome
+  function nameToImgCandidates(nome){
+    if(!nome) return [];
+    const rar = (nome.match(/\b(UR|SP)\b/i)||[])[1];
+    if(!rar) return [];
+    const rarity = rar.toUpperCase();
+    const base = nome.replace(/\b(UR|SP)\b/i,'').trim()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const parts = base.split(/\s+/).filter(Boolean);
+    if(!parts.length) return [];
+    const lower = s => s.toLowerCase();
+    const camel = parts.map((p,i)=> i===0 ? p.toLowerCase() : (p[0]||'').toUpperCase()+p.slice(1).toLowerCase()).join('');
+    const last = lower(parts[parts.length-1]);
+    const fullCamel = camel;
+    return [
+      `img/${last}${rarity}.png`,
+      `img/${fullCamel}${rarity}.png`,
+      `img/${last}${rarity}.webp`,
+      `img/${fullCamel}${rarity}.webp`
+    ];
+  }
+  function getBannerImage(b){
+    if(b.img && b.img.trim()) return b.img;
+    const list = nameToImgCandidates(b.nome);
+    return list[0] || '';
+  }
+
+  // Cashback milestones
+  function cashbackMilestones(totalPulls){
+    let back150 = 0, back100 = 0;
+    const extras = { ssrBox:0, milk:0, copy:0 };
+    if(totalPulls >= 10)  back150 += 2;
+    if(totalPulls >= 20)  back100 += 5;
+    if(totalPulls >= 50)  back150 += 5;
+    if(totalPulls >= 80)  back100 += 5;
+    if(totalPulls >= 120) extras.ssrBox += 1;
+    if(totalPulls >= 160) extras.milk   += 5;
+    if(totalPulls >= 200) extras.copy   += 1;
+    if(totalPulls >= 220) extras.milk   += 5;
+    if(totalPulls >= 350) extras.milk   += 10;
+    const cashbackDiamonds = back150*150 + back100*100;
+    return { back150, back100, cashbackDiamonds, extras };
+  }
+
+  // Seed banners from sheet
+  function uid(){ return 'b' + Math.random().toString(36).slice(2,9); }
+  function seedBannersFromSheet(){
+  planner.banners = [];
+  // Ordem = a ordem de inserção em BANNER_SHEET
+  for (const mes of Object.keys(BANNER_SHEET)) {
+    const row = BANNER_SHEET[mes]; if(!row) continue;
+
+    if (row.b1){
+      const img = getBannerImage({nome: row.b1});
+      planner.banners.push({ id: uid(), mes, tipo:'Banner 1', nome: row.b1, img, dias:14, t150:0, m100:0, cashback:0 });
+    }
+    if (Array.isArray(row.rebs)){
+      row.rebs.forEach(nome=>{
+        const img = getBannerImage({nome});
+        planner.banners.push({ id: uid(), mes, tipo:'Rebanner', nome, img, dias:14, t150:0, m100:0, cashback:0 });
+      });
+    }
+    if (row.b2){
+      const img = getBannerImage({nome: row.b2});
+      planner.banners.push({ id: uid(), mes, tipo:'Banner 2', nome: row.b2, img, dias:14, t150:0, m100:0, cashback:0 });
+    }
+  }
+}
+
+
+  // ===== Renderers =====
+  function renderFree(){
+    const tb = $('#tblFree tbody'); if(!tb) return;
+    tb.innerHTML = '';
+    planner.free.forEach((row, idx)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="checkbox" data-k="usar" ${row.usar?'checked':''}></td>
+        <td class="col-sistema"><input type="text" data-k="nome" value="${row.nome}" title="${row.nome}"></td>
+        <td><input type="number" data-k="qtd" min="0" step="1" value="${row.qtd}"></td>
+        <td><select data-k="freq">${FREQS.map(f=>`<option ${f===row.freq?'selected':''}>${f}</option>`).join('')}</select></td>
+        <td class="row-actions">
+          <button class="btn light up">↑</button>
+          <button class="btn light down">↓</button>
+          <button class="btn del rm">🗑</button>
+        </td>
+      `;
+      const onEdit = (e)=>{
+        const k = e.target.getAttribute('data-k'); if(!k) return;
+        if(k==='usar'){ planner.free[idx][k] = e.target.checked; }
+        else if(k==='nome' || k==='freq'){ planner.free[idx][k] = e.target.value; if(k==='nome') e.target.title = e.target.value; }
+        else { planner.free[idx][k] = +e.target.value || 0; }
+        recalc();
+      };
+      tr.addEventListener('input', onEdit); tr.addEventListener('change', onEdit);
+      tr.querySelector('.rm').onclick   = ()=>{ planner.free.splice(idx,1); renderFree(); recalc(); };
+      tr.querySelector('.up').onclick   = ()=>{ if(idx>0){ const t=planner.free[idx-1]; planner.free[idx-1]=planner.free[idx]; planner.free[idx]=t; renderFree(); recalc(); } };
+      tr.querySelector('.down').onclick = ()=>{ if(idx<planner.free.length-1){ const t=planner.free[idx+1]; planner.free[idx+1]=planner.free[idx]; planner.free[idx]=t; renderFree(); recalc(); } };
+      tb.appendChild(tr);
+    });
+  }
+
+  function renderCash(){
+    const tb = $('#tblCash tbody'); if(!tb) return;
+    tb.innerHTML = '';
+    planner.cash.forEach((row, idx)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="checkbox" data-k="usar" ${row.usar?'checked':''}></td>
+        <td class="col-sistema"><input type="text" data-k="nome" value="${row.nome}" title="${row.nome}"></td>
+        <td><input type="number" data-k="porDia" min="0" step="1" value="${row.porDia}"></td>
+        <td><input type="number" data-k="dias" min="0" step="1" value="${row.dias}"></td>
+        <td class="row-actions">
+          <button class="btn light up">↑</button>
+          <button class="btn light down">↓</button>
+          <button class="btn del rm">🗑</button>
+        </td>
+      `;
+      const onEdit = (e)=>{
+        const k = e.target.getAttribute('data-k'); if(!k) return;
+        if(k==='usar'){ planner.cash[idx][k] = e.target.checked; }
+        else if(k==='nome'){ planner.cash[idx][k] = e.target.value; e.target.title = e.target.value; }
+        else { planner.cash[idx][k] = +e.target.value || 0; }
+        recalc();
+      };
+      tr.addEventListener('input', onEdit); tr.addEventListener('change', onEdit);
+      tr.querySelector('.rm').onclick   = ()=>{ planner.cash.splice(idx,1); renderCash(); recalc(); };
+      tr.querySelector('.up').onclick   = ()=>{ if(idx>0){ const t=planner.cash[idx-1]; planner.cash[idx-1]=planner.cash[idx]; planner.cash[idx]=t; renderCash(); recalc(); } };
+      tr.querySelector('.down').onclick = ()=>{ if(idx<planner.cash.length-1){ const t=planner.cash[idx+1]; planner.cash[idx+1]=planner.cash[idx]; planner.cash[idx]=t; renderCash(); recalc(); } };
+      tb.appendChild(tr);
+    });
+  }
+  
+  function renderBanners(){
+  // === helpers para normalizar mês (sem acento / minúsculo) e obter índice 1..12 ===
+  const rmAccents = (s)=> String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const norm = (s)=> rmAccents(s).trim().toLowerCase();
+  const MONTH_IDX = {
+    "janeiro":1, "fevereiro":2, "marco":3, "março":3, "abril":4, "maio":5, "junho":6,
+    "julho":7, "agosto":8, "setembro":9, "outubro":10, "novembro":11, "dezembro":12
+  };
+  // ————— util para data de início e rotação de meses —————
+function getPlanStartMonth(){
+  const el = document.getElementById('planStartDate');
+  if(!el || !el.value) return 8; // padrão Agosto (ou ajuste)
+  const dt = new Date(el.value + 'T00:00:00');
+  const m = dt.getMonth()+1;
+  return (m>=1 && m<=12) ? m : 8;
+}
+  // 1) setup padrão (mantido)
+  
+  const wrap = document.getElementById('bannersCards'); if(!wrap) return;
+  wrap.innerHTML='';
+
+  // 2) agrupar banners por mês (mantido)
+  const byMonth={};
+  (planner.banners||[]).forEach(b=>{
+    if(!b||!b.mes) return;
+    (byMonth[b.mes] ||= []).push(b);
+  });
+
+  // 3) determinar mês de início a partir de #planStartDate (fallback = mês atual)
+  let startMonth = (new Date()).getMonth() + 1; // 1..12
+  const startEl = document.getElementById('planStartDate');
+  if (startEl && startEl.value){
+    const d = new Date(startEl.value + 'T00:00:00');
+    if (!Number.isNaN(d.getTime())) startMonth = d.getMonth() + 1;
+  }
+  // Use a ordem cronológica definida na planilha (BANNER_SHEET) como linha do tempo
+const monthsSeq = Object.keys(BANNER_SHEET);
+
+// Índice de início = primeiro mês cujo número (1..12) >= startMonth
+let startIdx = monthsSeq.findIndex(m => PT_MONTH_INDEX[norm(m)] >= startMonth);
+if (startIdx < 0) startIdx = 0;
+
+// Da data inicial em diante (inclui Janeiro..Junho do “próximo ano”)
+// e ainda filtra para manter só meses que realmente têm banners no dataset atual
+const monthsToRender = monthsSeq.slice(startIdx).filter(m => byMonth[m]);
+
+// ====== A partir daqui renderiza
+monthsToRender.forEach(mes=>{
+    const arr = byMonth[mes];
+    const b1   = arr.find(x=>x.tipo==='Banner 1');
+    const b2   = arr.find(x=>x.tipo==='Banner 2');
+    const rebs = arr.filter(x=>x.tipo==='Rebanner'); // 0..2
+
+    const group = document.createElement('div');
+    group.className='month-group';
+    group.innerHTML=`<div class="month-title">${mes}</div>`;
+
+    const row = document.createElement('div');
+    row.className='month-row';
+
+    const mkLinesHTML = (b)=>{
+      const t150 = +b.t150 || 0;
+      const m100 = +b.m100 || 0;
+
+      // cashback de marcos e %: **apenas para tickets**
+      const gastoTickets   = 150 * t150;
+      const cbMilTickets   = cashbackMilestones(t150); // só tickets contam
+      const cashbackPerc   = Math.round(gastoTickets * ((+b.cashback || 0)/100));
+      const cashbackTotal  = (cbMilTickets.cashbackDiamonds || 0) + cashbackPerc;
+
+      return `<div class="banner-lines">
+        <span>Tickets: ${t150.toLocaleString('pt-BR')}</span>
+        <span>Memórias: ${m100.toLocaleString('pt-BR')}</span>
+        <span>Cashback: ${cashbackTotal.toLocaleString('pt-BR')}</span>
+      </div>`;
+    };
+
+    const mkCard=(b,label)=>{
+      const el=document.createElement('div'); el.className='banner-card';
+      const imgSrc=getBannerImage(b);
+      el.innerHTML=`
+        <h5>${label} • ${b.nome||''}</h5>
+        ${imgSrc?`<img src="${imgSrc}" onerror="this.style.display='none'>`:
+          `<div style="height:210px;border:1px dashed #444;border-radius:10px;display:flex;align-items:center;justify-content:center;opacity:.7">Sem imagem</div>`}
+        <div class="banner-fields">
+          <label>Tickets (150): <input type="number" class="planner-input" data-id="${b.id}" data-k="t150" min="0" step="1" value="${b.t150||0}"></label>
+          <label>Memórias (100): <input type="number" class="planner-input" data-id="${b.id}" data-k="m100" min="0" step="1" value="${b.m100||0}"></label>
+        </div>
+        ${mkLinesHTML(b)}
+      `;
+      el.querySelectorAll('input[data-id]').forEach(inp=>{
+        inp.addEventListener('input', e=>{
+          const it=planner.banners.find(x=>x.id===e.target.getAttribute('data-id'));
+          if(!it) return; it[e.target.getAttribute('data-k')]=+e.target.value||0;
+          const old=el.querySelector('.banner-lines');
+          if(old){
+            const tmp=document.createElement('div');
+            tmp.innerHTML=mkLinesHTML(it);
+            old.replaceWith(tmp.firstElementChild);
+          }
+          recalc();
+        });
+      });
+      return el;
+    };
+
+    // Coluna esquerda: Banner 1
+    const left=document.createElement('div');
+    if(b1) left.appendChild(mkCard(b1,'Banner 1'));
+    row.appendChild(left);
+
+    // Coluna do meio: TODOS os rebanners LADO A LADO
+    const mid=document.createElement('div'); mid.className='rebanners-row';
+    rebs.forEach((rb,i)=>{
+      const card=mkCard(rb, `Rebanner ${rebs.length>1?i+1:''}`.trim());
+      card.classList.add('rebanner-card');
+      mid.appendChild(card);
+    });
+    if(rebs.length) row.appendChild(mid); else row.appendChild(document.createElement('div')); // mantém 3 colunas
+
+    // Coluna direita: Banner 2
+    const right=document.createElement('div');
+    if(b2) right.appendChild(mkCard(b2,'Banner 2'));
+    row.appendChild(right);
+
+    group.appendChild(row);
+    wrap.appendChild(group);
+  });
+}
+
+
+
+
+
+
+  // ===== Cálculos =====
+  function ganhosFreePorDia(){
+    let total = 0;
+    planner.free.forEach(f=>{
+      if(!f.usar) return;
+      const q = +f.qtd || 0;
+      switch(f.freq){
+        case 'Diário': total += q; break;
+        case 'Semanal': total += q/7; break;
+        case 'Quinzenal': total += q/14; break;
+        case 'Mensal': total += q/30; break;
+      }
+    });
+    return total;
+  }
+
+  function recalc(){ simular(); persistTemp(); }
+// ===== Alternador de servidor: Japão / China =====
+const SERVER_KEYS = { JP: 'banners_JP', CN: 'banners_CN' };
+
+// Inicializa os datasets por servidor.
+// - Se ainda não existir, semeia JP com a lista atual e CN como cópia vazia (ou a atual, se preferir).
+function initServerBanners(){
+  // garante que planner existe
+  window.planner = window.planner || {};
+  if (!planner.server) planner.server = 'JP';
+
+  // semear JP se vazio
+  if (!localStorage.getItem(SERVER_KEYS.JP)) {
+    localStorage.setItem(SERVER_KEYS.JP, JSON.stringify(planner.banners || []));
+  }
+  // semear CN se vazio (aqui começo igual ao JP; depois você edita a ordem manualmente)
+  if (!localStorage.getItem(SERVER_KEYS.CN)) {
+    localStorage.setItem(SERVER_KEYS.CN, JSON.stringify(planner.banners || []));
+  }
+
+  // carrega o dataset do servidor ativo para planner.banners
+  const activeKey = SERVER_KEYS[planner.server] || SERVER_KEYS.JP;
+  try {
+    const saved = JSON.parse(localStorage.getItem(activeKey) || '[]');
+    planner.banners = Array.isArray(saved) ? saved : [];
+  } catch {
+    planner.banners = planner.banners || [];
+  }
+
+  // estado visual dos botões
+  document.getElementById('serverJPBtn')?.classList.toggle('active', planner.server === 'JP');
+  document.getElementById('serverCNBtn')?.classList.toggle('active', planner.server === 'CN');
+}
+
+// Troca o servidor, salvando o dataset atual e carregando o outro.
+function switchServer(s){
+  if (!SERVER_KEYS[s]) return;
+  if (!window.planner) return;
+
+  // salva banners atuais no slot do servidor corrente
+  const curKey = SERVER_KEYS[planner.server || 'JP'];
+  try { localStorage.setItem(curKey, JSON.stringify(planner.banners || [])); } catch{}
+
+  // carrega banners do novo servidor
+  const nextKey = SERVER_KEYS[s];
+  let next = [];
+  try { next = JSON.parse(localStorage.getItem(nextKey) || '[]'); } catch{}
+  planner.banners = Array.isArray(next) ? next : [];
+  planner.server = s;
+
+  // atualiza UI
+  document.getElementById('serverJPBtn')?.classList.toggle('active', s === 'JP');
+  document.getElementById('serverCNBtn')?.classList.toggle('active', s === 'CN');
+
+  // re-render e recalcula
+  if (typeof renderBanners === 'function') renderBanners();
+  if (typeof recalc === 'function') recalc();
+  if (typeof savePlanner === 'function') savePlanner(); // opcional
+}
+  // DEV: resetar dataset do servidor e reseed a partir da planilha atual
+window.resetServer = function(s='JP'){
+  const key = SERVER_KEYS[s] || SERVER_KEYS.JP;
+  localStorage.removeItem(key);
+  // re-semeia conforme init
+  initServerBanners();
+  renderBanners && renderBanners();
+  recalc && recalc();
+};
+// Liga os botões (chame após montar o Planner)
+function bindServerButtons(){
+  document.getElementById('serverJPBtn')?.addEventListener('click', ()=>switchServer('JP'));
+  document.getElementById('serverCNBtn')?.addEventListener('click', ()=>switchServer('CN'));
+}
+
+// >>> Em algum ponto da inicialização do Planner:
+
+// (se já carrega banners antes, chame initServerBanners() logo depois)
+
+  // meses pt-BR -> 1..12
+const PT_MONTH_INDEX = {
+  "janeiro":1,"fevereiro":2,"março":3,"marco":3,"abril":4,"maio":5,"junho":6,
+  "julho":7,"agosto":8,"setembro":9,"outubro":10,"novembro":11,"dezembro":12
+};
+const norm = s => String(s||'').trim().toLowerCase();
+
+// dias reais do mês (considera ano bissexto)
+function daysInMonth(year, month1to12){
+  return new Date(year, month1to12, 0).getDate();
+}
+
+// lê a data do input; se vazio, usa hoje
+function getPlanStartDate(){
+  const el = document.getElementById('planStartDate');
+  const v = el && el.value ? new Date(el.value+'T00:00:00') : new Date();
+  // zera hora
+  return new Date(v.getFullYear(), v.getMonth(), v.getDate());
+}
+
+// atalho p/ “Hoje”
+(function bindStartToday(){
+  const b = document.getElementById('startTodayBtn');
+  const i = document.getElementById('planStartDate');
+  if (b && i){
+    b.addEventListener('click', ()=>{
+      const now = new Date();
+      i.value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+      if (typeof recalc === 'function') recalc();
+    });
+  }
+  if (i){
+    i.addEventListener('change', ()=>{ if (typeof recalc === 'function') recalc(); });
+  }
+})();
+
+  function simular(){
+  const tbody = $('#simTable tbody'); if(!tbody) return;
+  tbody.innerHTML = '';
+
+  // --- 0) saldos iniciais (cristais + tickets*150)
+  // --- 0) saldos iniciais (cristais + tickets*150) — com casting seguro
+const num = (id)=> Math.max(0, +(document.getElementById(id)?.value || 0));
+const saldoCristais = num('saldoInicial');
+const saldoTickets  = num('ticketsInic') * 150;
+let saldo = saldoCristais + saldoTickets;
+
+
+  // --- 1) ordem cronológica de meses a partir dos banners
+  const order = [];
+  const seen = new Set();
+  (planner.banners||[]).forEach(b=>{
+    const m = norm(b.mes);
+    if(m && !seen.has(m)){ seen.add(m); order.push(m); }
+  });
+
+  // --- 2) agrega GASTOS/CASHBACK/EXTRAS por mês (somando banners daquele mês)
+  const byMonth = new Map();
+  const extrasTot = { ssrBox:0, milk:0, copy:0 };
+
+  (planner.banners||[]).forEach(b=>{
+    const m = norm(b.mes); if(!m) return;
+    if(!byMonth.has(m)){
+      byMonth.set(m, { mes:m, gastoBruto:0, cashback:0, custoLiquido:0, extras:{ssrBox:0,milk:0,copy:0} });
+    }
+    const t150 = +b.t150 || 0;
+    const m100 = +b.m100 || 0;
+
+    // custo total continua somando tudo
+  const gastoBruto  = 150*t150 + 100*m100;
+
+// ⚠️ EXTRAS agora contam SÓ tickets (150), sem memórias (100)
+  const cbMilExtras = cashbackMilestones(t150);
+
+    // cashback só com tickets
+    const cbMilTickets = cashbackMilestones(t150);
+    const cashbackPerc = Math.round((150*t150) * ((+b.cashback || 0)/100));
+    const cashback     = (cbMilTickets.cashbackDiamonds || 0) + cashbackPerc;
+
+    const custoLiquido = gastoBruto - cashback;
+
+    const mm = byMonth.get(m);
+    mm.gastoBruto   += gastoBruto;
+    mm.cashback     += cashback;
+    mm.custoLiquido += custoLiquido;
+
+    // extras somam pelos pulls totais
+    mm.extras.ssrBox += (cbMilExtras.extras?.ssrBox || 0);
+    mm.extras.milk   += (cbMilExtras.extras?.milk   || 0);
+    mm.extras.copy   += (cbMilExtras.extras?.copy   || 0);
+
+    extrasTot.ssrBox += (cbMilExtras.extras?.ssrBox || 0);
+    extrasTot.milk   += (cbMilExtras.extras?.milk   || 0);
+    extrasTot.copy   += (cbMilExtras.extras?.copy   || 0);
+  });
+
+  // --- 3) ganhos por mês (FREE + distribuir CASH a partir da data de início)
+  const ganhoDiaFREE = ganhosFreePorDia();
+  const start = getPlanStartDate();
+  const startMonthIdx = start.getMonth()+1; // 1..12
+  const startYear = start.getFullYear();
+
+  // encontra o índice do 1º mês que coincide com a data de início;
+  // se não encontrar, usa o primeiro da lista (mês cheio).
+  let idxStart = order.findIndex(m => PT_MONTH_INDEX[m] === startMonthIdx);
+  if (idxStart === -1) idxStart = 0;
+
+  // consumo de CASH: começa na data de início
+  // NÃO queremos mais consumo estadoful:
+
+
+
+  // ano/mês correntes para cada entrada da order (contabiliza virada de ano)
+  let runningYear = startYear;
+  let prevIdx = startMonthIdx;
+
+  // totais
+  let totalGanhos=0, totalGastoBruto=0, totalCashback=0, totalLiquido=0;
+
+  for (let i=0;i<order.length;i++){
+    const label = order[i];
+    const mIdx = PT_MONTH_INDEX[label] || 1;
+
+    // avança o ano quando cruza dezembro->janeiro
+    if (i === 0){
+      // se a lista começa antes do mês de início, ajuste o ano para trás
+      // (opcional: pode deixar como está; não afeta pró-rata)
+    } else if (prevIdx > mIdx){
+      runningYear += 1;
+    }
+    prevIdx = mIdx;
+
+    // dias do mês real
+    const dim = daysInMonth(runningYear, mIdx);
+
+    // se o mês é anterior à data de início → pula (sem ganhos, sem custos)
+    // Obs: se NÃO quiser pular custos de meses anteriores, troque o 'continue' por 'activeDays=0'.
+    if (i < idxStart){
+      continue;
+    }
+
+    // dias ativos: pró-rata no primeiro mês útil, cheios nos demais
+    const activeDays = (i === idxStart)
+      ? (mIdx === startMonthIdx ? Math.max(0, dim - (start.getDate() - 1)) : dim) // se o label for o mesmo mês da data
+      : dim;
+
+    // ganhos FREE + CASH desse mês (CASH consome 'activeDays' sequencialmente)
+    // FREE do mês (mantém)
+const gFree = Math.round(ganhoDiaFREE * activeDays);
+
+// CASH do mês: Quantidade (por dia) × min(Frequência, dias ativos no mês)
+let gCash = 0;
+(planner.cash || []).forEach(c=>{
+  if(!c || !c.usar) return;
+
+  // Compat: alguns planos antigos usam c.porDia; no UI atual, a coluna é "Quantidade" => c.qtd
+  const perDay = (+c.qtd || +c.porDia || 0);
+
+  // "Frequência" agora significa "dias ativos no mês" (ex.: 30 = mês inteiro)
+  const diasAtivosNoMes = Math.min(activeDays, +c.dias || 0);
+
+  gCash += perDay * diasAtivosNoMes;
+});
+
+const ganhos = gFree + Math.round(gCash);
+
+
+    // custos agregados daquele mês (se não houver, zero)
+    const mm = byMonth.get(label) || { gastoBruto:0, cashback:0, custoLiquido:0 };
+
+    // saldo
+    const saldoIni = saldo;
+    saldo = saldo + ganhos - mm.custoLiquido;
+
+    // render linha
+    const pretty = label.charAt(0).toUpperCase() + label.slice(1);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${pretty}</td>
+      <td class="right">${ganhos.toLocaleString('pt-BR')}</td>
+      <td class="right">${(mm.gastoBruto||0).toLocaleString('pt-BR')}</td>
+      <td class="right">${(mm.cashback||0).toLocaleString('pt-BR')}</td>
+      <td class="right">${(mm.custoLiquido||0).toLocaleString('pt-BR')}</td>
+      <td class="right">${saldoIni.toLocaleString('pt-BR')}</td>
+      <td class="right">${saldo.toLocaleString('pt-BR')}</td>
+    `;
+    // pinta saldo final negativo
+    const saldoCell = tr.querySelector('td:last-child');
+    if (saldoCell) saldoCell.classList.toggle('neg', saldo < 0);
+
+    tbody.appendChild(tr);
+
+    // totais (se mantiver rodapé)
+    totalGanhos     += ganhos;
+    totalGastoBruto += (mm.gastoBruto||0);
+    totalCashback   += (mm.cashback||0);
+    totalLiquido    += (mm.custoLiquido||0);
+  }
+
+  // atualiza rodapé se você ainda estiver usando <tfoot> (se não, pode remover)
+  const el = (id)=>document.getElementById(id);
+  if (el('tGanhos'))      el('tGanhos').textContent      = totalGanhos.toLocaleString('pt-BR');
+  if (el('tGastoBruto'))  el('tGastoBruto').textContent  = totalGastoBruto.toLocaleString('pt-BR');
+  if (el('tCashback'))    el('tCashback').textContent    = totalCashback.toLocaleString('pt-BR');
+  if (el('tLiquido'))     el('tLiquido').textContent     = totalLiquido.toLocaleString('pt-BR');
+  if (el('tSaldoFinal')){ el('tSaldoFinal').textContent  = saldo.toLocaleString('pt-BR');
+                          el('tSaldoFinal').classList.toggle('neg', saldo < 0); }
+
+  // extras (se estiver usando a caixa abaixo da tabela)
+  const simEl = document.getElementById('simExtras');
+  if (simEl) {
+    simEl.innerHTML = `
+      <div><b>Extras Totais</b> —
+        SSR Box: <b>${extrasTot.ssrBox}</b> •
+        Milk: <b>${extrasTot.milk}</b> •
+        Copy: <b>${extrasTot.copy}</b>
+      </div>`;
+  }
+}
+
+
+   
+
+  // ===== Persistência =====
+  function savePlan(name){
+    const store = JSON.parse(localStorage.getItem(PLANS_KEY)||'{}');
+    store[name] = JSON.parse(JSON.stringify(planner));
+    localStorage.setItem(PLANS_KEY, JSON.stringify(store));
+    fillSlots(name);
+  }
+  function loadPlan(name){
+    const store = JSON.parse(localStorage.getItem(PLANS_KEY)||'{}');
+    if(!store[name]) return;
+    planner = JSON.parse(JSON.stringify(store[name]));
+    $('#saldoInicial').value = planner.saldoInicial || 0;
+    $('#nomePlano').value = name;
+    renderFree(); renderCash(); renderBanners(); recalc();
+  }
+  function delPlan(name){
+    const store = JSON.parse(localStorage.getItem(PLANS_KEY)||'{}');
+    delete store[name];
+    localStorage.setItem(PLANS_KEY, JSON.stringify(store));
+  }
+  function fillSlots(sel=''){
+    const store = JSON.parse(localStorage.getItem(PLANS_KEY)||'{}');
+    const sl = $('#slotsPlanos'); if(!sl) return;
+    sl.innerHTML = '<option value="">(selecione um plano salvo)</option>';
+    Object.keys(store).sort().forEach(k=>{
+      const opt = document.createElement('option');
+      opt.value = k; opt.textContent = k; if(k===sel) opt.selected = true; sl.appendChild(opt);
+    });
+  }
+  function persistTemp(){
+    const draft = JSON.parse(JSON.stringify(planner));
+    try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); }catch(e){}
+  }
+  function loadDraft(){
+    try{
+      const draft = JSON.parse(localStorage.getItem(DRAFT_KEY)||'null');
+      if(draft){
+        planner = draft;
+        return true;
+      }
+    }catch(e){}
+    return false;
+  }
+
+  // ===== Navegação =====
+  function showPlanner(){ document.body.classList.add('show-planner'); document.getElementById('pagePlanner').style.display='block';document.body.classList.add('planner-open');}
+  function showBuilder(){ document.body.classList.remove('show-planner'); document.getElementById('pagePlanner').style.display='none';document.body.classList.remove('planner-open'); }
+
+  window.hqShowPlanner = showPlanner;
+  window.hqShowBuilder = showBuilder;
+
+  
+  // ===== Boot =====
+  function boot(){
+    const btnOpen = document.getElementById('openPlannerBtn'); if(btnOpen) btnOpen.addEventListener('click', showPlanner);
+    const btnBack = document.getElementById('btnVoltarBuilder'); if(btnBack) btnBack.addEventListener('click', showBuilder);
+    
+    
+    const btnToggle = document.getElementById('toggleSources');
+    if(btnToggle){ btnToggle.addEventListener('click', ()=> setCollapsed(!document.body.classList.contains('planner-collapsed'))); }
+    const btnReopen = document.getElementById('reopenSources');
+    if(btnReopen){ btnReopen.addEventListener('click', ()=> setCollapsed(false)); }
+    const prev = localStorage.getItem(COLLAPSE_KEY);
+// 1ª visita: mantém colapsado; visitas seguintes: respeita o salvo
+if (prev === null) {
+  setCollapsed(true);
+} else {
+  setCollapsed(prev === '1');
+}
+
+
+    const saldoEl = document.getElementById('saldoInicial'); if(saldoEl) saldoEl.addEventListener('input', ()=>{ planner.saldoInicial = +(saldoEl.value||0); recalc(); });
+    const nomeEl  = document.getElementById('nomePlano');    if(nomeEl)  nomeEl.addEventListener('input', ()=>{ planner.nomePlano = nomeEl.value||''; persistTemp(); });
+    
+    const bSave = document.getElementById('btnSalvarPlano'); if(bSave) bSave.addEventListener('click', ()=>{
+      const name = (document.getElementById('nomePlano').value||'').trim() || 'Plano';
+      savePlan(name);
+    });
+    const bNovo = document.getElementById('btnNovoPlano'); if(bNovo) bNovo.addEventListener('click', ()=>{
+      planner = { saldoInicial:0, nomePlano:'', free:JSON.parse(JSON.stringify(DEFAULT_FREE)), cash:JSON.parse(JSON.stringify(DEFAULT_CASH)), banners:[] };
+      document.getElementById('saldoInicial').value = 0; document.getElementById('nomePlano').value='';
+      seedBannersFromSheet();
+      // 1) garante dados base (JP) em memória
+if (!planner.banners || !planner.banners.length) seedBannersFromSheet();
+
+
+      renderFree(); renderCash(); renderBanners(); recalc(); fillSlots(''); persistTemp();
+    });
+    const bDel = document.getElementById('btnExcluirPlano'); if(bDel) bDel.addEventListener('click', ()=>{
+      const sel = document.getElementById('slotsPlanos').value; if(sel){ delPlan(sel); fillSlots(''); }
+    });
+    const slots = document.getElementById('slotsPlanos'); if(slots) slots.addEventListener('change', (e)=>{ const name = e.target.value; if(name) loadPlan(name); });
+
+    const hadDraft = loadDraft();
+    if(!hadDraft || !planner.banners || planner.banners.length===0 ||
+       (planner.banners.length===1 && /^Novo Banner$/i.test(planner.banners[0]?.nome||'')) ){
+      seedBannersFromSheet();
+    }
+
+    fillSlots(planner?.nomePlano || '');
+    initServerBanners();     // <— COLE AQUI
+    bindServerButtons();
+    renderFree(); renderCash(); renderBanners(); recalc();
+  }
+  // === BIND: + Fonte FREE / + Fonte CASH ===
+const $addFree = document.getElementById('addFree');
+if ($addFree) {
+  $addFree.addEventListener('click', () => {
+    // linha nova FREE (usar/nome/qtd/freq)
+    planner.free = planner.free || [];
+    planner.free.push({ usar: true, nome: 'Nova fonte FREE', qtd: 0, freq: 'Mensal' });
+    renderFree && renderFree();
+    recalc && recalc();
+    savePlanner && savePlanner();
+  });
+}
+
+const $addCash = document.getElementById('addCash');
+if ($addCash) {
+  $addCash.addEventListener('click', () => {
+    // linha nova CASH (usar/nome/diamantes por dia/dias)
+    planner.cash = planner.cash || [];
+    planner.cash.push({ usar: true, nome: 'Nova fonte CASH', qtd: 0, dias: 30 });
+    renderCash && renderCash();
+    recalc && recalc();
+    savePlanner && savePlanner();
+  });
+}
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+
+})();
+/* ==================== STATS BONDS – infra (revamp) ==================== */
+
+/** 3.1) Nomes dos titulares do grid principal */
+/** titulares + banco: quem pode aparecer listado no modal */
+function getPresentTeamNames(){
+  const main  = [...document.querySelectorAll('.hex')].map(s => s.dataset?.nome).filter(Boolean);
+  const bench = [...document.querySelectorAll('.bench-slot')].map(s => s.dataset?.nome).filter(Boolean);
+  return new Set([...main, ...bench]);
+}
+
+/** personagens salvos na conta (localStorage) */
+const OWNED_KEY = 'hqOwnedCharsV2';
+function loadOwned(){ try{ return new Set(JSON.parse(localStorage.getItem(OWNED_KEY)||'[]')); }catch(e){ return new Set(); } }
+function saveOwned(set){ localStorage.setItem(OWNED_KEY, JSON.stringify([...set])); }
+function clearOwned(){ localStorage.removeItem(OWNED_KEY); }
+
+/** conjunto para ATIVAÇÃO: time (quadra+banco) + conta */
+function getActivationSet(){
+  const present = getPresentTeamNames();
+  const owned   = loadOwned();
+  return new Set([...present, ...owned]);
+}
+
+/** 3.2) Fonte de dados (segue igual: window.STATS_BONDS = {...}) */
+const STATS_BONDS = (typeof window !== 'undefined' && window.STATS_BONDS) ? window.STATS_BONDS : {};
+
+/** 3.3) (fallback opcional — mantém se quiser) */
+if (!Object.keys(STATS_BONDS).length){
+  window.STATS_BONDS = {
+    "Team's Guardians": { "Nishinoya SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%", "Yaku SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%" },
+    "Karasuno's Setters": { "Sugawara SP": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%", "Kageyama UR": "" }
+  };
+}
+
+/** 3.4) Extrai vínculos de stats “ativos” considerando titulares + conta */
+function getActiveStatBonds(){
+  const presentForList = getPresentTeamNames();   // quadra + banco (para mostrar)
+  const activationSet  = getActivationSet();      // time + conta (para ativar)
+
+  const out = [];
+
+  for (const [bondName, mapping] of Object.entries(window.STATS_BONDS || {})){
+    const allMembers = Object.keys(mapping);
+
+    // Quem ativa (time + conta)
+    const activators = allMembers.filter(k => activationSet.has(k));
+    if (activators.length < 2) continue;
+
+    // Quem aparece (somente time)
+    const listed   = allMembers.filter(k => presentForList.has(k));
+    if (listed.length === 0) continue;
+
+    // Quem não está aparecendo (fora do time)
+    const missing  = allMembers.filter(k => !presentForList.has(k));
+
+    const toEntry = (name)=>({
+      name,
+      buff: mapping[name] || '',
+      img: (characters.find(p => p.nome === name) || {}).img || ''
+    });
+
+    out.push({
+      bondName,
+      entries: listed.map(toEntry),
+      missing: missing.map(toEntry)
+    });
+  }
+
+  out.sort((a,b)=> a.bondName.localeCompare(b.bondName));
+  return out;
+}
+
+  
+/** 3.5) Picker “Personagens da conta” (multi-seleção com busca) */
+function openOwnedPicker(){
+  const owned = loadOwned();
+  const allChars = (Array.isArray(characters) ? characters.slice() : []).sort((a,b)=>a.nome.localeCompare(b.nome));
+
+  const backdrop = document.createElement('div'); backdrop.className = 'item-modal-backdrop';
+  const box = document.createElement('div'); box.className = 'item-modal';
+  backdrop.appendChild(box);
+
+  box.innerHTML = `
+    <h3>Adicionar Personagens da conta</h3>
+    <div style="display:flex;gap:8px;align-items:center;margin:6px 0;">
+      <input id="ownedSearch" placeholder="Pesquisar..." style="flex:1;padding:6px;">
+      <button id="ownedAll"   class="item-btn" type="button">All</button>
+      <button id="ownedClear" class="item-btn" type="button">Clear</button>
+    </div>
+    <div id="ownedGrid" class="owned-picker"></div>
+    <div class="item-actions">
+      <button id="ownedCancel" class="item-btn">Cancelar</button>
+      <button id="ownedSave"   class="item-btn">Salvar</button>
+    </div>
+  `;
+
+  const render = (term='')=>{
+    const t = term.trim().toLowerCase();
+    const grid = box.querySelector('#ownedGrid');
+    grid.innerHTML = allChars
+      .filter(c => !t || c.nome.toLowerCase().includes(t))
+      .map(c => `
+        <label class="owned-card">
+          <img class="stats-char-thumb" src="${c.img}" alt="">
+          <span>${c.nome}</span>
+          <input type="checkbox" data-name="${c.nome}" ${owned.has(c.nome)?'checked':''}>
+        </label>
+      `).join('');
+  };
+  render();
+
+  const markAll = (state)=>{
+    box.querySelectorAll('input[type="checkbox"][data-name]').forEach(cb => cb.checked = state);
+  };
+
+  box.querySelector('#ownedSearch').addEventListener('input', e=>render(e.target.value));
+  box.querySelector('#ownedAll').addEventListener('click',   ()=> markAll(true));
+  box.querySelector('#ownedClear').addEventListener('click', ()=> markAll(false));
+
+  box.querySelector('#ownedCancel').addEventListener('click', ()=>backdrop.remove());
+  box.querySelector('#ownedSave').addEventListener('click', ()=>{
+    const picked = new Set(
+      [...box.querySelectorAll('input[type="checkbox"][data-name]')]
+        .filter(i=>i.checked).map(i=>i.dataset.name)
+    );
+    saveOwned(picked);
+    backdrop.remove();
+    // Reabre o modal de Stat Bonds já com o cálculo novo (time + conta)
+    openStatsBondsModal();
+  });
+
+  document.body.appendChild(backdrop);
+}
+
+/** 3.6) Modal de listagem (com imagens + ações) */
+function openStatsBondsModal(){
+  const list = getActiveStatBonds();
+
+  const backdrop = document.createElement('div');
+  backdrop.className = 'item-modal-backdrop';
+
+  const modal = document.createElement('div');
+  modal.className  = 'item-modal';
+
+  let html = `<h3>Stats bonds ativos (${list.length})</h3>`;
+
+  if (list.length === 0){
+    html += `<p style="opacity:.85">Nenhum vínculo de stats está sendo adicionado pela composição atual (titulares + conta).</p>`;
+  } else {
+    html += `<div class="stats-bond-list">`;
+    list.forEach((b, i) => {
+      html += `
+        <div class="stats-bond-item">
+          <div class="stats-bond-head">
+            <h4>${b.bondName}</h4>
+            ${b.missing.length ? `<button class="see-details-btn" data-bond-id="${i}">See details</button>` : ``}
+          </div>
+          <ul>
+            ${b.entries.map(e => `
+              <li>
+                ${e.img ? `<img class="stats-char-thumb" src="${e.img}" alt="${e.name}">` : ''}
+                <b>${e.name}</b> — ${e.buff && e.buff.trim() ? e.buff : '<em>sem buff</em>'}
+              </li>
+            `).join('')}
+          </ul>
+
+          ${b.missing.length ? `
+            <ul class="missing-list" data-bond-id="${i}" style="display:none;">
+              ${b.missing.map(e => `
+                <li class="missing-char">
+                  ${e.img ? `<img class="stats-char-thumb" src="${e.img}" alt="${e.name}">` : ''}
+                  <b>${e.name}</b> — ${e.buff && e.buff.trim() ? e.buff : '<em>sem buff</em>'}
+                </li>
+              `).join('')}
+            </ul>
+          ` : ``}
+        </div>
+      `;
+    });
+    html += `</div>`;
+  }
+
+  html += `
+    <div class="item-actions">
+      <button id="addOwnedBtn" class="item-btn">Adicionar personagens da conta</button>
+      <button id="clearOwnedBtn" class="item-btn">Limpar tudo</button>
+      <button id="closeStatsModal" class="item-btn">Fechar</button>
+    </div>`;
+  modal.innerHTML = html;
+
+  backdrop.appendChild(modal);
+  document.body.appendChild(backdrop);
+  document.body.classList.add('modal-open');
+
+  const close = ()=>{ document.body.classList.remove('modal-open'); backdrop.remove(); };
+  backdrop.addEventListener('click', (e)=>{ if (e.target === backdrop) close(); });
+  modal.querySelector('#closeStatsModal').addEventListener('click', close);
+
+  // “Conta”
+  modal.querySelector('#addOwnedBtn').addEventListener('click', ()=>{
+    close(); openOwnedPicker();
+  });
+  modal.querySelector('#clearOwnedBtn').addEventListener('click', ()=>{
+    if (confirm('Limpar todos os personagens da conta?')){ clearOwned(); close(); openStatsBondsModal(); }
+  });
+
+  // Toggle See details / Hide details
+  modal.querySelectorAll('.see-details-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.dataset.bondId;
+      const block = modal.querySelector(`.missing-list[data-bond-id="${id}"]`);
+      const isHidden = !block || block.style.display === 'none';
+      if (block){
+        block.style.display = isHidden ? 'block' : 'none';
+        btn.textContent = isHidden ? 'Hide details' : 'See details';
+      }
+    });
+  });
+}
+
+/** 3.7) Liga o botão do painel (id="statsBondBtn") */
+(function bindStatsBondButton(){
+  const btn = document.getElementById('statsBondBtn');
+  if (btn && !btn.__sbBound){
+    btn.__sbBound = true;
+    btn.addEventListener('click', ()=>{
+      if (!window.STATS_BONDS || !Object.keys(window.STATS_BONDS).length){
+        alert('Nenhum mapeamento de "stats bonds" foi carregado. Defina window.STATS_BONDS = {...} antes.');
+        return;
+      }
+      openStatsBondsModal();
+    });
+  }
+})();
+(() => {
+  const btn = document.getElementById('openPlannerBtn');
+  if (btn) btn.classList.add('bond-btn','menu-link');
+})();
+
+(function bindInitials(){
+  const t   = document.getElementById('ticketsInic');
+  const out = document.getElementById('ticketsInicCrystals');
+  if (t && out){
+    const upd = ()=>{
+      const v = Math.max(0, +t.value || 0);
+      out.textContent = (v * 150).toLocaleString('pt-BR');
+    };
+    const fire = ()=>{ upd(); recalc && recalc(); };
+    t.addEventListener('input',  fire);
+    t.addEventListener('change', fire);   // <— garante recálculo em todos os casos
+    fire();                               // <— recalc já na carga
+  }
+  const totalOut = document.getElementById('saldoInicialTotal');
+if (totalOut && t){
+  const s = document.getElementById('saldoInicial');
+  const updTotal = ()=>{
+    const saldo = (Math.max(0, +s?.value||0)) + (Math.max(0, +t.value||0) * 150);
+    totalOut.textContent = saldo.toLocaleString('pt-BR');
+  };
+  t.addEventListener('input',  updTotal);
+  t.addEventListener('change', updTotal);
+  s?.addEventListener('input',  updTotal);
+  s?.addEventListener('change', updTotal);
+  updTotal();
+}
+
+
+  const s = document.getElementById('saldoInicial');
+  if (s){
+    const fire = ()=>{ recalc && recalc(); };
+    s.addEventListener('input',  fire);
+    s.addEventListener('change', fire);
+  }
+})();
+
+// ===== Modal de Recursos (FREE/CASH) =====
+(function(){
+  const openBtn   = document.getElementById('openSourcesBtn');
+  const modal     = document.getElementById('sourcesModal');
+  const closeBtn  = document.getElementById('closeSourcesBtn');
+  const bodySlot  = document.getElementById('sourcesModalBody');
+
+  if(!openBtn || !modal || !bodySlot) return;
+
+  let prevParent = null, prevNext = null; // onde devolver o painel ao fechar
+
+  function openSourcesModal(){
+  document.body.classList.remove('planner-collapsed');
+
+  const panel = document.querySelector('.panel.sources');
+  if(panel){
+    prevParent = panel.parentNode;
+    prevNext   = panel.nextSibling;
+    bodySlot.appendChild(panel);
+    panel.style.removeProperty('display');
+
+    // ESCONDE o botão antigo de fechar/minimizar quando o painel está na modal
+    const oldToggle = panel.querySelector('#toggleSources');
+    if (oldToggle) oldToggle.style.display = 'none';
+  }
+  modal.classList.add('open');
+  document.body.classList.add('modal-open');
+  closeBtn?.focus();
+}
+
+
+
+  function closeSourcesModal(){
+  const panel = document.querySelector('.modal-body .panel.sources');
+  if (panel && prevParent){
+    if (prevNext) prevParent.insertBefore(panel, prevNext);
+    else          prevParent.appendChild(panel);
+    panel.style.display = 'none';          // mantém oculto no layout base
+    const oldToggle = panel.querySelector('#toggleSources');
+    if (oldToggle) oldToggle.style.display = 'none'; // evita UI antiga
+  }
+  modal.classList.remove('open');
+  document.body.classList.remove('modal-open');
+}
+
+
+  openBtn.addEventListener('click', openSourcesModal);
+  closeBtn?.addEventListener('click', closeSourcesModal);
+
+  // clicar fora fecha
+  modal.addEventListener('click', (e)=>{
+    if(e.target && e.target.getAttribute('data-close')) closeSourcesModal();
+  });
+
+  // ESC fecha
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && modal.classList.contains('open')) closeSourcesModal();
+  });
+})();
+
+// forma esperada dos itens (exemplo mínimo):
+// { id, mes: 'Setembro', tipo: 'Banner 1'|'Banner 2'|'Rebanner', nome: 'Oikawa UR', t150:0, m100:0, cashback:0 }
+
+// forma esperada dos itens (exemplo mínimo):
+// { id, mes: 'Setembro', tipo: 'Banner 1'|'Banner 2'|'Rebanner', nome: 'Oikawa UR', t150:0, m100:0, cashback:0 }
+
+(function setCNOrder(){
+  const cnList = [
+  { id:'cn-agosto-banner-1-ushijima-ur', mes:'Agosto',   tipo:'Banner 1', nome:'Ushijima UR',    t150:0, m100:0, cashback:0 },
+  { id:'cn-agosto-banner-2-kuro-ur',     mes:'Agosto',   tipo:'Banner 2', nome:'Kuro UR',        t150:0, m100:0, cashback:0 },
+
+  { id:'cn-setembro-banner-1-oikawa-ur', mes:'Setembro', tipo:'Banner 1', nome:'Oikawa UR',      t150:0, m100:0, cashback:0 },
+  { id:'cn-setembro-banner-2-bokuto-ur', mes:'Setembro', tipo:'Banner 2', nome:'Bokuto UR',      t150:0, m100:0, cashback:0 },
+
+  { id:'cn-outubro-banner-1-miya-atsumu-ur', mes:'Outubro', tipo:'Banner 1', nome:'Miya Atsumu UR', t150:0, m100:0, cashback:0 },
+  { id:'cn-outubro-rebanner-1-kuroo-ur',     mes:'Outubro', tipo:'Rebanner', nome:'Kuro UR',       t150:0, m100:0, cashback:0 },
+  { id:'cn-outubro-banner-2-miya-osamu-ur',  mes:'Outubro', tipo:'Banner 2', nome:'Miya Osamu UR',  t150:0, m100:0, cashback:0 },
+
+  { id:'cn-novembro-banner-1-Hoshiumi-ur',   mes:'Novembro', tipo:'Banner 1', nome:'Hoshiumi UR',       t150:0, m100:0, cashback:0 },
+  { id:'cn-novembro-banner-2-hirugami-ur',mes:'Novembro', tipo:'Banner 2', nome:'Hirugami UR',    t150:0, m100:0, cashback:0 },
+
+  { id:'cn-dezembro-banner-1-kageyama-ur', mes:'Dezembro', tipo:'Banner 1', nome:'Kageyama UR',   t150:0, m100:0, cashback:0 },
+  { id:'cn-dezembro-rebanner-1-oikawa-ur', mes:'Dezembro', tipo:'Rebanner', nome:'Oikawa UR',     t150:0, m100:0, cashback:0 },
+  { id:'cn-dezembro-banner-2-hinata-sp',   mes:'Dezembro', tipo:'Banner 2', nome:'Hinata SP',     t150:0, m100:0, cashback:0 },
+
+  { id:'cn-janeiro-banner-1-kenma-sp',     mes:'Janeiro', tipo:'Banner 1', nome:'Kenma SP',       t150:0, m100:0, cashback:0 },
+  { id:'cn-janeiro-banner-2-nishinoya-sp', mes:'Janeiro', tipo:'Banner 2', nome:'Nishinoya SP',   t150:0, m100:0, cashback:0 },
+
+  { id:'cn-fevereiro-banner-1-sugawara-sp', mes:'Fevereiro', tipo:'Banner 1', nome:'Sugawara SP', t150:0, m100:0, cashback:0 },
+  { id:'cn-fevereiro-banner-2-bokuto-sp',   mes:'Fevereiro', tipo:'Banner 2', nome:'Bokuto SP',   t150:0, m100:0, cashback:0 },
+
+  { id:'cn-marco-banner-1-akaashi-sp',  mes:'Março', tipo:'Banner 1', nome:'Akaashi SP',         t150:0, m100:0, cashback:0 },
+  { id:'cn-marco-banner-2-aone-sp',     mes:'Março', tipo:'Banner 2', nome:'Aone SP',            t150:0, m100:0, cashback:0 },
+
+  { id:'cn-abril-banner-1-hayaseiomi-ur', mes:'Abril', tipo:'Banner 1', nome:'Hayaseiomi UR',    t150:0, m100:0, cashback:0 },
+  { id:'cn-abril-banner-2-komori-ur',     mes:'Abril', tipo:'Banner 2', nome:'Komori UR',        t150:0, m100:0, cashback:0 },
+
+  { id:'cn-maio-banner-1-tsuki-sp',  mes:'Maio', tipo:'Banner 1', nome:'Tsuki SP',               t150:0, m100:0, cashback:0 },
+  { id:'cn-maio-banner-2-kuro-sp',   mes:'Maio', tipo:'Banner 2', nome:'Kuro SP',                t150:0, m100:0, cashback:0 },
+
+  { id:'cn-junho-banner-1-kunimi-sp',      mes:'Junho', tipo:'Banner 1', nome:'Kunimi SP',       t150:0, m100:0, cashback:0 },
+  { id:'cn-junho-banner-2-koganegawa-sp',  mes:'Junho', tipo:'Banner 2', nome:'Koganegawa SP',   t150:0, m100:0, cashback:0 },
+];
+
+// salvar & aplicar na UI (CN)
+localStorage.setItem('banners_CN', JSON.stringify(cnList));
+if (window.planner){
+  planner.server = 'CN';
+  planner.banners = cnList.slice();
+  renderBanners && renderBanners();
+  recalc && recalc();
+  savePlanner && savePlanner();
+}
+})();
+
+
 
 </script>
 
