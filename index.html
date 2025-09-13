@@ -2842,8 +2842,8 @@ function updateSynergies() {
     // === CONFIG: which bonds need 3 to activate ===
     // Put the EXACT vinculo names here (case-sensitive).
     const bondsRequire3 = new Set([
-      "Swimming",  
-     "Twin Heads", 
+      "Natação",  
+     "Cabeça dos Gêmeos", 
     ]);
 
     const DEFAULT_BOND_MIN = 2; // all bonds default to 2 unless listed above
@@ -4919,7 +4919,7 @@ function anchoredSynergyScore(activeSchools, activeBonds, oldMainSet){
 // (mesma regra do updateSynergies: Schools=starter-only com 4+, Bonds=starter+bench com 2+, exceto algumas que pedem 3)
 function computeActivatedSynergyCount(mainNames, benchNames){
   // Mesmas exceções do seu painel
-  const bondsRequire3 = new Set(["Swimming","Twin Heads"]);  // idem ao updateSynergies
+  const bondsRequire3 = new Set(["Natação","Cabeça dos Gêmeos"]);  // idem ao updateSynergies
   const DEFAULT_BOND_MIN = 2;
   const SCHOOL_MIN = 4;
 
@@ -5030,7 +5030,7 @@ function synergyProgressFromCounts(cnt){
 }
 function bondRequired(b){
   const k = String(b||'').trim().toLowerCase();
-  return (k === 'swimming' || k === 'twin heads') ? 3 : 2;
+  return (k === 'Natação' || k === 'Cabeça dos Gêmeos') ? 3 : 2;
 }
 // ==================== Recommend 2.0 ====================
 const RecommendCfg = {
