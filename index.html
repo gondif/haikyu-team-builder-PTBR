@@ -1180,6 +1180,10 @@ body.modal-open{ overflow: hidden; }
     <button class="close-btn" id="closeSidebar">×</button>
     <h2>Side Menu</h2>
     <ul>
+        <div id="view-stats" style="display:flex;gap:16px;justify-content:center;align-items:center;margin-top:6px;opacity:.95">
+  <span>Daily Views: <strong id="visits-today">—</strong></span>
+  <span>Total: <strong id="visits-total">—</strong></span>
+</div>
         <!-- substituí EStatísticas por Save/Load -->
         <li><button class="menu-link bond-btn" data-section="save">💾 Save & Load Teams</button></li>
         <li><button class="menu-link bond-btn" data-section="characters">🔍 Characters</button></li>
@@ -7289,6 +7293,39 @@ if (window.planner){
 
 
 </script>
+<script>
+(function () {
+  // === configure ===
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyxF7RbO0KAPLithD7rxdqWXnw-0SoWasXqZh7VfnLByAo93Hn0poOSnBtiG2mtbFoW/exec'; // ex.: https://script.google.com/macros/s/XXX/exec
+  // =================
 
+  async function updateCounters() {
+    try {
+      // Conta visitas repetidas: sempre incrementa a cada carregamento
+      const res = await fetch(ENDPOINT + '?inc=1', { cache: 'no-store' });
+      const data = await res.json();
+
+      // Atualiza a UI se existir (não quebra se você mover/ocultar o bloco)
+      const t = document.getElementById('visits-today');
+      const g = document.getElementById('visits-total');
+      if (data && !data.error) {
+        if (t) t.textContent = data.todayCount ?? '0';
+        if (g) g.textContent = data.total ?? '0';
+      } else {
+        console.warn('Counter API error:', data && data.error);
+      }
+    } catch (err) {
+      console.error('View counter fetch failed:', err);
+    }
+  }
+
+  // Dispara quando o DOM estiver pronto (não interfere no seu JS atual)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateCounters);
+  } else {
+    updateCounters();
+  }
+})();
+</script>
 </body>
 </html>
