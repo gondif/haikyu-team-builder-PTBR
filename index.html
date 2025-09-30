@@ -1283,8 +1283,26 @@ body.modal-open{ overflow: hidden; }
     <li>Only Deployment Synergies are displayed.Synergies will only work when players are in court inside the game.</li>
   </ul>
 </div>
-<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script> <script> kofiWidgetOverlay.draw('gondif', { 'type': 'floating-chat', 'floating-chat.donateButton.text': 'Support Us', 'floating-chat.donateButton.background-color': '#794bc4', 'floating-chat.donateButton.text-color': '#fff' });
-</script>
+<!-- QR LivePix fixo na esquerda -->
+<a href="https://livepix.gg/gondif" target="_blank" rel="noopener" id="livepixQr">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://livepix.gg/gondif&size=120x120" 
+       alt="LivePix QR - gondif" />
+</a>
+
+<style>
+  #livepixQr {
+    position: fixed;
+    left: 16px;      /* distância da borda esquerda */
+    bottom: 16px;    /* fica no canto inferior, sempre visível */
+    z-index: 9999;   /* garante que fica por cima de outros elementos */
+  }
+  #livepixQr img {
+    width: 100px;    /* tamanho do QR (ajuste como quiser) */
+    height: auto;
+    border-radius: 8px; /* opcional: cantos arredondados */
+    box-shadow: 0 0 8px rgba(0,0,0,0.5); /* opcional: sombra */
+  }
+</style>
 <script>
 /* ====== DADOS (mantidos) ====== */
 const characters = [
