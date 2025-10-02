@@ -263,13 +263,13 @@ object-fit: Save;
     align-items: center;
     justify-content: center;
 
-    /* o ícone fica maior */
+    /* o ícone fica Mayr */
     font-size: 32px;
 
     /* remove o padding para não “esticar” além do width/height */
     padding: 0;
 
-    /* arredondamento um pouco maior (opcional) */
+    /* arredondamento um pouco Mayr (opcional) */
     border-radius: 12px;
   }
 }
@@ -670,7 +670,7 @@ object-fit: Save;
   padding-top: 4px;
 }
 
-/* a miniatura um pouco maior */
+/* a miniatura um pouco Mayr */
 .item-thumb{
   width: 150px; height: 150px;             /* se quiser mais: 56x56 */
   border-radius: 8px;
@@ -934,9 +934,9 @@ body.planner-collapsed .planner-wrap { grid-template-columns: 1fr !important; }
 
 /* botão compacto */
 .btn.mini{ padding:4px 8px; font-size:.85rem; border-radius:7px; }
-/* reserva largura para a coluna Sistema */
-#tblFree td.col-sistema, #tblFree th.col-sistema { width: 260px; }
-#tblCash td.col-sistema, #tblCash th.col-sistema { width: 260px; }
+/* reserva largura para a coluna System */
+#tblFree td.col-System, #tblFree th.col-System { width: 260px; }
+#tblCash td.col-System, #tblCash th.col-System { width: 260px; }
 
 /* inputs de texto com largura mínima e sem cortar texto */
 .grid-table input[type="text"]{
@@ -1039,7 +1039,7 @@ body.planner-collapsed .planner-wrap{ grid-template-columns: 1fr  }
   height: 100vh;
   margin: 0;
   padding: 16px clamp(12px,2vw,24px) 24px;
-  background: #121212;  /* use a cor do seu tema, se tiver variável */
+  background: #121212;  /* usar a cor do seu tema, se tiver variável */
   z-index: 999;         /* acima do restante da UI */
   overflow: auto;       /* rolagem interna */
 }
@@ -1078,7 +1078,7 @@ body.planner-open{ overflow: hidden; }
 /* Simulação fixa ao rolar (dentro do overlay fullscreen) */
 #pagePlanner .planner-sim{
   position: sticky;
-  top: 12px;                 /* ajuste se tiver header fixo maior */
+  top: 12px;                 /* ajuste se tiver header fixo Mayr */
   max-height: calc(100vh - 24px);
   overflow: auto;
   /* aparência opcional */
@@ -1171,6 +1171,49 @@ body.modal-open{ overflow: hidden; }
 #simPane #simInputs .planner-input[type="number"] { width: 140px; }   /* Saldo inicial */
 #simPane #simInputs .planner-input[type="date"]   { width: 170px; }   /* Data de início */
 
+
+/* WIN 999 DIAMONDS */
+.win-diamonds-btn {
+  position: fixed;       /* recalculo a posição perto do grid via JS */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 144px;
+  padding: 0 18px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #1ee196 0%, #12b886 100%);
+  color: #0b0b0b;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: .3px;
+  border: none;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35), inset 0 -2px 0 rgba(0,0,0,.25);
+  cursor: pointer;
+  z-index: 9999;
+  transition: transform .08s ease, box-shadow .08s ease, opacity .2s ease;
+}
+.win-diamonds-btn:hover { transform: translateY(-1px); }
+.win-diamonds-btn:active { transform: translateY(0); box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+
+@media (max-width: 900px){
+  /* em telas menores, fixa no canto inferior direito */
+  .win-diamonds-btn {
+    right: 16px !important;
+    bottom: 16px !important;
+    left: auto !important;
+    top: auto !important;
+  }
+}
+.mini-line{ display:inline-flex; gap:4px; vertical-align:middle; margin-right:6px; }
+.mini-char{ width:24px; height:32px; object-fit:cover; border-radius:4px; box-shadow:0 0 0 1px #444; }
+.top-row-li{ display:flex; align-items:center; gap:6px; justify-content:center; }
+.btn-more{ background:#2a2a2a; color:#ddd; border:1px solid #555; border-radius:8px; padding:2px 8px; cursor:pointer; }
+.btn-imp,.btn-cmt{ margin-left:4px; }
+.char-row { display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
+.char-row .mini-line { display:flex; align-items:center; gap:.5rem; }
+.char-row .char-name { opacity:.9; }
+
 </style>
 </head>
 <body>
@@ -1185,14 +1228,15 @@ body.modal-open{ overflow: hidden; }
   <span>Total: <strong id="visits-total">—</strong></span>
 </div>
         <!-- substituí EStatísticas por Save/Load -->
-        <li><button class="menu-link bond-btn" data-section="save">💾 Save & Load Teams</button></li>
-        <li><button class="menu-link bond-btn" data-section="characters">🔍 Characters</button></li>
-        <li><button class="menu-link bond-btn" data-section="schools">🏫 Schools</button></li>
+        <li><button class="menu-link bond-btn" data-section="save">💾 Salvar & Carregar Times</button></li>
+        <li><button class="menu-link bond-btn" data-section="characters">🔍 Personagens</button></li>
+        <li><button class="menu-link bond-btn" data-section="schools">🏫 Escolas</button></li>
         <li><button class="menu-link bond-btn" data-section="help">ℹ️ Info</button></li>
         <li><button id="openPlannerBtn" class="menu-link bond-btn">💎 Planejador de Recursos</button></li>
+        <li><button id="btnOpenRanking" type="button" data-sidebar-safe="true">🏆 Ranking</button></li>
       </ul>
     <div id="sidebar-content">
-        <p>Select an option above.</p>
+        <p>Selecione uma opção acima.</p>
     </div>
 </div>
 
@@ -1220,9 +1264,9 @@ body.modal-open{ overflow: hidden; }
     <div class="row" id="bench-row-wrapper" style="align-items:center;">
 
         <div class="row" id="bench-row" style="gap:10px;">
-            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Bench</div></div>
-            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Bench</div></div>
-            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Bench</div></div>
+            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
+            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
+            <div class="player-slot bench"><div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div></div>
             <button class="add-slot-btn" onclick="addBenchSlot()">+</button>
         </div>
          <div id="bench-toolbar" style="display:flex; align-items:center; gap:10px; margin-top:8px;">
@@ -1274,13 +1318,13 @@ body.modal-open{ overflow: hidden; }
 
 <div id="synergy-panel">
   <div class="synergy-header" style="justify-content:space-between;">
-    <h2>Synergies</h2>
+    <h2>Sinergias</h2>
     <button id="statsBondBtn" class="btn mini" type="button" title="Mostrar vínculos de stats">
       Stats bonds
     </button>
   </div>
   <ul id="synergy-list">
-    <li>Only Deployment Synergies are displayed.Synergies will only work when players are in court inside the game.</li>
+    <li>Apenas vinculos de posicionamento serão mostrados.Elas apenas funcionam quando os membros dela então em quadra. Para ver as demais clique em "Stats bonds".</li>
   </ul>
 </div>
 <!-- QR LivePix fixo na esquerda -->
@@ -1411,18 +1455,18 @@ const characters = [
   {nome:"RECEPÇÃO CONFIÁVEL", descricao:"MORISUKE YAKU realiza uma Recepção com 240% do atributo Recepção como poder"}
 ], symbols: [ "img/receivesymbol.png" ] },
 
-{ nome: "Kuroo SSR", funcao: "MB", img: "img/kuroSR.png", School: "Nekoma", vinculo: [], Stats:{Serve:1221,Spike:1318,Set:1149,Receive:1186,Block:1389,Save:1123}, habilidades:[
-  {nome:"AURA DO ESPECIALISTA", descricao:"Enquanto TETSURO KUROO (Treino) estiver presente, aumenta a Força dos jogadores do tipo Ataque Rápido do seu lado em 16%"},
-  {nome:"ATAQUE FERRENHO", descricao:"TETSURO KUROO (Treino) realiza uma Cortada Rápida com 125% do atributo Ataque Rápido como poder, recebe 1 acúmulo de “Carga de Poder”; ao usar a habilidade [Ataque Ferrenho], cada acúmulo de [Carga de Poder] aumenta a potência da cortada em 15% do atributo Ataque Rápido, até 2 acúmulos"},
-  {nome:"TORRE DE CONTROLE DO BLOQUEIO", descricao:"Enquanto TETSURO KUROO (Treino) estiver presente, aumenta o atributo Bloqueio dos jogadores do seu lado em 8%"},
-  {nome:"BLOQUEIO TOTAL", descricao:"TETSURO KUROO (Treino) realiza um Bloqueio com 170% do atributo Bloqueio como poder; quando outros jogadores da linha de ataque do tipo Bloqueio estão presentes, aumenta a potência desse bloqueio em 15% do atributo Bloqueio"}
+{ nome: "Kuro SSR", funcao: "MB", img: "img/kuroSR.png", School: "Nekoma", vinculo: [], Stats:{Serve:1221,Spike:1318,Set:1149,Receive:1186,Block:1389,Save:1123}, habilidades:[
+  {nome:"AURA DO ESPECIALISTA", descricao:"Enquanto TETSURO Kuro (Treino) estiver presente, aumenta a Força dos jogadores do tipo Ataque Rápido do seu lado em 16%"},
+  {nome:"ATAQUE FERRENHO", descricao:"TETSURO Kuro (Treino) realiza uma Cortada Rápida com 125% do atributo Ataque Rápido como poder, recebe 1 acúmulo de “Carga de Poder”; ao usar a habilidade [Ataque Ferrenho], cada acúmulo de [Carga de Poder] aumenta a potência da cortada em 15% do atributo Ataque Rápido, até 2 acúmulos"},
+  {nome:"TORRE DE CONTROLE DO BLOQUEIO", descricao:"Enquanto TETSURO Kuro (Treino) estiver presente, aumenta o atributo Bloqueio dos jogadores do seu lado em 8%"},
+  {nome:"BLOQUEIO TOTAL", descricao:"TETSURO Kuro (Treino) realiza um Bloqueio com 170% do atributo Bloqueio como poder; quando outros jogadores da linha de ataque do tipo Bloqueio estão presentes, aumenta a potência desse bloqueio em 15% do atributo Bloqueio"}
 ], symbols: [ "img/blocksymbol.png", "img/quicksymbol.png" ] },
 
-{ nome: "Kuroo UR", funcao: "MB", img: "img/kuroUR.png", School: "Nekoma", vinculo: ["Cérebro e Comandante"], Stats:{Serve:1558,Spike:1673,Set:1551,Receive:1581,Block:1740,Save:1533}, habilidades:[
-  {nome:"CAPITÃO SUPREMO", descricao:"Aumenta o atributo Ataque Rápido de TETSURO KUROO em 10%; enquanto KUROO estiver presente, cada vez que a bola cruzar a rede, aumenta seus atributos de Bloqueio e Ataque Rápido em 5%, até 5 acúmulos"},
-  {nome:"ATAQUE RÁPIDO A", descricao:"TETSURO KUROO realiza uma Cortada Rápida com 125% do atributo  Ataque Rápido como poder; recebe 1 acúmulo de “Carga de Poder”, cada acúmulo de “Carga de Poder” aumenta a potência da Cortada [Ataque Rápido A] em 5% do atributo Ataque Rápido, até 3 acúmulos"},
-  {nome:"CONDUTOR", descricao:"Aumenta o atributo Bloqueio de TETSURO KUROO em 14%; quando o resultado de um Bloqueio de KUROO for PERFEITO, aplica a penalidade “Enfurecer” ao atacante adversário (reduz os atributos Ataque Potente/Rápido em 10%)"},
-  {nome:"BLOQUEIO REATIVO", descricao:"TETSURO KUROO realiza um Bloqueio com 235% do atributo Bloqueio como poder; quando o jogador adversário que está cortando for afetado por uma penalidade, aumenta o poder desse bloqueio em mais 20% do atributo Bloqueio"}
+{ nome: "Kuro UR", funcao: "MB", img: "img/kuroUR.png", School: "Nekoma", vinculo: ["Cérebro e Comandante"], Stats:{Serve:1558,Spike:1673,Set:1551,Receive:1581,Block:1740,Save:1533}, habilidades:[
+  {nome:"CAPITÃO SUPREMO", descricao:"Aumenta o atributo Ataque Rápido de TETSURO Kuro em 10%; enquanto Kuro estiver presente, cada vez que a bola cruzar a rede, aumenta seus atributos de Bloqueio e Ataque Rápido em 5%, até 5 acúmulos"},
+  {nome:"ATAQUE RÁPIDO A", descricao:"TETSURO Kuro realiza uma Cortada Rápida com 125% do atributo  Ataque Rápido como poder; recebe 1 acúmulo de “Carga de Poder”, cada acúmulo de “Carga de Poder” aumenta a potência da Cortada [Ataque Rápido A] em 5% do atributo Ataque Rápido, até 3 acúmulos"},
+  {nome:"CONDUTOR", descricao:"Aumenta o atributo Bloqueio de TETSURO Kuro em 14%; quando o resultado de um Bloqueio de Kuro for PERFEITO, aplica a penalidade “Enfurecer” ao atacante adversário (reduz os atributos Ataque Potente/Rápido em 10%)"},
+  {nome:"BLOQUEIO REATIVO", descricao:"TETSURO Kuro realiza um Bloqueio com 235% do atributo Bloqueio como poder; quando o jogador adversário que está cortando for afetado por uma penalidade, aumenta o poder desse bloqueio em mais 20% do atributo Bloqueio"}
 ], symbols: [ "img/quicksymbol.png", "img/blocksymbol.png" ] },
 
 { nome: "Lev SSR", funcao: "MB", img: "img/levSR.png", School: "Nekoma", vinculo: ["Orientação Educacional"], Stats:{Serve:1206,Spike:1318,Set:1138,Receive:1166,Block:1378,Save:1100}, habilidades:[
@@ -1674,11 +1718,11 @@ const characters = [
   {nome:"Recepção que Cria Impulso", descricao:"Recebe com [Recepção] × 260/275/290/305/320% de poder. A primeira Cortada de um aliado após isso (Potente/Rápida) aumenta a [Técnica de Ataque] do atacante em 20% até a bola cruzar a rede duas vezes."}
 ], symbols: [ "img/receivesymbol.png", "img/settersymbol.png" ] },
 
-/* ==missing Stats== */{ nome: "Kuroo SP", funcao: "MB", img: "img/kuroSP.png", School: "Nekoma", vinculo: ["Festival Fogos de Artificio","Cérebro e Comandante SP"], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
-  {nome:"A Torre de Comando Imbatível", descricao:"Quando Kuroo Tetsuro (Hanabi) está em quadra, o [Empenho] dos aliados na mesma linha de Kuroo Tetsuro (Hanabi) aumenta em 20/25/30%. Depois que ele toca na bola, o poder da próxima jogada do mesmo tipo que a jogada de Kuroo Tetsuro (Hanabi) é aumentado em 40% × o parâmetro correspondente do membro que fará a jogada. Se a jogada de Kuroo Tetsuro (Hanabi) for crítica, um membro aleatório do time adversário recebe a desvantagem [Raiva] ([Ataque Potente/Ataque Rápido] será reduzido em 10%)."},
-  {nome:"Recepção Habilidosa", descricao:"Kuroo Tetsuro (Hanabi) realiza uma recepção com poder igual a [Recepção] × 140/160/180%. Se essa jogada for crítica, o poder dessa recepção aumenta em [Recepção] × 20%."},
-  {nome:"Um Jogador Completo, Sem Falhas", descricao:"Quando Kuroo Tetsuro (Hanabi) está na linha de frente/trás e toca na bola, seu [Reflexo] aumenta em 50% × o [Reflexo] de cada outro aliado na linha de frente/trás (máximo 100%), e seu [Empenho] aumenta em 50% × o [Empenho] de cada outro aliado na linha de frente/trás (máximo 100%). Além disso, quando Kuroo Tetsuro (Hanabi) está na linha de frente, a [Técnica de Ataque] dos aliados aumenta em 14/17/20%, e seu poder de bloqueio aumenta em [Bloqueio] × 45%. Além disso, quando Kuroo Tetsuro está na linha de trás, a [Técnica de Defesa] dos aliados aumenta em 14/17/20%, e seu poder de recepção aumenta em [Recepção] × 45%."},
-  {nome:"Bloqueio Desagradável", descricao:"Kuroo Tetsuro (Hanabi) realiza um bloqueio com poder de [Bloqueio] × 280/300/320/340/360%. Se esse bloqueio não devolver a bola para a quadra adversária, a primeira recepção de um aliado após essa jogada não resultará em ponto. Se esse bloqueio devolver a bola para a quadra adversária, os atributos principais de todos os aliados aumentam em 15%. Esse efeito dura até a bola atravessar a rede 8 vezes."}
+/* ==missing Stats== */{ nome: "Kuro SP", funcao: "MB", img: "img/kuroSP.png", School: "Nekoma", vinculo: ["Festival Fogos de Artificio","Cérebro e Comandante SP"], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"A Torre de Comando Imbatível", descricao:"Quando Kuro Tetsuro (Hanabi) está em quadra, o [Empenho] dos aliados na mesma linha de Kuro Tetsuro (Hanabi) aumenta em 20/25/30%. Depois que ele toca na bola, o poder da próxima jogada do mesmo tipo que a jogada de Kuro Tetsuro (Hanabi) é aumentado em 40% × o parâmetro correspondente do membro que fará a jogada. Se a jogada de Kuro Tetsuro (Hanabi) for crítica, um membro aleatório do time adversário recebe a desvantagem [Raiva] ([Ataque Potente/Ataque Rápido] será reduzido em 10%)."},
+  {nome:"Recepção Habilidosa", descricao:"Kuro Tetsuro (Hanabi) realiza uma recepção com poder igual a [Recepção] × 140/160/180%. Se essa jogada for crítica, o poder dessa recepção aumenta em [Recepção] × 20%."},
+  {nome:"Um Jogador Completo, Sem Falhas", descricao:"Quando Kuro Tetsuro (Hanabi) está na linha de frente/trás e toca na bola, seu [Reflexo] aumenta em 50% × o [Reflexo] de cada outro aliado na linha de frente/trás (máximo 100%), e seu [Empenho] aumenta em 50% × o [Empenho] de cada outro aliado na linha de frente/trás (máximo 100%). Além disso, quando Kuro Tetsuro (Hanabi) está na linha de frente, a [Técnica de Ataque] dos aliados aumenta em 14/17/20%, e seu poder de bloqueio aumenta em [Bloqueio] × 45%. Além disso, quando Kuro Tetsuro está na linha de trás, a [Técnica de Defesa] dos aliados aumenta em 14/17/20%, e seu poder de recepção aumenta em [Recepção] × 45%."},
+  {nome:"Bloqueio Desagradável", descricao:"Kuro Tetsuro (Hanabi) realiza um bloqueio com poder de [Bloqueio] × 280/300/320/340/360%. Se esse bloqueio não devolver a bola para a quadra adversária, a primeira recepção de um aliado após essa jogada não resultará em ponto. Se esse bloqueio devolver a bola para a quadra adversária, os atributos principais de todos os aliados aumentam em 15%. Esse efeito dura até a bola atravessar a rede 8 vezes."}
 ], symbols: [ "img/receivesymbol.png", "img/blocksymbol.png" ] },
 
 { nome: "Kunimi SP", funcao: "OP", img: "img/kunimiSP.png", School: "Aoba Johsai", vinculo: ["Festival de Esporte"], Stats:{Serve:1674,Spike:1950,Set:1573,Receive:1857,Block:1762,Save:1570}, habilidades:[
@@ -1702,8 +1746,19 @@ const characters = [
   {nome:"Passe Perfeito", descricao:"xxx"}
 ], symbols: [ "img/powersymbol.png","img/settersymbol.png"] }
 ];
+window.charactersPT = characters;
 
+// se EN não estiver carregado aqui, faz fallback pra PT (não quebra nada)
+window.charactersEN = window.charactersEN || window.charactersPT;
 
+// ponteiro "oficial" que o resto do site usa
+window.characters   = window.charactersPT;
+window.allCharacters = window.charactersPT;
+
+// (opcional) util de acesso usado por buscas/imports
+window.getAllCharacters = function(){
+  return window.allCharacters || window.characters || window.charactersEN || [];
+};
 const descricoesSinergia = {
   "Karasuno": "Aumenta em 10% os Stats de Ataque Potente e Ataque Rápido de TODOS os jogadores.",
   "Nekoma": "Aumenta em 15% o Stat de Recepção de TODOS os jogadores.",
@@ -2527,12 +2582,641 @@ let teams = window.teams || [];            // se já existir, reutiliza
 let currentTeamIndex = window.currentTeamIndex || 0;
 let __mtAdding = false;                    // lock anti-duplo clique
 
+// ===== Backend (Apps Script) =====
+const API = 'https://script.google.com/macros/s/AKfycbxNmBqnW8mSeNUBdBCxlaXRgEajY_GrTXIJPo_2PrMm2v_ZhsRsvW50K9cZzaGOqyu5/exec'; // o mesmo usado no contador de views
+
+// sesssion_id estável por navegador (para cooldown de comentários e analytics)
+const SESSION_KEY = 'hqSessionIdV1';
+const SESSION_ID = (() => {
+  let id = localStorage.getItem(SESSION_KEY);
+  if (!id) { id = 's_' + Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem(SESSION_KEY, id); }
+  return id;
+})();
+
+// idioma da página -> "ptbr" ou "en"
+function currentLang(){
+  const h = (document.documentElement.lang || '').toLowerCase();
+  if (h.includes('pt')) return 'ptbr';
+  return 'en';
+}
+
+async function apiGet(params){
+  const url = API + (API.includes('?') ? '&' : '?') + params;
+  const r = await fetch(url, {method:'GET', mode:'cors'});
+  return r.json();
+}
+async function apiPost(action, payload){
+  const url = API + (API.includes('?') ? '&' : '?') + 'action=' + encodeURIComponent(action);
+  const body = new URLSearchParams({ payload: JSON.stringify(payload) });
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    body
+  });
+  const text = await r.text();
+  try { return JSON.parse(text); } catch { return { ok:false, raw:text }; }
+}
+
+
+
+// considera “completo” quando os 6 titulares estão preenchidos
+function isTeamComplete(team){
+  const filled = (team.main || []).filter(Boolean).length;
+  return filled === 7; // ajuste se quiser exigir bench também
+}
+
+// serialização dos itens (fallback caso não exista no arquivo)
+function serializeTeamItemsSafe(){
+  try { return (typeof serializeTeamItems === 'function') ? serializeTeamItems() : {}; }
+  catch(e){ return {}; }
+}
+
+// evita spam: só envia se mudou
+let __lastSentHash = null;
+// === Debounce para enviar o time automaticamente ===
+let sendTimer = null;
+
+function scheduleSendTeam(delay = 300){
+  if (sendTimer) clearTimeout(sendTimer);
+  sendTimer = setTimeout(sendTeamIfComplete, delay);
+}
+// chame isto sempre que o grid mudar (adicionar/trocar/remover)
+function onGridChanged(){
+  scheduleSendTeam(300);
+}
+
+
+// substitua sua sendTeamIfComplete por esta
+async function sendTeamIfComplete(){
+  try{
+    // nomes atuais do grid
+    const mainNames = [...document.querySelectorAll('.hex')].map(s=>s.dataset.nome).filter(Boolean);
+    const benchNames = [...document.querySelectorAll('.bench-slot')].map(s=>s.dataset.nome).filter(Boolean);
+
+    const isComplete = mainNames.length === 7; // exatamente 7 titulares
+    // mapeia posição pelo rótulo ao lado/abaixo do slot ou via fallback POS_ORDER
+    const hexes = [...document.querySelectorAll('.hex')];
+    const POS_ORDER = ['S','MB','WS','L','WS','MB','OP']; // já existe no seu arquivo
+
+    const slots = hexes.slice(0, 7).map((el, i) => {
+      const id = el.dataset.key || el.dataset.id || el.dataset.nome || '';
+      // tenta ler o rótulo (S/MB/WS/L/OP)
+      const parent = el.closest('.slot, .slot-wrap, .slot-container, .grid-cell, .hex-wrap') || el.parentElement;
+      const label = parent && parent.querySelector('.pos, .role, .slot-role, .slot-label, .position, .label');
+      const txt = (label?.textContent || el.nextElementSibling?.textContent || '').trim().toUpperCase();
+      const pos = /^(S|MB|WS|L|OP)$/.test(txt) ? txt : (POS_ORDER[i] || 'WS');
+      return { id, pos };
+    }).filter(s => s.id); // só slots preenchidos
+
+    if (isComplete && slots.length === 7){
+      await apiPost('setteam', { session_id: SESSION_ID, team: { slots, bench: benchNames } });
+    } else {
+      await apiPost('clearteam', { session_id: SESSION_ID });
+    }
+  }catch(e){
+    console.warn('sendTeamIfComplete error', e);
+  }
+}
+
+
+
+// pluga nos hooks globais que você já expõe (sem mexer em setCharacter)
+(function hookSends(){
+  const oldAfterAssign = window.afterAssignCharacter;
+  window.afterAssignCharacter = function(el, nome){
+    if (typeof oldAfterAssign === 'function') oldAfterAssign(el, nome);
+    sendTeamIfComplete();
+  };
+  const oldAfterRemove = window.afterRemoveCharacter;
+  window.afterRemoveCharacter = function(el){
+    if (typeof oldAfterRemove === 'function') oldAfterRemove(el);
+    sendTeamIfComplete();
+  };
+})();
+let RANK = { week:[], all:[], chars:[] };
+let SHOWN = { week:5, all:5 };
+
+function fmtTeamRow(t){
+  // miniaturas no item (ver item 3 abaixo para CSS/lookup)
+  const imgs = (t.team?.slots||[]).slice(0,7).map(s=>{
+    const ch   = findCharPreferExact(s.id);
+    const src = ch?.img || '';
+    const title = s.id;
+    return `<img class="mini-char" src="${src}" alt="${title}" title="${title}">`;
+  }).join('');
+  const cnt = t.count ?? t.hits ?? 0;
+  return `
+    <li class="top-row-li">
+      <span class="mini-line">${imgs}</span>
+      <small>x${cnt}</small>
+      <button data-import="${t.team_id}" class="btn-imp">Import</button>
+      <button data-comments="${t.team_id}" class="btn-cmt" title="Comments">💬</button>
+    </li>`;
+}
+window.CHAR_BY_FULL = new Map(
+  (window.CHAR_LIST || []).map(c => [`${c.name} ${c.rarity}`.toUpperCase(), c])
+);
+
+// preferir match EXATO com raridade; se não achar, usa seu fuzzy atual
+function findCharPreferExact(q){
+  const s = String(q || '').trim();
+  if (!s) return null;
+  const exact = window.CHAR_BY_FULL.get(s.toUpperCase());
+  return exact || (typeof findCharByAnyName === 'function' ? findCharByAnyName(s) : null);
+}
+function fmtCharRow(c){
+  // c pode vir como {id,name,count|hits|value|tester,...}
+  const key   = c?.id || c?.name || '';
+  const count = c?.tester ?? c?.value ?? c?.count ?? c?.hits ?? c?.total ?? 0;
+
+  // tenta achar os metadados/imagem do personagem por nome
+  // (usa o mesmo helper que você já usa nos times)
+  const meta = findCharPreferExact(key);
+  const src   = meta?.img || meta?.icon || ''; // fallback se houver outro campo
+  const title = key;
+
+  return `
+    <li class="top-row-li char-row">
+      <span class="mini-line">
+        <img class="mini-char" src="${src}" alt="${title}" title="${title}">
+        <span class="char-name">${title}</span>
+      </span>
+      <small>x${count}</small>
+    </li>
+  `;
+}
+function aggregateCharRankingFromTeams(list){
+  // list: array de objetos de ranking de times (RANK.all ou RANK.week)
+  // soma aparições do personagem em cada envio (ponderado pelo hits/count/tester)
+  const counts = new Map();
+  for (const t of (list || [])){
+    const weight = t?.tester ?? t?.value ?? t?.count ?? t?.hits ?? t?.total ?? 1;
+    const ids = [
+      ...((t?.team?.slots || []).map(s => s?.id).filter(Boolean)),
+      ...((t?.team?.bench || []).filter(Boolean)) // se bench vier como array simples de nomes
+    ];
+    for (const id of ids){
+      // trata nomes de forma estável, sem mesclar UR/SP
+      const key = String(id).trim();
+      counts.set(key, (counts.get(key) || 0) + Number(weight || 1));
+    }
+  }
+  // ordena e retorna no formato esperado pelo render
+  return [...counts.entries()]
+    .sort((a,b)=> b[1]-a[1])
+    .map(([name, tester]) => ({ name, tester }));
+}
+
+function renderRankTeams7d(){
+  const el = document.getElementById('panelRank7d');
+  if(!el) return;
+  el.innerHTML = `
+    <h3 class="top-title">Top Teams (7d)</h3>
+    <ul class="top-list">${ (RANK.week||[]).slice(0, SHOWN.week).map(fmtTeamRow).join('') || '<li>—</li>' }</ul>
+    <div class="center"><button id="wkMore" class="menu-btn">Ver Mais</button></div>
+  `;
+  el.querySelector('#wkMore')?.addEventListener('click', (ev)=>{
+    ev.stopPropagation?.();
+    SHOWN.week += 5;
+    renderRankTeams7d();
+  });
+}
+
+function renderRankTeamsAll(){
+  const el = document.getElementById('panelRankAll');
+  if(!el) return;
+  el.innerHTML = `
+    <h3 class="top-title">Top Teams (All)</h3>
+    <ul class="top-list">${ (RANK.all||[]).slice(0, SHOWN.all).map(fmtTeamRow).join('') || '<li>—</li>' }</ul>
+    <div class="center"><button id="allMore" class="menu-btn">Ver Mais</button></div>
+  `;
+  el.querySelector('#allMore')?.addEventListener('click', (ev)=>{
+    ev.stopPropagation?.();
+    SHOWN.all += 5;
+    renderRankTeamsAll();
+  });
+}
+
+function renderRankCharacters(){
+  const el = document.getElementById('panelRankChar');
+  if(!el) return;
+  el.innerHTML = `
+    <h3 class="top-title">Top Characters</h3>
+    <ul class="top-list">${
+  Array.isArray(RANK?.chars) && RANK.chars.length
+    ? RANK.chars.map(fmtCharRow).join('')
+    : '<li>—</li>'
+}</ul>
+  `;
+}
+function buildCharRankingFromTeams(teamRows){
+  const map = new Map();
+  const add = (name, weight) => {
+    if (!name) return;
+    map.set(name, (map.get(name) || 0) + (weight || 1));
+  };
+
+  (teamRows || []).forEach(t => {
+    const weight = t.tester ?? t.value ?? t.count ?? t.hits ?? t.total ?? 1; // vezes que o time apareceu
+    const slots  = t?.team?.slots || [];   // [{id, pos}]
+    const bench  = t?.team?.bench || [];   // ["nome1","nome2",...]
+
+    // titulares
+    for (const s of slots) add(s?.id || s?.name, weight);
+    // banco
+    for (const b of bench) add(b, weight);
+  });
+
+  // transforma em array ordenado
+  const arr = [...map.entries()]
+    .map(([name, tester]) => ({ name, tester }))   // {name, tester} compatível com fmtCharRow
+    .sort((a,b) => b.tester - a.tester);
+
+  return arr;
+}
+// peso (hits/count/tester/total)
+const weightOfTeam = (t)=>(t?.tester ?? t?.value ?? t?.count ?? t?.hits ?? t?.total ?? 0);
+const weightOfChar = (c)=>(c?.tester ?? c?.value ?? c?.count ?? c?.hits ?? c?.total ?? 0);
+
+// totais (serão preenchidos em loadRankings)
+let TOTALS = { week:0, all:0, chars:0 };
+async function loadRankings(){
+  await ensureCharacterList(); // garante lista p/ thumbs
+  const week = await apiGet('action=top_week&days=7');
+  const allT = await apiGet('action=top_alltime');
+  const topC = await apiGet('action=top_chars&topN=50');
+  RANK.week = week?.top || [];
+  RANK.all  = allT?.top || [];
+  if (!Array.isArray(RANK.chars) || RANK.chars.length === 0){
+  // usa o ALL por padrão para ranking de personagens (pode trocar para week se quiser)
+  RANK.chars = buildCharRankingFromTeams(RANK.all);
+}
+  SHOWN.week = 5; SHOWN.all = 5;
+  TOTALS.week  = (RANK.week  || []).reduce((s,t)=> s + weightOfTeam(t), 0);
+  TOTALS.all   = (RANK.all   || []).reduce((s,t)=> s + weightOfTeam(t), 0);
+TOTALS.chars = (RANK.chars || []).reduce((s,c)=> s + weightOfChar(c), 0);
+  renderRankTeams7d();
+renderRankTeamsAll();
+renderRankCharacters();
+}
+
+// eventos dos botões “ver mais”
+document.addEventListener('click', (ev)=>{
+  if (ev.target?.id === 'wkMore'){ 
+    ev.stopPropagation();
+    SHOWN.week += 5; 
+    renderRankTeams7d();
+    renderRankTeamsAll();
+    renderRankCharacters();
+  }
+  if (ev.target?.id === 'allMore'){ 
+    ev.stopPropagation();
+    SHOWN.all  += 5; 
+    renderRankTeams7d();
+    renderRankTeamsAll();
+    renderRankCharacters();
+  }
+});
+
+async function ensureCharacterList(){
+  if (getCharList().length) return;
+}
+// --------- delegação de eventos (Import / Comments) ----------
+document.addEventListener('click', async (ev)=>{
+  const btn = ev.target.closest('[data-import],[data-comments]');
+  if (!btn) return;
+
+  // evita fechar a lateral/propagar para listeners globais
+  ev.stopPropagation();
+
+  // IMPORTAR TIME
+  if (btn.hasAttribute('data-import')) {
+    const teamId = btn.getAttribute('data-import');
+    try {
+      await ensureCharacterList(); // garante a lista carregada
+      const r = await apiGet('action=getteam&team_id='+encodeURIComponent(teamId));
+      if (!r?.ok || !r.team){ console.warn('getteam fail', r); alert('Não foi possível carregar esse time.'); return; }
+      applyTeamFromServer(r.team); // preenche o grid
+    } catch (e) {
+      console.error('import error', e);
+      alert('Erro ao importar time.');
+    }
+    return;
+  }
+
+  // COMENTÁRIOS
+  if (btn.hasAttribute('data-comments')) {
+    const teamId = btn.getAttribute('data-comments');
+    try {
+      await openCommentsUI(teamId); // abre o modal e carrega comentários
+    } catch(e){
+      console.error('comments error', e);
+      alert('Não foi possível abrir os comentários.');
+    }
+  }
+});
+
+// aplica um time vindo da API ao teu grid
+// ===== helpers =====
+const POS_ORDER = ['S','MB','WS','L','WS','MB','OP'];
+
+// Índice de match exato por nome COMPLETO (preserva UR/SSR/SP)
+(function buildCharFullIndex(){
+  const L = (window.characters || window.charactersEN || window.allCharacters || []);
+  const m = new Map();
+  const put = (k,c)=>{
+    if (!k) return;
+    const key = String(k).trim().toUpperCase().replace(/\s+/g,' ');
+    if (key) m.set(key, c);
+  };
+  for (const c of L){
+    put(c.nome, c);
+    put(c.name, c);
+    put(c.display, c);
+    put(c.id, c);
+  }
+  window.CHAR_FULL = m;
+})();
+
+// Preferir EXATO (sem retirar raridade). Se não achar, cai no fuzzy antigo.
+function findCharPreferExact(q){
+  const s = String(q||'').trim();
+  if (!s) return null;
+
+  // 1) exato (case-insensitive, espaços normalizados)
+  const key = s.toUpperCase().replace(/\s+/g,' ');
+  const hit = window.CHAR_FULL && window.CHAR_FULL.get(key);
+  if (hit) return hit;
+
+  // 2) exato tolerante a acento
+  const norm = (x)=>String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/\s+/g,' ');
+  if (window.CHAR_FULL){
+    const target = norm(s);
+    for (const [k,v] of window.CHAR_FULL){
+      if (norm(k) === target) return v;
+    }
+  }
+
+  // 3) fallback: fuzzy existente (pode remover UR/SSR/SP etc.)
+  return (typeof findCharByAnyName==='function') ? findCharByAnyName(s) : null;
+}
+
+
+function getHexList(){ return [...document.querySelectorAll('.hex')]; }
+
+function clearGrid(){
+  getHexList().forEach(el => { el.innerHTML=''; delete el.dataset.nome; });
+  document.querySelectorAll('.bench-slot').forEach(el => { el.innerHTML=''; delete el.dataset.nome; });
+  
+}
+
+function norm(s){
+  return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/\s+/g,' ').trim().toLowerCase();
+}
+function canon(s){
+  return norm(String(s||'')
+    .replace(/\s*-\s*(S|MB|WS|L|OP)\b/gi,'')
+    .replace(/\b(UR|SSR|SP)\b/gi,'')
+  );
+}
+function getCharList(){
+  return window.characters || window.charactersEN || window.allCharacters || [];
+}
+function findCharByAnyName(name){
+  const t = canon(name);
+  const L = getCharList();
+  return L.find(c => canon(c.nome)===t) ||
+         L.find(c => canon(c.name)===t) ||
+         L.find(c => canon(c.display)===t) ||
+         L.find(c => canon(c.id)===t) || null;
+}
+
+function nextFreeSlotForPos(pos, usedIdx){
+  const hexes = getHexList();
+
+  // tentar por rótulo do slot
+  for (let i=0;i<hexes.length;i++){
+    if (usedIdx.has(i)) continue;
+    const el = hexes[i];
+    const parent = el.closest('.slot, .slot-wrap, .slot-container, .grid-cell, .hex-wrap') || el.parentElement;
+    const label  = parent && parent.querySelector('.pos, .role, .slot-role, .slot-label, .position, .label');
+    const txt = (label?.textContent || el.nextElementSibling?.textContent || '').trim().toUpperCase();
+    if (['S','MB','WS','L','OP'].includes(txt) && txt === pos) return {el, i};
+  }
+  // fallback por ordem visual fixa
+  for (let i=0;i<hexes.length;i++){
+    if (usedIdx.has(i)) continue;
+    if (POS_ORDER[i] === pos) return {el:hexes[i], i};
+  }
+  return {el:null, i:-1};
+}
+
+function safeSetCharacter(el, ch, pos){
+  try {
+    if (typeof setCharacter === 'function') {
+      setCharacter(el, ch, ch.funcao || ch.role || pos);
+      emitTeamChanged();
+      return true;
+      if (typeof emitTeamChanged==='function');
+    }
+  } catch(e){ console.warn('setCharacter falhou', e); }
+  try {
+    el.innerHTML = `<img src="${ch.img}" alt="${ch.nome||ch.name}">`;
+    el.dataset.nome = ch.nome || ch.name || ch.id;
+    return true;
+  } catch(_) {}
+  return false;
+  
+}
+
+const wait = (ms)=>new Promise(r=>setTimeout(r,ms));
+
+
+// tenta achar o elemento .hex do slot que TEM rótulo == pos (S,MB,WS,L,OP)
+function getSlotElByPos(pos){
+  const hexes = [...document.querySelectorAll('.hex')];
+  // seletores comuns de rótulos sob/ao lado do slot – testamos vários
+  const labelSelectors = ['.pos', '.role', '.slot-role', '.slot-label', '.position', '.label'];
+  for (const el of hexes){
+    const parent = el.closest('.slot, .slot-wrap, .slot-container, .grid-cell, .hex-wrap') || el.parentElement;
+    if (!parent) continue;
+    let labelText = '';
+    for (const sel of labelSelectors){
+      const lab = parent.querySelector(sel);
+      if (lab){ labelText = (lab.textContent||'').trim().toUpperCase(); if (labelText) break; }
+    }
+    // fallback: se o texto do próximo irmão é só "S"/"MB"/etc
+    if (!labelText && el.nextElementSibling){
+      const txt = (el.nextElementSibling.textContent||'').trim().toUpperCase();
+      if (/^(S|MB|WS|L|OP)$/.test(txt)) labelText = txt;
+    }
+    if (labelText === pos) return el;
+  }
+  // não achou por rótulo: tenta por índice fixo (ordem visual)
+  const idx = POS_FALLBACK_ORDER.findIndex(p => p === pos);
+  return hexes[idx] || null;
+}
+
+
+
+// ===== import principal =====
+async function applyTeamFromServer(team){
+  const slots = team.slots || [];
+  const bench = team.bench || [];
+  const used  = new Set();
+
+  clearGrid();
+
+  // titulares, um por vez
+  for (const s of slots){
+    const pos = (s.pos||'').toUpperCase();
+    const ch  = findCharPreferExact(s.id);
+    if (!ch){ console.warn('[import] personagem não encontrado:', s.id); continue; }
+
+    const {el, i} = nextFreeSlotForPos(pos, used);
+    if (!el){ console.warn('[import] slot livre não encontrado para', pos); continue; }
+
+    used.add(i);
+    safeSetCharacter(el, ch, pos);
+    onGridChanged();
+    await wait(40);
+  }
+
+  // banco
+  const benchEls = [...document.querySelectorAll('.bench-slot')];
+  for (let i=0;i<benchEls.length;i++){
+    const name = bench[i] || '';
+    if (!name) continue;
+    const ch = findCharPreferExact(name);
+    if (ch){ safeSetCharacter(benchEls[i], ch, 'BENCH'); await wait(20); }
+  }
+
+  if (typeof updateSynergies==='function') updateSynergies();
+  if (typeof emitTeamChanged==='function') emitTeamChanged(); // conta no ranking
+
+
+  // itens (opcional)
+  try { if (typeof applyTeamItems === 'function') applyTeamItems(team.items||{}); } catch(_){}
+
+  console.log(`[Import] Aplicado: ${applied} titulares`);
+  console.groupEnd();
+
+  // dispara o envio automático para contar no ranking
+  emitTeamChanged();
+  onGridChanged();
+}
+
+
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  // pré-carrega em background; quando abrir a página, já está pronto
+  loadRankings().catch(()=>{});
+});
+setInterval(loadRankings, 60000);
+async function openCommentsUI(team_id){
+  const wrap = document.createElement('div');
+  wrap.className = 'item-modal-backdrop';
+  const box = document.createElement('div');
+  box.className  = 'item-modal';
+  wrap.appendChild(box);
+
+  box.innerHTML = `
+    <h3>Comments</h3>
+    <div id="cList" style="max-height:260px; overflow:auto; border:1px solid #444; padding:8px; border-radius:8px; background:#1e1e1e;"></div>
+    <div style="display:flex; gap:8px; margin-top:8px;">
+      <input id="cNick" placeholder="Nick" style="flex:0 0 160px; padding:6px;">
+      <input id="cMsg"  placeholder="Message..." style="flex:1; padding:6px;">
+      <button id="cSend" class="item-btn">Send</button>
+      <button id="cClose" class="item-btn">Close</button>
+    </div>
+  `;
+
+  async function load(){
+    const lang = currentLang(); // "ptbr" | "en"
+    const r = await apiGet(`action=comments&team_id=${encodeURIComponent(team_id)}&limit=100&lang=${lang}`);
+    const list = (r?.comments||[]);
+    const html = list.map(c=>`<div style="padding:6px 4px;border-bottom:1px solid #333;"><b>${c.nick}</b> — <small>${(c.created_at||'').replace('T',' ')}</small><br>${c.message}</div>`).join('') || '<i>No comments yet.</i>';
+    box.querySelector('#cList').innerHTML = html;
+    // nick lembrado
+    const saved = localStorage.getItem('hqNick');
+    if(saved) box.querySelector('#cNick').value = saved;
+  }
+
+  box.querySelector('#cSend').addEventListener('click', async ()=>{
+    const nick = (box.querySelector('#cNick').value || '').trim().slice(0,20);
+    const message = (box.querySelector('#cMsg').value || '').trim().slice(0,300);
+    if(!message){ box.querySelector('#cMsg').focus(); return; }
+    localStorage.setItem('hqNick', nick || 'Anon');
+    const res = await apiPost('addcomment', { team_id, nick: (nick||'Anon'), message, lang: currentLang(), session_id: SESSION_ID });
+    if(res?.ok){
+      box.querySelector('#cMsg').value = '';
+      load(); // aparece sem recarregar a página
+    }else if(res?.error === 'cooldown'){
+      alert(`Aguarde ${res.seconds_left||120}s para comentar novamente.`);
+    }else{
+      alert('Falha ao enviar comentário.');
+    }
+  });
+  box.querySelector('#cClose').addEventListener('click', ()=> wrap.remove());
+
+  document.body.appendChild(wrap);
+  load();
+}
+function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms);} }
+function emitTeamChanged(){ window.dispatchEvent(new Event('team:changed')); }
+function setupAutoSendObservers(){
+  const sendDebounced = debounce(()=>{ try{ sendTeamIfComplete(); }catch(e){ console.warn(e);} }, 300);
+
+  // 2a) observar alterações nos slots titulares e bench
+  const mo = new MutationObserver(() => onGridChanged());
+  document.querySelectorAll('.hex, .bench-slot').forEach(el=>{
+    mo.observe(el, {
+      attributes:true,
+      attributeFilter:['data-nome','src'],
+      childList:true,
+      subtree:false
+    });
+  });
+
+  // 2b) escutar um evento global (vamos emitir em vários lugares)
+  window.addEventListener('team:changed', () => scheduleSendTeam(300));
+
+  // 2c) integrar com hooks já existentes (se existirem)
+  const oldAfterAssign = window.afterAssignCharacter;
+  window.afterAssignCharacter = function(el, nome){
+    if (typeof oldAfterAssign === 'function') oldAfterAssign(el, nome);
+    emitTeamChanged();
+  };
+  const oldAfterRemove = window.afterRemoveCharacter;
+  window.afterRemoveCharacter = function(el){
+    if (typeof oldAfterRemove === 'function') oldAfterRemove(el);
+    emitTeamChanged();
+  };
+
+  // 2d) primeira checagem (página já pode abrir com time completo)
+  setTimeout(sendDebounced, 500);
+}
+
+document.addEventListener('DOMContentLoaded', setupAutoSendObservers);
+
+// se existir função que carrega time salvo ao trocar “Team 1/2/3…”
+const oldLoadSaved = window.loadSavedTeam;
+window.loadSavedTeam = function(...args){
+  const r = oldLoadSaved ? oldLoadSaved.apply(this, args) : undefined;
+  emitTeamChanged();
+  return r;
+};
+
+// se o botão “+ Team” limpa/muda o grid:
+const plus = document.querySelector('[data-action="add-team"], .btn-add-team, .plus-team');
+if (plus) plus.addEventListener('click', ()=> setTimeout(emitTeamChanged, 200));
 /* ====== FUNÇÕES ORIGINAIS (mantidas) ====== */
 function addBenchSlot() {
     const benchRow = document.getElementById("bench-row");
     const slot = document.createElement("div");
     slot.className = "player-slot bench";
-    slot.innerHTML = `<div class="bench-slot" data-role="bench"></div><div class="player-info">Bench</div>`;
+    slot.innerHTML = `<div class="bench-slot" data-role="bench"></div><div class="player-info">Banco</div>`;
     benchRow.insertBefore(slot, benchRow.querySelector(".add-slot-btn"));
     attachBenchEvents(slot.querySelector(".bench-slot"));
 }
@@ -2598,6 +3282,7 @@ function isAllowedForStarterSlot(slotRole, charRole) {
 function showMenu(role, slot) {
   const scrollMenu = document.getElementById("scrollMenu");
   scrollMenu.innerHTML = '';
+  window.__lastMenuCtx = { role, slot };
   scrollMenu.style.display = 'flex';
   scrollMenu.style.flexDirection = 'column';
 
@@ -2810,6 +3495,7 @@ const ids = ring.map(h => getSlotId(h));
     removeItemGear(h);
     ensureItemGear(h);
     updateItemBadge(h);
+    emitTeamChanged();
   });
 }
 
@@ -2875,7 +3561,7 @@ function removeCharacter(slot) {
 
     const infoDiv = slot.parentElement.querySelector('.player-info');
     if (slot.classList.contains("bench-slot")) {
-      infoDiv.textContent = "Bench";
+      infoDiv.textContent = "Banco";
     } else {
       infoDiv.textContent = slot.dataset.role
         || slot.getAttribute("data-role")
@@ -3054,7 +3740,7 @@ function updateSynergies() {
     });
 
     if (!algumaSinergia) {
-        synergyListEl.innerHTML = "<li>Only Deployment Synergies are displayed.Synergies will only work when players are in court inside the game.</li>";
+        synergyListEl.innerHTML = "<li>Apenas vinculos de posicionamento serão mostrados.Elas apenas funcionam quando os membros dela então em quadra. Para ver as demais clique em 'Stats bonds'.</li>";
     }
     // --- Tipo do time (apenas titulares) ---
 (function renderTeamType(){
@@ -3279,11 +3965,181 @@ document.querySelectorAll(".menu-link").forEach(btn => {
     });
 });
 
+// === Meme Version (acrescenta personagens extras à lista) ===
+window.MEME_VERSION_ON = window.MEME_VERSION_ON || false;
+
+/**
+ * Preencha aqui os seus novos personagens.
+ * Mantém o mesmo shape de "characters": { nome, funcao, School, img, symbols, Stats, data }
+ */
+window.MEME_CHARACTERS = window.MEME_CHARACTERS || [
+  // EXEMPLO:
+   {
+   nome: "Kagenata Max Power SP",
+   funcao: "WS",
+   School: "Karasuno",
+   img: "img/MEMEkagenata.png",
+   symbols: ["img/quicksymbol.png","img/powersymbol.png"],
+   Stats: { Serve: 100, Spike: 999, Set: 0, Receive: 123, Block: 45, Save: 67 },
+   data: "12/31/25"
+  },
+    { 
+     nome: "Ennoshita SP", 
+     funcao: "WS", img: "img/MEMEennoshitaSP.png", 
+     School: "Karasuno", vinculo: ["Graduation Ceremony"], 
+     Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, 
+     habilidades:[
+  {nome:"Anchor Receive", descricao:"Performs a receive that nullifies 1 incoming spike or serve (guaranteed once per rally). He will also grant himself a 20% buff on his [Receive] + [Save], lasting 2 rallies."},
+  {nome:"Adaptive Spike", descricao:"Performs a spike that scales with [Block] stats of opponent's front row by 20%. He will also have 40% chance to reduce enemy block by 10% for 2 rallies. This percentage will increase to 30% if he scores"},
+  {nome:"Unshakable Resolve", descricao:"Whenever an ally receive is not PERFECT, he will gain a stack of [Resolving], each stack grants him 10% [Receive] and [Save]. Maximum 4 stacks."},
+  {nome:"Captain’s Burden", descricao:"Can activate anytime. Removes all allies debuff and grants all allies 20% boost in Attack and Defense Technique. If any ally is below 50% stamina, granting them 30% more. This effect lasts 3 rallies."}
+], 
+    symbols: [ "img/receivesymbol.png","img/powersymbol.png"] 
+    },
+    {
+   nome: "Atsumu SP",
+   funcao: "S",
+   School: "Inarizaki", vinculo: ["Freaky Holiday"], 
+   img: "img/MEMEatsumusantaSP.png",
+   symbols: ["img/quicksymbol.png","img/settersymbol.png"],
+   Stats: { Serve: 9999, Spike: 0, Set: 9999, Receive: 0, Block: 0, Save: 0 },
+   data: "12/31/25"
+  }
+];
+
+// Guarda a base original para podermos voltar quando o toggle estiver OFF
+window.__BASE_CHARACTERS = window.__BASE_CHARACTERS || characters.slice();
+
+/** Recalcula o array global "characters" de acordo com o toggle */
+function syncCharactersWithToggle(){
+  const base = window.__BASE_CHARACTERS;
+  const out  = base.slice(); // cópia da base
+
+  if (window.MEME_VERSION_ON && Array.isArray(window.MEME_CHARACTERS)) {
+    const baseNames = new Set(base.map(p => p?.nome));
+    for (const p of window.MEME_CHARACTERS) {
+      if (p && !baseNames.has(p.nome)) out.push(p); // só acrescenta se for NOVO
+    }
+  }
+
+  // IMPORTANTE: muta o array "characters" sem trocar a referência
+  characters.splice(0, characters.length, ...out);
+}
+
+// Garante que o site já comece consistente com o estado do toggle
+syncCharactersWithToggle();
+updateWinDiamondsBtn(); 
+// ---- helpers do menu do grid (scrollMenu) ----
+function isGridMenuOpen(){
+  const el = document.getElementById('scrollMenu');
+  return !!(el && getComputedStyle(el).display !== 'none' && el.childElementCount > 0);
+}
+
+function refreshGridMenu(){ // atualiza sem fechar
+  const ctx = window.__lastMenuCtx;
+  if (!ctx) return;
+  // salva o scroll do menu, se existir
+  const el = document.getElementById('scrollMenu');
+  const keepScroll = el ? el.scrollTop : 0;
+
+  // se o slot ainda está no DOM, reabre
+  if (document.body.contains(ctx.slot)) {
+    showMenu(ctx.role, ctx.slot);
+    const el2 = document.getElementById('scrollMenu');
+    if (el2) el2.scrollTop = keepScroll; // restaura posição
+  }
+}
+
+function closeGridMenu(){ // fecha o menu do grid
+  const el = document.getElementById('scrollMenu');
+  if (!el) return;
+  el.innerHTML = '';
+  el.style.display = 'none';
+}
+// ===== WIN 999 DIAMONDS =====
+const WIN_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeTFIekmM_fEn_Ch1lv26WLtuCPto_opjiTx8pme180oZk6EQ/viewform";
+
+/** tenta achar o container do grid principal para ancorar a posição do botão */
+function __findGridEl(){
+  // coloque primeiro os ids/candidatos que existem no seu HTML
+  const candidates = [
+    '#mainGrid', '#gridContainer', '#court', '#grid', '#pageBuilder',
+    '.grid', '.court'
+  ];
+  for (const sel of candidates){
+    const el = document.querySelector(sel);
+    if (el) return el;
+  }
+  return null;
+}
+
+/** posiciona o botão à direita do grid (fallback: canto direito da tela) */
+function __positionWinBtn(btn){
+  const grid = __findGridEl();
+  if (!btn) return;
+
+  if (grid){
+    const r = grid.getBoundingClientRect(); // relativo à viewport
+    const left = Math.min(window.innerWidth - 300, r.right + 16);
+    const top  = Math.max(16, r.top + 60);
+    btn.style.left = left + 'px';
+    btn.style.top  = top  + 'px';
+    btn.style.right = 'auto';
+    btn.style.bottom = 'auto';
+  } else {
+    // fallback
+    btn.style.right = '24px';
+    btn.style.top   = '120px';
+    btn.style.left = 'auto';
+    btn.style.bottom = 'auto';
+  }
+}
+
+/** cria o botão se não existir e mostra */
+function showWinDiamondsBtn(){
+  if (document.getElementById('winDiamondsBtn')) {
+    const btn = document.getElementById('winDiamondsBtn');
+    btn.style.display = 'inline-flex';
+    __positionWinBtn(btn);
+    return;
+  }
+  const btn = document.createElement('button');
+  btn.id = 'winDiamondsBtn';
+  btn.className = 'win-diamonds-btn';
+  btn.type = 'button';
+  btn.textContent = 'WIN 999 DIAMONDS 💎 RULES IN GOOGLE FORM';
+  btn.addEventListener('click', () => window.open(WIN_URL, '_blank', 'noopener'));
+  document.body.appendChild(btn);
+  __positionWinBtn(btn);
+
+  // reposiciona ao redimensionar/rolar
+  const reposition = () => __positionWinBtn(btn);
+  window.addEventListener('resize', reposition);
+  window.addEventListener('scroll', reposition);
+}
+
+/** esconde (não remove) */
+function hideWinDiamondsBtn(){
+  const btn = document.getElementById('winDiamondsBtn');
+  if (btn) btn.style.display = 'none';
+}
+
+/** decide mostrar/ocultar conforme o toggle */
+function updateWinDiamondsBtn(){
+  if (window.MEME_VERSION_ON) showWinDiamondsBtn();
+  else hideWinDiamondsBtn();
+}
+// ============================================
+
+
 /* ====== LISTA / FILTROS DE characters (mantida com stopPropagation nos clicks) ====== */
 function showCharacterList() {
-    const funcoes = [...new Set(characters.map(p => p.funcao))];
-    const escolas = [...new Set(characters.map(p => p.School))];
-    const StatsKeys = [...new Set(characters.flatMap(p => Object.keys(p.Stats || {})))];
+    const POOL = characters;
+
+    const funcoes   = [...new Set(POOL.map(p => p.funcao))];
+    const escolas   = [...new Set(POOL.map(p => p.School))];
+    const StatsKeys = [...new Set(POOL.flatMap(p => Object.keys(p.Stats || {})))];
+
     function symbolToType(sym){
   const s = String(sym||"").toLowerCase();
   if (s.includes("quicksymbol"))   return "quick";
@@ -3298,58 +4154,75 @@ function showCharacterList() {
 
 // tipos únicos lendo characters[*].symbols
 const allTypes = [...new Set(
-  characters.flatMap(p => (Array.isArray(p.symbols) ? p.symbols : [])
+  POOL.flatMap(p => (Array.isArray(p.symbols) ? p.symbols : [])
     .map(symbolToType).filter(Boolean))
 )].sort();
 
-    let html = `
-    <h3>Characters</h3>
-    <div class="filtros">
-        <div>
-            <label>Role:</label>
-            <select id="filtroFuncao">
-                <option value="">All</option>
-                ${funcoes.map(f => `<option value="${f}">${f}</option>`).join('')}
-            </select>
-        </div>
-        <div>
-            <label>School:</label>
-            <select id="filtroEscola">
-                <option value="">All</option>
-                ${escolas.map(e => `<option value="${e}">${e}</option>`).join('')}
-            </select>
-        </div>
-        <div>
-            <label>Stats:</label>
-            <select id="filtroStats">
-                <option value="">All</option>
-                ${StatsKeys.map(s => `<option value="${s}">${s}</option>`).join('')}
-            </select>
-        </div>
-                <div>
-            <label>Expected Release Date:</label>
-            <select id="filtroDataOrdem" title="Ordenar pela data (ignora quem não tem data)">
-                <option value="">Ignorar</option>
-                <option value="asc">Ascendente (MM/DD/YY)</option>
-                <option value="desc">Descendente (MM/DD/YY)</option>
-            </select>
-        </div>
-        <div>
-             <label>Type:</label>
-             <div id="filtroType">
-             ${allTypes.map(t => `
-             <label style="display:inline-flex;align-items:center;gap:6px;margin:2px 8px 2px 0;">
-             <input type="checkbox" name="typeFilter" value="${t}"> ${t.toUpperCase()}
-             </label>
-             `).join("")}
-             </div>
-        </div>
-<button id="limparFiltros">Limpar</button>
+let html = `
+  <h3>Characters</h3>
+  <div class="filtros">
+    <div>
+      <label>Role:</label>
+      <select id="filtroFuncao">
+        <option value="">All</option>
+        ${funcoes.map(f => `<option value="${f}">${f}</option>`).join('')}
+      </select>
     </div>
-<div class='char-list' id="charList"></div>
-    `;
+    <div>
+      <label>School:</label>
+      <select id="filtroEscola">
+        <option value="">All</option>
+        ${escolas.map(e => `<option value="${e}">${e}</option>`).join('')}
+      </select>
+    </div>
+    <div>
+      <label>Stats:</label>
+      <select id="filtroStats">
+        <option value="">All</option>
+        ${StatsKeys.map(s => `<option value="${s}">${s}</option>`).join('')}
+      </select>
+    </div>
+    <div>
+      <label>Expected Release Date:</label>
+      <select id="filtroDataOrdem" title="Ordenar pela data (ignora quem não tem data)">
+        <option value="">Ignorar</option>
+        <option value="asc">Ascendente (MM/DD/YY)</option>
+        <option value="desc">Descendente (MM/DD/YY)</option>
+      </select>
+    </div>
+    <div>
+      <label>Type:</label>
+      <div id="filtroType">
+        ${allTypes.map(t => `
+          <label style="display:inline-flex;align-items:center;gap:6px;margin:2px 8px 2px 0;">
+            <input type="checkbox" name="typeFilter" value="${t}"> ${t.toUpperCase()}
+          </label>
+        `).join("")}
+      </div>
+    </div>
+
+    <button id="limparFiltros">Limpar</button>
+  </div>
+
+  <div class="char-list" id="charList"></div>
+`;
+
 
     sidebarContent.innerHTML = html;
+    const memeTg = document.getElementById('memeToggle');
+if (memeTg){
+  memeTg.addEventListener('change', (e)=>{
+    window.MEME_VERSION_ON = !!e.target.checked;
+    syncCharactersWithToggle();   // <-- atualiza o array characters
+    showCharacterList();          // <-- reconstrói a UI
+    updateWinDiamondsBtn(); 
+    // Mantém o toggle do topo sincronizado (se existir)
+    const top = document.getElementById('memeToggleTop');
+    if (top && top.checked !== window.MEME_VERSION_ON) top.checked = window.MEME_VERSION_ON;
+  });
+}
+
+
     const list = document.getElementById('charList');
 if (list) list.classList.remove('is-hidden');
     enableCloseOutsideCharList();
@@ -3396,11 +4269,13 @@ if (typeBox) typeBox.addEventListener('change', renderLista);
   if (StatsSel.toLowerCase() === "todos") StatsSel = "";
 
   // 1) filtro base
-  let filtrados = characters.filter(p =>
-    (funcaoSel === "" || p.funcao === funcaoSel) &&
-    (escolaSel === "" || p.School === escolaSel) &&
-    (typeSel.length === 0 || typeSel.every(t => getCharTypes(p).includes(t)))
-  );
+  const BASE = POOL; // usa a pool ativa
+let filtrados = BASE.filter(p =>
+  (funcaoSel === "" || p.funcao === funcaoSel) &&
+  (escolaSel === "" || p.School === escolaSel) &&
+  (typeSel.length === 0 || typeSel.every(t => getCharTypes(p).includes(t)))
+);
+
 
   // 2) ordenar por data quando escolhido (e ignorar sem data)
   if (dataOrdem === "asc" || dataOrdem === "desc") {
@@ -3814,7 +4689,7 @@ localStorage.setItem("savedTeams", JSON.stringify(teams));
     menuBtn.style.display = "none";
 });
 
-    // wrapper: um passo no sentido horário + housekeeping
+    // wrapper: um passo no sentido horário + housarkeeping
   function rotateMainGridClockwise() {
   rotateRingClockwise(1);           // gira o anel (L fica parado)
   const sm = document.getElementById("scrollMenu");
@@ -3902,7 +4777,7 @@ function loadTeam(name) {
     delete slot.dataset.nome;
     const infoDiv = slot.parentElement.querySelector('.player-info');
     if (infoDiv) {
-      if (slot.classList.contains("bench-slot")) infoDiv.textContent = "Bench"; // ou "Bench"
+      if (slot.classList.contains("bench-slot")) infoDiv.textContent = "Banco"; // ou "Bench"
       else infoDiv.textContent = slot.dataset.role || slot.getAttribute("data-role") || "";
     }
   });
@@ -3972,7 +4847,15 @@ document.addEventListener("click", (e) => {
     ) {
         return;
     }
-
+    if (
+  e.target.closest('#pageRanking') ||
+  e.target.closest('#btnOpenRanking') ||
+  e.target.closest('#btnRank7d') ||
+  e.target.closest('#btnRankAll') ||
+  e.target.closest('#btnRankChars')
+) {
+  return;
+}
     // Fecha apenas se realmente foi fora
     if (sidebar.classList.contains("open")) {
         sidebar.classList.remove("open");
@@ -4016,7 +4899,7 @@ document.addEventListener("click", (e) => {
             slot.innerHTML = "";
             delete slot.dataset.nome;
             const infoDiv = benchSlot.querySelector('.player-info');
-            infoDiv.textContent = "Bench";
+            infoDiv.textContent = "Banco";
         }
     });
     updateSynergies();
@@ -4146,7 +5029,7 @@ function totalPctForCombo(set4, set2, statKey){
 function pctOf(obj, key){
   return (obj && obj[key] && typeof obj[key].pct === 'number') ? obj[key].pct : 0;
 }
-// util: qual o maior stat base do personagem
+// util: qual o Mayr stat base do personagem
 function topStatKey(stats){
   let bestK=null, bestV=-Infinity;
   for(const k of STAT_KEYS){
@@ -4196,7 +5079,7 @@ function recommendSetsByTopStat(ch, allowedSet){
     return { set4: s4, set2: (s2 && s2 !== s4) ? s2 : null };
   }
 
-  // --- Regra 3: maior atributo = Spike -> símbolos "quick" ou "power"
+  // --- Regra 3: Mayr atributo = Spike -> símbolos "quick" ou "power"
   if (top === 'Spike'){
     if (hasSymbol('img/quicksymbol.png')){
       const s4 = findSetIdByName(allowedSet, 'Rapid Quick Attack');
@@ -4211,7 +5094,7 @@ function recommendSetsByTopStat(ch, allowedSet){
     }
   }
 
-  // --- Regra 2 (fallback): como antes, escolher pelo maior atributo
+  // --- Regra 2 (fallback): como antes, escolher pelo Mayr atributo
   return bestByStat(top || 'Spike'); // se não houver top claro, Spike como padrão
 }
 
@@ -5675,6 +6558,7 @@ function initMultiTeams(){
 </script>
 
 
+
 <!-- ===================== PLANEJADOR DE RECURSOS (PÁGINA NOVA) ===================== -->
 <style>
   /* Páginas alternáveis */
@@ -5918,9 +6802,45 @@ body.planner-open{ overflow: hidden; }
   #simPane #simInputs label{ display:flex; align-items:center; gap:10px; }
   #simPane #simInputs input{ max-width: 240px; }
 }
+/* ==== Ranking list (igual ao EN) ==== */
+.mini-line{ display:inline-flex; gap:4px; vertical-align:middle; margin-right:6px; }  /* EN */
+.mini-char{ width:24px; height:32px; object-fit:cover; border-radius:4px; box-shadow:0 0 0 1px #444; }  /* EN */
+.top-row-li{ display:flex; align-items:center; gap:6px; justify-content:center; }  /* EN */
+.btn-more{ background:#2a2a2a; color:#ddd; border:1px solid #555; border-radius:8px; padding:2px 8px; cursor:pointer; }  /* EN */
+.btn-imp,.btn-cmt{ margin-left:4px; }  /* EN */
 
+/* ==== Abas do ranking (3 colunas, ocupando a largura toda) ==== */
+.rank-tabs{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:8px 0 12px; }
+.rank-tabs .menu-btn{ display:block; width:100%; }
+
+/* ==== Ranking de personagens centralizado ==== */
+#panelRankChar .top-list{ width:fit-content; margin:0 auto; }           /* centraliza o bloco todo */
+.char-row{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; min-width:360px; }
+.char-row .mini-line{ display:flex; align-items:center; gap:.5rem; }
+.char-row small{ width:56px; text-align:center; }                        /* número centralizado */
 
 </style>
+<!-- 2) NOVA PÁGINA: Seção de Ranking (mantém o padrão das outras páginas, ex.: .page) -->
+<section id="pageRanking" class="page">
+
+  <h2 class="page-title">Ranking</h2>
+
+  <!-- Descrição (placeholder): você edita depois -->
+  <p class="muted" id="rankingRules">Ranking gathers all info when a team has all court positions filled</p>
+
+  <!-- Barra de filtros (3 botões) no MESMO estilo dos botões do menu -->
+  <div id="rankingPanels">
+  <div class="rank-tabs">
+    <button id="btnRank7d"  class="menu-btn">Ranking (7d)</button>
+    <button id="btnRankAll" class="menu-btn">Ranking (All)</button>
+    <button id="btnRankChar" class="menu-btn">Ranking Characters</button>
+  </div>
+
+  <section id="panelRank7d"></section>
+  <section id="panelRankAll" hidden></section>
+  <section id="panelRankChar" hidden></section>
+</div>
+</section>
 
 <!-- ===================== PLANEJADOR DE RECURSOS (NOVA PÁGINA) ===================== -->
 <section id="pagePlanner" class="page"
@@ -6092,8 +7012,8 @@ body.planner-open{ overflow: hidden; }
   
 (function(){
   // ===== Configurações =====
-  const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  const FREQS  = ['Diário','Semanal','Quinzenal','Mensal'];
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const FREQS  = ['Daily','Weekly','Biweekly','Monthly'];
   const TYPE_ORDER = { 'Banner 1': 0, 'Rebanner': 1, 'Banner 2': 2 };
   const COLLAPSE_KEY = 'hqPlannerSourcesCollapsed';
   const PLANS_KEY = 'hqPlannerPlansV1';
@@ -6101,41 +7021,41 @@ body.planner-open{ overflow: hidden; }
 
   // ===== Defaults de fontes =====
   const DEFAULT_FREE = [
-    {usar:true, nome:'Programa de Treinamento', qtd:75,  freq:'Diário'},
-    {usar:true, nome:'Missão Diária',            qtd:60,  freq:'Diário'},
-    {usar:true, nome:'Missão Semanal',           qtd:100, freq:'Semanal'},
-    {usar:true, nome:'Desafio Máximo',           qtd:15,  freq:'Diário'},
-    {usar:true, nome:'Desafio Máximo Ranking',   qtd:20,  freq:'Diário'},
-    {usar:true, nome:'Jogos Casuais',            qtd:150, freq:'Semanal'},
-    {usar:true, nome:'Quiz',                     qtd:10,  freq:'Diário'},
-    {usar:true, nome:'Exercícios',               qtd:10,  freq:'Diário'},
-    {usar:true, nome:'Bonus Fim de Semana',      qtd:120, freq:'Semanal'},
-    {usar:true, nome:'Sequência de Partidas',    qtd:640, freq:'Quinzenal'},
-    {usar:true, nome:'Teste de Especialidade',   qtd:320, freq:'Semanal'},
-    {usar:true, nome:'Lojinha banner 1 e 2',   qtd:2500, freq:'Mensal'},
-    {usar:true, nome:'Checkin banner 1 e 2',   qtd:1500, freq:'Mensal'},
+    {usar:true, nome:'Training Program', qtd:75,  freq:'Daily'},
+    {usar:true, nome:'Daily Missions',            qtd:60,  freq:'Daily'},
+    {usar:true, nome:'Weekly Missions',           qtd:100, freq:'Weekly'},
+    {usar:true, nome:'Peak Challenge',           qtd:15,  freq:'Daily'},
+    {usar:true, nome:'Peak Challeng Ranking',   qtd:20,  freq:'Daily'},
+    {usar:true, nome:'Casual Games',            qtd:150, freq:'Weekly'},
+    {usar:true, nome:'Quiz',                     qtd:10,  freq:'Daily'},
+    {usar:true, nome:'Exercises',               qtd:10,  freq:'Daily'},
+    {usar:true, nome:'Weekend Bonus',      qtd:120, freq:'Weekly'},
+    {usar:true, nome:'Match Streak',    qtd:640, freq:'Biweekly'},
+    {usar:true, nome:'Specialty Trial',   qtd:320, freq:'Weekly'},
+    {usar:true, nome:'Store banner 1 e 2',   qtd:2500, freq:'Monthly'},
+    {usar:true, nome:'Checkin banner 1 e 2',   qtd:1500, freq:'Monthly'},
   ];
 
   const DEFAULT_CASH = [
-    {usar:true, nome:'Passe Mensal',           porDia:90,  dias:30},
-    {usar:true, nome:'Passe Mensal Premium',   porDia:100, dias:30},
-    {usar:true, nome:'Conversão Diária 80',    porDia:80,  dias:30},
-    {usar:true, nome:'Conversão Diária 60',    porDia:60,  dias:14},
+    {usar:true, nome:'Monthly Pass',           porDia:90,  dias:30},
+    {usar:true, nome:'Monthly Pass Premium',   porDia:100, dias:30},
+    {usar:true, nome:'Daily Conversion 80',    porDia:80,  dias:30},
+    {usar:true, nome:'Daily Conversion 60',    porDia:60,  dias:14},
   ];
 
   // ===== Cronograma da planilha (por mês) =====
   const BANNER_SHEET = {
-    'Agosto':   { b1:'Ushijima UR',      rebs:[],                           b2:'Kuroo UR' },
-    'Setembro': { b1:'Oikawa UR',        rebs:[],                           b2:'Bokuto UR' },
-    'Outubro':  { b1:'Miya Atsumu UR',   rebs:[],                           b2:'Miya Osamu UR' },
-    'Novembro': { b1:'Hoshiumi UR',         rebs:['Oikawa UR'],                b2:'Hirugami UR' },
-    'Dezembro': { b1:'Kageyama UR',      rebs:['Bokuto UR','Hoshiumi UR'],     b2:'Hinata SP' },
-    'Janeiro':  { b1:'Kenma SP',         rebs:['Hirugami UR'],              b2:'Nishinoya SP' },
-    'Fevereiro':{ b1:'Sugawara SP',      rebs:['Kuro UR'],                 b2:'Bokuto SP' },
-    'Março':    { b1:'Akaashi SP',       rebs:['Kageyama UR'],   b2:'Aone SP' },
-    'Abril':    { b1:'Sakusa UR',    rebs:['Osamu UR'],                 b2:'Komori UR' },
-    'Maio':     { b1:'Tsuki SP',         rebs:[],                           b2:'Kuro SP' },
-    'Junho':    { b1:'Kunimi SP',        rebs:[],                           b2:'Koganegawa SP' },
+    'August':   { b1:'Ushijima UR',      rebs:[],                           b2:'Kuroo UR' },
+    'September': { b1:'Oikawa UR',        rebs:[],                           b2:'Bokuto UR' },
+    'October':  { b1:'Miya Atsumu UR',   rebs:[],                           b2:'Miya Osamu UR' },
+    'November': { b1:'Hoshiumi UR',         rebs:['Oikawa UR'],                b2:'Hirugami UR' },
+    'December': { b1:'Kageyama UR',      rebs:['Bokuto UR','Hoshiumi UR'],     b2:'Hinata SP' },
+    'January':  { b1:'Kenma SP',         rebs:['Hirugami UR'],              b2:'Nishinoya SP' },
+    'February':{ b1:'Sugawara SP',      rebs:['Kuro UR'],                 b2:'Bokuto SP' },
+    'March':    { b1:'Akaashi SP',       rebs:['Kageyama UR'],   b2:'Aone SP' },
+    'April':    { b1:'Sakusa UR',    rebs:['Osamu UR'],                 b2:'Komori UR' },
+    'May':     { b1:'Tsuki SP',         rebs:[],                           b2:'Kuro SP' },
+    'June':    { b1:'Kunimi SP',        rebs:[],                           b2:'Koganegawa SP' },
   };
 
   // ===== Estado =====
@@ -6269,8 +7189,7 @@ body.planner-open{ overflow: hidden; }
   }
 }
 
-
-  // ===== Renderers =====
+// ===== Renderers =====
   function renderFree(){
     const tb = $('#tblFree tbody'); if(!tb) return;
     tb.innerHTML = '';
@@ -6278,7 +7197,7 @@ body.planner-open{ overflow: hidden; }
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td><input type="checkbox" data-k="usar" ${row.usar?'checked':''}></td>
-        <td class="col-sistema"><input type="text" data-k="nome" value="${row.nome}" title="${row.nome}"></td>
+        <td class="col-System"><input type="text" data-k="nome" value="${row.nome}" title="${row.nome}"></td>
         <td><input type="number" data-k="qtd" min="0" step="1" value="${row.qtd}"></td>
         <td><select data-k="freq">${FREQS.map(f=>`<option ${f===row.freq?'selected':''}>${f}</option>`).join('')}</select></td>
         <td class="row-actions">
@@ -6309,7 +7228,7 @@ body.planner-open{ overflow: hidden; }
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td><input type="checkbox" data-k="usar" ${row.usar?'checked':''}></td>
-        <td class="col-sistema"><input type="text" data-k="nome" value="${row.nome}" title="${row.nome}"></td>
+        <td class="col-System"><input type="text" data-k="nome" value="${row.nome}" title="${row.nome}"></td>
         <td><input type="number" data-k="porDia" min="0" step="1" value="${row.porDia}"></td>
         <td><input type="number" data-k="dias" min="0" step="1" value="${row.dias}"></td>
         <td class="row-actions">
@@ -6336,15 +7255,21 @@ body.planner-open{ overflow: hidden; }
   function renderBanners(){
   // === helpers para normalizar mês (sem acento / minúsculo) e obter índice 1..12 ===
   const rmAccents = (s)=> String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-  const norm = (s)=> rmAccents(s).trim().toLowerCase();
-  const MONTH_IDX = {
-    "janeiro":1, "fevereiro":2, "marco":3, "março":3, "abril":4, "maio":5, "junho":6,
-    "julho":7, "agosto":8, "setembro":9, "outubro":10, "novembro":11, "dezembro":12
-  };
+  const MONTH_INDEX = {
+  // pt-BR
+  "janeiro":1,"fevereiro":2,"marco":3,"março":3,"abril":4,"maio":5,"junho":6,
+  "julho":7,"agosto":8,"setembro":9,"outubro":10,"novembro":11,"dezembro":12,
+  // en
+  "january":1,"february":2,"march":3,"april":4,"may":5,"june":6,
+  "july":7,"august":8,"september":9,"october":10,"november":11,"december":12
+};
+const norm = s => String(s||'')
+  .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // remove acento
+  .trim().toLowerCase();
   // ————— util para data de início e rotação de meses —————
 function getPlanStartMonth(){
   const el = document.getElementById('planStartDate');
-  if(!el || !el.value) return 8; // padrão Agosto (ou ajuste)
+  if(!el || !el.value) return 8; // padrão August (ou ajuste)
   const dt = new Date(el.value + 'T00:00:00');
   const m = dt.getMonth()+1;
   return (m>=1 && m<=12) ? m : 8;
@@ -6368,14 +7293,14 @@ function getPlanStartMonth(){
     const d = new Date(startEl.value + 'T00:00:00');
     if (!Number.isNaN(d.getTime())) startMonth = d.getMonth() + 1;
   }
-  // Use a ordem cronológica definida na planilha (BANNER_SHEET) como linha do tempo
+  // usar a ordem cronológica definida na planilha (BANNER_SHEET) como linha do tempo
 const monthsSeq = Object.keys(BANNER_SHEET);
 
 // Índice de início = primeiro mês cujo número (1..12) >= startMonth
 let startIdx = monthsSeq.findIndex(m => PT_MONTH_INDEX[norm(m)] >= startMonth);
 if (startIdx < 0) startIdx = 0;
 
-// Da data inicial em diante (inclui Janeiro..Junho do “próximo ano”)
+// Da data inicial em diante (inclui January..June do “próximo ano”)
 // e ainda filtra para manter só meses que realmente têm banners no dataset atual
 const monthsToRender = monthsSeq.slice(startIdx).filter(m => byMonth[m]);
 
@@ -6397,7 +7322,7 @@ monthsToRender.forEach(mes=>{
       const t150 = +b.t150 || 0;
       const m100 = +b.m100 || 0;
 
-      // cashback de marcos e %: **apenas para tickets**
+      // cashback de Marchs e %: **apenas para tickets**
       const gastoTickets   = 150 * t150;
       const cbMilTickets   = cashbackMilestones(t150); // só tickets contam
       const cashbackPerc   = Math.round(gastoTickets * ((+b.cashback || 0)/100));
@@ -6405,7 +7330,7 @@ monthsToRender.forEach(mes=>{
 
       return `<div class="banner-lines">
         <span>Tickets: ${t150.toLocaleString('pt-BR')}</span>
-        <span>Memórias: ${m100.toLocaleString('pt-BR')}</span>
+        <span>Memories: ${m100.toLocaleString('pt-BR')}</span>
         <span>Cashback: ${cashbackTotal.toLocaleString('pt-BR')}</span>
       </div>`;
     };
@@ -6419,7 +7344,7 @@ monthsToRender.forEach(mes=>{
           `<div style="height:210px;border:1px dashed #444;border-radius:10px;display:flex;align-items:center;justify-content:center;opacity:.7">Sem imagem</div>`}
         <div class="banner-fields">
           <label>Tickets (150): <input type="number" class="planner-input" data-id="${b.id}" data-k="t150" min="0" step="1" value="${b.t150||0}"></label>
-          <label>Memórias (100): <input type="number" class="planner-input" data-id="${b.id}" data-k="m100" min="0" step="1" value="${b.m100||0}"></label>
+          <label>Memories (100): <input type="number" class="planner-input" data-id="${b.id}" data-k="m100" min="0" step="1" value="${b.m100||0}"></label>
         </div>
         ${mkLinesHTML(b)}
       `;
@@ -6469,16 +7394,16 @@ monthsToRender.forEach(mes=>{
 
 
   // ===== Cálculos =====
-  function ganhosFreePorDia(){
+  function gainsFreePorDia(){
     let total = 0;
     planner.free.forEach(f=>{
       if(!f.usar) return;
       const q = +f.qtd || 0;
       switch(f.freq){
-        case 'Diário': total += q; break;
-        case 'Semanal': total += q/7; break;
-        case 'Quinzenal': total += q/14; break;
-        case 'Mensal': total += q/30; break;
+        case 'Daily': total += q; break;
+        case 'Weekly': total += q/7; break;
+        case 'Biweekly': total += q/14; break;
+        case 'Monthly': total += q/30; break;
       }
     });
     return total;
@@ -6564,11 +7489,18 @@ function bindServerButtons(){
 
   // meses pt-BR -> 1..12
 const PT_MONTH_INDEX = {
-  "janeiro":1,"fevereiro":2,"março":3,"marco":3,"abril":4,"maio":5,"junho":6,
-  "julho":7,"agosto":8,"setembro":9,"outubro":10,"novembro":11,"dezembro":12
+  "January":1,"February":2,"March":3,"March":3,"April":4,"May":5,"June":6,
+  "July":7,"August":8,"September":9,"October":10,"November":11,"December":12
 };
 const norm = s => String(s||'').trim().toLowerCase();
-
+// Torna o mapa tolerante a maiúsc./minúsc. e acentos
+(() => {
+  const keys = Object.keys(PT_MONTH_INDEX);
+  for (const k of keys) {
+    const low = String(k).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    PT_MONTH_INDEX[low] = PT_MONTH_INDEX[k];
+  }
+})();
 // dias reais do mês (considera ano bissexto)
 function daysInMonth(year, month1to12){
   return new Date(year, month1to12, 0).getDate();
@@ -6658,15 +7590,17 @@ let saldo = saldoCristais + saldoTickets;
     extrasTot.copy   += (cbMilExtras.extras?.copy   || 0);
   });
 
-  // --- 3) ganhos por mês (FREE + distribuir CASH a partir da data de início)
-  const ganhoDiaFREE = ganhosFreePorDia();
+  // --- 3) gains por mês (FREE + distribuir CASH a partir da data de início)
+  const gainDiaFREE = gainsFreePorDia();
   const start = getPlanStartDate();
   const startMonthIdx = start.getMonth()+1; // 1..12
   const startYear = start.getFullYear();
 
   // encontra o índice do 1º mês que coincide com a data de início;
   // se não encontrar, usa o primeiro da lista (mês cheio).
-  let idxStart = order.findIndex(m => PT_MONTH_INDEX[m] === startMonthIdx);
+  let idxStart = order.findIndex(m => PT_MONTH_INDEX[String(m).trim().toLowerCase()] === startMonthIdx);
+if (idxStart < 0) idxStart = 0; // fallback seguro
+
   if (idxStart === -1) idxStart = 0;
 
   // consumo de CASH: começa na data de início
@@ -6679,13 +7613,15 @@ let saldo = saldoCristais + saldoTickets;
   let prevIdx = startMonthIdx;
 
   // totais
-  let totalGanhos=0, totalGastoBruto=0, totalCashback=0, totalLiquido=0;
+  let totalgains=0, totalGastoBruto=0, totalCashback=0, totalLiquido=0;
 
   for (let i=0;i<order.length;i++){
     const label = order[i];
-    const mIdx = PT_MONTH_INDEX[label] || 1;
+    const mIdx = PT_MONTH_INDEX[String(label).trim().toLowerCase()] || 1;
 
-    // avança o ano quando cruza dezembro->janeiro
+
+
+    // avança o ano quando cruza December->January
     if (i === 0){
       // se a lista começa antes do mês de início, ajuste o ano para trás
       // (opcional: pode deixar como está; não afeta pró-rata)
@@ -6697,7 +7633,7 @@ let saldo = saldoCristais + saldoTickets;
     // dias do mês real
     const dim = daysInMonth(runningYear, mIdx);
 
-    // se o mês é anterior à data de início → pula (sem ganhos, sem custos)
+    // se o mês é anterior à data de início → pula (sem gains, sem custos)
     // Obs: se NÃO quiser pular custos de meses anteriores, troque o 'continue' por 'activeDays=0'.
     if (i < idxStart){
       continue;
@@ -6708,25 +7644,25 @@ let saldo = saldoCristais + saldoTickets;
       ? (mIdx === startMonthIdx ? Math.max(0, dim - (start.getDate() - 1)) : dim) // se o label for o mesmo mês da data
       : dim;
 
-    // ganhos FREE + CASH desse mês (CASH consome 'activeDays' sequencialmente)
+    // gains FREE + CASH desse mês (CASH consome 'activeDays' sequencialmente)
     // FREE do mês (mantém)
-const gFree = Math.round(ganhoDiaFREE * activeDays);
+const gFree = Math.round(gainDiaFREE * activeDays);
 
-// CASH do mês: Quantidade (por dia) × min(Frequência, dias ativos no mês)
+// CASH do mês: Quantity (por dia) × min(Frequency, dias ativos no mês)
 let gCash = 0;
 (planner.cash || []).forEach(c=>{
   if(!c || !c.usar) return;
 
-  // Compat: alguns planos antigos usam c.porDia; no UI atual, a coluna é "Quantidade" => c.qtd
+  // Compat: alguns planos antigos usam c.porDia; no UI atual, a coluna é "Quantity" => c.qtd
   const perDay = (+c.qtd || +c.porDia || 0);
 
-  // "Frequência" agora significa "dias ativos no mês" (ex.: 30 = mês inteiro)
+  // "Frequency" agora significa "dias ativos no mês" (ex.: 30 = mês inteiro)
   const diasAtivosNoMes = Math.min(activeDays, +c.dias || 0);
 
   gCash += perDay * diasAtivosNoMes;
 });
 
-const ganhos = gFree + Math.round(gCash);
+const gains = gFree + Math.round(gCash);
 
 
     // custos agregados daquele mês (se não houver, zero)
@@ -6734,14 +7670,14 @@ const ganhos = gFree + Math.round(gCash);
 
     // saldo
     const saldoIni = saldo;
-    saldo = saldo + ganhos - mm.custoLiquido;
+    saldo = saldo + gains - mm.custoLiquido;
 
     // render linha
     const pretty = label.charAt(0).toUpperCase() + label.slice(1);
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${pretty}</td>
-      <td class="right">${ganhos.toLocaleString('pt-BR')}</td>
+      <td class="right">${gains.toLocaleString('pt-BR')}</td>
       <td class="right">${(mm.gastoBruto||0).toLocaleString('pt-BR')}</td>
       <td class="right">${(mm.cashback||0).toLocaleString('pt-BR')}</td>
       <td class="right">${(mm.custoLiquido||0).toLocaleString('pt-BR')}</td>
@@ -6755,7 +7691,7 @@ const ganhos = gFree + Math.round(gCash);
     tbody.appendChild(tr);
 
     // totais (se mantiver rodapé)
-    totalGanhos     += ganhos;
+    totalgains     += gains;
     totalGastoBruto += (mm.gastoBruto||0);
     totalCashback   += (mm.cashback||0);
     totalLiquido    += (mm.custoLiquido||0);
@@ -6763,7 +7699,7 @@ const ganhos = gFree + Math.round(gCash);
 
   // atualiza rodapé se você ainda estiver usando <tfoot> (se não, pode remover)
   const el = (id)=>document.getElementById(id);
-  if (el('tGanhos'))      el('tGanhos').textContent      = totalGanhos.toLocaleString('pt-BR');
+  if (el('tgains'))      el('tgains').textContent      = totalgains.toLocaleString('pt-BR');
   if (el('tGastoBruto'))  el('tGastoBruto').textContent  = totalGastoBruto.toLocaleString('pt-BR');
   if (el('tCashback'))    el('tCashback').textContent    = totalCashback.toLocaleString('pt-BR');
   if (el('tLiquido'))     el('tLiquido').textContent     = totalLiquido.toLocaleString('pt-BR');
@@ -6836,18 +7772,136 @@ const ganhos = gFree + Math.round(gCash);
   window.hqShowPlanner = showPlanner;
   window.hqShowBuilder = showBuilder;
 
+
   
   // ===== Boot =====
   function boot(){
+    {
+  const btnOpenRanking = document.getElementById('btnOpenRanking');
+  if (btnOpenRanking){
+    btnOpenRanking.addEventListener('click', (ev)=>{
+      ev.stopPropagation();
+      document.body.classList.remove('show-planner');
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const rankPg = document.getElementById('pageRanking');
+      if (rankPg){ rankPg.classList.add('active'); rankPg.style.display='block'; }
+     // 1) abre 7d por padrão (sem borbulhar)
+document.getElementById('btnRank7d')?.dispatchEvent(new Event('click', { bubbles:false }));
+
+// 2) rola suavemente até o bloco dos rankings (logo abaixo das sinergias)
+requestAnimationFrame(()=> {
+  // escolha automática do alvo (ajusta se você tiver um id específico)
+  const target =
+    document.getElementById('pageRanking') ||
+    document.getElementById('rankingPanels') ||
+    document.getElementById('panelRank7d');
+
+  if (!target) return;
+
+  // compensa cabeçalho fixo, se existir
+  const sticky =
+    document.querySelector('.topbar, .header, #stickyHeader, .navbar, .nav-top');
+  const isFixed = sticky && getComputedStyle(sticky).position === 'fixed';
+  const offset = isFixed ? sticky.offsetHeight + 12 : 12;
+
+  const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+});
+    });
+  }
+
+  // botões internos do ranking
+  (function(){
+    const p7 = document.getElementById('panelRank7d');
+    const pA = document.getElementById('panelRankAll');
+    const pC = document.getElementById('panelRankChar');
+    const showOnly = (panel) => [p7,pA,pC].forEach(p => p && (p.hidden = (p!==panel)));
+    document.getElementById('btnRank7d') ?.addEventListener('click', ()=> showOnly(p7));
+    document.getElementById('btnRankAll')?.addEventListener('click', ()=> showOnly(pA));
+    document.getElementById('btnRankChar')?.addEventListener('click', ()=> showOnly(pC));
+  })();
+}
+// Detecta pelo <html lang="...">, com override possível por window.SITE_LANG
+const SITE_LANG = (window.SITE_LANG || document.documentElement.lang || 'pt-BR').toLowerCase();
+// Nome da aba no Sheets
+const COMMENTS_SHEET = SITE_LANG.startsWith('pt') ? 'commentsPTBR' : 'commentsEN';
     const btnOpen = document.getElementById('openPlannerBtn'); if(btnOpen) btnOpen.addEventListener('click', showPlanner);
+    {
+  const srcBtn = document.getElementById('openPlannerBtn')    // use o que já tem estilizado
+             || document.querySelector('#sidebar button, #sidebar .menu-btn');
+  const dstBtn = document.getElementById('btnOpenRanking');
+  if (srcBtn && dstBtn){
+    dstBtn.className = srcBtn.className;   // 🔁 copia as MESMAS classes
+    // se o src tiver um wrapper específico (ex.: display:block 100%), copie também estilos inline úteis
+    if (srcBtn.style.width)  dstBtn.style.width  = srcBtn.style.width;
+    if (srcBtn.style.display)dstBtn.style.display= srcBtn.style.display;
+  }
+}
     const btnBack = document.getElementById('btnVoltarBuilder'); if(btnBack) btnBack.addEventListener('click', showBuilder);
     
-    
+
+
     const btnToggle = document.getElementById('toggleSources');
     if(btnToggle){ btnToggle.addEventListener('click', ()=> setCollapsed(!document.body.classList.contains('planner-collapsed'))); }
     const btnReopen = document.getElementById('reopenSources');
     if(btnReopen){ btnReopen.addEventListener('click', ()=> setCollapsed(false)); }
     const prev = localStorage.getItem(COLLAPSE_KEY);
+
+  // === Toggle "Meme Version" no topo, ao lado do + Team ===
+(function placeTopMemeToggle(){
+  const addBtn = document.getElementById('addTeamBtn');
+  if (!addBtn || document.getElementById('memeToggleTop')) return; // já colocado
+
+  const wrap = document.createElement('div');
+  wrap.style.display = 'inline-flex';
+  wrap.style.alignItems = 'center';
+  wrap.style.gap = '10px';
+  wrap.style.marginLeft = '10px';
+
+  const label = document.createElement('label');
+  label.style.display = 'inline-flex';
+  label.style.alignItems = 'center';
+  label.style.gap = '6px';
+  label.innerHTML = `
+    <input id="memeToggleTop" type="checkbox" ${window.MEME_VERSION_ON ? 'checked' : ''}>
+    <div>Personagens da Comunidade</div>
+  `;
+
+  // Insere imediatamente depois do botão + Team
+  addBtn.parentNode.insertBefore(wrap, addBtn.nextSibling);
+  wrap.appendChild(label);
+
+  // Listener do toggle do topo
+  const top = label.querySelector('#memeToggleTop');
+  top.addEventListener('change', (e)=>{
+    window.MEME_VERSION_ON = !!e.target.checked;
+syncCharactersWithToggle(); // atualiza lista global "characters"
+updateWinDiamondsBtn();
+
+// se a lista do grid estiver aberta, reconstrói imediatamente
+if (isGridMenuOpen()) {
+  refreshGridMenu();
+}
+
+// manter os dois toggles sincronizados
+const otherId = this.id === 'memeToggle' ? 'memeToggleTop' : 'memeToggle';
+const other = document.getElementById(otherId);
+if (other && other.checked !== window.MEME_VERSION_ON) {
+  other.checked = window.MEME_VERSION_ON;
+}
+
+
+    // Se a aba Characters estiver aberta, re-renderiza
+    if (document.getElementById('charList')) {
+      showCharacterList();
+    }
+
+    // Sincroniza com o toggle da lateral (se existir)
+    const side = document.getElementById('memeToggle');
+    if (side && side.checked !== window.MEME_VERSION_ON) side.checked = window.MEME_VERSION_ON;
+  });
+})();
+
 // 1ª visita: mantém colapsado; visitas seguintes: respeita o salvo
 if (prev === null) {
   setCollapsed(true);
@@ -6895,7 +7949,7 @@ if ($addFree) {
   $addFree.addEventListener('click', () => {
     // linha nova FREE (usar/nome/qtd/freq)
     planner.free = planner.free || [];
-    planner.free.push({ usar: true, nome: 'Nova fonte FREE', qtd: 0, freq: 'Mensal' });
+    planner.free.push({ usar: true, nome: 'Nova fonte FREE', qtd: 0, freq: 'Monthly' });
     renderFree && renderFree();
     recalc && recalc();
     savePlanner && savePlanner();
@@ -7062,10 +8116,10 @@ function openStatsBondsModal(){
   const modal = document.createElement('div');
   modal.className  = 'item-modal';
 
-  let html = `<h3>Stats bonds ativos (${list.length})</h3>`;
+  let html = `<h3>Active Stats Bonds (${list.length})</h3>`;
 
   if (list.length === 0){
-    html += `<p style="opacity:.85">Nenhum vínculo de stats está sendo adicionado pela composição atual (titulares + conta).</p>`;
+    html += `<p style="opacity:.85">No stats bonds are active in main court, add characters to the account</p>`;
   } else {
     html += `<div class="stats-bond-list">`;
     list.forEach((b, i) => {
@@ -7102,9 +8156,9 @@ function openStatsBondsModal(){
 
   html += `
     <div class="item-actions">
-      <button id="addOwnedBtn" class="item-btn">Adicionar personagens da conta</button>
-      <button id="clearOwnedBtn" class="item-btn">Limpar tudo</button>
-      <button id="closeStatsModal" class="item-btn">Fechar</button>
+      <button id="addOwnedBtn" class="item-btn">Add Characters to your Account</button>
+      <button id="clearOwnedBtn" class="item-btn">Clear All</button>
+      <button id="closeStatsModal" class="item-btn">Close</button>
     </div>`;
   modal.innerHTML = html;
 
@@ -7254,47 +8308,47 @@ if (totalOut && t){
 })();
 
 // forma esperada dos itens (exemplo mínimo):
-// { id, mes: 'Setembro', tipo: 'Banner 1'|'Banner 2'|'Rebanner', nome: 'Oikawa UR', t150:0, m100:0, cashback:0 }
+// { id, mes: 'September', tipo: 'Banner 1'|'Banner 2'|'Rebanner', nome: 'Oikawa UR', t150:0, m100:0, cashback:0 }
 
 // forma esperada dos itens (exemplo mínimo):
-// { id, mes: 'Setembro', tipo: 'Banner 1'|'Banner 2'|'Rebanner', nome: 'Oikawa UR', t150:0, m100:0, cashback:0 }
+// { id, mes: 'September', tipo: 'Banner 1'|'Banner 2'|'Rebanner', nome: 'Oikawa UR', t150:0, m100:0, cashback:0 }
 
 (function setCNOrder(){
   const cnList = [
-  { id:'cn-agosto-banner-1-ushijima-ur', mes:'Agosto',   tipo:'Banner 1', nome:'Ushijima UR',    t150:0, m100:0, cashback:0 },
-  { id:'cn-agosto-banner-2-kuro-ur',     mes:'Agosto',   tipo:'Banner 2', nome:'Kuro UR',        t150:0, m100:0, cashback:0 },
+  { id:'cn-August-banner-1-ushijima-ur', mes:'August',   tipo:'Banner 1', nome:'Ushijima UR',    t150:0, m100:0, cashback:0 },
+  { id:'cn-August-banner-2-kuro-ur',     mes:'August',   tipo:'Banner 2', nome:'Kuro UR',        t150:0, m100:0, cashback:0 },
 
-  { id:'cn-setembro-banner-1-oikawa-ur', mes:'Setembro', tipo:'Banner 1', nome:'Oikawa UR',      t150:0, m100:0, cashback:0 },
-  { id:'cn-setembro-banner-2-bokuto-ur', mes:'Setembro', tipo:'Banner 2', nome:'Bokuto UR',      t150:0, m100:0, cashback:0 },
+  { id:'cn-September-banner-1-oikawa-ur', mes:'September', tipo:'Banner 1', nome:'Oikawa UR',      t150:0, m100:0, cashback:0 },
+  { id:'cn-September-banner-2-bokuto-ur', mes:'September', tipo:'Banner 2', nome:'Bokuto UR',      t150:0, m100:0, cashback:0 },
 
-  { id:'cn-outubro-banner-1-miya-atsumu-ur', mes:'Outubro', tipo:'Banner 1', nome:'Miya Atsumu UR', t150:0, m100:0, cashback:0 },
-  { id:'cn-outubro-rebanner-1-kuroo-ur',     mes:'Outubro', tipo:'Rebanner', nome:'Kuro UR',       t150:0, m100:0, cashback:0 },
-  { id:'cn-outubro-banner-2-miya-osamu-ur',  mes:'Outubro', tipo:'Banner 2', nome:'Miya Osamu UR',  t150:0, m100:0, cashback:0 },
+  { id:'cn-October-banner-1-miya-atsumu-ur', mes:'October', tipo:'Banner 1', nome:'Miya Atsumu UR', t150:0, m100:0, cashback:0 },
+  { id:'cn-October-rebanner-1-Kuro-ur',     mes:'October', tipo:'Rebanner', nome:'Kuro UR',       t150:0, m100:0, cashback:0 },
+  { id:'cn-October-banner-2-miya-osamu-ur',  mes:'October', tipo:'Banner 2', nome:'Miya Osamu UR',  t150:0, m100:0, cashback:0 },
 
-  { id:'cn-novembro-banner-1-Hoshiumi-ur',   mes:'Novembro', tipo:'Banner 1', nome:'Hoshiumi UR',       t150:0, m100:0, cashback:0 },
-  { id:'cn-novembro-banner-2-hirugami-ur',mes:'Novembro', tipo:'Banner 2', nome:'Hirugami UR',    t150:0, m100:0, cashback:0 },
+  { id:'cn-November-banner-1-Hoshiumi-ur',   mes:'November', tipo:'Banner 1', nome:'Hoshiumi UR',       t150:0, m100:0, cashback:0 },
+  { id:'cn-November-banner-2-hirugami-ur',mes:'November', tipo:'Banner 2', nome:'Hirugami UR',    t150:0, m100:0, cashback:0 },
 
-  { id:'cn-dezembro-banner-1-kageyama-ur', mes:'Dezembro', tipo:'Banner 1', nome:'Kageyama UR',   t150:0, m100:0, cashback:0 },
-  { id:'cn-dezembro-rebanner-1-oikawa-ur', mes:'Dezembro', tipo:'Rebanner', nome:'Oikawa UR',     t150:0, m100:0, cashback:0 },
-  { id:'cn-dezembro-banner-2-hinata-sp',   mes:'Dezembro', tipo:'Banner 2', nome:'Hinata SP',     t150:0, m100:0, cashback:0 },
+  { id:'cn-December-banner-1-kageyama-ur', mes:'December', tipo:'Banner 1', nome:'Kageyama UR',   t150:0, m100:0, cashback:0 },
+  { id:'cn-December-rebanner-1-oikawa-ur', mes:'December', tipo:'Rebanner', nome:'Oikawa UR',     t150:0, m100:0, cashback:0 },
+  { id:'cn-December-banner-2-hinata-sp',   mes:'December', tipo:'Banner 2', nome:'Hinata SP',     t150:0, m100:0, cashback:0 },
 
-  { id:'cn-janeiro-banner-1-kenma-sp',     mes:'Janeiro', tipo:'Banner 1', nome:'Kenma SP',       t150:0, m100:0, cashback:0 },
-  { id:'cn-janeiro-banner-2-nishinoya-sp', mes:'Janeiro', tipo:'Banner 2', nome:'Nishinoya SP',   t150:0, m100:0, cashback:0 },
+  { id:'cn-January-banner-1-kenma-sp',     mes:'January', tipo:'Banner 1', nome:'Kenma SP',       t150:0, m100:0, cashback:0 },
+  { id:'cn-January-banner-2-nishinoya-sp', mes:'January', tipo:'Banner 2', nome:'Nishinoya SP',   t150:0, m100:0, cashback:0 },
 
-  { id:'cn-fevereiro-banner-1-sugawara-sp', mes:'Fevereiro', tipo:'Banner 1', nome:'Sugawara SP', t150:0, m100:0, cashback:0 },
-  { id:'cn-fevereiro-banner-2-bokuto-sp',   mes:'Fevereiro', tipo:'Banner 2', nome:'Bokuto SP',   t150:0, m100:0, cashback:0 },
+  { id:'cn-February-banner-1-sugawara-sp', mes:'February', tipo:'Banner 1', nome:'Sugawara SP', t150:0, m100:0, cashback:0 },
+  { id:'cn-February-banner-2-bokuto-sp',   mes:'February', tipo:'Banner 2', nome:'Bokuto SP',   t150:0, m100:0, cashback:0 },
 
-  { id:'cn-marco-banner-1-akaashi-sp',  mes:'Março', tipo:'Banner 1', nome:'Akaashi SP',         t150:0, m100:0, cashback:0 },
-  { id:'cn-marco-banner-2-aone-sp',     mes:'Março', tipo:'Banner 2', nome:'Aone SP',            t150:0, m100:0, cashback:0 },
+  { id:'cn-March-banner-1-akaashi-sp',  mes:'March', tipo:'Banner 1', nome:'Akaashi SP',         t150:0, m100:0, cashback:0 },
+  { id:'cn-March-banner-2-aone-sp',     mes:'March', tipo:'Banner 2', nome:'Aone SP',            t150:0, m100:0, cashback:0 },
 
-  { id:'cn-abril-banner-1-Sakusa-ur', mes:'Abril', tipo:'Banner 1', nome:'Sakusa UR',    t150:0, m100:0, cashback:0 },
-  { id:'cn-abril-banner-2-komori-ur',     mes:'Abril', tipo:'Banner 2', nome:'Komori UR',        t150:0, m100:0, cashback:0 },
+  { id:'cn-April-banner-1-Sakusa-ur', mes:'April', tipo:'Banner 1', nome:'Sakusa UR',    t150:0, m100:0, cashback:0 },
+  { id:'cn-April-banner-2-komori-ur',     mes:'April', tipo:'Banner 2', nome:'Komori UR',        t150:0, m100:0, cashback:0 },
 
-  { id:'cn-maio-banner-1-tsuki-sp',  mes:'Maio', tipo:'Banner 1', nome:'Tsuki SP',               t150:0, m100:0, cashback:0 },
-  { id:'cn-maio-banner-2-kuro-sp',   mes:'Maio', tipo:'Banner 2', nome:'Kuro SP',                t150:0, m100:0, cashback:0 },
+  { id:'cn-May-banner-1-tsuki-sp',  mes:'May', tipo:'Banner 1', nome:'Tsuki SP',               t150:0, m100:0, cashback:0 },
+  { id:'cn-May-banner-2-kuro-sp',   mes:'May', tipo:'Banner 2', nome:'Kuro SP',                t150:0, m100:0, cashback:0 },
 
-  { id:'cn-junho-banner-1-kunimi-sp',      mes:'Junho', tipo:'Banner 1', nome:'Kunimi SP',       t150:0, m100:0, cashback:0 },
-  { id:'cn-junho-banner-2-koganegawa-sp',  mes:'Junho', tipo:'Banner 2', nome:'Koganegawa SP',   t150:0, m100:0, cashback:0 },
+  { id:'cn-June-banner-1-kunimi-sp',      mes:'June', tipo:'Banner 1', nome:'Kunimi SP',       t150:0, m100:0, cashback:0 },
+  { id:'cn-June-banner-2-koganegawa-sp',  mes:'June', tipo:'Banner 2', nome:'Koganegawa SP',   t150:0, m100:0, cashback:0 },
 ];
 
 // salvar & aplicar na UI (CN)
@@ -7314,7 +8368,7 @@ if (window.planner){
 <script>
 (function () {
   // === configure ===
-  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyN60xk81yZ6aeMoFsx0QSQtHTuQUNqpnuByVvs4Jw_IwNGsYQoKAHfS8Uteal18kJy/exec'; // ex.: https://script.google.com/macros/s/XXX/exec
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwSnplPmw7Agru5gA7bU1Gk9_tAQSw8j3ma1WEFOMmlUXqXVBp-Qe4Ey-5xMxMRASS-/exec'; // ex.: https://script.google.com/macros/s/XXX/exec
   // =================
 
   async function updateCounters() {
@@ -7345,5 +8399,6 @@ if (window.planner){
   }
 })();
 </script>
+
 </body>
 </html>
