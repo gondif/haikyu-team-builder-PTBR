@@ -1350,7 +1350,7 @@ body.modal-open{ overflow: hidden; }
 <script>
 /* ====== DADOS (mantidos) ====== */
 const characters = [
-{ nome: "Kageyama UR", data: "01/12/26", funcao: "S", img: "img/kageyamaUR.png", School: "Karasuno", vinculo: ["Dupla Excêntrica", "Gênios Karasuno"], Stats:{Serve:1782,Spike:1948,Set:1911,Receive:1625,Block:1709,Save:1539}, habilidades:[
+{ nome: "Kageyama UR", data: "01/12/26", funcao: "S", img: "img/kageyamaUR.png", School: "Karasuno", vinculo: ["Dupla Excêntrica", "Gênios Karasuno","Rei e Grande Rei"], Stats:{Serve:1782,Spike:1948,Set:1911,Receive:1625,Block:1709,Save:1539}, habilidades:[
   {nome:"Levantador Gênio", descricao:"Kageyama Tobio realiza um levantamento com poder de [Passe] × 120/135/150%. Ao levantar, o [Ataque Rápido] do companheiro que vai atacar é aumentado em [Passe] × 15%. Esse efeito dura até a bola passar para o outro lado da rede."},
   {nome:"Saque Assassino", descricao:"Kageyama Tobio realiza um Saque em Suspensão forte com uma potência de 130/145/160% de seu [Saque]. Se essa jogada for um saque perfeito, a [Técnica de Ataque] de seus colegas de time é aumentada em 10%. Esse efeito dura até a bola cruzar a rede 6 vezes."},
   {nome:"Rei Silencioso", descricao:"Aumenta a [Técnica de Ataque] de Kageyama Tobio em 8/10/12%. Quando ele está na quadra e o Saque, o Ataque Rápido ou a Cortada do oponente for uma boa jogada, Kageyama ganha 1 acúmulo do efeito de [Empenho Competitivo] até 5 acúmulos. Quando ele está na quadra e um aliado saca, faz um Ataque Rápido ou faz uma Cortada, 1 acúmulo do efeito de [Empenho Competitivo] é consumido, e a [Percepção] do jogador executando o Saque, Ataque Rápido ou Cortada é aumentado em 20/25/30%. Esse efeito dura até a bola passar pro outro lado da rede duas vezes. No começo de um rally, Kageyama ganhará um acúmulo do efeito de [Empenho Competitivo]"},
@@ -1739,11 +1739,11 @@ const characters = [
   {nome:"Parede Alta", descricao:"Executa um Bloqueio com poder [Bloqueio] × 260%/275%/290%/305%/320%.Se for um bloqueio duplo ou triplo, o [Reflexo] de Koganegawa +40%.Se Parede Alta não estiver em recarga, quando o Supremo de [Bloqueio] de outro aliado ativar, o poder desse bloqueio aumenta em [Bloqueio] do membro que bloqueou × 100%, então Parede Alta entra em recarga."}
 ], symbols: [ "img/blocksymbol.png","img/settersymbol.png" ] },
 
-{ nome: "Oikawa SP", funcao: "S", img: "img/oikawaSP.png", School: "Aoba Johsai", vinculo: ["Cultural Festival"], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
-  {nome:"Performance 100%", descricao:"xxx"},
-  {nome:"Saque Sniper", descricao:"xxx"},
-  {nome:"Torre de Comando", descricao:"xxx"},
-  {nome:"Passe Perfeito", descricao:"xxx"}
+{ nome: "Oikawa SP", funcao: "S", img: "img/oikawaSP.png", School: "Aoba Johsai", vinculo: ["Rei e Grande Rei"], Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"Performance 100%", descricao:"Atributo [Passe] do Oikawa aumenta em (Lv1: 10%, Lv2: 13%, Lv3: 16%). Ao iniciar o rally, o aliado na diagonal oposta ao Oikawa recebe o efeito 'Performance'. Esse efeito permanece até o aliado na diagonal oposta ao Oikawa sair da quadra. Enquanto aliado possuir o efeito 'Performance', os atributos [Percepção], [Reflexo] e atributos básicos desse aliado aumentam em 30%. Ao tocar na bola, os aliados recebem 1 acúmulo do efeito 'Tempo do Ataque'. A cada 1 acúmulo do efeito 'Tempo do Ataque', aumenta o atributo [Percepção] dos aliados em quadra em 1%, até 10 acúmulos. Quando Oikawa está em quadra e o aliado ativa uma habilidade Suprema, recebe 1 acúmulo do efeito 'Tempo do Ataque'."},
+  {nome:"Saque Sniper", descricao:"Oikawa realiza um Saque com força de [Saque] x (Lv1: 160%, Lv2:180%, Lv3: 200%). Se essa Saque resultar em Ace, o tempo de recarga da habilidade 2 é resetado. Ao possuir 5 acúmulos do efeito 'Liderar', a força desse Saque aumenta em [Saque] x 150%."},
+  {nome:"Torre de Comando", descricao:"Quando Oikawa está em quadra, no momento em que o aliado for realizar um Ataque Rápido/Potente, se possuir mais de 6 acúmulos do efeito 'Tempo do Ataque', todos os acúmulos são consumidos e Oikawa recebe 1 acúmulo do efeito 'Liderar', até 5 acúmulos. A cada 1 acúmulo consumido do efeito 'Tempo do Ataque', a força desse Ataque do aliado é aumentada em atributo [Ataque Rápido/Potente do aliado] x (Lv1: 15%, Lv2: 17.5%, Lv3: 20%). 3 - A cada 1 acúmulo do efeito 'Liderar', o atributo [Percepção] do aliado aumenta em (1 acúmulo: 40%, 2 acúmulos: 30%, 3 acúmulos: 20%, 4 acúmulos: 10%) e o atributo [Força] do Oikawa aumenta em 15%, até 60%. Ao possuir 5 acúmulos do efeito 'Liderar', quando o aliado que possui o efeito 'Performance' pontuar, o tempo de recarga das habilidades do Oikawa é resetado."},
+  {nome:"Passe Perfeito", descricao:"Oikawa realiza um Levantamento com força de [Passe] x (Lv1: 260%, Lv2: 275%, Lv3: 290%, Lv4: 305%, Lv5: 320%). Os adversários da Linha de Defesa/Trás tem sua Recepção reduzida em 20%. Esse efeito permanece por 2 cruzamentos de rede. Após a ativação da habilidade de Levantamento do Oikawa, se o primeiro Ataque Rápido/Potente logo após esse levantamento for de um aliado que possui o efeito 'Performance', os adversários da Linha de Ataque/Frente tem seu Bloqueio reduzido em 20%. Esse efeito permanece por 2 cruzamentos de rede. A cada set, ao ativar pela vez essa habilidade, os aliados recebem 5 acúmulos do efeito 'Tempo do Ataque'."}
 ], symbols: [ "img/powersymbol.png","img/settersymbol.png"] }
 ];
 window.charactersPT = characters;
@@ -1794,7 +1794,8 @@ const descricoesSinergia = {
   "Festival Fogos de Artificio": "Atributos principais dos aliados aumentam em 6%.Ao fim de cada rali, aplica [Raiva] na linha de frente do oponente (os [Cortada Potente]/[Ataque Rápido] deles ficam –10%).Dura até a bola atravessar a rede 8 vezes.Se o alvo já tiver [Raiva], aplica [Distração] em vez disso (os [Cortada Potente]/[Ataque Rápido] ficam –20%).Também dura até a bola atravessar a rede 8 vezes.[Distração] não pode ser removido.",
   "Festival de Esporte":"Quando um aliado tocar na bola, consome 1 de [Stamina] e aumenta os atributos principais desse membro em 3%/3,5%/4%/4,5%/5% por 2 cruzamentos de rede.Se esse toque de bola for um [Bloqueio], o [Bloqueio] desse membro aumenta em +5% adicionais por 2 cruzamentos de rede.",
   "Aliados no Campo de Treinamento":"Aliados em quadra que possuam habilidade de [Bloqueio] recebem +6%/7%/8%/9%/10% [Bloqueio].O tempo de recarga de <Block System> é reduzido em 2 cruzamentos de rede.Quando um aliado ativa uma habilidade de [Saque], aplica [Raiva] na linha de trás do oponente ([Ataque Potente]/[Ataque Rápido] −10%) por 8 cruzamentos de rede.",
-  "Parede de Ferro" :"Quando Koganegawa estiver em quadra, se pelo menos 2 membros incluídos neste Vínculo estiverem presentes, a Habilidade de Vínculo é ativada.Quando os aliados executarem um bloqueio duplo/triplo, os aliados da linha de frente recebem [Técnica de Defesa] +3%/4%/5%/6%/7% por 1 cruzamento de rede.Quando um aliado ativa uma habilidade de [Saque], o saque não falhará.Durante ralis em que um aliado ativa uma habilidade de [Saque], se os aliados executarem bloqueio duplo/triplo, ganha 1 acúmulo de [Poderoso Bloqueio] e [Criar Muralha de Ferro] (só ativa se o membro correspondente estiver em quadra)."
+  "Parede de Ferro" :"Quando Koganegawa estiver em quadra, se pelo menos 2 membros incluídos neste Vínculo estiverem presentes, a Habilidade de Vínculo é ativada.Quando os aliados executarem um bloqueio duplo/triplo, os aliados da linha de frente recebem [Técnica de Defesa] +3%/4%/5%/6%/7% por 1 cruzamento de rede.Quando um aliado ativa uma habilidade de [Saque], o saque não falhará.Durante ralis em que um aliado ativa uma habilidade de [Saque], se os aliados executarem bloqueio duplo/triplo, ganha 1 acúmulo de [Poderoso Bloqueio] e [Criar Muralha de Ferro] (só ativa se o membro correspondente estiver em quadra).",
+  "Rei e Grande Rei" : "Kageyama e Oikawa disputam pelo direito do Saque, o primeiro a ativar uma habilidade de Saque vence. Caso o Oikawa vença, Kageyama recebe o efeito 'Performance'. Esse efeito permanece por por 1 set. Caso o Kageyama vença, a cada vez que Oikawa tocar na bola, Kageyama recebe 1 acúmulo do efeito 'Competitivo'. Quando Oikawa ativa uma habilidade, Kageyama recebe mais 1 acúmulo do efeito 'Competitivo'."
 };
     
 /** Catálogo de MEMÓRIAS (exemplos; ajuste/expanda à vontade) */
@@ -2346,6 +2347,17 @@ img:"img/memories/MemoTerushimaSSR.png"
     },
     desc:"O [Bloqueio] do membro que equipa esta memória +24%.Quando esse membro participar de bloqueio duplo ou triplo, o [Levantamento] dele +3% (máx. 5 acúmulos).Enquanto esse membro estiver em quadra, quando um aliado sacar, os aliados da linha de frente recebem [Técnica de Defesa] +16% por 1 rali.",
     img:"img/memories/MemoKoganegawaSP.png"
+  },
+{
+    id:"mem_oikawaSP",
+    name:"Oikawa SP",
+    positions:["S"],
+    bonus:{
+      Serve:{flat:838}, Spike:{flat:656}, Set:{flat:838},
+      Receive:{flat:619}, Block:{flat:765}, Save:{flat:583}
+    },
+    desc:"Aumenta [Passe] do equipador em 24%;Ao iniciar o rally, se o aliado possuir mais de 2 acúmulos do efeito 'Tempo do Ataque' , os atributos de Ataque (Ataque Rápido/Potente, Passe, Saque, Percepção, Força e Técnica de Ataque) do equipador aumentam em 10%. Esse efeito permanece por 1 rally.",
+    img:"img/memories/MemoOikawaSP.png"
   },
 ];
 
