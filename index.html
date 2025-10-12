@@ -1234,6 +1234,7 @@ body.modal-open{ overflow: hidden; }
         <li><button class="menu-link bond-btn" data-section="help">ℹ️ Info</button></li>
         <li><button id="openPlannerBtn" class="menu-link bond-btn">💎 Planejador de Recursos</button></li>
         <li><button id="btnOpenRanking" type="button" data-sidebar-safe="true">🏆 Ranking</button></li>
+        <li><button id="btnXpCalc" class="menu-link bond-btn">🎯 Calculadora XP</button></li>
       </ul>
     <div id="sidebar-content">
         <p>Selecione uma opção acima.</p>
@@ -4931,6 +4932,22 @@ document.addEventListener("click", (e) => {
         menuBtn.style.display = "block";
     }
 });
+    // === util: fechar o Side Menu (usa os mesmos seletores que você já usa) ===
+function closeSideMenu() {
+  const sidebar = document.getElementById('sidebar') || document.querySelector('#sidebar, .sidebar');
+  const menuBtn = document.getElementById('menuBtn') || document.querySelector('#menuBtn, .menuBtn');
+
+  if (!sidebar) return;
+  // Remove a classe que indica aberto
+  sidebar.classList.remove('open');
+
+  // Reexibe o botão de abrir (mesma lógica que você já usa)
+  if (menuBtn) menuBtn.style.display = 'block';
+}
+
+// (opcional) expõe no escopo global pra outros módulos
+window.closeSideMenu = closeSideMenu;
+
     // Botão para limpar todo o time e resetar o banco
     document.getElementById("clearTeamBtn").addEventListener("click", (e) => {
     e.stopPropagation();
@@ -6887,8 +6904,122 @@ body.planner-open{ overflow: hidden; }
 .char-row{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; min-width:360px; }
 .char-row .mini-line{ display:flex; align-items:center; gap:.5rem; }
 .char-row small{ width:56px; text-align:center; }                        /* número centralizado */
+.xpcalc.hidden { display:none; }
+.xpcalc { background:#111; border:1px solid #333; border-radius:12px; padding:16px; }
+.xpcalc-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.xpcalc-row { display:flex; gap:12px; flex-wrap:wrap; margin:10px 0; }
+.xpcalc-col { display:flex; flex-direction:column; gap:6px; min-width:100px; }
+.xpcalc-col input, .xpcalc-col select { padding:6px 10px; border-radius:8px; border:1px solid #333; background:#1a1a1a; color:#fff; }
+.xpcalc-results { margin-top:10px; padding:10px; border:1px dashed #444; border-radius:10px; }
+.xpcalc-table summary { cursor:pointer; margin-top:10px; }
+.muted { color:#aaa; font-size:.9em; }
+.ghost { background:transparent; border:0; color:#aaa; font-size:20px; cursor:pointer; }
+.sidebtn { width:100%; margin-top:6px; }
+/* tamanho geral: ~2x (ajuste fino se quiser) */
+.xpcalc { 
+  font-size: 1.6rem;              /* era ~0.9–1.0rem; agora “2x-ish” */
+  line-height: 1.5;
+  margin-top: 24px;               /* espaço ACIMA do bloco */
+  margin-bottom: 32px;            /* espaço ABAIXO do bloco */
+}
 
+/* títulos um pouco maiores */
+.xpcalc h2 { font-size: 2rem; margin: 0 0 12px; }
+.xpcalc h3 { font-size: 1.6rem; margin: 16px 0 8px; }
+
+/* inputs/selects proporcionalmente maiores */
+.xpcalc-col input, 
+.xpcalc-col select { 
+  font-size: 1.1em; 
+  padding: 10px 14px; 
+  border-radius: 10px; 
+}
+
+/* summary da tabela com mais respiro */
+.xpcalc-table summary { 
+  font-size: 1.2em; 
+  padding: 10px 0 4px; 
+}
+/* centraliza títulos, labels e resultados */
+.xpcalc, 
+.xpcalc *:not(input):not(select) { 
+  text-align: center; 
+}
+
+/* inputs/selects centralizados internamente */
+.xpcalc-col input, 
+.xpcalc-col select { 
+  text-align: center; 
+}
+
+/* tabela de XP pura centralizada */
+#xpTable table { 
+  margin: 10px auto 0; 
+  text-align: center; 
+}
+#xpTable th, #xpTable td { 
+  padding: 6px 10px; 
+}
 </style>
+ <!-- PAINEL DA CALCULADORA (fica escondido até clicar no botão) -->
+<section id="xpCalcPanel" class="xpcalc hidden">
+  <header class="xpcalc-head">
+    <h2>Calculadora XP</h2>
+    <button id="xpCalcClose" class="ghost">×</button>
+  </header>
+
+  <div class="xpcalc-row">
+    <div class="xpcalc-col">
+      <label>Raridade</label>
+      <select id="xpRare">
+        <option>UR</option>
+        <option>SSR</option>
+        <option>SR</option>
+        <option>R</option>
+        <option>N</option>
+      </select>
+    </div>
+   <div class="xpcalc-row" id="alreadyWrap">
+  <label style="display:flex;align-items:center;gap:8px;">
+    <input id="alreadyAsc" type="checkbox">
+    <span id="alreadyLabel">Already X★</span>
+  </label>
+</div>
+    <div class="xpcalc-col">
+      <label>De</label>
+      <select id="xpFrom">
+        <option>1</option><option>20</option><option>40</option><option>60</option><option>70</option>
+      </select>
+    </div>
+
+    <div class="xpcalc-col">
+      <label>Para</label>
+      <select id="xpTo">
+        <option>20</option><option>40</option><option>60</option><option>70</option><option>80</option>
+      </select>
+    </div>
+  </div>
+
+  <h3>Foods</h3>
+  <div class="xpcalc-row foods">
+    <div class="xpcalc-col"><label>5★</label><input id="have5" type="number" min="0" value="0"></div>
+    <div class="xpcalc-col"><label>4★</label><input id="have4" type="number" min="0" value="0"></div>
+    <div class="xpcalc-col"><label>3★</label><input id="have3" type="number" min="0" value="0"></div>
+    <div class="xpcalc-col"><label>2★</label><input id="have2" type="number" min="0" value="0"></div>
+  </div>
+
+  <div class="xpcalc-results">
+    <div><b>XP Total necessário:</b> <span id="resTotalXp">0</span></div>
+    
+    <div style="margin-top:.5rem"><b>Total de Foods 2★ Necessários :</b> <span id="resNeed2">0</span></div>
+    <div id="resBreak" class="muted"></div>
+  </div>
+
+  <details class="xpcalc-table">
+    <summary>XP table (bruto, sem ascensões)</summary>
+    <div id="xpTable"></div>
+  </details>
+</section>
 <!-- 2) NOVA PÁGINA: Seção de Ranking (mantém o padrão das outras páginas, ex.: .page) -->
 <section id="pageRanking" class="page">
 
@@ -8431,7 +8562,205 @@ if (window.planner){
 }
 })();
 
+// === 3.1 TABELA "PURA" por raridade (seus dados) ===
+const XP_PURE = {
+  "N":   { "1-20":15200,  "20-40":139840, "40-60":552000, "60-70":410400, "70-80":454000 },
+  "R":   { "1-20":15200,  "20-40":139840, "40-60":552000, "60-70":410400, "70-80":454000 },
+  "SR":  { "1-20":17388,  "20-40":157320, "40-60":621000, "60-70":461700, "70-80":510750 },
+  "SSR": { "1-20":19320,  "20-40":174800, "40-60":690000, "60-70":513000, "70-80":567500 },
+  "UR":  { "1-20":19320,  "20-40":174800, "40-60":690000, "60-70":513000, "70-80":567500 },
+};
 
+// === 3.2 Bases para fabricar foods (assumindo usar N) ===
+const B20 = 15200, B40 = 155040, B60 = 707040;
+const C3 = B20;                         // 1 food 3★ (N)
+const C4 = B40 + 3*B20;                 // 1 food 4★ (N)
+const C5 = B60 + 3*(B40 + 3*B20);       // 1 food 5★ (N)
+
+// === 3.3 Utilitários ===
+const LV_STEPS = [1,20,40,60,70,80];
+
+// thresholds e “estrela” após a ascensão
+const THRESHOLDS = [
+  { lv:20, star:3, need: () => ({need3:0, need4:0, need5:0, add2:2}) }, // 2×2★ (XP=0)
+  { lv:40, star:4, need: () => ({need3:3, need4:0, need5:0, add2:0}) }, // 3×3★
+  { lv:60, star:5, need: () => ({need3:0, need4:3, need5:0, add2:0}) }, // 3×4★
+  { lv:70, star:6, need: () => ({need3:0, need4:0, need5:4, add2:0}) }, // 4×5★
+];
+
+function sumCharacterXP(rarity, from, to){
+  const t = XP_PURE[rarity];
+  let xp = 0;
+  const idxFrom = LV_STEPS.indexOf(from);
+  const idxTo   = LV_STEPS.indexOf(to);
+  for (let i=idxFrom; i<idxTo; i++){
+    const a = LV_STEPS[i], b = LV_STEPS[i+1];
+    const key = `${a}-${b}`;
+    xp += t[key];
+  }
+  return xp;
+}
+
+function sumCharacterXP(rarity, from, to){
+  const t = XP_PURE[rarity];
+  let xp = 0;
+  const idxFrom = LV_STEPS.indexOf(from);
+  const idxTo   = LV_STEPS.indexOf(to);
+  for (let i=idxFrom; i<idxTo; i++){
+    const a = LV_STEPS[i], b = LV_STEPS[i+1];
+    xp += t[`${a}-${b}`];
+  }
+  return xp;
+}
+
+// Só cobra ascensão em p se To > p e (From < p ou (From==p e !alreadyAtP))
+function foodsRequiredOnPath(from, to, alreadyAtP){
+  const need = { need3:0, need4:0, need5:0, base2:0 };
+  for (const t of THRESHOLDS){
+    if (to > t.lv && (from < t.lv || (from === t.lv && !alreadyAtP))){
+      const add = t.need();
+      need.need3 += add.need3 || 0;
+      need.need4 += add.need4 || 0;
+      need.need5 += add.need5 || 0;
+      need.base2 += add.add2 || 0; // 2×2★ da ascensão de 20
+    }
+  }
+  return need;
+}
+
+function base2Needed(need3, need4, need5){
+  // 3★ = 2×2★; 4★ = 3×(2×2★)=6×2★; 5★ = 3×(6×2★)=18×2★
+  return need3*2 + need4*6 + need5*18;
+}
+
+function updateAlreadyUI(){
+  const from = parseInt(document.getElementById('xpFrom').value,10);
+  const wrap = document.getElementById('alreadyWrap');
+  const lab  = document.getElementById('alreadyLabel');
+  const cb   = document.getElementById('alreadyAsc');
+
+  const map = {20:3, 40:4, 60:5, 70:6};
+  if (map[from]){
+    wrap.style.display = '';
+    lab.textContent = `Already ${map[from]}★ at Lv.${from}?`;
+  } else {
+    wrap.style.display = 'none';
+    cb.checked = false;
+  }
+}
+
+
+function compute(){
+  const rare = document.getElementById('xpRare').value;
+  const from = parseInt(document.getElementById('xpFrom').value,10);
+  const to   = parseInt(document.getElementById('xpTo').value,10);
+  const already = document.getElementById('alreadyAsc').checked;
+
+  if (LV_STEPS.indexOf(from) >= LV_STEPS.indexOf(to)) {
+    document.getElementById('resTotalXp').textContent = '—';
+    document.getElementById('resNeed2').textContent   = '—';
+    document.getElementById('resBreak').textContent   = 'Select a valid range.';
+    return;
+  }
+
+  const have5 = Math.max(0, parseInt(document.getElementById('have5').value||'0',10));
+  const have4 = Math.max(0, parseInt(document.getElementById('have4').value||'0',10));
+  const have3 = Math.max(0, parseInt(document.getElementById('have3').value||'0',10));
+  const have2 = Math.max(0, parseInt(document.getElementById('have2').value||'0',10));
+
+  const charXP = sumCharacterXP(rare, from, to);
+
+  // (TRECHO NOVO — ADICIONAR)
+const req0 = foodsRequiredOnPath(from, to, already); // req0.need3/need4/need5 e req0.base2(2★ de 20)
+let need3 = req0.need3;
+let need4 = req0.need4;
+let need5 = req0.need5;
+
+// 1) Consumir 5★ prontos para cobrir need5 (não há XP aqui)
+const rem5 = Math.max(0, need5 - have5);
+
+// 2) 4★ necessários = need4 (da ascensão 60) + 3 por cada 5★ faltante
+const need4_total = need4 + 3*rem5;
+
+// Consumir 4★ prontos
+const used4 = Math.min(have4, need4_total);
+const rem4  = need4_total - used4; // 4★ que ainda precisam ser FABRICADOS
+
+// 3) 3★ necessários = need3 (da ascensão 40) + 3 por cada 4★ a fabricar
+const need3_total = need3 + 3*rem4;
+
+// Consumir 3★ prontos
+const used3 = Math.min(have3, need3_total);
+const rem3  = need3_total - used3; // 3★ que ainda precisam ser FABRICADOS
+
+// 4) 2★ necessários = 2 do threshold 20 (se aplicável) + 2 por cada 3★ a fabricar
+const need2Total = (req0.base2 || 0) + 2*rem3;
+
+// 5) XP das foods a FABRICAR (apenas o que realmente falta fazer)
+// - cada 5★ que SOBROU exige 1 base que vai até 60 → B60
+// - cada 4★ a fabricar exige 1 base que vai até 40 → B40
+// - cada 3★ a fabricar exige 1 base que vai até 20 → B20
+const xpFoods = rem5*B60 + rem4*B40 + rem3*B20;
+
+// 6) Faltam 2★?
+const missing2 = Math.max(0, need2Total - have2);
+
+
+  const totalXP = charXP + xpFoods;
+
+  document.getElementById('resTotalXp').textContent = totalXP.toLocaleString();
+  document.getElementById('resNeed2').textContent   = missing2.toLocaleString();
+  document.getElementById('resBreak').innerHTML =
+  `<span class="muted">Personagem: ${charXP.toLocaleString()} | Foods XP: ${xpFoods.toLocaleString()} `
+  + `| Calculos depois de usar suas foods → 3★ para craftar: ${rem3}, 4★ para craftar: ${rem4}, 5★ para craftar: ${rem5} `
+  + `| Base 2★ necessários: ${need2Total.toLocaleString()}</span>`;
+}
+
+// === 3.4 UI: abrir/fechar painel ===
+(function setupXpCalc(){
+  const panel = document.getElementById('xpCalcPanel');
+  const btn   = document.getElementById('btnXpCalc');
+  const close = document.getElementById('xpCalcClose');
+
+  // ajuste aqui se seu grid tiver outro seletor
+  const grid = document.getElementById('mainCourt') || document.querySelector('.main-court');
+
+  function openPanel(){
+    if (grid) grid.style.display = 'none';
+    panel.classList.remove('hidden');
+    if (typeof closeSideMenu === 'function') closeSideMenu();
+
+  // ▼ SCROLL ATÉ A CALCULADORA
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    updateAlreadyUI();
+    compute();
+  }
+  function closePanel(){
+    panel.classList.add('hidden');
+    if (grid) grid.style.display = '';
+  }
+
+  btn?.addEventListener('click', openPanel);
+  close?.addEventListener('click', closePanel);
+
+  ['xpRare','xpFrom','xpTo','have5','have4','have3','have2','alreadyAsc'].forEach(id=>{
+    const el = document.getElementById(id);
+    el?.addEventListener('input', ()=>{ if(id==='xpFrom') updateAlreadyUI(); compute(); });
+    el?.addEventListener('change', ()=>{ if(id==='xpFrom') updateAlreadyUI(); compute(); });
+  });
+
+  // monta a pequena tabela com os dados puros
+  const holder = document.getElementById('xpTable');
+  if (holder){
+    const rows = [];
+    rows.push('<table><thead><tr><th>Raridade</th><th>1→20</th><th>20→40</th><th>40→60</th><th>60→70</th><th>70→80</th></tr></thead><tbody>');
+    Object.keys(XP_PURE).forEach(r=>{
+      const t = XP_PURE[r];
+      rows.push(`<tr><td>${r}</td><td>${t['1-20'].toLocaleString()}</td><td>${t['20-40'].toLocaleString()}</td><td>${t['40-60'].toLocaleString()}</td><td>${t['60-70'].toLocaleString()}</td><td>${t['70-80'].toLocaleString()}</td></tr>`);
+    });
+    rows.push('</tbody></table>');
+    holder.innerHTML = rows.join('');
+}})();
 
 </script>
 <script>
