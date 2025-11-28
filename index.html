@@ -1827,12 +1827,19 @@ const characters = [
   {nome:"Ressonances",descricao:"<li>S1/3/5: Aumenta os atributos básicos em 13%.</li><li>S2:[Percepção] do Tendo SP +25% e [Empenho] do Tendo + (Força × 60%), até um máximo de 60%</li><li>S4:Quando o Tendo está em quadra e um aliado usa a Ultimate, todos os aliados recebem +1% no atributo principal, acumulando até 20 stacks.Esse efeito dura um set.Na primeira vez que o Tendo sair da quadra, o jogador que entrar no lugar dele recebe +15% em [Técnica de Defesa] por 1 rally.A próxima recepção realizada se tornará automaticamente uma Jogada Superior e não causará ponto perdido.</li>"}
 ], symbols: [ "img/blocksymbol.png","img/quicksymbol.png" ] },
     { nome: "Ginjima SP", funcao: "WS", img: "img/ginjimaSP.png", School: "Inarizaki", vinculo: ["ZZZ"],Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
-  {nome:"x",descricao:"x"},
-  {nome:"x",descricao:"x"},
-  {nome:"x",descricao:"x"},
-  {nome:"x",descricao:"x"},
+  {nome:"Skill 1",descricao:"O [Power Attack] de Ginjima aumenta em 10/15/20%.Quando Ginjima está em quadra e a recepção do oponente não é BAD, o ataque potente de Ginjima é executado com +10% do seu [Ataque Potente], acumulando até 5 stacks.Esse efeito dura pelo restante do set."},
+  {nome:"Skill 2",descricao:"Ginjima realiza uma recepção com 140/160/180% da sua [Recepção].O próximo ataque potente de Ginjima é executado com +40% do seu [Ataque Potente]."},
+  {nome:"Skill 3",descricao:"Quando Ginjima realiza um Ataque Potente, seu [Ataque Potente] aumenta baseado no [Ataque Rápido], até um aumento máximo de 1500/1750/2000.Para as duas primeiras investidas de cada set, sua [Percepção] aumenta em 100% e sua [Força] aumenta em 30/40/50%.Esse efeito dura até a bola cruzar a rede duas vezes.Se o Ataque Potente de Ginjima for a primeira Cortada Ultimate (skill 4 de corte) do set, o [Ataque Potente] dele aumenta em 100%, durando até a bola cruzar a rede duas vezes."},
+  {nome:"Skill 4",descricao:"Ginjima executa um Ataque Potente com 260/280/300/320/340% do seu [Ataque Potente].O bloqueador e/ou o recebedor inimigo perdem 8 de stamina.Se o atributo da equipe dele estiver em vantagem, a [Tecnica de Ataque] de Ginjima aumenta em 20%."},
+  {nome:"Ressonances",descricao:"<li>S1/3/5: Aumenta os atributos básicos em 13%.</li><li>S2:Ginjima não é afetado por efeitos negativos. Quando o ataque potente de Ginjima resulta em um acerto crítico, o próximo power spike é executado com +60% do seu [Ataque Potente].</li><li>S4:O cooldown da ultimate dele é alterado para 4 cruzamentos de rede.Mudança no efeito de [Ataque Ilimitado]:A condição para aumentar [Percepção] e [Força] muda de [duas primeiras investidas por set] para [três primeiras investidas por set]. Quando Ginjima realiza um ataque potente, o próximo aliado a realizar uma cortada (Potente ou Rápida) executará o golpe com +50% adicional do seu respectivo [Ataque Potente] / [Ataque Rápido].</li>"}
+], symbols: [ "img/powersymbol.png","img/receivesymbol.png" ] },
+    { nome: "Atsumu SP", funcao: "S", img: "img/atsumuSP.png", School: "Inarizaki", vinculo: ["VVV"],Stats:{Serve:1,Spike:1,Set:1,Receive:1,Block:1,Save:1}, habilidades:[
+  {nome:"Free play",descricao:"Miya Atsumu's [Set] and [Serve] are increased by ##%. At the start of each point, any player with an [Awareness] below ##% will gain the [Insight] effect. This effect increases the players [Attack Technique] and [Defensive Technique] by ##%."},
+  {nome:"Overwhelming Serve",descricao:"Miya Atsumu alternates between a float and a jump top (similarly to his UR version) Float serve - Miya Atsumu performs a flat serve with ##% of his [Serve], opponents may not use their spike ultimates for # net crossings. Jump Top - Miya Atsumu performs a Jump Top with ##% of his [Serve], opponents may not use their receive ultimates for # net crossings. "},
+  {nome:"Intuition Setting",descricao:"Miya Atsumu's first set of every point has its [Set] increased by ##%. When Miya Atsumu activates Reflexive Setting, the [Attack Technique] and [Defensive Technique] of teammates with the [Insight] effect will be increased by ##%. If the [Attack Technique] of a teammate performing a Spike is above ##%, this Spike will always bo a Critical Play."},
+  {nome:"Reflexive Set",descricao:"Miya Atsumu will perform a set with power equal to ##% of his [Set] stat. If Miya Atsumu's [Attack Technique] is above a ##%, his next set is guaranteed to be critical."},
   {nome:"Ressonances",descricao:"xxx"}
-], symbols: [ "img/powersymbol.png" ] },
+], symbols: [ "img/quicksymbol.png","img/servesymbol.png","img/settersymbol" ] },
 ];
 window.charactersPT = characters;
 
@@ -2484,6 +2491,28 @@ img:"img/memories/MemoTerushimaSSR.png"
     desc:"O membro que tiver essa memória equipada terá sua [Percepção] aumentado em 20%. Quando esse membro ativar sua Ultimate, seus [Ataque Rapido] e [Bloqueio] aumentarão em 4/8%, e sua [Técnica de Defesa] também aumentará em 4/8%.Máximo de 2 stacks.Esse efeito dura até a bola cruzar a rede 6 vezes.",
     img:"img/memories/MemoTendoSP.png"
   },
+{
+    id:"mem_ginjimaSP",
+    name:"Ginjima SP",
+    positions:["WS"],
+    bonus:{
+      Serve:{flat:765}, Spike:{flat:838}, Set:{flat:583},
+      Receive:{flat:838}, Block:{flat:656}, Save:{flat:619}
+    },
+    desc:"O membro que tiver essa memória equipada terá sua [Força] aumentado em 12/24%.Para as primeiras três investidas (Rápido ou Potente) de cada set desse membro, sua [Força] e [Ataque Rápido] aumentam em 15%.Quando esse membro acerta um corte (Rápido ou Potente), os parâmetros principais de todos os aliados aumentam em 2%, acumulando até 6 stacks.",
+    img:"img/memories/MemoGinjimaSP.png"
+  },
+{
+    id:"mem_atsumuSP",
+    name:"Atsumu SP",
+    positions:["S"],
+    bonus:{
+      Serve:{flat:765}, Spike:{flat:838}, Set:{flat:583},
+      Receive:{flat:838}, Block:{flat:656}, Save:{flat:619}
+    },
+    desc:"no info yet",
+    img:"img/memories/MemoAtsumuSP.png"
+  },
 ];
 
 /** Catálogo de SETS (POTENTIAL)  * */
@@ -2654,6 +2683,7 @@ window.STATS_BONDS = {
   "‘Absolute King’ and Changeable Setter": {"Ushijima SP": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%","Shirabu SSR": "Set +5/7/9/12/15, Set +1/2/3/4/5%"},
   "From Great Ace to Ace": {"Ushijima SP": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%","Goshiki SSR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%"},
   "‘Ushiwaka’ and ‘Manager’": {"Ushijima SP": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%","Ohira SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%"},
+  "Inarizaki 5": {"Atsumu UR": "Set +5/7/9/12/15, Set +1/2/3/4/5%","Osamu UR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%","Rintaro SSR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%","Ginjima SP": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%","Yuto R": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%"},
 
 };
 window.STATS_BOND_MEMBERS = {
@@ -2732,6 +2762,7 @@ window.STATS_BOND_MEMBERS = {
   "‘Absolute King’ and Changeable Setter": ["Ushijima SP,Shirabu SSR"],
   "From Great Ace to Ace": ["Ushijima SP, Goshiki SSR"],
   "‘Ushiwaka’ and ‘Manager’": ["Ushijima SP,Ohira SSR"],
+  "Inarizaki 5":["Atsumu UR,Osamu UR,Rintaro SSR,Ginjima SP,Yuto R"],
 };
 
 let selecionados = [];
