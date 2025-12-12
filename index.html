@@ -1819,7 +1819,7 @@ const characters = [
   {nome:"Poder de Classe Canhão",descricao:"<li>CD: 8 cruzamentos de rede</li><li>Ushijima [Festival Cultural] realiza um ataque de poder com força igual a [Ataque Potente] x 260/275/290/305/320%.</li><li>Se a recepção do oponente for realizada por um jogador diferente daquele que recebeu o ataque anterior de Ushijima, o poder dessa recepção será reduzido em [Recepção] x 50%. Esse efeito dura até a bola cruzar a rede duas vezes.</li>"},
   {nome:"Ressonances",descricao:"<li>S1/3/5: Aumenta os atributos básicos em 13%.</li><li>S2: O tempo de recarga de [Poder de Classe Canhão] (Skill 4) é reduzido em 4 cruzamentos de rede.Quando Ushijima [Festival Cultural] realiza um ataque de poder e o resultado excede [Ataque Potente] x 300%, o poder desse ataque aumenta em 30% x [Ataque Potente].</li><li>S4:No início da partida, a [Percepção] de Ushijima [Festival Cultural] aumenta em 100%.Ao final de cada rali, a [Percepção] de Ushijima [Festival Cultural] é reduzido em 20% e o [Ataque Potente] aumenta em 6%. Acumula até 5 vezes.</li>"}
 ], symbols: [ "img/powersymbol.png", "img/servesymbol.png" ] },
-     { nome: "Tendo SP", funcao: "MB", img: "img/tendoSP.png", School: "Shiratorizawa", vinculo: ["Amigo de Vida Inteira"],Stats:{Serve:1754,Spike:1881,Set:1748,Receive:1577,Block:1951,Save:1489}, habilidades:[
+     { nome: "Tendo SP", funcao: "MB", img: "img/tendoSP.png", School: "Shiratorizawa", vinculo: ["Amigo de Vida Inteira","Férias de Inverno"],Stats:{Serve:1754,Spike:1881,Set:1748,Receive:1577,Block:1951,Save:1489}, habilidades:[
   {nome:"Bloqueio Intuitivo",descricao:"O [Bloqueio] do Tendo SP aumenta em 12/15/18%.Quando ele usa [Percepção], a chance de ativar uma Jogada Superior em Recepção / Cobertura / Bloqueio aumenta.No início da partida, a [Reflexo] do Tendo (Winter Break) é reduzida para 0%, e para cada 1% reduzido, o seu [Empenho] aumenta em 2%."},
   {nome:"Ataque Afiado",descricao:"Tendo SP realiza um ataque rápido com poder igual a [Ataque Rápido] × 140/150/160%.Se o poder desse ataque rápido ultrapassar [Ataque Rápido] × 200%, então [Ataque Rápido] aumenta em 20%.Esse efeito dura até a bola cruzar a rede 8 vezes."},
   {nome:"Estilo Não Convencional",descricao:"No início da partida, a [Percepção] do Tendo SP aumenta em 50%.Quando ele realiza uma Jogada Superior, sua [Percepção] diminui em 10%, e seu [Bloqueio] aumenta em 3/4/5%.Esse efeito pode acumular até 6 stacks.Quando o Tendo SP faz uma Jogada Superior, o poder da habilidade aumenta em 65% do atributo correspondente ao tipo da jogada.Se não for uma Jogada Superior, o poder da habilidade diminui em 85% do atributo correspondente.Quando um aliado ativa sua Ultimate, esse aliado recebe 1 stack de [Sinergia].Ao atingir 2 stacks, todos os stacks de [Sinergia] são removidos e o aliado recebe +15% em [Técnica de Ataque] e [Técnica de Defesa].Esse efeito dura 2 rallies.A Moral da sua equipe aumenta em 10."},
@@ -1833,13 +1833,20 @@ const characters = [
   {nome:"Skill 4",descricao:"Ginjima executa um Ataque Potente com 260/280/300/320/340% do seu [Ataque Potente].O bloqueador e/ou o recebedor inimigo perdem 8 de stamina.Se o atributo da equipe dele estiver em vantagem, a [Tecnica de Ataque] de Ginjima aumenta em 20%."},
   {nome:"Ressonances",descricao:"<li>S1/3/5: Aumenta os atributos básicos em 13%.</li><li>S2:Ginjima não é afetado por efeitos negativos. Quando o ataque potente de Ginjima resulta em um acerto crítico, o próximo power spike é executado com +60% do seu [Ataque Potente].</li><li>S4:O cooldown da ultimate dele é alterado para 4 cruzamentos de rede.Mudança no efeito de [Ataque Ilimitado]:A condição para aumentar [Percepção] e [Força] muda de [duas primeiras investidas por set] para [três primeiras investidas por set]. Quando Ginjima realiza um ataque potente, o próximo aliado a realizar uma cortada (Potente ou Rápida) executará o golpe com +50% adicional do seu respectivo [Ataque Potente] / [Ataque Rápido].</li>"}
 ], symbols: [ "img/powersymbol.png","img/receivesymbol.png" ] },
-    { nome: "Atsumu SP", funcao: "S", img: "img/atsumuSP.png", School: "Inarizaki", vinculo: ["VVV"],Stats:{Serve:1887,Spike:1744,Set:1951,Receive:1578,Block:1755,Save:1485}, habilidades:[
+    { nome: "Atsumu SP", funcao: "S", img: "img/atsumuSP.png", School: "Inarizaki", vinculo: ["Férias de Inverno","Gêmeos Mais Fortes do Ensino Médio"],Stats:{Serve:1887,Spike:1744,Set:1951,Receive:1578,Block:1755,Save:1485}, habilidades:[
   {nome:"Free play",descricao:"Miya Atsumu's [Set] and [Serve] are increased by ##%. At the start of each point, any player with an [Awareness] below ##% will gain the [Insight] effect. This effect increases the players [Attack Technique] and [Defensive Technique] by ##%."},
   {nome:"Overwhelming Serve",descricao:"Miya Atsumu alternates between a float and a jump top (similarly to his UR version) Float serve - Miya Atsumu performs a flat serve with ##% of his [Serve], opponents may not use their spike ultimates for # net crossings. Jump Top - Miya Atsumu performs a Jump Top with ##% of his [Serve], opponents may not use their receive ultimates for # net crossings. "},
   {nome:"Intuition Setting",descricao:"Miya Atsumu's first set of every point has its [Set] increased by ##%. When Miya Atsumu activates Reflexive Setting, the [Attack Technique] and [Defensive Technique] of teammates with the [Insight] effect will be increased by ##%. If the [Attack Technique] of a teammate performing a Spike is above ##%, this Spike will always bo a Critical Play."},
   {nome:"Reflexive Set",descricao:"Miya Atsumu will perform a set with power equal to ##% of his [Set] stat. If Miya Atsumu's [Attack Technique] is above a ##%, his next set is guaranteed to be critical."},
   {nome:"Ressonances",descricao:"xxx"}
-], symbols: [ "img/quicksymbol.png","img/servesymbol.png","img/settersymbol" ] },
+], symbols: [ "img/quicksymbol.png","img/settersymbol" ] },
+    { nome: "Osamu SP", funcao: "OP", img: "img/osamuSP.png", School: "Inarizaki", vinculo: ["Férias de Inverno","Gêmeos Mais Fortes do Ensino Médio"],Stats:{Serve:1766,Spike:1967,Set:1841,Receive:1573,Block:1750,Save:1490}, habilidades:[
+  {nome:"Ataque de Alta Velocidade",descricao:"O [Ataque Rápido] de Osamu SP aumenta em [Passe] × 30/40/50%, podendo aumentar até o máximo de 1000/1250/1500. No início da partida, a [Percepção] de Osamu SP é reduzido para 0% e, para cada 1% reduzido, o [Ataque Rápido] aumenta em 2%, podendo aumentar até o máximo de 100%. Ao final de cada rally, a [Percepção] de Osamu SP é novamente reduzido para 0%."},
+  {nome:"Passe Especialista",descricao:"Osamu SP realiza um passe com 150% do seu [Passe]. Quando um aliado ativa uma skill de passe enquanto Osamu SP está em quadra, o poder do \"Passe Especialista\" (skill 2) aumenta em [Passe] × 30/40/50%, podendo aumentar até o máximo de 210/240/250%."},
+  {nome:"Ajuste Tático",descricao:"Quando um aliado ativa uma skill de passe enquanto Osamu SP está em quadra, a [Técnica de Ataque] e a [Técnica de defesa] do aliado que utilizou o set aumentam em 2/2,5/3%. Acumula até 4 stacks. Quando Osamu SP ativa sua Ultimate, A [Técnica de Ataque] aumenta em [Técnica de Ataque] × 50%, podendo aumentar até o máximo de 100%. Este efeito dura por 2 cruzamentos de rede. (Se o poder do \"Passe Especialista\" for igual ou superior a [Passe] × 300%, o [Passe] de Osamu SP aumenta em 50% e o \"Set Especialista\" se torna um movimento especial.)"},
+  {nome:"Ataque Rápido que Atrai o Oponente",descricao:"Osamu SP executa um ataque rápido com [Ataque Rápido] × 255/270/285/300/315%. Se a [Técnica de Ataque] de Osamu SP for 40% ou maior, o poder desse ataque rápido aumenta em [Ataque Rápido] × 60% e ele não pode ser bloqueado."},
+  {nome:"Ressonances",descricao:"<li>S1/3/5: Aumenta os atributos básicos em 13%.</li><li>S2:Quando um aliado ativa uma skill de passe enquanto Osamu SP está em quadra, o [Ataque Rápido] do aliado aumenta em 10%, podendo aumentar até o máximo de 30%. Esse efeito dura por 1 rally. O [Ataque Rápido] de Osamu SP aumenta adicionalmente em 5%, podendo aumentar até 15%.</li><li>S4:No início da partida, o poder do \"Passe Especialista\" aumenta em [Passe] × 150%. Quando Osamu SP realiza um passe, a [Técnica de Ataque] do membro que realiza o spike (Ataque Potente/Rápido) aumenta em [Técnica de Ataque] de Osamu SP × 60%, podendo aumentar até o máximo de 60%. Este efeito dura por 2 cruzamentos de rede.</li>"}
+], symbols: [ "img/quicksymbol.png","img/settersymbol.png" ] },
 ];
 window.charactersPT = characters;
 
@@ -1895,6 +1902,8 @@ const descricoesSinergia = {
   "Rivais de Aoba Jousai":"Quando Ushijima SP e Oikawa SP estão em quadra, o [Passe] e o [Saque] de Oikawa aumentam.Quando Oikawa SP faz o levantamento e Ushijima SP realiza um ataque poderoso, ganha 1 acúmulo do efeito [Ritmo de Ataque].",
   "Cultural Festival":"Quando há um membro em quadra com o buff de [Posse de Bola], Oikawa (Festival Cultural) e Ushijima (Festival Cultural) aumentam a recuperação de stamina de todos os membros da equipe em 2%.Durante os ralis, quando a bola cruza a rede duas vezes, todos os membros em quadra recebem +4% em [Força] e [Recepção].Pode acumular até 4 vezes.",
   "Amigo de Vida Inteira":"Quando Ushijima SP recebe um efeito negativo, o [Bloqueio] e o [Ataque Rápido] de Tendo SP aumentam em 4%.Pode aumentar até 12% no máximo. Quando o bloqueio de Tendo SP resulta em uma Jogada Superior, o poder do Ataque Potente de Ushijima SP aumenta em [Ataque Potente] × 10%.Esse efeito dura por 1 rally.",
+  "Férias de Inverno":"Se Atsumu SP e Osamu SP estiverem separados entre a linha de frente e a linha de trás, a [Força] de ambos aumenta em 30%. Ao final de cada rally, a [Percepção] de Tendo SP será reduzida para 0 e sua [Técnica de defesa] aumentará em 10%. Acumula até 3 stacks. Quando Tendo SP tocar na bola pela primeira vez em cada rally, será sempre crítico. No início de um rally, a [Técnica de ataque] e a [Técnica de defesa] de todos os membros do time aumentam em 2% × o número de membros (Winter Break). É possível aumentar até 12%.",
+  "Gêmeos Mais Fortes do Ensino Médio":"No início da partida, Osamu SP ganha 1 stack de [Engenhosidade]. Depois que Atsumu SP e Osamu SP fizerem 1 set cada, a [Técnica de ataque] e a [Técnica de defesa] dos aliados aumentam em 12,5%. Esse efeito dura por 1 rally.",
 };
     
 /** Catálogo de MEMÓRIAS (exemplos; ajuste/expanda à vontade) */
@@ -2510,8 +2519,19 @@ img:"img/memories/MemoTerushimaSSR.png"
       Serve:{flat:765}, Spike:{flat:838}, Set:{flat:583},
       Receive:{flat:838}, Block:{flat:656}, Save:{flat:619}
     },
-    desc:"no info yet",
+    desc:"O membro que estiver com esta Memória equipada recebe [Passe] +24%. No início de um rally, aliados com [Percepção] de 50% ou menos recebem Parâmetros Principais +7%, e aliados com [Percepção] de 30% ou menos recebem adicionalmente [Potente]/[Rápido] +10%.",
     img:"img/memories/MemoAtsumuSP.png"
+  },
+{
+    id:"mem_osamuSP",
+    name:"Osamu SP",
+    positions:["OP"],
+    bonus:{
+      Serve:{flat:656}, Spike:{flat:838}, Set:{flat:838},
+      Receive:{flat:583}, Block:{flat:765}, Save:{flat:619}
+    },
+    desc:"O membro que equipa esta Memória recebe [Ataque Rápido] +12%.Quando um aliado realiza um Passe, a [Força] desse membro aumenta em 2%, até o máximo de 15 stacks.Quando esse membro realiza um Passe, ele ganha mais 2 stacks adicionais.",
+    img:"img/memories/MemoOsamuSP.png"
   },
 ];
 
@@ -2684,7 +2704,8 @@ window.STATS_BONDS = {
   "From Great Ace to Ace": {"Ushijima SP": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%","Goshiki SSR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%"},
   "‘Ushiwaka’ and ‘Manager’": {"Ushijima SP": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%","Ohira SSR": "Receive +5/7/9/12/15, Receive +1/2/3/4/5%"},
   "Inarizaki 5": {"Atsumu UR": "Set +5/7/9/12/15, Set +1/2/3/4/5%","Osamu UR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%","Rintaro SSR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%","Ginjima SP": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%","Yuto R": "Serve +5/7/9/12/15, Serve +1/2/3/4/5%"},
-
+  "Strongest High School Twins": {"Osamu SP" : "Toss +5/7/9/12/15, Toss +1/2/3/4/5%","Rintaro SSR": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%"},
+  "Volleyball Club Friends": {"Osamu SP": "Toss +5/7/9/12/15, Toss +1/2/3/4/5%","Atsumu SP": "Quick Attack +5/7/9/12/15, Quick Attack +1/2/3/4/5%", "Aran SSR": "Power Attack +5/7/9/12/15, Power Attack +1/2/3/4/5%"},
 };
 window.STATS_BOND_MEMBERS = {
   // Exemplo; substitua pelo seu conteúdo completo:
@@ -2763,6 +2784,8 @@ window.STATS_BOND_MEMBERS = {
   "From Great Ace to Ace": ["Ushijima SP, Goshiki SSR"],
   "‘Ushiwaka’ and ‘Manager’": ["Ushijima SP,Ohira SSR"],
   "Inarizaki 5":["Atsumu UR,Osamu UR,Rintaro SSR,Ginjima SP,Yuto R"],
+  "Strongest High School Twins": ["Osamu SP,Rintaro SSR"],
+  "Volleyball Club Friends": ["Osamu SP,Atsumu SP,Aran SSR"],
 };
 
 let selecionados = [];
@@ -3772,6 +3795,7 @@ function updateSynergies() {
       "Natação",  
      "Cabeça dos Gêmeos",
      "Cultural Festival",
+     "Férias de Inverno",
     ]);
 
     const DEFAULT_BOND_MIN = 2; // all bonds default to 2 unless listed above
