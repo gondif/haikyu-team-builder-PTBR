@@ -1213,6 +1213,37 @@ body.modal-open{ overflow: hidden; }
 .char-row { display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
 .char-row .mini-line { display:flex; align-items:center; gap:.5rem; }
 .char-row .char-name { opacity:.9; }
+/* --- Mobile helpers --- */
+.bench-slot{ position: relative; } /* garante que o botão fique preso no slot */
+
+@media (pointer: coarse){
+  .mob-pick{
+    outline: 2px solid #ffd54f;
+    outline-offset: 2px;
+  }
+
+  .mob-rm{
+    position:absolute;
+    top:2px; left:2px;
+    width:20px; height:20px;
+    border:0;
+    border-radius:999px;
+    font-weight:900;
+    line-height:20px;
+    cursor:pointer;
+    z-index:5;
+    opacity:.95;
+  }
+}
+/* MOBILE: permitir drag sem o browser transformar em scroll/zoom */
+@media (pointer: coarse) {
+  .hex, .bench-slot {
+    touch-action: none;            /* <- o pulo do gato */
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
 
 </style>
 </head>
@@ -3478,9 +3509,17 @@ function attachBenchEvents(slot) {
 
   // botão direito: remover do banco
   slot.addEventListener("contextmenu", (e) => {
+  // ✅ no mobile: long-press não remove (agora usa o X)
+  if (window.matchMedia && matchMedia("(pointer: coarse)").matches) {
     e.preventDefault();
-    if (typeof removeCharacter === "function") removeCharacter(slot);
-  });
+    e.stopPropagation();
+    return;
+  }
+  // ✅ no PC: botão direito remove como antes
+  e.preventDefault();
+  if (typeof removeCharacter === "function") removeCharacter(slot);
+});
+
 }
 
 function isAllowedForStarterSlot(slotRole, charRole) {
@@ -5686,6 +5725,11 @@ function restoreTeamItems(saved){
 
   const getChar = n => characters.find(c => c.nome === n);
   let dragCtx = null; // {type:'character'|'slot', nome?, id?}
+  const IS_MOBILE =
+  (window.matchMedia && matchMedia('(pointer: coarse)').matches) ||
+  (window.matchMedia && matchMedia('(hover: none)').matches);
+
+
 
   function setDragCtx(obj, e){
     dragCtx = obj;
@@ -5797,6 +5841,66 @@ function moveBetweenSlots(srcEl, dstEl){
   if (typeof ensureItemGear   === 'function') { ensureItemGear(srcEl); ensureItemGear(dstEl); }
 }
 
+    function ensureMobileRemoveBtn(slot){
+    if (!IS_MOBILE) return;
+
+    let btn = slot.querySelector('.mob-rm');
+    if (!btn){
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'mob-rm';
+      btn.textContent = '✕';
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof removeCharacter === 'function') removeCharacter(slot);
+      });
+      slot.appendChild(btn);
+    }
+    btn.style.display = slot.dataset.nome ? 'block' : 'none';
+  }
+
+  function bindMobileDoubleTapOpenMenu(slot){
+  if (!(window.matchMedia && matchMedia('(pointer: coarse)').matches)) return;
+
+  let lastTap = 0;
+  let lastId = '';
+
+  slot.addEventListener('pointerup', (e)=>{
+    if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
+
+    // não disparar quando clicar no X
+    if (e.target && e.target.closest && e.target.closest('.mob-rm')) return;
+
+    const now = Date.now();
+    const id = (slot.id || '') + '|' + (slot.dataset.slot || '') + '|' + (slot.dataset.pos || '');
+
+    // 2 taps rápidos no mesmo slot
+    if (now - lastTap < 300 && id === lastId) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // ✅ chama o mesmo fluxo do PC (você já tem isso no dblclick)
+      // se você tiver uma função específica, troque aqui:
+      if (typeof openSideMenuForSlot === 'function') {
+        openSideMenuForSlot(slot);
+      } else {
+        // fallback: simula seu comportamento atual de abrir menu
+        // (ajuste para o nome da sua função real)
+        if (typeof openSideMenu === 'function') openSideMenu(slot);
+      }
+
+      lastTap = 0;
+      lastId = '';
+      return;
+    }
+
+    lastTap = now;
+    lastId = id;
+  }, {capture:true});
+}
+
+
   function decorateDropTarget(slot){
     slot.addEventListener('dragover', (e)=>{
       // permita o drop SEM depender de getData()
@@ -5835,25 +5939,132 @@ function moveBetweenSlots(srcEl, dstEl){
     // habilita arrastar a partir do slot quando tiver personagem
     const refresh = ()=> slot.setAttribute('draggable', slot.dataset.nome ? 'true' : 'false');
     refresh();
+    ensureMobileRemoveBtn(slot);
+    
     slot.addEventListener('dragstart', (e)=>{
       if (!slot.dataset.nome) return;
       setDragCtx({ type:'slot', id:getSlotId(slot), nome:slot.dataset.nome }, e);
     });
 
     // atualiza o draggable quando setar/remover
-    const oldAssign = window.afterAssignCharacter;
-    window.afterAssignCharacter = function(el, name){
-      if (typeof oldAssign === 'function') oldAssign(el, name);
-      if (el === slot) slot.setAttribute('draggable','true');
-    };
-    const oldRemove = window.afterRemoveCharacter;
-    window.afterRemoveCharacter = function(el){
-      if (typeof oldRemove === 'function') oldRemove(el);
-      if (el === slot) slot.setAttribute('draggable','false');
-    };
+const oldAssign = window.afterAssignCharacter;
+window.afterAssignCharacter = function(el, name){
+  if (typeof oldAssign === 'function') oldAssign(el, name);
+  if (el === slot){
+    slot.setAttribute('draggable', 'true');
+    ensureMobileRemoveBtn(slot); // ✅ item B
+  }
+};
+
+const oldRemove = window.afterRemoveCharacter;
+window.afterRemoveCharacter = function(el){
+  if (typeof oldRemove === 'function') oldRemove(el);
+  if (el === slot){
+    slot.setAttribute('draggable', 'false');
+    ensureMobileRemoveBtn(slot); // ✅ item C
+  }
+};
+
+    
   }
 
   function decorateAll(){ document.querySelectorAll('.hex, .bench-slot').forEach(decorateDropTarget); }
+
+    function initMobileHoldDrag(){
+  if (window.__mobHoldDrag) return;
+  window.__mobHoldDrag = true;
+
+  const IS_MOBILE =
+  (window.matchMedia && matchMedia('(pointer: coarse)').matches) ||
+  (window.matchMedia && matchMedia('(hover: none)').matches);
+
+  if (!IS_MOBILE) return;
+
+  let src = null;
+  let holdT = null;
+  let active = false;
+  let lastOver = null;
+
+  const HOLD_MS = 220;
+  const MOVE_TOL = 8;
+  let sx=0, sy=0;
+
+  const clearOver = ()=>{
+    if (lastOver) lastOver.classList.remove("drop-ok","drop-bad");
+    lastOver = null;
+  };
+
+  const clearAll = ()=>{
+    if (src) src.classList.remove("mob-pick");
+    src = null;
+    active = false;
+    if (holdT){ clearTimeout(holdT); holdT = null; }
+    clearOver();
+  };
+
+  document.addEventListener("pointerdown", (e)=>{
+    if (e.pointerType !== "touch" && e.pointerType !== "pen") return;
+
+    const slot = e.target.closest(".hex, .bench-slot");
+    if (!slot || !slot.dataset.nome) return;
+
+    sx = e.clientX; sy = e.clientY;
+
+    holdT = setTimeout(()=>{
+      src = slot;
+      active = true;
+      src.classList.add("mob-pick");
+      // evita “segurar” abrir menus/seleção
+      try{ src.setPointerCapture(e.pointerId); }catch(_){}
+    }, HOLD_MS);
+  }, {capture:true, passive:true});
+
+  document.addEventListener("pointermove", (e)=>{
+    if (!holdT && !active) return;
+
+    // se ainda não ativou, cancela se o dedo andou muito
+    if (!active && holdT){
+      if (Math.abs(e.clientX - sx) > MOVE_TOL || Math.abs(e.clientY - sy) > MOVE_TOL){
+        clearTimeout(holdT); holdT = null;
+      }
+      return;
+    }
+
+    if (!active || !src) return;
+
+    // enquanto arrasta: detecta slot abaixo do dedo e mostra feedback
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    const dst = el ? el.closest(".hex, .bench-slot") : null;
+
+    clearOver();
+
+    if (dst){
+      const pSrc = (typeof getChar === "function") ? getChar(src.dataset.nome) : null;
+      const ok = !!pSrc && (dst === src || (typeof canDropCharOn === "function" && canDropCharOn(dst, pSrc)));
+      dst.classList.toggle("drop-ok", ok);
+      dst.classList.toggle("drop-bad", !ok);
+      lastOver = dst;
+    }
+  }, {capture:true, passive:true});
+
+  document.addEventListener("pointerup", (e)=>{
+    if (holdT){ clearTimeout(holdT); holdT = null; }
+
+    if (!active || !src) { clearAll(); return; }
+
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    const dst = el ? el.closest(".hex, .bench-slot") : null;
+
+    if (dst && dst !== src){
+      try { moveBetweenSlots(src, dst); } catch(_) {}
+    }
+
+    clearAll();
+  }, {capture:true, passive:true});
+
+  document.addEventListener("pointercancel", clearAll, {capture:true, passive:true});
+}
+
 
   function initDnd(){
     // 1) Fontes: **#charList** (lista do menu lateral)
@@ -5880,7 +6091,7 @@ function moveBetweenSlots(srcEl, dstEl){
 
     // 3) Alvos e fontes: quadra + banco
     decorateAll();
-
+    initMobileHoldDrag();
     // redecorar após rotacionar (se você rotaciona os hex com innerHTML)
     if (typeof window.rotateRingClockwise === 'function' && !window.__dndWrapRot){
       const old = window.rotateRingClockwise;
@@ -5918,7 +6129,28 @@ function moveBetweenSlots(srcEl, dstEl){
     start();
   }
 })();
+
 })();
+/***********************
+ * MOBILE: bloquear long-press (contextmenu)
+ ***********************/
+document.addEventListener(
+  "contextmenu",
+  (e) => {
+    const isMobile =
+      (window.matchMedia && matchMedia("(pointer: coarse)").matches) ||
+      navigator.maxTouchPoints > 0;
+
+    if (!isMobile) return;
+
+    // se o long-press foi em slot do grid ou bench, bloqueia
+    if (e.target && e.target.closest && e.target.closest(".hex, .bench-slot")) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  },
+  { capture: true }
+);
 
 // === fechar #charList ao clicar fora / ESC, ligado sob demanda ===
 (function(){
