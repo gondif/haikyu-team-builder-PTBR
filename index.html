@@ -1243,6 +1243,21 @@ body.modal-open{ overflow: hidden; }
     user-select: none;
   }
 }
+/* Descrição “abre/fecha” abaixo do botão (Skills/Bonds) */
+.reveal-desc{
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: #1e1e1e;
+  border: 1px solid #444;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
+}
+.reveal-desc ul{ margin: 8px 0 0 18px; }
+.reveal-desc i{ opacity: .85; }
+
 
 
 </style>
@@ -4751,40 +4766,78 @@ function showCharacterDetails(p) {
     e.stopPropagation(); showCharacterList();
   });
 
-  // Abrir “Bond” normal (já existia)
-  sidebarContent.querySelectorAll(".bond-link").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const bondName = btn.dataset.bond;
-      const relacionados = characters.filter(pers =>
-        Array.isArray(pers.vinculo) ? pers.vinculo.includes(bondName) : pers.vinculo === bondName
-      );
-      sidebarContent.innerHTML = `
-        <h3>Bond: ${bondName}</h3>
-        <p>${descricoesSinergia[bondName] || "Sem descrição disponível"}</p>
-        <div class="char-list">
-          ${relacionados.map(r => `
-            <div class="char-card" data-nome="${r.nome}">
-              <img src="${r.img}" alt="${r.nome}">
-              <p>${r.nome}</p>
-            </div>
-          `).join("")}
-        </div>
-        <button id="backToChar" class="bond-btn">← Voltar</button>
-      `;
-      document.getElementById("backToChar").addEventListener("click", (e) => {
-        e.stopPropagation(); showCharacterDetails(p);
-      });
-      sidebarContent.querySelectorAll(".char-card").forEach(card => {
-        card.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const nome = card.dataset.nome;
-          const personagem = characters.find(x => x.nome === nome);
-          if (personagem) showCharacterDetails(personagem);
-        });
-      });
+  // helper: se vier <li> solto, embrulha em <ul>
+function formatRevealHTML(desc){
+  const s = String(desc || '').trim();
+  if(!s) return '<i>Sem descrição disponível</i>';
+  const hasLi = /<li[\s>]/i.test(s);
+  const hasUl = /<ul[\s>]/i.test(s);
+  if (hasLi && !hasUl) return `<ul>${s}</ul>`;
+  return s;
+}
+
+// Bonds: abre/fecha a descrição logo abaixo do botão (sem trocar de página)
+sidebarContent.querySelectorAll(".bond-link").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    const bondName = btn.dataset.bond;
+    const desc = (typeof descricoesSinergia !== "undefined" && descricoesSinergia[bondName])
+      ? descricoesSinergia[bondName]
+      : "Sem descrição disponível";
+
+    // cria/acha a caixinha logo abaixo do botão
+    let box = btn.nextElementSibling;
+    if (!box || !box.classList.contains("reveal-desc")) {
+      box = document.createElement("div");
+      box.className = "reveal-desc";
+      box.style.display = "none";
+      btn.insertAdjacentElement("afterend", box);
+    }
+
+    const isOpen = box.style.display !== "none";
+
+    // fecha outras descrições abertas (opcional, mas deixa limpo)
+    sidebarContent.querySelectorAll(".reveal-desc").forEach(x => {
+      if (x !== box) x.style.display = "none";
     });
+
+    if (isOpen) {
+      box.style.display = "none";
+    } else {
+      const relacionados = characters.filter(pers =>
+  Array.isArray(pers.vinculo) ? pers.vinculo.includes(bondName)
+                              : pers.vinculo === bondName
+);
+
+box.innerHTML = `
+  <div>${formatRevealHTML(desc)}</div>
+
+  <div class="char-list" style="margin-top:10px;">
+    ${relacionados.map(r => `
+      <div class="char-card" data-nome="${r.nome}">
+        <img src="${r.img}" alt="${r.nome}">
+        <p>${r.nome}</p>
+      </div>
+    `).join("")}
+  </div>
+`;
+
+// clique nas miniaturas abre detalhes do personagem
+box.querySelectorAll(".char-card").forEach(card => {
+  card.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    const nome = card.dataset.nome;
+    const personagem = characters.find(x => x.nome === nome);
+    if (personagem) showCharacterDetails(personagem);
   });
+});
+
+      box.style.display = "block";
+    }
+  });
+});
+
 
   // Clique nas pills de Stat Bonds → descreve os participantes + buffs
   sidebarContent.querySelectorAll(".statbond-pill").forEach(btn=>{
@@ -4803,23 +4856,7 @@ function showCharacterDetails(p) {
     });
   });
 
-  // Skills (mantido)
-  sidebarContent.querySelectorAll(".skill-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const skillName = btn.dataset.skill;
-      const habilidade = skills.find(h => h.nome === skillName);
-      if (!habilidade) return;
-      sidebarContent.innerHTML = `
-        <h3>Skill: ${habilidade.nome}</h3>
-        <p>${habilidade.descricao || ""}</p>
-        <button id="backToChar" class="bond-btn">← Voltar</button>
-      `;
-      document.getElementById("backToChar").addEventListener("click", (e) => {
-        e.stopPropagation(); showCharacterDetails(p);
-      });
-    });
-  });
+  
 
 
   // Keep sidebar open
@@ -4833,70 +4870,53 @@ function showCharacterDetails(p) {
   });
 
   // Open a Bond page
-  sidebarContent.querySelectorAll(".bond-link").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const bondName = btn.dataset.bond;
+  // helper: se vier <li> solto, embrulha em <ul>
+function formatRevealHTML(desc){
+  const s = String(desc || '').trim();
+  if(!s) return '<i>Sem descrição disponível</i>';
+  const hasLi = /<li[\s>]/i.test(s);
+  const hasUl = /<ul[\s>]/i.test(s);
+  if (hasLi && !hasUl) return `<ul>${s}</ul>`;
+  return s;
+}
 
-      const relacionados = characters.filter(pers =>
-        Array.isArray(pers.vinculo) ? pers.vinculo.includes(bondName)
-                                    : pers.vinculo === bondName
-      );
 
-      sidebarContent.innerHTML = `
-        <h3>Bond: ${bondName}</h3>
-        <p>${descricoesSinergia[bondName] || "Sem descrição disponível"}</p>
-        <div class="char-list">
-          ${relacionados.map(r => `
-            <div class="char-card" data-nome="${r.nome}">
-              <img src="${r.img}" alt="${r.nome}">
-              <p>${r.nome}</p>
-            </div>
-          `).join("")}
-        </div>
-        <button id="backToChar" class="bond-btn">← Voltar</button>
-      `;
 
-      sidebar.classList.add("open");
-      menuBtn.style.display = "none";
-
-      // Back to THIS character's details
-      document.getElementById("backToChar").addEventListener("click", (e) => {
-        e.stopPropagation();
-        showCharacterDetails(p);
-      });
-
-      // Jump from bond list to another character
-      sidebarContent.querySelectorAll(".char-card").forEach(card => {
-        card.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const nome = card.dataset.nome;
-          const personagem = characters.find(x => x.nome === nome);
-          if (personagem) showCharacterDetails(personagem);
-        });
-      });
-    });
-  });
 
   // Open a Skill page
-  sidebarContent.querySelectorAll(".skill-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const skillName = btn.dataset.skill;
-      const habilidade = skills.find(h => h.nome === skillName);
-      if (!habilidade) return;
+  // Skills: abre/fecha a descrição logo abaixo do botão (sem trocar de página)
+sidebarContent.querySelectorAll(".skill-btn").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
 
-      sidebarContent.innerHTML = `
-        <h3>Skill: ${habilidade.nome}</h3>
-        <p>${habilidade.descricao || ""}</p>
-        <button id="backToChar" class="bond-btn">← Voltar</button>
-      `;
-      document.getElementById("backToChar").addEventListener("click", (e) => {
-        e.stopPropagation();
-        showCharacterDetails(p);
-      });
+    const skillName = btn.dataset.skill;
+    const habilidade = skills.find(h => h.nome === skillName);
+    const desc = habilidade?.descricao || "";
+
+    let box = btn.nextElementSibling;
+    if (!box || !box.classList.contains("reveal-desc")) {
+      box = document.createElement("div");
+      box.className = "reveal-desc";
+      box.style.display = "none";
+      btn.insertAdjacentElement("afterend", box);
+    }
+
+    const isOpen = box.style.display !== "none";
+
+    // fecha outras descrições abertas (opcional)
+    sidebarContent.querySelectorAll(".reveal-desc").forEach(x => {
+      if (x !== box) x.style.display = "none";
     });
+
+    if (isOpen) {
+      box.style.display = "none";
+    } else {
+      box.innerHTML = formatRevealHTML(desc);
+      box.style.display = "block";
+    }
   });
+});
+
 }
 
 /* ====== SALVAR / Load TIMES (localStorage) ====== */
