@@ -1893,6 +1893,20 @@ const characters = [
   {nome:"Ataque Rápido que Atrai o Oponente",descricao:"Osamu SP executa um ataque rápido com [Ataque Rápido] × 255/270/285/300/315%. Se a [Técnica de Ataque] de Osamu SP for 40% ou maior, o poder desse ataque rápido aumenta em [Ataque Rápido] × 60% e ele não pode ser bloqueado."},
   {nome:"Ressonances",descricao:"<li>S1/3/5: Aumenta os atributos básicos em 13%.</li><li>S2:Quando um aliado ativa uma skill de passe enquanto Osamu SP está em quadra, o [Ataque Rápido] do aliado aumenta em 10%, podendo aumentar até o máximo de 30%. Esse efeito dura por 1 rally. O [Ataque Rápido] de Osamu SP aumenta adicionalmente em 5%, podendo aumentar até 15%.</li><li>S4:No início da partida, o poder do \"Passe Especialista\" aumenta em [Passe] × 150%. Quando Osamu SP realiza um passe, a [Técnica de Ataque] do membro que realiza o spike (Ataque Potente/Rápido) aumenta em [Técnica de Ataque] de Osamu SP × 60%, podendo aumentar até o máximo de 60%. Este efeito dura por 2 cruzamentos de rede.</li>"}
 ], symbols: [ "img/quicksymbol.png","img/settersymbol.png" ] },
+    { nome: "Korai SP", funcao: "WS", img: "img/koraiSP.png", School: "Kamomedai", vinculo: ["Esportes de Inverno"],Stats:{Serve:1854,Spike:1952,Set:1529,Receive:1766,Block:1810,Save:1494}, habilidades:[
+  {nome:"Jogador Principal",descricao:"Quando um aliado com skill de Bloqueio toca na bola, os atributos desse aliado [Bloqueio], [Ataque Potente] e [Ataque Rápido] aumentam em 4/5/6%.Este efeito acumula até 3 vezes e dura 2 rallies.Se esse aliado possuir uma Ultimate de Bloqueio, seus atributos [Bloqueio], [Ataque Potente] e [Ataque Rápido] aumentam em 4/5/6% adicionais.Este efeito também acumula até 3 vezes e dura 2 rallies."},
+  {nome:"Jogada Versátil",descricao:"CD: 8 . Saque:Korai Hoshiumi (Esportes de Inverno) realiza um saque com [Saque] × 140/160/180%.Se o tipo de time for Bloqueio ou Ataque Rápido, seus [Ataque Potente] e [Ataque Rápido] aumentam em 100%.Este efeito dura 1 rally.Recepção:Korai Hoshiumi (Esportes de Inverno) realiza uma recepção com [Recepção] × 140/160/180%.Se o tipo de time for Bloqueio ou Ataque Rápido, o [Bloqueio] de Korai Hoshiumi aumenta em 3000 (não acumula).Bloqueio:Korai Hoshiumi (Esportes de Inverno) realiza um bloqueio com [Bloqueio] × 140/160/180%.Se o tipo de time for Ataque Potente ou Recepção, a [Recepção] de Korai Hoshiumi aumenta em 3000 (não acumula)."},
+  {nome:"Versátil Completo",descricao:"Quando um aliado ativa uma skill que corresponde ao tipo do time, Korai Hoshiumi (Esportes de Inverno) ganha 2 stacks de [Versatilidade].Cada stack de [Versatilidade] aumenta os atributos principais em 2,5%.Máximo de 10 stacks.Quando Korai Hoshiumi (Esportes de Inverno) ativa uma Ultimate que corresponde ao tipo do time, ele ganha 1 stack adicional de [Versatilidade].Quando Korai Hoshiumi (Esportes de Inverno) ativa uma skill, seus [Percepção] e [Reflexo] aumentam em 40/50/70%.Para cada stack de [Versatilidade], [Percepção] e [Reflexo] aumentam em 20% adicionais.Este efeito dura 2 cruzamentos de rede.Se a [Percepção] de Korai Hoshiumi (Esportes de Inverno) ultrapassar 105%, sua [Força] aumenta em 50%.Este efeito dura 1 rally.Se o [Reflexo] de Korai Hoshiumi ultrapassar 100%, sua [Força] aumenta em 70%.Este efeito dura 1 rally (não acumula).Se o tipo de time for Bloqueio ou Ataque Rápido, o [Bloqueio] de Korai Hoshiumi aumenta em 200%.Se o tipo de time for Ataque Potente ou Recepção, a [Recepção] de Korai Hoshiumi aumenta em 200%."},
+  {nome:"Marcador de Pontos",descricao:"CD: 8 . Korai Hoshiumi (Esportes de Inverno) realiza um ataque com [Ataque Potente] × 275/290/305/320/335%.Se o tipo de time for Bloqueio ou Ataque Rápido, o [Ataque Potente] de Korai Hoshiumi aumenta em 5% a cada 500 pontos de [Ataque Rápido], até um máximo de 60%.Este efeito dura 2 cruzamentos de rede e também é tratado como Ataque Rápido.Se o tipo de time for Ataque Potente ou Recepção, o poder deste ataque aumenta em [Ataque Potente] × 50%.Se resultar em crítico, o poder aumenta em [Ataque Potente] × 50% adicionais."},
+  {nome:"Ressonances",descricao:"<li>S1/3/5: Aumenta os atributos básicos em 13%.</li><li>S2:Quando Korai Hoshiumi (Esportes de Inverno) usa Jogada Versátil, seu [Ataque Potente] aumenta em 50%, até no máximo 150%.Este efeito dura 1 rally.Quando Korai Hoshiumi (Esportes de Inverno) usa Point Getter, seu [Ataque Potente] aumenta em mais 50%, até no máximo 150%.Este efeito também dura 1 rally.Se o tipo de time for vantajoso, o [Ataque Potente] de Korai Hoshiumi (Esportes de Inverno) aumenta em 20%.Atributos que coincidirem com o tipo do time recebem +20% adicionais.</li><li>S4:Quando Korai Hoshiumi (Esportes de Inverno) ativa Jogada Versátil (Skill 2), o resultado será sempre um crítico.Todas as skills, incluindo a Ultimate, passam a ser tratadas como skills de [Versatilidade] ativadas.Quando Korai Hoshiumi (Esportes de Inverno) ativa uma skill, seus [Força] e [Espírito] aumentam em 40%, até um máximo de 200%.Este efeito dura 1 rally.</li>"}
+], symbols: [ "img/blocksymbol.png","img/servesymbol.png","img/receivesymbol.png","img/quicksymbol.png","img/powersymbol.png" ] },
+    { nome: "Hirugami SP", funcao: "MB", img: "img/hirugamiSP.png", School: "Kamomedai", vinculo: ["Esportes de Inverno"],Stats:{Serve:1762,Spike:1880,Set:1748,Receive:1573,Block:1952,Save:1490}, habilidades:[
+  {nome:"Skill 1",descricao:"Sachirō Hirugami (Esportes de Inverno) realiza um Ataque Rápido com 140/160/180% do [Ataque Rápido].Quando Sachirō Hirugami (Esportes de Inverno) usa Parede Anti-Ataque, se Ataque de Continuação não estiver em recarga, o [Técnica de Defesa] de Sachirō Hirugami aumenta em 10% por 2 cruzamentos de rede, e Ataque de Continuação entra em recarga."},
+  {nome:"Ataque de Continuação",descricao:"Sachirō Hirugami (Esportes de Inverno) realiza um Ataque Rápido com 140/160/180% do [Ataque Rápido].Quando Sachirō Hirugami (Esportes de Inverno) usa Parede Anti-Ataque, se Ataque de Continuação não estiver em recarga, o [Técnica de Defesa] de Sachirō Hirugami aumenta em 10% por 2 cruzamentos de rede, e Ataque de Continuação entra em recarga."},
+  {nome:"Skill 3",descricao:"Enquanto Sachirō Hirugami (Esportes de Inverno) estiver em quadra, ele ganha 1 stack de [Troca] quando um jogador do seu time toca na bola.Para cada stack de [Troca], o [Bloqueio] de Sachirō Hirugami (Esportes de Inverno) aumenta em 5%.No final de cada rally, todos os stacks de [Troca] são consumidos, e para cada stack consumido, todos os jogadores do seu time têm [Técnica de Ataque] e [Técnica de Defesa] aumentados em 4,5/5/5,5%, até um máximo de 60%, por 1 ponto.No início da partida, a recarga inicial de Parede Anti-Ataque é reduzida em 2 cruzamentos de rede (reduz a recarga para 10)."},
+  {nome:"Parede Anti-Ataque",descricao:"Sachirō Hirugami (Esportes de Inverno) realiza um Bloqueio com 275/290/305/320/335% do [Bloqueio].Se o oponente realizar um Ataque Crítico, o [Reflexo] de Sachirō Hirugami (Esportes de Inverno) aumenta em 100%."},
+  {nome:"Ressonances",descricao:"<li>S1/3/5: Aumenta os atributos básicos em 13%.</li><li>S2:Se o oponente realizar um Ataque Crítico, a recarga de Parede Anti-Ataque é reduzida em 2 cruzamentos de rede, e o [Espírito] de Sachirō Hirugami (Esportes de Inverno) aumenta em 40% por 2 cruzamentos de rede.Sachirō Hirugami (Esportes de Inverno) realiza um Saque Flutuante com Salto com 200% de seu [Saque].A Moral do Time do oponente é reduzida em 40, e eles não podem ganhar Moral do Time por 1 rally.Esta ação é tratada como uma skill de Saque e possui recarga de 6 cruzamentos de rede.</li><li>S4:Quando Sachirō Hirugami (Esportes de Inverno) participa de um bloqueio duplo ou triplo, os atributos básicos dos seus jogadores com skills de Bloqueio aumentam em 20%.Seus 4 jogadores da linha de frente têm [Bloqueio] e [Ataque Rápido] aumentados em 2000 adicionais.Este efeito dura 1 rally.Para cada stack de [Troca] consumido, o [Reflexo] dos seus jogadores aumenta em 10% e o [Espírito] aumenta em 6%, ambos durando 1 rally.</li>"}
+], symbols: [ "img/blocksymbol.png","img/quicksymbol.png" ] },
 ];
 window.charactersPT = characters;
 
@@ -1950,6 +1964,7 @@ const descricoesSinergia = {
   "Amigo de Vida Inteira":"Quando Ushijima SP recebe um efeito negativo, o [Bloqueio] e o [Ataque Rápido] de Tendo SP aumentam em 4%.Pode aumentar até 12% no máximo. Quando o bloqueio de Tendo SP resulta em uma Jogada Superior, o poder do Ataque Potente de Ushijima SP aumenta em [Ataque Potente] × 10%.Esse efeito dura por 1 rally.",
   "Férias de Inverno":"Se Atsumu SP e Osamu SP estiverem separados entre a linha de frente e a linha de trás, a [Força] de ambos aumenta em 30%. Ao final de cada rally, a [Percepção] de Tendo SP será reduzida para 0 e sua [Técnica de defesa] aumentará em 10%. Acumula até 3 stacks. Quando Tendo SP tocar na bola pela primeira vez em cada rally, será sempre crítico. No início de um rally, a [Técnica de ataque] e a [Técnica de defesa] de todos os membros do time aumentam em 2% × o número de membros (Winter Break). É possível aumentar até 12%.",
   "Gêmeos Mais Fortes do Ensino Médio":"No início da partida, Osamu SP ganha 1 stack de [Engenhosidade]. Depois que Atsumu SP e Osamu SP fizerem 1 set cada, a [Técnica de ataque] e a [Técnica de defesa] dos aliados aumentam em 12,5%. Esse efeito dura por 1 rally.",
+  "Esportes de Inverno":"Quando o tipo do seu time estiver em vantagem, todos os jogadores ganham 15% nos atributos principais.Membros de Esportes de Inverno recebem +20% adicionais.",
 };
     
 /** Catálogo de MEMÓRIAS (exemplos; ajuste/expanda à vontade) */
@@ -2578,6 +2593,28 @@ img:"img/memories/MemoTerushimaSSR.png"
     },
     desc:"O membro que equipa esta Memória recebe [Ataque Rápido] +12%.Quando um aliado realiza um Passe, a [Força] desse membro aumenta em 2%, até o máximo de 15 stacks.Quando esse membro realiza um Passe, ele ganha mais 2 stacks adicionais.",
     img:"img/memories/MemoOsamuSP.png"
+  },
+    {
+    id:"mem_koraiSP",
+    name:"Korai SP",
+    positions:["WS"],
+    bonus:{
+      Serve:{flat:765}, Spike:{flat:838}, Set:{flat:583},
+      Receive:{flat:838}, Block:{flat:656}, Save:{flat:619}
+    },
+    desc:"O membro que estiver com esta memória equipada tem seus Atributos Principais aumentados em 6/12 %.Quando esse membro ativa uma skill, se o tipo de jogada da skill for diferente da última skill ativada, esse membro recebe +2% de [Técnica de Ataque] e +2% de [Técnica de Defesa].Acumula até 10 stacks.",
+    img:"img/memories/MemoKoraiSP.png"
+  },
+     {
+    id:"mem_hirugamiSP",
+    name:"Hirugami SP",
+    positions:["MB"],
+    bonus:{
+      Serve:{flat:838}, Spike:{flat:765}, Set:{flat:656},
+      Receive:{flat:619}, Block:{flat:838}, Save:{flat:583}
+    },
+    desc:"O membro que estiver com esta memória equipada tem seu [Bloqueio] aumentado em 12/24 %.Se houver 4 ou mais aliados do tipo Bloqueio, todos os aliados recebem +10% de [Bloqueio] e +10% de [Ataque Rápido].Este efeito dura por 1 rally.",
+    img:"img/memories/MemoHirugamiSP.png"
   },
 ];
 
